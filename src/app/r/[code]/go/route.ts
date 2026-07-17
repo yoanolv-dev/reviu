@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getStandByCode, recordEvent } from "@/lib/mock";
+import { getStandByCode, recordEvent } from "@/lib/data";
 
 /**
  * Redirection sortante traçée : /r/{code}/go
@@ -17,7 +17,12 @@ export async function GET(
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  await recordEvent(code, "click");
+  const s = req.nextUrl.searchParams.get("s");
+  const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
+  await recordEvent(code, "click", {
+    channel,
+    userAgent: req.headers.get("user-agent"),
+  });
   return NextResponse.redirect(stand.establishment.googleReviewUrl, {
     status: 302,
   });

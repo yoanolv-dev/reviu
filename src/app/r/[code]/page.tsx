@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import Link from "next/link";
-import { getStandByCode, recordEvent } from "@/lib/mock";
+import { getStandByCode, recordEvent } from "@/lib/data";
 import { StarMark } from "@/components/ui/logo";
 import { Stars } from "@/components/ui/stars";
 import { ScreenShell, Avatar, PoweredBy } from "@/components/site/screen";
@@ -8,10 +8,13 @@ import { APP_BASE } from "@/lib/brand";
 
 export default async function RedirectPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ code: string }>;
+  searchParams: Promise<{ s?: string }>;
 }) {
   const { code } = await params;
+  const { s } = await searchParams;
   const stand = await getStandByCode(code);
 
   if (!stand) return <NotFoundView code={code} />;
@@ -20,13 +23,17 @@ export default async function RedirectPage({
   }
 
   const est = stand.establishment;
-  void recordEvent(code, "view");
+
+  // Canal transmis par l'URL physique, ex. r.reviu.fr/{code}?s=nfc
+  const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
+  const h = await headers();
+  void recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
 
   // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
-  const h = await headers();
   const onRedirectSub =
     (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
+  const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
 
   return (
     <ScreenShell>
@@ -42,7 +49,7 @@ export default async function RedirectPage({
           <Stars size={26} />
         </div>
         <a
-          href={`${base}/go`}
+          href={goHref}
           className="mt-7 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong"
         >
           <StarMark className="h-4 w-4" /> Laisser un avis sur Google

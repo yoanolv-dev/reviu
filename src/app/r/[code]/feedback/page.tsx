@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getStandByCode } from "@/lib/mock";
+import { getStandByCode } from "@/lib/data";
 import { ScreenShell, Avatar, PoweredBy } from "@/components/site/screen";
 import { FeedbackForm } from "./feedback-form";
 

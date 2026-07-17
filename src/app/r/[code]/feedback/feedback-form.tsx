@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { StarMark } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
+import { submitFeedbackAction } from "./actions";
 
 export function FeedbackForm({ code }: { code: string }) {
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
+  const [pending, startTransition] = useTransition();
 
   if (sent) {
     return (
@@ -27,9 +29,10 @@ export function FeedbackForm({ code }: { code: string }) {
       className="mt-6 flex flex-col gap-4"
       onSubmit={(e) => {
         e.preventDefault();
-        // TODO(supabase): enregistrer { code, rating, message } dans `feedback`.
-        void code;
-        setSent(true);
+        startTransition(async () => {
+          await submitFeedbackAction(code, rating, message);
+          setSent(true);
+        });
       }}
     >
       <div className="flex justify-center gap-1.5">
@@ -57,10 +60,10 @@ export function FeedbackForm({ code }: { code: string }) {
       />
       <button
         type="submit"
-        disabled={!message.trim()}
+        disabled={!message.trim() || pending}
         className="flex h-12 w-full items-center justify-center rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-40"
       >
-        Envoyer mon retour
+        {pending ? "Envoi…" : "Envoyer mon retour"}
       </button>
     </form>
   );
