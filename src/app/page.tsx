@@ -5,6 +5,7 @@ import { HeroVisual } from "@/components/site/hero-visual";
 import { Stars } from "@/components/ui/stars";
 import { ButtonLink, buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
+import { Testimonials } from "@/components/site/testimonials";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
@@ -56,7 +57,11 @@ export default function Home() {
       <SiteHeader />
       <main>
         {/* HERO */}
-        <section className="relative overflow-hidden">
+        <section className="relative isolate overflow-hidden">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 right-[-6rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-brand-soft opacity-70 blur-3xl"
+          />
           <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
             <div className="flex flex-col items-start">
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft">
@@ -65,7 +70,25 @@ export default function Home() {
               </span>
               <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
                 Transformez chaque client en{" "}
-                <span className="text-brand">avis Google</span>.
+                <span className="relative whitespace-nowrap text-brand">
+                  avis Google
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 200 10"
+                    preserveAspectRatio="none"
+                    className="absolute -bottom-1.5 left-0 h-2 w-full"
+                  >
+                    <path
+                      d="M3 7 Q100 1 197 6"
+                      fill="none"
+                      stroke="var(--color-brand)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      opacity="0.35"
+                    />
+                  </svg>
+                </span>
+                .
               </h1>
               <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
                 Des présentoirs NFC et QR codes dynamiques, pilotés à distance
@@ -88,6 +111,21 @@ export default function Home() {
               </div>
             </div>
             <HeroVisual />
+          </Container>
+        </section>
+
+        {/* BANDEAU COMMERCES */}
+        <section className="border-y border-line bg-surface">
+          <Container className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-5 text-sm">
+            <span className="font-medium text-ink-soft">Sur tous les comptoirs :</span>
+            {["Restaurants", "Cafés", "Salons", "Garages", "Hôtels", "Boulangeries"].map(
+              (t, i) => (
+                <span key={t} className="text-muted">
+                  {i > 0 && <span className="mr-6 text-line">•</span>}
+                  {t}
+                </span>
+              ),
+            )}
           </Container>
         </section>
 
@@ -138,6 +176,9 @@ export default function Home() {
             </div>
           </Container>
         </section>
+
+        {/* PREUVE SOCIALE */}
+        <Testimonials />
 
         {/* CONFORMITÉ */}
         <section id="conformite" className="border-y border-line bg-surface">
