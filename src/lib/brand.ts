@@ -1,0 +1,19 @@
+export const SITE = {
+  name: "reviu",
+  tagline: "Plus d'avis Google, sans effort.",
+  domain: "reviu.fr",
+} as const;
+
+/**
+ * Bases d'URL pilotées par variables d'environnement.
+ * Aucun domaine n'est codé en dur : on peut basculer .fr / .io sans toucher au code.
+ */
+export const APP_BASE = process.env.NEXT_PUBLIC_APP_BASE ?? "https://app.reviu.fr";
+export const REDIRECT_BASE =
+  process.env.NEXT_PUBLIC_REDIRECT_BASE ?? "https://r.reviu.fr";
+
+export const NAV = [
+  { label: "Fonctionnement", href: "#fonctionnement" },
+  { label: "Avantages", href: "#avantages" },
+  { label: "Conformité", href: "#conformite" },
+] as const;

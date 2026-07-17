@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   reviu — design tokens
+   Palette claire, encre noir-bleutée, un seul accent : bleu cobalt.
+   Volontairement sobre et éditorial : pas de dégradés, pas de glassmorphism,
+   pas de violet. La personnalité vient de la typo, du blanc et du détail.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-canvas: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-ink: #0a0d16;
+  --color-ink-soft: #333a49;
+  --color-muted: #6b7382;
+  --color-line: #e6e8ef;
+  --color-line-soft: #eef0f5;
+
+  --color-brand: #1b4dff;
+  --color-brand-strong: #1139c9;
+  --color-brand-soft: #edf1ff;
+  --color-star: #f5a524;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-space-grotesk), var(--font-geist-sans), sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--color-brand);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
