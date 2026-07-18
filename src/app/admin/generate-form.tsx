@@ -6,22 +6,22 @@ import { Field } from "@/components/ui/field";
 import { standUrl } from "@/lib/qr";
 import type { GeneratedStand } from "@/lib/form";
 
-function downloadSupplierFile(stands: GeneratedStand[]) {
-  const esc = (v: string) =>
-    /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
-  const rows = [["code", "url_qr", "url_nfc", "pin"]];
-  for (const s of stands) {
-    rows.push([s.code, standUrl(s.code, "qr"), standUrl(s.code, "nfc"), s.pin]);
-  }
-  const csv = rows.map((r) => r.map(esc).join(",")).join("\n");
-  // BOM pour qu'Excel ouvre correctement en UTF-8.
-  const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `reviu-lot-${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
+async function downloadSupplierFile(stands: GeneratedStand[]) {
+  // Import dynamique : la lib Excel ne charge que sur clic (hors bundle initial).
+  const XLSX = await import("xlsx");
+  const rows = stands.map((s) => ({
+    code: s.code,
+    url_qr: standUrl(s.code, "qr"),
+    url_nfc: standUrl(s.code, "nfc"),
+    pin: s.pin,
+  }));
+  const ws = XLSX.utils.json_to_sheet(rows, {
+    header: ["code", "url_qr", "url_nfc", "pin"],
+  });
+  ws["!cols"] = [{ wch: 10 }, { wch: 44 }, { wch: 44 }, { wch: 8 }];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Présentoirs");
+  XLSX.writeFile(wb, `reviu-lot-${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
 
 export function GenerateForm() {
@@ -69,10 +69,10 @@ export function GenerateForm() {
             </p>
             <button
               type="button"
-              onClick={() => downloadSupplierFile(stands)}
+              onClick={() => void downloadSupplierFile(stands)}
               className="flex h-10 items-center justify-center rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors hover:bg-line-soft"
             >
-              Télécharger le fichier fournisseur (CSV)
+              Télécharger le fichier fournisseur (Excel)
             </button>
           </div>
           <p className="mt-1 text-xs text-amber-600">
