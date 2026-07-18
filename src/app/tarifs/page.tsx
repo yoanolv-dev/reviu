@@ -5,30 +5,30 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { buttonClass } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PLANS, formatQuota, type Plan } from "@/lib/plans";
+import { OFFERS, type Offer } from "@/lib/plans";
 
 export const metadata: Metadata = {
   title: "Tarifs — reviu",
   description:
-    "Un prix simple et sans surprise pour collecter plus d'avis Google. Plans Gratuit, Pro et Business, sans engagement.",
+    "La plaque redirige toujours, gratuitement. Activez le suivi à 2,99 €/mois par présentoir pour piloter et mesurer. Sans engagement.",
 };
 
 const FAQ = [
   {
-    q: "Puis-je changer de plan à tout moment ?",
-    a: "Oui. Vous passez d'un plan à l'autre depuis votre tableau de bord ; le changement est immédiat et facturé au prorata.",
+    q: "Dois-je m'abonner pour que ma plaque fonctionne ?",
+    a: "Non. Votre présentoir redirige vers votre lien à vie, gratuitement. L'abonnement ne sert qu'au suivi des scans et à la modification du lien à distance.",
   },
   {
-    q: "Y a-t-il un engagement ?",
-    a: "Aucun. La facturation est mensuelle et vous résiliez quand vous voulez, en un clic.",
+    q: "Comment est facturé le suivi ?",
+    a: "2,99 € par mois et par présentoir suivi. Vous activez le suivi présentoir par présentoir, et tout est regroupé sur une seule facture mensuelle.",
   },
   {
-    q: "Les présentoirs sont-ils inclus ?",
-    a: "Les plans couvrent la plateforme. Les présentoirs NFC + QR sont commandés séparément et fonctionnent avec tous les plans.",
+    q: "Puis-je changer mon lien ?",
+    a: "Le lien initial se pose gratuitement à l'activation. Le modifier ensuite — et suivre les scans en temps réel — fait partie du Suivi reviu.",
   },
   {
-    q: "Que se passe-t-il au-delà de mes quotas ?",
-    a: "Vous êtes prévenu avant d'atteindre la limite et invité à passer au plan supérieur. Vos données restent intactes.",
+    q: "Et si j'arrête l'abonnement ?",
+    a: "Votre plaque continue de rediriger normalement. Seuls les statistiques et les changements de lien se mettent en pause. Vos données sont conservées.",
   },
 ];
 
@@ -48,11 +48,11 @@ export default function TarifsPage() {
               Tarifs
             </span>
             <h1 className="mx-auto mt-3 max-w-2xl font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Un prix simple, sans surprise.
+              La plaque est gratuite à vie. Le suivi, quand vous voulez.
             </h1>
-            <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-ink-soft">
-              Commencez gratuitement, passez à la vitesse supérieure quand vous
-              le voulez. Sans engagement.
+            <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
+              Votre présentoir redirige vers votre avis, sans abonnement. Activez
+              le suivi à 2,99 €/mois par présentoir pour tout piloter et mesurer.
             </p>
           </Container>
         </section>
@@ -60,14 +60,14 @@ export default function TarifsPage() {
         {/* GRILLE */}
         <section>
           <Container className="pb-8">
-            <div className="grid items-start gap-6 lg:grid-cols-3">
-              {PLANS.map((plan) => (
-                <PlanCard key={plan.id} plan={plan} />
+            <div className="mx-auto grid max-w-4xl items-start gap-6 sm:grid-cols-2">
+              {OFFERS.map((offer) => (
+                <OfferCard key={offer.id} offer={offer} />
               ))}
             </div>
             <p className="mt-8 text-center text-sm text-muted">
-              Prix HT, facturés mensuellement · TVA en sus · Résiliable à tout
-              moment
+              Prix HT · Suivi facturé mensuellement, par présentoir · Sans
+              engagement, résiliable à tout moment
             </p>
           </Container>
         </section>
@@ -104,8 +104,8 @@ export default function TarifsPage() {
                 Prêt à collecter plus d&apos;avis ?
               </h2>
               <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
-                Créez votre compte gratuitement — aucune carte requise pour
-                démarrer.
+                Activez votre présentoir en deux minutes — aucune carte requise
+                pour démarrer.
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
@@ -116,7 +116,7 @@ export default function TarifsPage() {
                     "border-transparent shadow-sm",
                   )}
                 >
-                  Commencer gratuitement
+                  Activer ma plaque
                 </Link>
               </div>
             </div>
@@ -128,68 +128,60 @@ export default function TarifsPage() {
   );
 }
 
-function PlanCard({ plan }: { plan: Plan }) {
-  const href = plan.id === "free" ? "/signup" : `/signup?plan=${plan.id}`;
+function OfferCard({ offer }: { offer: Offer }) {
   return (
     <div
       className={cn(
         "relative flex h-full flex-col rounded-3xl border bg-surface p-8 shadow-sm",
-        plan.featured
-          ? "border-brand ring-1 ring-brand"
-          : "border-line",
+        offer.featured ? "border-brand ring-1 ring-brand" : "border-line",
       )}
     >
-      {plan.featured && (
+      {offer.featured && (
         <span className="absolute -top-3 left-8 rounded-full bg-brand px-3 py-1 text-xs font-medium text-white">
-          Populaire
+          Recommandé
         </span>
       )}
-      <h2 className="font-display text-lg font-semibold text-ink">{plan.name}</h2>
-      <p className="mt-1 text-sm text-muted">{plan.tagline}</p>
+      <h2 className="font-display text-lg font-semibold text-ink">
+        {offer.name}
+      </h2>
+      <p className="mt-1 text-sm text-muted">{offer.tagline}</p>
 
-      <div className="mt-6 flex items-baseline gap-1">
+      <div className="mt-6 flex items-baseline gap-1.5">
         <span className="font-display text-4xl font-semibold tracking-tight text-ink">
-          {plan.priceMonthly} €
+          {offer.priceLabel}
         </span>
-        {plan.priceMonthly > 0 && (
-          <span className="text-sm text-muted">/ mois</span>
+        {offer.priceNote && (
+          <span className="text-sm text-muted">{offer.priceNote}</span>
         )}
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-        <span>{formatQuota(plan.quotas.establishments)} établissement(s)</span>
-        <span aria-hidden className="text-line">
-          •
-        </span>
-        <span>{formatQuota(plan.quotas.stands)} présentoir(s)</span>
-      </div>
-
       <Link
-        href={href}
+        href="/signup"
         className={buttonClass(
-          plan.featured ? "primary" : "secondary",
+          offer.featured ? "primary" : "secondary",
           "lg",
           "mt-6 w-full",
         )}
       >
-        {plan.cta}
+        {offer.cta}
       </Link>
 
       <ul className="mt-8 flex flex-col gap-3">
-        {plan.features.map((feature, i) => (
-          <li
-            key={feature}
-            className={cn(
-              "flex items-start gap-2.5 text-[15px] leading-snug",
-              i === 0 && plan.id !== "free"
-                ? "font-medium text-ink"
-                : "text-ink-soft",
-            )}
-          >
-            {!(i === 0 && plan.id !== "free") && <CheckIcon />}
-            <span>{feature}</span>
-          </li>
-        ))}
+        {offer.features.map((feature, i) => {
+          const isHeading = i === 0 && offer.id !== "free";
+          return (
+            <li
+              key={feature}
+              className={cn(
+                "flex items-start gap-2.5 text-[15px] leading-snug",
+                isHeading ? "font-medium text-ink" : "text-ink-soft",
+              )}
+            >
+              {!isHeading && <CheckIcon />}
+              <span>{feature}</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

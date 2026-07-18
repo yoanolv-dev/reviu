@@ -82,8 +82,44 @@ l'interactivité dans cet environnement, utiliser un build de prod** : `pnpm bui
 analytics) **non déroulées** : `mailer_autoconfirm=false` et pas de boîte mail ici pour
 confirmer le compte. Le câblage auth est vérifié ; reste à les dérouler avec un compte confirmé.
 
+## Modèle SaaS (verrouillé 2026-07-18)
+
+Positionnement : concurrent direct de Digifeel. On fabrique des plaques NFC + QR
+**dynamiques** (le QR pointe toujours vers `r.reviu.fr/{code}`, jamais en dur vers Google) ;
+le commerçant paramètre son lien et suit ses scans depuis l'app.
+
+Décisions produit/business :
+
+- **Facturation par présentoir** : le suivi coûte **2,99 €/mois par présentoir** (pas par
+  compte). Stripe à prévoir en **facturation à la quantité** (un abonnement client, quantité =
+  nb de présentoirs suivis) pour limiter les frais fixes sur un si petit montant.
+- **Freemium** : une plaque **redirige toujours gratuitement, à vie** (lien posé une fois à
+  l'activation). L'abonnement débloque **statistiques + modification du lien** (+ multi-plateforme,
+  tunnel d'avis privé). Les plaques « vendues sans service » fonctionnent donc sans compte.
+- **Scans enregistrés même en gratuit** → aperçu incitatif + historique déjà présent le jour
+  de l'abonnement.
+- **Activation** : self-service (le client scanne → saisit le PIN → pose son lien) **et**
+  pré-configuration possible par l'admin (vente clé en main).
+- **Sécurité claim** : chaque plaque porte un **PIN secret imprimé** (hors QR), requis pour la
+  réclamer. PIN stocké **hashé** en base, imprimé en clair sur la plaque.
+- **Lien par présentoir** (`stands.target_url`) : destination propre à chaque plaque, initialisée
+  depuis l'établissement, surchargeable.
+- **Fichier fournisseur** = Excel `code · URL · PIN`, une ligne par présentoir.
+
+### Plan de construction
+
+- **Phase B (faite)** : `plans.ts` + `/tarifs` en freemium 2,99 €/présentoir.
+- **Phase A (à faire, prod)** : migration — `stands.target_url`, `stands.claim_pin` (hashé),
+  table `subscriptions` (par présentoir, lecture seule côté client, écrite par le webhook via
+  service_role), maj `generate_stands` (PIN) & `claim_stand` (PIN requis + pose du lien),
+  redirection `/r/{code}/go` sur `target_url`.
+- **Phase C (à faire)** : Stripe — checkout quantité, webhook signé, portail, toggle suivi par
+  présentoir. Nécessite clés Stripe test + `SUPABASE_SERVICE_ROLE_KEY` (serveur only).
+- **Phase D (à faire)** : dashboard stats par présentoir (gated), export Excel fournisseur.
+
 ## Reste à faire
 
+- Phases A / C / D ci-dessus (Phase A touche la prod → feu vert requis ; Phase C → clés Stripe).
 - Dérouler les étapes marchand/admin authentifiées avec un compte confirmé (voir « Validation e2e »).
 - Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).
-- Roadmap : multi-plateforme (`target_type` déjà prêt), IA de réponse aux avis, marque blanche.
+- Roadmap : IA de réponse aux avis, marque blanche.

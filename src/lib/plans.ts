@@ -1,106 +1,80 @@
 /**
- * Définition des offres reviu — source de vérité unique (prix, quotas, features).
+ * Offre reviu — modèle freemium **par présentoir**.
+ *
+ * Règles métier (verrouillées avec le fondateur) :
+ * - Une plaque (présentoir) redirige **toujours**, gratuitement, à vie. Le lien
+ *   est posé une fois à l'activation, sans frais.
+ * - Le « Suivi reviu » (2,99 €/mois/présentoir) débloque : statistiques de scans,
+ *   modification du lien à volonté, multi-plateforme, tunnel d'avis privé.
  *
  * Volontairement sans dépendance ni variable d'environnement : ce module est
- * importable côté client comme côté serveur. Le mapping vers les prix Stripe
- * (facturation) vit dans le code serveur, pas ici.
+ * importable côté client comme serveur. Le mapping vers Stripe (prix, quantité)
+ * vit dans le code serveur, pas ici.
  */
 
-export type PlanId = "free" | "pro" | "business";
+/** Prix du suivi, par présentoir et par mois (en euros). */
+export const MONITORING_PRICE_EUR = 2.99;
 
-/** Quota illimité. */
-export const UNLIMITED = -1;
+export type OfferId = "free" | "monitored";
 
-export interface PlanQuotas {
-  /** Nombre d'établissements autorisés. */
-  establishments: number;
-  /** Nombre de présentoirs actifs autorisés. */
-  stands: number;
-}
-
-export interface Plan {
-  id: PlanId;
+export interface Offer {
+  id: OfferId;
   name: string;
   tagline: string;
-  /** Prix mensuel en euros (0 = gratuit). */
-  priceMonthly: number;
-  /** Mis en avant sur la grille tarifaire. */
+  /** Prix formaté pour l'affichage, ex. "0 €" ou "2,99 €". */
+  priceLabel: string;
+  /** Complément sous le prix, ex. "/ présentoir / mois" (null si gratuit). */
+  priceNote: string | null;
+  /** Mise en avant sur la grille tarifaire. */
   featured: boolean;
-  quotas: PlanQuotas;
   features: string[];
   cta: string;
 }
 
-export const PLANS: readonly Plan[] = [
+export const OFFERS: readonly Offer[] = [
   {
     id: "free",
-    name: "Gratuit",
-    tagline: "Pour démarrer et tester sur un comptoir.",
-    priceMonthly: 0,
+    name: "Plaque active",
+    tagline: "La plaque fonctionne, à vie, sans abonnement.",
+    priceLabel: "0 €",
+    priceNote: null,
     featured: false,
-    quotas: { establishments: 1, stands: 1 },
     features: [
-      "1 établissement",
-      "1 présentoir actif",
-      "Page d'avis brandée",
-      "Redirection Google tracée",
-      "Retour privé (feedback)",
-      "Analytics de base",
+      "QR + NFC dynamiques, liés à votre serveur reviu",
+      "Redirection vers votre avis Google",
+      "Page d'avis brandée à vos couleurs",
+      "Lien posé une fois à l'activation",
+      "Aucun frais, aucune carte requise",
     ],
-    cta: "Commencer gratuitement",
+    cta: "Activer ma plaque",
   },
   {
-    id: "pro",
-    name: "Pro",
-    tagline: "Pour un commerce qui veut accélérer.",
-    priceMonthly: 19,
+    id: "monitored",
+    name: "Suivi reviu",
+    tagline: "Le pilotage complet de chaque présentoir.",
+    priceLabel: `${MONITORING_PRICE_EUR.toLocaleString("fr-FR", {
+      minimumFractionDigits: 2,
+    })} €`,
+    priceNote: "/ présentoir / mois",
     featured: true,
-    quotas: { establishments: 1, stands: 5 },
     features: [
-      "Tout le plan Gratuit, plus :",
-      "Jusqu'à 5 présentoirs actifs",
-      "QR dynamique multi-canal (NFC + QR)",
-      "Analytics complet (conversion, historique)",
-      "Support prioritaire",
+      "Tout le plan gratuit, plus :",
+      "Statistiques de scans en temps réel",
+      "Modification du lien à volonté, à distance",
+      "Multi-plateforme (Google, Instagram, menu)",
+      "Historique & taux de conversion",
+      "Tunnel d'avis privé (feedback)",
+      "Sans engagement, résiliable à tout moment",
     ],
-    cta: "Choisir Pro",
-  },
-  {
-    id: "business",
-    name: "Business",
-    tagline: "Pour plusieurs établissements ou réseaux.",
-    priceMonthly: 49,
-    featured: false,
-    quotas: { establishments: 3, stands: UNLIMITED },
-    features: [
-      "Tout le plan Pro, plus :",
-      "Jusqu'à 3 établissements",
-      "Présentoirs illimités",
-      "Multi-plateforme (Instagram, menu)",
-      "Marque blanche (à venir)",
-      "Accompagnement dédié",
-    ],
-    cta: "Choisir Business",
+    cta: "Activer le suivi",
   },
 ];
 
-export const DEFAULT_PLAN_ID: PlanId = "free";
+export const OFFER_BY_ID = Object.fromEntries(
+  OFFERS.map((o) => [o.id, o]),
+) as Record<OfferId, Offer>;
 
-export const PLAN_BY_ID = Object.fromEntries(
-  PLANS.map((p) => [p.id, p]),
-) as Record<PlanId, Plan>;
-
-/** Renvoie le plan correspondant, ou le plan par défaut si l'id est inconnu. */
-export function getPlan(id: string | null | undefined): Plan {
-  return PLAN_BY_ID[id as PlanId] ?? PLAN_BY_ID[DEFAULT_PLAN_ID];
-}
-
-/** Formate un quota pour affichage ("illimité" si non borné). */
-export function formatQuota(n: number): string {
-  return n === UNLIMITED ? "illimité" : String(n);
-}
-
-/** Vrai si un usage donné reste sous la limite (illimité = toujours vrai). */
-export function isWithinQuota(used: number, limit: number): boolean {
-  return limit === UNLIMITED || used < limit;
+/** Total mensuel HT pour un nombre de présentoirs suivis. */
+export function monitoringTotal(count: number): number {
+  return Math.max(0, count) * MONITORING_PRICE_EUR;
 }
