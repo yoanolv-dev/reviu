@@ -109,17 +109,33 @@ Décisions produit/business :
 ### Plan de construction
 
 - **Phase B (faite)** : `plans.ts` + `/tarifs` en freemium 2,99 €/présentoir.
-- **Phase A (à faire, prod)** : migration — `stands.target_url`, `stands.claim_pin` (hashé),
-  table `subscriptions` (par présentoir, lecture seule côté client, écrite par le webhook via
-  service_role), maj `generate_stands` (PIN) & `claim_stand` (PIN requis + pose du lien),
-  redirection `/r/{code}/go` sur `target_url`.
-- **Phase C (à faire)** : Stripe — checkout quantité, webhook signé, portail, toggle suivi par
-  présentoir. Nécessite clés Stripe test + `SUPABASE_SERVICE_ROLE_KEY` (serveur only).
-- **Phase D (à faire)** : dashboard stats par présentoir (gated), export Excel fournisseur.
+- **Phase A (faite, migration `reviu_billing_and_pins`)** : `stands.target_url`,
+  `stands.claim_pin_hash` (bcrypt via pgcrypto), table `subscriptions` (par présentoir, lecture
+  seule côté client), `generate_stands` v2 (retourne code+PIN), `claim_stand` v2 (PIN requis,
+  rétro-compatible avec la démo sans PIN), `resolve_stand` v2 (lien effectif), `set_stand_target`
+  (gated abonnement). Redirection `/r/{code}/go` sur le lien effectif.
+- **Phase C (faite, code)** : `lib/stripe.ts`, `lib/supabase/admin.ts` (service_role),
+  `lib/billing-actions.ts` (Checkout **1 abonnement par présentoir** + portail), route
+  `/api/stripe/webhook` (signature vérifiée, upsert `subscriptions`). `proxy.ts` exclut `/api`.
+  Dégrade proprement tant que Stripe n'est pas configuré. **Optimisation à faire** : passer en
+  facturation à la quantité (1 abo client, quantité = nb de présentoirs) pour réduire les frais.
+- **Phase D (faite)** : page présentoirs — activer/gérer le suivi par présentoir, stats
+  verrouillées si non suivi ; admin génère avec PIN + télécharge le fichier fournisseur (CSV).
+
+### Stripe — mise en service (à faire par le fondateur)
+
+1. Compte Stripe (mode test) → créer un **produit « Suivi reviu »** avec un **prix récurrent
+   2,99 €/mois** → récupérer l'ID `price_...`.
+2. Webhook Stripe → endpoint `https://<domaine>/api/stripe/webhook`, événements
+   `checkout.session.completed`, `customer.subscription.updated|deleted` → récupérer `whsec_...`.
+3. Variables d'environnement (Vercel + `.env.local`) :
+   `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_MONITORING`,
+   `SUPABASE_SERVICE_ROLE_KEY` (clé secrète Supabase, serveur only).
 
 ## Reste à faire
 
-- Phases A / C / D ci-dessus (Phase A touche la prod → feu vert requis ; Phase C → clés Stripe).
+- Mettre en service Stripe (ci-dessus) puis dérouler un paiement test de bout en bout.
 - Dérouler les étapes marchand/admin authentifiées avec un compte confirmé (voir « Validation e2e »).
+- Durcissement (optionnel) : gate DB des changements de lien / lecture des scans par abonnement.
 - Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).
 - Roadmap : IA de réponse aux avis, marque blanche.
