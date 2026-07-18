@@ -1,4 +1,4 @@
-import { createPublicClient } from "./supabase";
+import { createPublicClient } from "./supabase/public";
 import type { EventKind, Stand, StandStatus, TargetType } from "./types";
 
 interface ResolveStandRow {

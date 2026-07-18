@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
 import { ButtonLink } from "@/components/ui/button";
-import { NAV, APP_BASE } from "@/lib/brand";
+import { NAV } from "@/lib/brand";
 
 export function SiteHeader() {
   return (
@@ -25,12 +25,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <a
-            href={APP_BASE}
+          <Link
+            href="/login"
             className="hidden rounded-full px-3 py-2 text-sm text-ink-soft transition-colors hover:text-ink sm:block"
           >
             Se connecter
-          </a>
+          </Link>
           <ButtonLink href="#commander">Commander</ButtonLink>
         </div>
       </Container>

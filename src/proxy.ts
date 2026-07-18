@@ -1,12 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/proxy-session";
 
 /**
- * Route le sous-domaine de redirection (convention Next 16 : proxy).
- *   r.reviu.fr/{code}      -> /r/{code}
- *   r.reviu.fr/{code}/go   -> /r/{code}/go
- * L'URL encodée sur le NFC/QR reste donc courte et stable : r.reviu.fr/{code}.
+ * - r.reviu.fr/{code} -> /r/{code} (redirection NFC/QR)
+ * - autres hôtes : rafraîchit la session Supabase pour le dashboard
  */
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const host = (req.headers.get("host") ?? "").split(":")[0];
   const sub = host.split(".")[0];
   const { pathname } = req.nextUrl;
@@ -17,7 +16,7 @@ export function proxy(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  return NextResponse.next();
+  return updateSession(req);
 }
 
 export const config = {
