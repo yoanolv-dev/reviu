@@ -79,18 +79,21 @@ export async function claimStandAction(
 ): Promise<FormState> {
   const supabase = await createSupabaseServer();
   const code = String(formData.get("code") ?? "").trim();
+  const pin = String(formData.get("pin") ?? "").trim();
   const estId = String(formData.get("establishment_id") ?? "");
   if (!code) return { error: "Entrez le code du présentoir." };
 
   const { error } = await supabase.rpc("claim_stand", {
     p_code: code,
     p_establishment_id: estId,
+    p_pin: pin || null,
   });
   if (error) {
     const map: Record<string, string> = {
       establishment_not_owned: "Établissement introuvable.",
       stand_not_found: "Aucun présentoir avec ce code.",
       stand_already_assigned: "Ce présentoir est déjà rattaché à un compte.",
+      invalid_pin: "Code PIN incorrect (il figure sous le présentoir).",
     };
     const known = Object.keys(map).find((k) => error.message.includes(k));
     return { error: known ? map[known] : "Impossible de rattacher ce présentoir." };

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServer } from "./supabase/server";
-import type { FormState } from "./form";
+import type { FormState, GeneratedStand } from "./form";
 
 export async function generateStandsAction(
   _prev: FormState,
@@ -14,7 +14,7 @@ export async function generateStandsAction(
     return { error: "Indiquez un nombre entre 1 et 500." };
   }
   const supabase = await createSupabaseServer();
-  const { error } = await supabase.rpc("generate_stands", {
+  const { data, error } = await supabase.rpc("generate_stands", {
     p_count: count,
     p_label: label,
   });
@@ -24,6 +24,11 @@ export async function generateStandsAction(
     }
     return { error: error.message };
   }
+  const stands = (data ?? []) as GeneratedStand[];
   revalidatePath("/admin");
-  return { success: true, info: `${count} présentoir(s) généré(s).` };
+  return {
+    success: true,
+    info: `${stands.length} présentoir(s) généré(s).`,
+    stands,
+  };
 }
