@@ -10,8 +10,10 @@ import { REDIRECT_BASE } from "@/lib/brand";
 import { MONITORING_PRICE_EUR } from "@/lib/plans";
 import { StatusBadge } from "@/components/dashboard/ui";
 import { ClaimStandForm } from "./claim-stand-form";
+import { StandLinkForm } from "./stand-link-form";
 import {
   startMonitoringAction,
+  stopMonitoringAction,
   billingPortalAction,
 } from "@/lib/billing-actions";
 
@@ -50,13 +52,18 @@ export default async function StandsPage({
       </div>
 
       {suivi === "ok" && (
-        <Notice tone="ok">Suivi activé — merci&nbsp;! Vos scans sont maintenant détaillés.</Notice>
+        <Notice tone="ok">
+          Suivi activé — merci&nbsp;! Vos scans sont maintenant détaillés.
+        </Notice>
       )}
       {suivi === "deja" && (
         <Notice tone="muted">Ce présentoir est déjà suivi.</Notice>
       )}
       {suivi === "annule" && (
         <Notice tone="muted">Paiement annulé, aucun changement.</Notice>
+      )}
+      {suivi === "stop" && (
+        <Notice tone="muted">Suivi désactivé pour ce présentoir.</Notice>
       )}
       {billing === "unconfigured" && (
         <Notice tone="warn">
@@ -65,7 +72,9 @@ export default async function StandsPage({
         </Notice>
       )}
       {billing === "none" && (
-        <Notice tone="muted">Aucun abonnement à gérer pour l&apos;instant.</Notice>
+        <Notice tone="muted">
+          Aucun abonnement à gérer pour l&apos;instant.
+        </Notice>
       )}
 
       <div className="rounded-3xl border border-line bg-surface p-6">
@@ -91,68 +100,85 @@ export default async function StandsPage({
             return (
               <li
                 key={s.id}
-                className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface p-5"
+                className="rounded-2xl border border-line bg-surface p-5"
               >
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="font-mono text-sm font-medium text-ink">
-                      {s.code}
-                    </span>
-                    <StatusBadge status={s.status} />
-                    {monitored && (
-                      <span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand">
-                        Suivi actif
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="font-mono text-sm font-medium text-ink">
+                        {s.code}
                       </span>
-                    )}
+                      <StatusBadge status={s.status} />
+                      {monitored && (
+                        <span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand">
+                          Suivi actif
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 truncate font-mono text-xs text-muted">
+                      {base}/{s.code}
+                    </p>
                   </div>
-                  <p className="mt-1 truncate font-mono text-xs text-muted">
-                    {base}/{s.code}
-                  </p>
-                </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="text-right">
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      {monitored ? (
+                        <>
+                          <p className="font-display text-lg font-semibold text-ink">
+                            {counts[s.id] ?? 0}
+                          </p>
+                          <p className="text-xs text-muted">scans</p>
+                        </>
+                      ) : (
+                        <>
+                          <p
+                            className="select-none font-display text-lg font-semibold text-line"
+                            aria-hidden
+                          >
+                            ••
+                          </p>
+                          <p className="text-xs text-muted">verrouillé</p>
+                        </>
+                      )}
+                    </div>
+
                     {monitored ? (
-                      <>
-                        <p className="font-display text-lg font-semibold text-ink">
-                          {counts[s.id] ?? 0}
-                        </p>
-                        <p className="text-xs text-muted">scans</p>
-                      </>
+                      <div className="flex items-center gap-1.5">
+                        <form action={billingPortalAction}>
+                          <button
+                            type="submit"
+                            className="h-10 rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors hover:bg-line-soft"
+                          >
+                            Gérer
+                          </button>
+                        </form>
+                        <form action={stopMonitoringAction}>
+                          <input type="hidden" name="stand_id" value={s.id} />
+                          <button
+                            type="submit"
+                            className="h-10 rounded-full px-3 text-sm text-muted transition-colors hover:text-ink"
+                          >
+                            Désactiver
+                          </button>
+                        </form>
+                      </div>
                     ) : (
-                      <>
-                        <p
-                          className="select-none font-display text-lg font-semibold text-line"
-                          aria-hidden
+                      <form action={startMonitoringAction}>
+                        <input type="hidden" name="stand_id" value={s.id} />
+                        <button
+                          type="submit"
+                          className="h-10 rounded-full bg-brand px-4 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
                         >
-                          ••
-                        </p>
-                        <p className="text-xs text-muted">verrouillé</p>
-                      </>
+                          Activer le suivi · {priceLabel}
+                        </button>
+                      </form>
                     )}
                   </div>
-
-                  {monitored ? (
-                    <form action={billingPortalAction}>
-                      <button
-                        type="submit"
-                        className="h-10 rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors hover:bg-line-soft"
-                      >
-                        Gérer
-                      </button>
-                    </form>
-                  ) : (
-                    <form action={startMonitoringAction}>
-                      <input type="hidden" name="stand_id" value={s.id} />
-                      <button
-                        type="submit"
-                        className="h-10 rounded-full bg-brand px-4 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
-                      >
-                        Activer le suivi · {priceLabel}
-                      </button>
-                    </form>
-                  )}
                 </div>
+
+                {monitored && (
+                  <StandLinkForm standId={s.id} current={s.target_url} />
+                )}
               </li>
             );
           })}
@@ -176,6 +202,8 @@ function Notice({
         ? "border-amber-200 bg-amber-50 text-amber-700"
         : "border-line bg-canvas text-ink-soft";
   return (
-    <div className={`rounded-2xl border px-4 py-3 text-sm ${cls}`}>{children}</div>
+    <div className={`rounded-2xl border px-4 py-3 text-sm ${cls}`}>
+      {children}
+    </div>
   );
 }

@@ -1,20 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type Stripe from "stripe";
-import { getStripe } from "@/lib/stripe";
+import { getStripe, subscriptionPeriodEnd } from "@/lib/stripe";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 
 // Le corps brut est nécessaire pour vérifier la signature : on force le runtime Node.
 export const runtime = "nodejs";
-
-/** Fin de période courante, robuste aux évolutions de l'API Stripe (top-level ou item). */
-function periodEndIso(sub: Stripe.Subscription): string | null {
-  const top = sub as unknown as { current_period_end?: number };
-  const item = sub.items?.data?.[0] as unknown as
-    | { current_period_end?: number }
-    | undefined;
-  const ts = top.current_period_end ?? item?.current_period_end;
-  return ts ? new Date(ts * 1000).toISOString() : null;
-}
 
 export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -38,41 +28,45 @@ export async function POST(req: NextRequest) {
 
   const admin = createSupabaseAdmin();
 
-  async function upsert(sub: Stripe.Subscription, standIdHint?: string) {
-    const standId = sub.metadata?.stand_id ?? standIdHint;
-    if (!standId) return; // abonnement non rattaché à un présentoir : ignoré
-    const customerId =
-      typeof sub.customer === "string" ? sub.customer : sub.customer.id;
-    await admin.from("subscriptions").upsert(
-      {
-        stand_id: standId,
-        status: sub.status,
-        stripe_customer_id: customerId,
-        stripe_subscription_id: sub.id,
-        current_period_end: periodEndIso(sub),
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "stand_id" },
-    );
-  }
-
   switch (event.type) {
     case "checkout.session.completed": {
+      // 1er présentoir suivi : crée sa ligne (les suivants passent par l'action, pas Checkout).
       const session = event.data.object as Stripe.Checkout.Session;
+      const standId = session.metadata?.stand_id;
       const subId =
         typeof session.subscription === "string"
           ? session.subscription
           : session.subscription?.id;
-      if (subId) {
+      if (standId && subId) {
         const sub = await stripe.subscriptions.retrieve(subId);
-        await upsert(sub, session.metadata?.stand_id ?? undefined);
+        const customerId =
+          typeof sub.customer === "string" ? sub.customer : sub.customer.id;
+        await admin.from("subscriptions").upsert(
+          {
+            stand_id: standId,
+            status: sub.status,
+            stripe_customer_id: customerId,
+            stripe_subscription_id: sub.id,
+            current_period_end: subscriptionPeriodEnd(sub),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "stand_id" },
+        );
       }
       break;
     }
-    case "customer.subscription.created":
     case "customer.subscription.updated":
     case "customer.subscription.deleted": {
-      await upsert(event.data.object as Stripe.Subscription);
+      // Met à jour TOUS les présentoirs couverts par cet abonnement partagé.
+      const sub = event.data.object as Stripe.Subscription;
+      await admin
+        .from("subscriptions")
+        .update({
+          status: sub.status,
+          current_period_end: subscriptionPeriodEnd(sub),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("stripe_subscription_id", sub.id);
       break;
     }
     default:

@@ -28,3 +28,13 @@ export function isStripeConfigured(): boolean {
 export function appBase(): string {
   return process.env.NEXT_PUBLIC_APP_BASE ?? "http://localhost:3000";
 }
+
+/** Fin de période courante, robuste aux évolutions de l'API Stripe (top-level ou item). */
+export function subscriptionPeriodEnd(sub: Stripe.Subscription): string | null {
+  const top = sub as unknown as { current_period_end?: number };
+  const item = sub.items?.data?.[0] as unknown as
+    | { current_period_end?: number }
+    | undefined;
+  const ts = top.current_period_end ?? item?.current_period_end;
+  return ts ? new Date(ts * 1000).toISOString() : null;
+}

@@ -102,6 +102,33 @@ export async function claimStandAction(
   return { success: true };
 }
 
+/** Change le lien de redirection d'un présentoir (réservé aux présentoirs suivis). */
+export async function setStandTargetAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const supabase = await createSupabaseServer();
+  const standId = String(formData.get("stand_id") ?? "");
+  const url = String(formData.get("target_url") ?? "").trim();
+  if (!standId) return { error: "Présentoir introuvable." };
+
+  const { error } = await supabase.rpc("set_stand_target", {
+    p_stand_id: standId,
+    p_url: url,
+  });
+  if (error) {
+    if (error.message.includes("subscription_required")) {
+      return { error: "Activez le suivi pour modifier ce lien à distance." };
+    }
+    if (error.message.includes("stand_not_owned")) {
+      return { error: "Présentoir introuvable." };
+    }
+    return { error: "Modification impossible." };
+  }
+  revalidatePath("/dashboard/stands");
+  return { success: true };
+}
+
 /**
  * Activation self-service d'un présentoir en un écran : crée (ou réutilise)
  * l'établissement du marchand, puis rattache le présentoir via son PIN.

@@ -21,6 +21,7 @@ export interface StandRow {
   org_id: string | null;
   establishment_id: string | null;
   label: string | null;
+  target_url: string | null;
   created_at: string;
   activated_at: string | null;
 }
