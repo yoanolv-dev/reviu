@@ -56,8 +56,34 @@ Tables : `organizations`, `establishments`, `stands`, `scans`, `feedback`, `prof
 RPC : `resolve_stand`, `record_scan`, `submit_feedback`, `claim_stand`, `generate_stands`,
 `admin_list_stands`, `is_admin`.
 
+## Validation e2e (2026-07-18)
+
+Égress `*.supabase.co` **ouvert** dans l'environnement web : le `fetch` natif de Node joint
+Supabase **avec comme sans** `NODE_USE_ENV_PROXY=1` (accès direct autorisé + certificats
+publics). Le flag reste utile derrière un proxy strict mais n'est pas requis ici, et n'a
+aucun effet sur le point d'hydratation ci-dessous.
+
+Parcours client final déroulé de bout en bout sur **build de prod** (app réelle + base Supabase) :
+
+- `/r/demo` → page brandée « Le Comptoir de Camille » (RPC `resolve_stand`) ; scan `view` enregistré (canal nfc/qr).
+- `/r/demo/go` → `302` vers l'avis Google ; scan `click` enregistré.
+- `/r/demo/feedback` → envoi du retour privé (server action → `submit_feedback`) → ligne `feedback` en base (note + établissement + présentoir).
+- `/r/blank01` → écran « présentoir prêt à être activé ».
+- Garde d'auth OK : `/dashboard` et `/admin` redirigent vers `/login` ; câblage login vérifié (mauvais identifiants → erreur Supabase remontée).
+
+⚠️ **Dev vs prod dans le sandbox web.** `next dev` (Turbopack) n'hydrate pas les composants
+client ici : le handshake WebSocket HMR côté navigateur échoue (`ERR_INVALID_HTTP_RESPONSE`)
+alors que le serveur répond bien `101` à un upgrade brut. Les formulaires (étoiles, feedback,
+login) restent donc inertes en dev, mais le SSR et les redirections fonctionnent. **Pour tester
+l'interactivité dans cet environnement, utiliser un build de prod** : `pnpm build && pnpm start`
+(tout hydrate correctement). En local hors sandbox, `next dev` reste OK.
+
+Étapes marchand/admin authentifiées (signup → onboarding → génération de lot → rattachement →
+analytics) **non déroulées** : `mailer_autoconfirm=false` et pas de boîte mail ici pour
+confirmer le compte. Le câblage auth est vérifié ; reste à les dérouler avec un compte confirmé.
+
 ## Reste à faire
 
-- Valider le flux end-to-end une fois l'égress ouvert.
+- Dérouler les étapes marchand/admin authentifiées avec un compte confirmé (voir « Validation e2e »).
 - Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).
 - Roadmap : multi-plateforme (`target_type` déjà prêt), IA de réponse aux avis, marque blanche.
