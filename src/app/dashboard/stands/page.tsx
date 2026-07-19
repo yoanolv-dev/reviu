@@ -20,8 +20,8 @@ export default async function StandsPage() {
           Vos présentoirs
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Rattachez un présentoir reçu en saisissant son code, puis suivez ses
-          scans.
+          Rattachez un présentoir reçu en saisissant son code et son PIN, puis
+          suivez ses scans.
         </p>
       </div>
 
@@ -30,7 +30,8 @@ export default async function StandsPage() {
           Rattacher un présentoir
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Le code figure sous le présentoir (ex.&nbsp;k7Qm2p).
+          Le code et le PIN figurent sous le présentoir (ex.&nbsp;code k7qm2p ·
+          PIN 4KPR9T).
         </p>
         <div className="mt-4">
           <ClaimStandForm establishmentId={ctx.establishment.id} />

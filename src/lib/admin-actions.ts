@@ -14,7 +14,7 @@ export async function generateStandsAction(
     return { error: "Indiquez un nombre entre 1 et 500." };
   }
   const supabase = await createSupabaseServer();
-  const { error } = await supabase.rpc("generate_stands", {
+  const { data, error } = await supabase.rpc("generate_stands", {
     p_count: count,
     p_label: label,
   });
@@ -25,5 +25,10 @@ export async function generateStandsAction(
     return { error: error.message };
   }
   revalidatePath("/admin");
-  return { success: true, info: `${count} présentoir(s) généré(s).` };
+  const generated = (data ?? []) as { code: string; pin: string }[];
+  return {
+    success: true,
+    info: `${generated.length} présentoir(s) généré(s).`,
+    generated,
+  };
 }

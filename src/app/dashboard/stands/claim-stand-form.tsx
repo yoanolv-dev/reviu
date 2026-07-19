@@ -16,8 +16,21 @@ export function ClaimStandForm({
         <input
           name="code"
           required
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           placeholder="Code du présentoir"
           className="h-11 flex-1 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm text-ink outline-none transition-colors placeholder:font-sans placeholder:text-muted focus:border-brand"
+        />
+        <input
+          name="pin"
+          required
+          maxLength={6}
+          autoCapitalize="characters"
+          autoCorrect="off"
+          spellCheck={false}
+          placeholder="PIN"
+          className="h-11 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm uppercase tracking-widest text-ink outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-muted focus:border-brand sm:w-32"
         />
         <button
           type="submit"
