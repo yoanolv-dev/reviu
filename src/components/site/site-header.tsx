@@ -31,7 +31,7 @@ export function SiteHeader() {
           >
             Se connecter
           </Link>
-          <ButtonLink href="#commander">Commander</ButtonLink>
+          <ButtonLink href="/#commander">Commander</ButtonLink>
         </div>
       </Container>
     </header>

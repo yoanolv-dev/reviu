@@ -23,7 +23,6 @@ export async function GET(
     channel,
     userAgent: req.headers.get("user-agent"),
   });
-  return NextResponse.redirect(stand.establishment.googleReviewUrl, {
-    status: 302,
-  });
+  const destination = stand.redirectUrl ?? stand.establishment.googleReviewUrl;
+  return NextResponse.redirect(destination, { status: 302 });
 }

@@ -88,10 +88,10 @@ function ActivationView({ code }: { code: string }) {
           </p>
         </div>
         <a
-          href={APP_BASE}
+          href={`${APP_BASE}/activate/${code}`}
           className="mt-6 flex h-12 w-full items-center justify-center rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong"
         >
-          Activer sur reviu
+          Activer ce présentoir
         </a>
         <p className="mt-3 text-xs text-muted">
           Vous êtes le commerçant ? Connectez-vous pour l&apos;activer.

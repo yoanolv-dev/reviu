@@ -1,14 +1,40 @@
 import { redirect } from "next/navigation";
-import { getMyContext, getStands, getScanCounts } from "@/lib/dashboard";
+import {
+  getMyContext,
+  getStands,
+  getScanCounts,
+  getSubscriptionMap,
+  isMonitored,
+} from "@/lib/dashboard";
 import { REDIRECT_BASE } from "@/lib/brand";
+import { MONITORING_PRICE_EUR } from "@/lib/plans";
 import { StatusBadge } from "@/components/dashboard/ui";
 import { ClaimStandForm } from "./claim-stand-form";
+import { StandLinkForm } from "./stand-link-form";
+import {
+  startMonitoringAction,
+  stopMonitoringAction,
+  billingPortalAction,
+} from "@/lib/billing-actions";
 
-export default async function StandsPage() {
+const priceLabel = `${MONITORING_PRICE_EUR.toLocaleString("fr-FR", {
+  minimumFractionDigits: 2,
+})} €/mois`;
+
+export default async function StandsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ suivi?: string; billing?: string }>;
+}) {
   const ctx = await getMyContext();
   if (!ctx?.establishment) redirect("/dashboard/onboarding");
-  const [stands, counts] = await Promise.all([getStands(), getScanCounts()]);
+  const [stands, counts, subs] = await Promise.all([
+    getStands(),
+    getScanCounts(),
+    getSubscriptionMap(),
+  ]);
   const base = REDIRECT_BASE.replace(/^https?:\/\//, "");
+  const { suivi, billing } = await searchParams;
 
   return (
     <div className="flex flex-col gap-6">
@@ -20,17 +46,43 @@ export default async function StandsPage() {
           Vos présentoirs
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Rattachez un présentoir reçu en saisissant son code, puis suivez ses
-          scans.
+          Rattachez un présentoir reçu avec son code et son PIN, puis activez le
+          suivi pour mesurer ses scans et changer son lien à distance.
         </p>
       </div>
+
+      {suivi === "ok" && (
+        <Notice tone="ok">
+          Suivi activé — merci&nbsp;! Vos scans sont maintenant détaillés.
+        </Notice>
+      )}
+      {suivi === "deja" && (
+        <Notice tone="muted">Ce présentoir est déjà suivi.</Notice>
+      )}
+      {suivi === "annule" && (
+        <Notice tone="muted">Paiement annulé, aucun changement.</Notice>
+      )}
+      {suivi === "stop" && (
+        <Notice tone="muted">Suivi désactivé pour ce présentoir.</Notice>
+      )}
+      {billing === "unconfigured" && (
+        <Notice tone="warn">
+          La facturation n&apos;est pas encore active (Stripe en cours de
+          configuration). Réessayez bientôt.
+        </Notice>
+      )}
+      {billing === "none" && (
+        <Notice tone="muted">
+          Aucun abonnement à gérer pour l&apos;instant.
+        </Notice>
+      )}
 
       <div className="rounded-3xl border border-line bg-surface p-6">
         <h2 className="font-display text-base font-semibold text-ink">
           Rattacher un présentoir
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Le code figure sous le présentoir (ex.&nbsp;k7Qm2p).
+          Le code et le PIN figurent sous le présentoir.
         </p>
         <div className="mt-4">
           <ClaimStandForm establishmentId={ctx.establishment.id} />
@@ -43,32 +95,115 @@ export default async function StandsPage() {
         </p>
       ) : (
         <ul className="flex flex-col gap-3">
-          {stands.map((s) => (
-            <li
-              key={s.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-surface p-5"
-            >
-              <div className="min-w-0">
-                <div className="flex items-center gap-2.5">
-                  <span className="font-mono text-sm font-medium text-ink">
-                    {s.code}
-                  </span>
-                  <StatusBadge status={s.status} />
+          {stands.map((s) => {
+            const monitored = isMonitored(subs[s.id]);
+            return (
+              <li
+                key={s.id}
+                className="rounded-2xl border border-line bg-surface p-5"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="font-mono text-sm font-medium text-ink">
+                        {s.code}
+                      </span>
+                      <StatusBadge status={s.status} />
+                      {monitored && (
+                        <span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand">
+                          Suivi actif
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 truncate font-mono text-xs text-muted">
+                      {base}/{s.code}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      {monitored ? (
+                        <>
+                          <p className="font-display text-lg font-semibold text-ink">
+                            {counts[s.id] ?? 0}
+                          </p>
+                          <p className="text-xs text-muted">scans</p>
+                        </>
+                      ) : (
+                        <>
+                          <p
+                            className="select-none font-display text-lg font-semibold text-line"
+                            aria-hidden
+                          >
+                            ••
+                          </p>
+                          <p className="text-xs text-muted">verrouillé</p>
+                        </>
+                      )}
+                    </div>
+
+                    {monitored ? (
+                      <div className="flex items-center gap-1.5">
+                        <form action={billingPortalAction}>
+                          <button
+                            type="submit"
+                            className="h-10 rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors hover:bg-line-soft"
+                          >
+                            Gérer
+                          </button>
+                        </form>
+                        <form action={stopMonitoringAction}>
+                          <input type="hidden" name="stand_id" value={s.id} />
+                          <button
+                            type="submit"
+                            className="h-10 rounded-full px-3 text-sm text-muted transition-colors hover:text-ink"
+                          >
+                            Désactiver
+                          </button>
+                        </form>
+                      </div>
+                    ) : (
+                      <form action={startMonitoringAction}>
+                        <input type="hidden" name="stand_id" value={s.id} />
+                        <button
+                          type="submit"
+                          className="h-10 rounded-full bg-brand px-4 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
+                        >
+                          Activer le suivi · {priceLabel}
+                        </button>
+                      </form>
+                    )}
+                  </div>
                 </div>
-                <p className="mt-1 truncate font-mono text-xs text-muted">
-                  {base}/{s.code}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="font-display text-lg font-semibold text-ink">
-                  {counts[s.id] ?? 0}
-                </p>
-                <p className="text-xs text-muted">scans</p>
-              </div>
-            </li>
-          ))}
+
+                {monitored && (
+                  <StandLinkForm standId={s.id} current={s.target_url} />
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
+    </div>
+  );
+}
+
+function Notice({
+  tone,
+  children,
+}: {
+  tone: "ok" | "warn" | "muted";
+  children: React.ReactNode;
+}) {
+  const cls =
+    tone === "ok"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+      : tone === "warn"
+        ? "border-amber-200 bg-amber-50 text-amber-700"
+        : "border-line bg-canvas text-ink-soft";
+  return (
+    <div className={`rounded-2xl border px-4 py-3 text-sm ${cls}`}>
+      {children}
     </div>
   );
 }

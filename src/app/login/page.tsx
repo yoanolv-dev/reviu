@@ -5,7 +5,15 @@ import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = { title: "Connexion — reviu" };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+  const signupHref = next
+    ? `/signup?next=${encodeURIComponent(next)}`
+    : "/signup";
   return (
     <AuthShell
       title="Bon retour"
@@ -13,13 +21,16 @@ export default function LoginPage() {
       footer={
         <>
           Pas encore de compte ?{" "}
-          <Link href="/signup" className="font-medium text-brand hover:underline">
+          <Link
+            href={signupHref}
+            className="font-medium text-brand hover:underline"
+          >
             Créer un compte
           </Link>
         </>
       }
     >
-      <LoginForm />
+      <LoginForm next={next} />
     </AuthShell>
   );
 }

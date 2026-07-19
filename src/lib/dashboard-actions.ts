@@ -79,22 +79,138 @@ export async function claimStandAction(
 ): Promise<FormState> {
   const supabase = await createSupabaseServer();
   const code = String(formData.get("code") ?? "").trim();
+  const pin = String(formData.get("pin") ?? "").trim();
   const estId = String(formData.get("establishment_id") ?? "");
   if (!code) return { error: "Entrez le code du présentoir." };
 
   const { error } = await supabase.rpc("claim_stand", {
     p_code: code,
     p_establishment_id: estId,
+    p_pin: pin || null,
   });
   if (error) {
     const map: Record<string, string> = {
       establishment_not_owned: "Établissement introuvable.",
       stand_not_found: "Aucun présentoir avec ce code.",
       stand_already_assigned: "Ce présentoir est déjà rattaché à un compte.",
+      invalid_pin: "Code PIN incorrect (il figure sous le présentoir).",
     };
     const known = Object.keys(map).find((k) => error.message.includes(k));
     return { error: known ? map[known] : "Impossible de rattacher ce présentoir." };
   }
   revalidatePath("/dashboard/stands");
   return { success: true };
+}
+
+/** Change le lien de redirection d'un présentoir (réservé aux présentoirs suivis). */
+export async function setStandTargetAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const supabase = await createSupabaseServer();
+  const standId = String(formData.get("stand_id") ?? "");
+  const url = String(formData.get("target_url") ?? "").trim();
+  if (!standId) return { error: "Présentoir introuvable." };
+
+  const { error } = await supabase.rpc("set_stand_target", {
+    p_stand_id: standId,
+    p_url: url,
+  });
+  if (error) {
+    if (error.message.includes("subscription_required")) {
+      return { error: "Activez le suivi pour modifier ce lien à distance." };
+    }
+    if (error.message.includes("stand_not_owned")) {
+      return { error: "Présentoir introuvable." };
+    }
+    return { error: "Modification impossible." };
+  }
+  revalidatePath("/dashboard/stands");
+  return { success: true };
+}
+
+/**
+ * Activation self-service d'un présentoir en un écran : crée (ou réutilise)
+ * l'établissement du marchand, puis rattache le présentoir via son PIN.
+ */
+export async function activateStandAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const supabase = await createSupabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const code = String(formData.get("code") ?? "").trim();
+  const pin = String(formData.get("pin") ?? "").trim();
+  const name = String(formData.get("name") ?? "").trim();
+  const googleUrl = String(formData.get("google_review_url") ?? "").trim();
+  if (!code) return { error: "Code du présentoir manquant." };
+  if (!pin) return { error: "Entrez le PIN figurant sous le présentoir." };
+
+  // Réutilise le premier établissement du marchand, sinon en crée un.
+  let estId: string;
+  const { data: est } = await supabase
+    .from("establishments")
+    .select("id")
+    .order("created_at")
+    .limit(1)
+    .maybeSingle();
+  if (est) {
+    estId = est.id as string;
+    if (googleUrl) {
+      await supabase
+        .from("establishments")
+        .update({ google_review_url: googleUrl })
+        .eq("id", estId);
+    }
+  } else {
+    if (!name) return { error: "Indiquez le nom de votre établissement." };
+    let orgId: string;
+    const { data: org } = await supabase
+      .from("organizations")
+      .select("id")
+      .order("created_at")
+      .limit(1)
+      .maybeSingle();
+    if (org) {
+      orgId = org.id as string;
+    } else {
+      const { data: created, error } = await supabase
+        .from("organizations")
+        .insert({ name, owner_id: user.id })
+        .select("id")
+        .single();
+      if (error || !created) {
+        return { error: error?.message ?? "Création impossible." };
+      }
+      orgId = created.id as string;
+    }
+    const { data: newEst, error: e2 } = await supabase
+      .from("establishments")
+      .insert({ org_id: orgId, name, google_review_url: googleUrl || null })
+      .select("id")
+      .single();
+    if (e2 || !newEst) return { error: e2?.message ?? "Création impossible." };
+    estId = newEst.id as string;
+  }
+
+  const { error } = await supabase.rpc("claim_stand", {
+    p_code: code,
+    p_establishment_id: estId,
+    p_pin: pin,
+  });
+  if (error) {
+    const map: Record<string, string> = {
+      establishment_not_owned: "Établissement introuvable.",
+      stand_not_found: "Aucun présentoir avec ce code.",
+      stand_already_assigned: "Ce présentoir est déjà activé.",
+      invalid_pin: "PIN incorrect (il figure sous le présentoir).",
+    };
+    const known = Object.keys(map).find((k) => error.message.includes(k));
+    return { error: known ? map[known] : "Activation impossible." };
+  }
+  redirect("/dashboard/stands");
 }

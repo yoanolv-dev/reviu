@@ -13,7 +13,8 @@ export const REDIRECT_BASE =
   process.env.NEXT_PUBLIC_REDIRECT_BASE ?? "https://r.reviu.fr";
 
 export const NAV = [
-  { label: "Fonctionnement", href: "#fonctionnement" },
-  { label: "Avantages", href: "#avantages" },
-  { label: "Conformité", href: "#conformite" },
+  { label: "Fonctionnement", href: "/#fonctionnement" },
+  { label: "Avantages", href: "/#avantages" },
+  { label: "Tarifs", href: "/tarifs" },
+  { label: "Conformité", href: "/#conformite" },
 ] as const;

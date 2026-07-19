@@ -17,4 +17,6 @@ export interface Stand {
   status: StandStatus;
   targetType: TargetType;
   establishment: Establishment | null;
+  /** Lien effectif de redirection : override du présentoir, sinon lien établissement. */
+  redirectUrl: string | null;
 }

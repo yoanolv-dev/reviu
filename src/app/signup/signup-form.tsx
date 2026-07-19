@@ -4,10 +4,11 @@ import { useActionState } from "react";
 import { signUpAction } from "@/lib/auth-actions";
 import { Field } from "@/components/ui/field";
 
-export function SignupForm() {
+export function SignupForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(signUpAction, null);
   return (
     <form action={action} className="flex flex-col gap-4">
+      {next && <input type="hidden" name="next" value={next} />}
       <Field
         label="Votre nom"
         name="name"

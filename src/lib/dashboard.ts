@@ -21,6 +21,7 @@ export interface StandRow {
   org_id: string | null;
   establishment_id: string | null;
   label: string | null;
+  target_url: string | null;
   created_at: string;
   activated_at: string | null;
 }
@@ -117,4 +118,20 @@ export async function getFeedback(
     .order("created_at", { ascending: false })
     .limit(limit);
   return (data ?? []) as FeedbackRow[];
+}
+
+/** Map stand_id -> statut d'abonnement (présentoirs du marchand, via RLS). */
+export async function getSubscriptionMap(): Promise<Record<string, string>> {
+  const supabase = await createSupabaseServer();
+  const { data } = await supabase.from("subscriptions").select("stand_id,status");
+  const map: Record<string, string> = {};
+  for (const row of (data ?? []) as { stand_id: string; status: string }[]) {
+    map[row.stand_id] = row.status;
+  }
+  return map;
+}
+
+/** Un présentoir est « suivi » si son abonnement est actif ou en essai. */
+export function isMonitored(status: string | undefined | null): boolean {
+  return status === "active" || status === "trialing";
 }

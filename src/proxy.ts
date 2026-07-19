@@ -20,5 +20,7 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/|favicon.ico|.*\\.).*)"],
+  // Exclut _next, les routes API (ex. webhook Stripe : corps brut préservé),
+  // favicon et les fichiers à extension.
+  matcher: ["/((?!_next/|api/|favicon.ico|.*\\.).*)"],
 };
