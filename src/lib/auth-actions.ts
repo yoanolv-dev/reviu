@@ -4,6 +4,16 @@ import { redirect } from "next/navigation";
 import { createSupabaseServer } from "./supabase/server";
 import type { FormState } from "./form";
 
+/**
+ * N'autorise qu'un chemin interne relatif comme cible de redirection
+ * post-connexion (protège des open redirects). Repli : /dashboard.
+ */
+function safeNext(raw: FormDataEntryValue | null): string {
+  const v = typeof raw === "string" ? raw : "";
+  if (v.startsWith("/") && !v.startsWith("//") && !v.startsWith("/\\")) return v;
+  return "/dashboard";
+}
+
 export async function signInAction(
   _prev: FormState,
   formData: FormData,
@@ -13,7 +23,7 @@ export async function signInAction(
   const supabase = await createSupabaseServer();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: "E-mail ou mot de passe incorrect." };
-  redirect("/dashboard");
+  redirect(safeNext(formData.get("next")));
 }
 
 export async function signUpAction(
@@ -38,7 +48,7 @@ export async function signUpAction(
       info: "Compte créé. Vérifiez votre e-mail pour confirmer, puis connectez-vous.",
     };
   }
-  redirect("/dashboard");
+  redirect(safeNext(formData.get("next")));
 }
 
 export async function signOutAction() {

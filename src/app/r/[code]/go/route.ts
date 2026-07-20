@@ -23,7 +23,7 @@ export async function GET(
     channel,
     userAgent: req.headers.get("user-agent"),
   });
-  return NextResponse.redirect(stand.establishment.googleReviewUrl, {
-    status: 302,
-  });
+  // Destination pilotable (target_url) avec repli sur l'avis Google de l'établissement.
+  const destination = stand.targetUrl ?? stand.establishment.googleReviewUrl;
+  return NextResponse.redirect(destination, { status: 302 });
 }

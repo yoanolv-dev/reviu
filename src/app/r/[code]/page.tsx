@@ -18,20 +18,26 @@ export default async function RedirectPage({
   const stand = await getStandByCode(code);
 
   if (!stand) return <NotFoundView code={code} />;
+
+  const h = await headers();
+  // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
+  const onRedirectSub =
+    (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
+  // La page d'activation vit sur l'app : lien absolu depuis le sous-domaine r.
+  const activateHref = onRedirectSub
+    ? `${APP_BASE}/activate/${code}`
+    : `/activate/${code}`;
+
   if (stand.status !== "active" || !stand.establishment) {
-    return <ActivationView code={code} />;
+    return <ActivationView code={code} activateHref={activateHref} />;
   }
 
   const est = stand.establishment;
 
   // Canal transmis par l'URL physique, ex. r.reviu.fr/{code}?s=nfc
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
-  const h = await headers();
   void recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
 
-  // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
-  const onRedirectSub =
-    (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
   const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
 
@@ -68,7 +74,13 @@ export default async function RedirectPage({
   );
 }
 
-function ActivationView({ code }: { code: string }) {
+function ActivationView({
+  code,
+  activateHref,
+}: {
+  code: string;
+  activateHref: string;
+}) {
   return (
     <ScreenShell>
       <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-8 text-center shadow-sm">
@@ -88,7 +100,7 @@ function ActivationView({ code }: { code: string }) {
           </p>
         </div>
         <a
-          href={APP_BASE}
+          href={activateHref}
           className="mt-6 flex h-12 w-full items-center justify-center rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong"
         >
           Activer sur reviu

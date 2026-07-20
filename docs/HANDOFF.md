@@ -56,8 +56,25 @@ Tables : `organizations`, `establishments`, `stands`, `scans`, `feedback`, `prof
 RPC : `resolve_stand`, `record_scan`, `submit_feedback`, `claim_stand`, `generate_stands`,
 `admin_list_stands`, `is_admin`.
 
+## Modèle freemium (cible)
+
+- **Gratuit** : activation unique du présentoir à réception (scan NFC/QR → `/activate/<code>`),
+  redirection figée. Pas de stats, pas d'édition à distance.
+- **Abonné** (table `subscriptions`, par présentoir) : stats temps réel + édition à distance
+  de la redirection (`stands.target_url`).
+
+## Fait — Phase 0 (activation unique)
+
+- Page `/activate/[code]` : config unique (auth + PIN), crée l'établissement au besoin puis `claim_stand`.
+- Deep-link depuis `/r/[code]` (scan d'un présentoir vierge) ; redirection post-auth `next` (anti open-redirect).
+- Génération admin : PIN capturés, affichés et exportables en CSV (les PIN en clair ne sont dispo qu'à la génération).
+- Rattachement dashboard : champ PIN. Redirection `/r/[code]/go` basée sur `target_url` (repli avis Google).
+- Aucune migration : le schéma `reviu_billing_and_pins` (PIN, `target_url`, `subscriptions`) préexistait.
+
 ## Reste à faire
 
-- Valider le flux end-to-end une fois l'égress ouvert.
+- **Phase 1** : gating abonnement (stats + édition dynamique réservées aux abonnés actifs).
+- **Phase 2** : Stripe (checkout + webhook → `subscriptions`) — simulé pour l'instant.
+- **Phase 3** : édition à distance de `target_url` (dashboard, abonnés).
 - Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).
-- Roadmap : multi-plateforme (`target_type` déjà prêt), IA de réponse aux avis, marque blanche.
+- Roadmap : multi-plateforme (`target_type`/`target_url` prêts), IA de réponse aux avis, marque blanche.

@@ -11,6 +11,7 @@ interface ResolveStandRow {
   brand_color: string | null;
   welcome_message: string | null;
   feedback_enabled: boolean | null;
+  target_url: string | null;
 }
 
 /** Résout un présentoir par son code (via la fonction RPC sécurisée). */
@@ -39,6 +40,7 @@ export async function getStandByCode(code: string): Promise<Stand | null> {
     code,
     status: data.status,
     targetType: data.target_type,
+    targetUrl: data.target_url ?? null,
     establishment,
   };
 }

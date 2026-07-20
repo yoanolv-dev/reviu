@@ -16,5 +16,7 @@ export interface Stand {
   code: string;
   status: StandStatus;
   targetType: TargetType;
+  /** Destination de la redirection (pilotable à distance par les abonnés). */
+  targetUrl: string | null;
   establishment: Establishment | null;
 }
