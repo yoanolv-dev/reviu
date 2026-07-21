@@ -24,6 +24,10 @@ export interface StandRow {
   created_at: string;
   activated_at: string | null;
   target_url: string | null;
+  batch_id?: string | null;
+  replaced_by?: string | null;
+  status_note?: string | null;
+  status_changed_at?: string | null;
 }
 
 export interface FeedbackRow {

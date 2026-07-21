@@ -23,6 +23,13 @@ export const APP_BASE = process.env.NEXT_PUBLIC_APP_BASE ?? "https://app.reviu.f
 export const REDIRECT_BASE =
   process.env.NEXT_PUBLIC_REDIRECT_BASE ?? "https://r.reviu.fr";
 
+/**
+ * Page produit Shopify pour l'achat d'un présentoir. Pilotée par variable
+ * d'environnement : modifiable sans toucher au code (voir docs/HANDOFF.md).
+ */
+export const SHOPIFY_PRODUCT_URL =
+  process.env.NEXT_PUBLIC_SHOPIFY_PRODUCT_URL ?? "https://reviu.fr/boutique";
+
 export const NAV = [
   { label: "Fonctionnement", href: "#fonctionnement" },
   { label: "Avantages", href: "#avantages" },
