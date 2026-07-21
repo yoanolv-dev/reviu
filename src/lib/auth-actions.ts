@@ -1,7 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createSupabaseServer } from "./supabase/server";
+import { APP_BASE } from "./brand";
 import type { FormState } from "./form";
 
 export async function signInAction(
@@ -39,6 +41,30 @@ export async function signUpAction(
     };
   }
   redirect("/dashboard");
+}
+
+/**
+ * Connexion sans mot de passe (lien magique) : permet de revenir retrouver ses
+ * présentoirs activés en self-service. Au retour sur /dashboard, bind_account()
+ * rattache automatiquement le compte aux présentoirs déjà configurés.
+ */
+export async function sendMagicLinkAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) return { error: "Renseignez votre e-mail." };
+  const supabase = await createSupabaseServer();
+  const h = await headers();
+  const origin = h.get("origin") ?? APP_BASE;
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: `${origin}/dashboard` },
+  });
+  if (error) return { error: "Envoi impossible. Réessayez dans un instant." };
+  return {
+    info: "Lien de connexion envoyé. Consultez votre boîte e-mail pour vous connecter.",
+  };
 }
 
 export async function signOutAction() {

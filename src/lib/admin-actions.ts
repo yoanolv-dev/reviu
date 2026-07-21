@@ -2,19 +2,24 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServer } from "./supabase/server";
-import type { FormState } from "./form";
+
+export type GeneratedStand = { code: string; pin: string };
+export type GenerateState = {
+  error?: string;
+  rows?: GeneratedStand[];
+} | null;
 
 export async function generateStandsAction(
-  _prev: FormState,
+  _prev: GenerateState,
   formData: FormData,
-): Promise<FormState> {
+): Promise<GenerateState> {
   const count = Number.parseInt(String(formData.get("count") ?? ""), 10);
   const label = String(formData.get("label") ?? "").trim() || null;
   if (!Number.isFinite(count) || count < 1 || count > 500) {
     return { error: "Indiquez un nombre entre 1 et 500." };
   }
   const supabase = await createSupabaseServer();
-  const { error } = await supabase.rpc("generate_stands", {
+  const { data, error } = await supabase.rpc("generate_stands", {
     p_count: count,
     p_label: label,
   });
@@ -25,5 +30,5 @@ export async function generateStandsAction(
     return { error: error.message };
   }
   revalidatePath("/admin");
-  return { success: true, info: `${count} présentoir(s) généré(s).` };
+  return { rows: (data ?? []) as GeneratedStand[] };
 }
