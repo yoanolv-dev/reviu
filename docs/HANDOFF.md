@@ -1,88 +1,89 @@
 # reviu — note de reprise
 
-Branche courante : `claude/session-yrp3ge`.
+Dernière mise à jour : audit complet + durcissement présentoirs, admin, perfs.
 
 ## Ce qui existe
 
-- **Landing** `/` — vitrine (hero, fonctionnement, avantages, preuve sociale, conformité).
-- **Parcours client final** `/r/[code]` — page d'avis brandée, redirection tracée `/r/[code]/go`
-  (vers le **lien propre** du présentoir `target_url`, sinon l'avis Google), feedback privé `/r/[code]/feedback`.
-- **Activation self-service** `/r/[code]` (présentoir vierge) — configuration directe depuis le scan :
-  nom du commerce + lien Google + **e-mail** (+ PIN), le présentoir devient actif immédiatement **sans compte**.
-  L'e-mail entre en **base clients** (`customers`) et le présentoir est relié au client. Puis **offre
-  d'abonnement 2,99 €/mois** (suivi des stats + édition illimitée des liens), **sans obligation** (« Plus tard »).
-- **Dashboard** `/dashboard` — auth (mot de passe **ou lien magique**), onboarding, config établissement,
-  présentoirs, avis privés. Les **statistiques sont verrouillées** tant qu'aucun présentoir n'est suivi.
-  Par présentoir : **S'abonner / Se désabonner** (à tout moment) + **édition du lien** (réservée aux abonnés).
-  Au retour (lien magique), `bind_account()` rattache automatiquement les présentoirs activés en self-service.
-- **Admin** `/admin` — générateur de présentoirs (lots de codes + **PIN** affichés une seule fois + QR), export CSV, feuille QR.
-- **Supabase** — projet ref `sudspaqmgqwhyabflyzi` (région eu-central-1).
+- **Landing** `/vitrine`, entrée app `/` → `/login`.
+- **Parcours client** `/r/[code]` — page d'avis brandée, redirection tracée
+  `/r/[code]/go` (canaux `?s=qr` / `?s=nfc`), retour privé `/r/[code]/feedback`.
+- **Activation self-service** `/r/[code]` (présentoir vierge) — nom + lien Google
+  + e-mail + **secret d'activation** (imprimé sous le présentoir, jamais dans le
+  QR/NFC). Le présentoir devient actif immédiatement, sans compte.
+- **Dashboard** `/dashboard` — auth mot de passe / lien magique / **mot de passe
+  oublié**, onboarding, établissement, présentoirs, avis privés. CTA **Acheter un
+  présentoir** (Shopify). Stats verrouillées tant qu'aucun présentoir suivi.
+- **Admin** `/admin` (rôle `super_admin`) — génération de lots, tous les
+  présentoirs (statut + remplacement), comptes clients, journal des opérations.
+- **Supabase** — projet ref `sudspaqmgqwhyabflyzi` (eu-central-1).
 
-## Modèle d'abonnement
+## Système de présentoirs (production)
 
-Abonnement **par présentoir** (2,99 €/mois), table `subscriptions`. Entitlement = `status in ('active','trialing')`
-→ débloque le suivi des stats et `set_stand_target` (édition du lien). **Actuellement simulé** (boutons
-S'abonner/Se désabonner qui basculent le statut) ; Stripe (Checkout + webhooks) reste à brancher en Phase 2 —
-la logique d'entitlement ne changera pas.
+- `code` = **identifiant public permanent** (QR + NFC). **Immuable** (trigger) et
+  **non supprimable** après validation/export d'un lot. Écritures directes
+  révoquées pour anon/authenticated → tout passe par des RPC `SECURITY DEFINER`.
+- **Secret d'activation** dérivé par HMAC-SHA256 d'une clé **Vault**
+  (`stand_activation_key`, permanente — ne pas la faire tourner). Jamais stocké,
+  jamais dans le QR/NFC, mais **reproductible** pour l'export fournisseur.
+- **Lots** (`stand_batches`) : `draft → validated → exported`. La validation ou
+  l'export **verrouille** définitivement le lot.
+- **Export fournisseur** : `.xlsx` par lot (`/admin/export?batch=<id>`) —
+  code, URL QR, URL NFC, secret, statut, lot, date. L'export verrouille le lot.
+- **Statuts** : blank/active/disabled/suspended/defective/lost/replaced/retired.
+- **Journal d'audit** (`stand_audit`) : générations, exports, statuts,
+  remplacements, opérations comptes — horodaté + acteur.
+- **Garde d'environnement** : génération réelle possible **uniquement en
+  production** (ou `REVIU_ALLOW_STAND_GENERATION=true` en local).
 
-## `.env.local` à recréer (non versionné)
+## `.env.local` (non versionné)
 
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://sudspaqmgqwhyabflyzi.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_DI6x2lBXc9uANe38Jf-M4w_qPq6JbNP
-NEXT_PUBLIC_APP_BASE=https://app.reviu.fr        # http://localhost:3000 en dev
-NEXT_PUBLIC_REDIRECT_BASE=https://r.reviu.fr     # http://localhost:3000 en dev
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+NEXT_PUBLIC_APP_BASE=https://app.reviu.fr          # http://localhost:3000 en dev
+NEXT_PUBLIC_REDIRECT_BASE=https://r.reviu.fr       # http://localhost:3000 en dev
+NEXT_PUBLIC_SHOPIFY_PRODUCT_URL=https://reviu.fr/boutique   # page produit Shopify
+
+# Serveur uniquement (secrets — ne jamais exposer au navigateur) :
+SUPABASE_SERVICE_ROLE_KEY=...      # notifications e-mail (lecture e-mail commerçant)
+RESEND_API_KEY=...                 # envoi e-mails transactionnels (Resend)
+REVIU_EMAIL_FROM=reviu <avis@reviu.fr>
+REVIU_ALLOW_STAND_GENERATION=true  # UNIQUEMENT en local si besoin de générer
 ```
 
-La clé `sb_publishable_...` est **publique** (navigateur) — la sécurité repose sur le RLS et les fonctions
-SQL `SECURITY DEFINER`. Aucune clé secrète n'est nécessaire côté app.
+## Actions manuelles requises
 
-## Réseau (égress)
+1. **Vercel (production)** : ajouter `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`,
+   `REVIU_EMAIL_FROM`, `NEXT_PUBLIC_SHOPIFY_PRODUCT_URL`. Ne PAS définir
+   `REVIU_ALLOW_STAND_GENERATION` en preview (la génération y reste bloquée) ;
+   en production elle est autorisée automatiquement (`VERCEL_ENV=production`).
+2. **Resend** : créer un compte, vérifier le domaine d'envoi, générer une clé API.
+3. **Supabase Auth** : activer *Leaked password protection* (Auth → Policies) ;
+   vérifier les *Redirect URLs* autorisées (dont `/auth/callback`,
+   `/reset-password`). Configurer l'envoi d'e-mails (SMTP/branding).
+4. **Clé Vault** : `stand_activation_key` est déjà créée. **Ne jamais la
+   supprimer ni la régénérer** (sinon les secrets des présentoirs déjà imprimés
+   deviennent invalides).
+5. **Shopify** : renseigner l'URL réelle de la page produit dans
+   `NEXT_PUBLIC_SHOPIFY_PRODUCT_URL`.
 
-L'app doit joindre `*.supabase.co`. Autoriser ce host dans la **politique réseau de l'environnement**
-(la modif s'applique au **démarrage** d'une session). En dev derrière le proxy : lancer avec
-`NODE_USE_ENV_PROXY=1` (Node ≥ 22.21), sinon le `fetch` natif de Node ignore le proxy.
+## Base de données
 
-## Lancer
+Migrations dans `supabase/migrations/` (versionnées). Nouvelles tables :
+`stand_batches`, `stand_audit`. Colonnes ajoutées : `profiles.role`,
+`organizations.disabled`, `stands.{batch_id,replaced_by,status_note,
+status_changed_at,secret_version}`.
 
-```
-pnpm install
-NODE_USE_ENV_PROXY=1 pnpm dev   # en environnement web derrière proxy
-# ou simplement: pnpm dev       # en local sans proxy
-```
+Rôles admin : `profiles.role` (`user`/`admin`/`super_admin`), `is_admin()` /
+`is_super_admin()` côté serveur. `app_admins` conservé comme **secours**.
 
-## Test end-to-end (activation + suivi)
+## Reste à faire / limites
 
-Présentoirs en base : `demo` (actif → Le Comptoir de Camille), `blank01` (vierge, **sans PIN**).
-Admin : `yoan.oliveira30@gmail.com` (table `app_admins`).
-
-1. `/admin` (connecté en admin) → générer un lot → **noter le code + PIN** (affichés une seule fois).
-2. `/r/<code>` (présentoir vierge) → « Configurer » → nom + lien Google + e-mail + PIN → **présentoir actif**.
-3. Offre 2,99 €/mois → « S'abonner » (simulé) ou « Plus tard ».
-4. `/r/<code>` → page d'avis ; « Laisser un avis » → `/r/<code>/go` (redirige vers le lien du présentoir, trace le clic).
-5. `/login` → **lien magique** avec l'e-mail utilisé → `/dashboard` : `bind_account` rattache le présentoir ;
-   stats déverrouillées si abonné ; par présentoir, s'abonner/se désabonner + modifier le lien.
-
-## Base de données (migrations appliquées)
-
-`reviu_core_schema`, `reviu_demo_seed`, `reviu_public_rpc`, `reviu_claim_stand`, `reviu_stand_generator`,
-`reviu_billing_and_pins` (colonnes `stands.target_url` + `claim_pin_hash`, table `subscriptions`, `set_stand_target`),
-`reviu_admin_subscription_sim` (`admin_set_subscription`, `admin_list_subscriptions`),
-`reviu_self_service_activation` (table `customers`, `organizations.customer_id`, RPC `activate_stand`,
-`self_set_subscription`, `owner_set_subscription`, `bind_account`).
-
-Tables : `organizations`, `establishments`, `stands`, `scans`, `feedback`, `profiles`, `app_admins`,
-`subscriptions`, `customers`.
-
-RPC (toutes `SECURITY DEFINER`, gardées en interne) : `resolve_stand`, `record_scan`, `submit_feedback`,
-`claim_stand`, `generate_stands`, `admin_list_stands`, `is_admin`, `set_stand_target`,
-`admin_set_subscription`, `admin_list_subscriptions`, `activate_stand`, `self_set_subscription`,
-`owner_set_subscription`, `bind_account`.
-
-## Reste à faire
-
-- **Stripe (Phase 2)** : remplacer la simulation d'abonnement par Checkout + webhooks (garde d'entitlement inchangée).
-- Configurer l'envoi d'e-mails Supabase (lien magique / OTP) et les Redirect URLs autorisées (dont `/dashboard`).
-- Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).
-- Nettoyer 2 erreurs lint préexistantes dans `src/app/page.tsx` (`<a>` interne → `<Link>`).
-- Roadmap : multi-plateforme (`target_type` déjà prêt), IA de réponse aux avis, marque blanche.
+- **Stripe** : abonnement encore simulé (boutons S'abonner/Se désabonner).
+- **Google OAuth** : analysé, **reporté** (config Google Cloud à faire).
+- **Notifications e-mail** : couvrent uniquement les retours **Reviu**
+  (`feedback`). Les avis **Google** ne sont pas détectés (aucune intégration
+  Google Business Profile) et ne sont pas simulés.
+- Suppression de compte admin : retire les données métier + retire les
+  présentoirs (jamais recyclés) ; l'utilisateur `auth.users` n'est pas supprimé
+  (nécessite l'API admin auth).
