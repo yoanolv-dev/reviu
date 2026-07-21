@@ -15,6 +15,9 @@ export async function signInAction(
   const supabase = await createSupabaseServer();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: "E-mail ou mot de passe incorrect." };
+  // Rattache les présentoirs activés en self-service, une seule fois à la
+  // connexion (idempotent), plutôt qu'à chaque chargement du dashboard.
+  await supabase.rpc("bind_account");
   redirect("/dashboard");
 }
 
@@ -78,4 +81,57 @@ export async function signOutAction() {
   const supabase = await createSupabaseServer();
   await supabase.auth.signOut();
   redirect("/login");
+}
+
+/**
+ * Envoi du lien de réinitialisation. Message toujours neutre : on ne révèle
+ * jamais si l'adresse existe ou non (anti-énumération de comptes).
+ */
+export async function sendPasswordResetAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = String(formData.get("email") ?? "").trim();
+  const neutral: FormState = {
+    info: "Si un compte existe pour cette adresse, un e-mail de réinitialisation vient d'être envoyé.",
+  };
+  if (!email) return { error: "Renseignez votre e-mail." };
+  const supabase = await createSupabaseServer();
+  const h = await headers();
+  const origin = h.get("origin") ?? APP_BASE;
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/reset-password`,
+  });
+  // On ignore volontairement l'erreur éventuelle pour ne rien divulguer.
+  return neutral;
+}
+
+/**
+ * Définition du nouveau mot de passe (session de récupération active).
+ */
+export async function updatePasswordAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  if (password.length < 8) {
+    return { error: "Le mot de passe doit faire au moins 8 caractères." };
+  }
+  if (password !== confirm) {
+    return { error: "Les deux mots de passe ne correspondent pas." };
+  }
+  const supabase = await createSupabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return {
+      error:
+        "Lien de réinitialisation invalide ou expiré. Redemandez-en un depuis « Mot de passe oublié ».",
+    };
+  }
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { error: "Mise à jour impossible. Réessayez." };
+  redirect("/dashboard");
 }

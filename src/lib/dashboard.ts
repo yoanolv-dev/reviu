@@ -53,9 +53,9 @@ export async function getCurrentUser() {
 
 export async function getMyContext(): Promise<DashContext | null> {
   const supabase = await createSupabaseServer();
-  // Auto-liaison au retour : rattache les présentoirs activés en self-service
-  // (org sans owner) au compte qui vient de se connecter (par e-mail). Idempotent.
-  await supabase.rpc("bind_account");
+  // bind_account() (rattachement des présentoirs self-service au compte) n'est
+  // plus appelé ici : il l'est une seule fois à la connexion, pas à chaque
+  // chargement de page (c'était une écriture répétée inutile).
   const { data: org } = await supabase
     .from("organizations")
     .select("id,name")
@@ -79,18 +79,12 @@ export async function getMyContext(): Promise<DashContext | null> {
 
 export async function getStats() {
   const supabase = await createSupabaseServer();
-  const [views, clicks] = await Promise.all([
-    supabase
-      .from("scans")
-      .select("*", { count: "exact", head: true })
-      .eq("kind", "view"),
-    supabase
-      .from("scans")
-      .select("*", { count: "exact", head: true })
-      .eq("kind", "click"),
-  ]);
-  const v = views.count ?? 0;
-  const c = clicks.count ?? 0;
+  // Un seul aller-retour, agrégé côté SQL (au lieu de 2 requêtes count).
+  const { data } = await supabase
+    .rpc("my_stats")
+    .maybeSingle<{ views: number; clicks: number }>();
+  const v = Number(data?.views ?? 0);
+  const c = Number(data?.clicks ?? 0);
   return { views: v, clicks: c, conversion: v > 0 ? Math.round((c / v) * 100) : 0 };
 }
 
@@ -105,10 +99,11 @@ export async function getStands(): Promise<StandRow[]> {
 
 export async function getScanCounts(): Promise<Record<string, number>> {
   const supabase = await createSupabaseServer();
-  const { data } = await supabase.from("scans").select("stand_id").eq("kind", "view");
+  // Agrégation SQL (GROUP BY) au lieu de rapatrier toutes les lignes de scans.
+  const { data } = await supabase.rpc("my_scan_counts");
   const counts: Record<string, number> = {};
-  for (const row of (data ?? []) as { stand_id: string }[]) {
-    counts[row.stand_id] = (counts[row.stand_id] ?? 0) + 1;
+  for (const row of (data ?? []) as { stand_id: string; views: number }[]) {
+    counts[row.stand_id] = Number(row.views);
   }
   return counts;
 }

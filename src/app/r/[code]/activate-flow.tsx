@@ -88,13 +88,14 @@ export function ActivateFlow({ code }: { code: string }) {
             hint="Pour retrouver votre présentoir et le gérer plus tard."
           />
           <Field
-            label="Code d'activation (PIN)"
+            label="Secret d'activation"
             name="pin"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            placeholder="ABC123"
+            placeholder="ABCD1234"
+            autoCapitalize="characters"
             className="font-mono uppercase tracking-wider"
-            hint="Il figure sous le présentoir."
+            hint="Imprimé sous votre présentoir — il ne figure pas dans le QR code."
           />
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={pending} className={primaryBtn}>

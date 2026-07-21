@@ -60,16 +60,17 @@ export async function recordEvent(
   });
 }
 
-/** Enregistre un retour privé (canal conforme). */
+/** Enregistre un retour privé (canal conforme). Renvoie l'id créé (ou null). */
 export async function submitFeedback(
   code: string,
   rating: number,
   message: string,
-): Promise<void> {
+): Promise<string | null> {
   const supabase = createPublicClient();
-  await supabase.rpc("submit_feedback", {
+  const { data } = await supabase.rpc("submit_feedback", {
     p_code: code,
     p_rating: rating,
     p_message: message,
   });
+  return (data as string | null) ?? null;
 }

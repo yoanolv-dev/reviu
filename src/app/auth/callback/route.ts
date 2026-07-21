@@ -17,6 +17,8 @@ export async function GET(req: NextRequest) {
     const supabase = await createSupabaseServer();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // Rattachement self-service, une seule fois au retour du lien.
+      await supabase.rpc("bind_account");
       // Derrière un proxy (Vercel), privilégier l'hôte transmis.
       const forwardedHost = req.headers.get("x-forwarded-host");
       const isLocal = process.env.NODE_ENV === "development";
