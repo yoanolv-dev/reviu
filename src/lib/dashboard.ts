@@ -23,6 +23,7 @@ export interface StandRow {
   label: string | null;
   created_at: string;
   activated_at: string | null;
+  target_url: string | null;
 }
 
 export interface FeedbackRow {
@@ -48,6 +49,9 @@ export async function getCurrentUser() {
 
 export async function getMyContext(): Promise<DashContext | null> {
   const supabase = await createSupabaseServer();
+  // Auto-liaison au retour : rattache les présentoirs activés en self-service
+  // (org sans owner) au compte qui vient de se connecter (par e-mail). Idempotent.
+  await supabase.rpc("bind_account");
   const { data: org } = await supabase
     .from("organizations")
     .select("id,name")
@@ -103,6 +107,24 @@ export async function getScanCounts(): Promise<Record<string, number>> {
     counts[row.stand_id] = (counts[row.stand_id] ?? 0) + 1;
   }
   return counts;
+}
+
+/** Statut d'abonnement par présentoir (stand_id → status). RLS : présentoirs du compte. */
+export async function getSubscriptions(): Promise<Record<string, string>> {
+  const supabase = await createSupabaseServer();
+  const { data } = await supabase
+    .from("subscriptions")
+    .select("stand_id,status");
+  const map: Record<string, string> = {};
+  for (const row of (data ?? []) as { stand_id: string; status: string }[]) {
+    map[row.stand_id] = row.status;
+  }
+  return map;
+}
+
+/** Un présentoir est « suivi » si son abonnement est actif (ou en essai). */
+export function isTracked(status: string | undefined): boolean {
+  return status === "active" || status === "trialing";
 }
 
 export async function getFeedback(

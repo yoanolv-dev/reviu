@@ -16,5 +16,7 @@ export interface Stand {
   code: string;
   status: StandStatus;
   targetType: TargetType;
+  /** Lien effectif du présentoir (override propre, sinon lien d'avis de l'établissement). */
+  targetUrl: string | null;
   establishment: Establishment | null;
 }

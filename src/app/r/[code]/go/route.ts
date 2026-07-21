@@ -23,7 +23,7 @@ export async function GET(
     channel,
     userAgent: req.headers.get("user-agent"),
   });
-  return NextResponse.redirect(stand.establishment.googleReviewUrl, {
-    status: 302,
-  });
+  // Lien effectif du présentoir : override propre s'il existe, sinon avis Google.
+  const target = stand.targetUrl ?? stand.establishment.googleReviewUrl;
+  return NextResponse.redirect(target, { status: 302 });
 }

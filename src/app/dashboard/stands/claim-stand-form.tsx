@@ -19,6 +19,11 @@ export function ClaimStandForm({
           placeholder="Code du présentoir"
           className="h-11 flex-1 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm text-ink outline-none transition-colors placeholder:font-sans placeholder:text-muted focus:border-brand"
         />
+        <input
+          name="pin"
+          placeholder="PIN"
+          className="h-11 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm uppercase tracking-wider text-ink outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-muted focus:border-brand sm:w-28"
+        />
         <button
           type="submit"
           disabled={pending}
@@ -27,6 +32,9 @@ export function ClaimStandForm({
           {pending ? "…" : "Rattacher"}
         </button>
       </div>
+      <p className="text-xs text-muted">
+        Le code et le PIN figurent sous le présentoir.
+      </p>
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state?.success && (
         <p className="text-sm text-emerald-600">

@@ -4,7 +4,7 @@ import { getStandByCode, recordEvent } from "@/lib/data";
 import { StarMark } from "@/components/ui/logo";
 import { Stars } from "@/components/ui/stars";
 import { ScreenShell, Avatar, PoweredBy } from "@/components/site/screen";
-import { APP_BASE } from "@/lib/brand";
+import { ActivateFlow } from "./activate-flow";
 
 export default async function RedirectPage({
   params,
@@ -19,7 +19,12 @@ export default async function RedirectPage({
 
   if (!stand) return <NotFoundView code={code} />;
   if (stand.status !== "active" || !stand.establishment) {
-    return <ActivationView code={code} />;
+    return (
+      <ScreenShell>
+        <ActivateFlow code={code} />
+        <PoweredBy />
+      </ScreenShell>
+    );
   }
 
   const est = stand.establishment;
@@ -62,40 +67,6 @@ export default async function RedirectPage({
             J&apos;ai rencontré un souci
           </Link>
         )}
-      </div>
-      <PoweredBy />
-    </ScreenShell>
-  );
-}
-
-function ActivationView({ code }: { code: string }) {
-  return (
-    <ScreenShell>
-      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-8 text-center shadow-sm">
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand">
-          <StarMark className="h-6 w-6" />
-        </div>
-        <h1 className="mt-5 font-display text-xl font-semibold text-ink">
-          Présentoir prêt à être activé
-        </h1>
-        <p className="mt-2 text-sm text-muted">
-          Ce présentoir n&apos;est pas encore relié à un établissement.
-        </p>
-        <div className="mt-5 rounded-xl border border-line bg-canvas px-4 py-3">
-          <p className="text-xs text-muted">Code du présentoir</p>
-          <p className="mt-0.5 font-mono text-lg font-medium tracking-wider text-ink">
-            {code}
-          </p>
-        </div>
-        <a
-          href={APP_BASE}
-          className="mt-6 flex h-12 w-full items-center justify-center rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong"
-        >
-          Activer sur reviu
-        </a>
-        <p className="mt-3 text-xs text-muted">
-          Vous êtes le commerçant ? Connectez-vous pour l&apos;activer.
-        </p>
       </div>
       <PoweredBy />
     </ScreenShell>

@@ -79,22 +79,82 @@ export async function claimStandAction(
 ): Promise<FormState> {
   const supabase = await createSupabaseServer();
   const code = String(formData.get("code") ?? "").trim();
+  const pin = String(formData.get("pin") ?? "").trim();
   const estId = String(formData.get("establishment_id") ?? "");
   if (!code) return { error: "Entrez le code du présentoir." };
 
   const { error } = await supabase.rpc("claim_stand", {
     p_code: code,
     p_establishment_id: estId,
+    p_pin: pin || null,
   });
   if (error) {
     const map: Record<string, string> = {
       establishment_not_owned: "Établissement introuvable.",
       stand_not_found: "Aucun présentoir avec ce code.",
       stand_already_assigned: "Ce présentoir est déjà rattaché à un compte.",
+      invalid_pin: "Code PIN d'activation incorrect (il figure sous le présentoir).",
     };
     const known = Object.keys(map).find((k) => error.message.includes(k));
     return { error: known ? map[known] : "Impossible de rattacher ce présentoir." };
   }
   revalidatePath("/dashboard/stands");
   return { success: true };
+}
+
+/** Abonnement simulé piloté depuis le dashboard (gardé par la propriété du compte). */
+export async function ownerSetSubscriptionAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const supabase = await createSupabaseServer();
+  const standId = String(formData.get("stand_id") ?? "");
+  const action = String(formData.get("action") ?? "");
+  if (action !== "subscribe" && action !== "cancel") {
+    return { error: "Action invalide." };
+  }
+  const { error } = await supabase.rpc("owner_set_subscription", {
+    p_stand_id: standId,
+    p_action: action,
+  });
+  if (error) {
+    if (error.message.includes("stand_not_owned")) {
+      return { error: "Présentoir introuvable sur votre compte." };
+    }
+    return { error: "Opération impossible. Réessayez." };
+  }
+  revalidatePath("/dashboard/stands");
+  revalidatePath("/dashboard");
+  return {
+    success: true,
+    info: action === "subscribe" ? "Suivi activé." : "Abonnement résilié.",
+  };
+}
+
+/** Modifie le lien d'un présentoir (réservé aux présentoirs suivis). */
+export async function setStandTargetAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const supabase = await createSupabaseServer();
+  const standId = String(formData.get("stand_id") ?? "");
+  const url = String(formData.get("target_url") ?? "").trim();
+  const { error } = await supabase.rpc("set_stand_target", {
+    p_stand_id: standId,
+    p_url: url,
+  });
+  if (error) {
+    if (error.message.includes("subscription_required")) {
+      return {
+        error:
+          "Abonnez-vous à ce présentoir pour modifier son lien en illimité.",
+      };
+    }
+    if (error.message.includes("stand_not_owned")) {
+      return { error: "Présentoir introuvable sur votre compte." };
+    }
+    return { error: "Modification impossible. Réessayez." };
+  }
+  revalidatePath("/dashboard/stands");
+  return { success: true, info: "Lien mis à jour." };
 }

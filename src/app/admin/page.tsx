@@ -35,7 +35,8 @@ export default async function AdminPage() {
           Générer un lot
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Chaque présentoir reçoit un code à 7 caractères non devinable.
+          Chaque présentoir reçoit un code à 7 caractères non devinable et un PIN
+          d&apos;activation (affiché une seule fois — non re-consultable ensuite).
         </p>
         <div className="mt-4">
           <GenerateForm />
