@@ -5,7 +5,12 @@ import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = { title: "Connexion — reviu" };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   return (
     <AuthShell
       title="Bon retour"
@@ -19,6 +24,12 @@ export default function LoginPage() {
         </>
       }
     >
+      {error === "auth" && (
+        <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          Lien de connexion invalide ou expiré. Renvoyez-vous en un nouveau
+          ci-dessous.
+        </p>
+      )}
       <LoginForm />
     </AuthShell>
   );

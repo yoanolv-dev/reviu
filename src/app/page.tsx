@@ -99,9 +99,14 @@ export default function Home() {
                 <ButtonLink href="#commander" size="lg">
                   Commander mes présentoirs
                 </ButtonLink>
-                <a href="/r/demo" className={buttonClass("secondary", "lg")}>
+                <ButtonLink
+                  href="/r/demo"
+                  variant="secondary"
+                  size="lg"
+                  prefetch={false}
+                >
                   Voir la démo
-                </a>
+                </ButtonLink>
               </div>
               <div className="mt-8 flex items-center gap-3">
                 <Stars size={16} />
@@ -222,7 +227,7 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <a
-                  href="#"
+                  href="#commander"
                   className={buttonClass(
                     "secondary",
                     "lg",
@@ -231,12 +236,15 @@ export default function Home() {
                 >
                   Commander mes présentoirs
                 </a>
-                <a
+                <ButtonLink
                   href="/r/demo"
-                  className={buttonClass("ghost", "lg", "!text-white hover:bg-white/10")}
+                  variant="ghost"
+                  size="lg"
+                  prefetch={false}
+                  className="!text-white hover:bg-white/10"
                 >
                   Voir la démo
-                </a>
+                </ButtonLink>
               </div>
             </div>
           </Container>

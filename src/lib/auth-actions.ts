@@ -59,7 +59,7 @@ export async function sendMagicLinkAction(
   const origin = h.get("origin") ?? APP_BASE;
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${origin}/dashboard` },
+    options: { emailRedirectTo: `${origin}/auth/callback?next=/dashboard` },
   });
   if (error) return { error: "Envoi impossible. Réessayez dans un instant." };
   return {
