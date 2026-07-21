@@ -18,7 +18,7 @@ export function AuthShell({
         <Link href="/" className="mb-8 flex justify-center">
           <Logo />
         </Link>
-        <div className="rounded-3xl border border-line bg-surface p-8 shadow-sm">
+        <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8">
           <h1 className="font-display text-xl font-semibold text-ink">{title}</h1>
           {subtitle && <p className="mt-1.5 text-sm text-muted">{subtitle}</p>}
           <div className="mt-6">{children}</div>
