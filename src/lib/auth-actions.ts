@@ -29,15 +29,22 @@ export async function signUpAction(
     return { error: "Le mot de passe doit faire au moins 8 caractères." };
   }
   const supabase = await createSupabaseServer();
+  const h = await headers();
+  const origin = h.get("origin") ?? APP_BASE;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } },
+    options: {
+      data: { full_name: fullName },
+      // Le lien de confirmation passe par /auth/callback : l'utilisateur est
+      // connecté directement après avoir confirmé son e-mail.
+      emailRedirectTo: `${origin}/auth/callback?next=/dashboard`,
+    },
   });
   if (error) return { error: error.message };
   if (!data.session) {
     return {
-      info: "Compte créé. Vérifiez votre e-mail pour confirmer, puis connectez-vous.",
+      info: "Compte créé. Vérifiez votre e-mail pour confirmer votre inscription.",
     };
   }
   redirect("/dashboard");
