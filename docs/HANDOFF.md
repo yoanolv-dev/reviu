@@ -71,9 +71,16 @@ RPC : `resolve_stand`, `record_scan`, `submit_feedback`, `claim_stand`, `generat
 - Rattachement dashboard : champ PIN. Redirection `/r/[code]/go` basée sur `target_url` (repli avis Google).
 - Aucune migration : le schéma `reviu_billing_and_pins` (PIN, `target_url`, `subscriptions`) préexistait.
 
+## Fait — Phase 1 (gating abonnement)
+
+- Entitlement = abonnement `active`/`trialing` **par présentoir** (miroir de la garde SQL `set_stand_target`).
+- `/dashboard` : stats verrouillées (placeholder + message) si aucun présentoir abonné ; sinon stats sur les stands abonnés.
+- `/dashboard/stands` : badge Abonné/Gratuit par présentoir, compteur de scans réservé aux abonnés.
+- `/admin` : colonne Abonnement + bascule de simulation (RPC `admin_set_subscription`, admin only) — remplacée par Stripe en Phase 2.
+- Migration `reviu_admin_subscription_sim` : `admin_set_subscription`, `admin_list_subscriptions`.
+
 ## Reste à faire
 
-- **Phase 1** : gating abonnement (stats + édition dynamique réservées aux abonnés actifs).
 - **Phase 2** : Stripe (checkout + webhook → `subscriptions`) — simulé pour l'instant.
 - **Phase 3** : édition à distance de `target_url` (dashboard, abonnés).
 - Déploiement Vercel + domaines (`reviu.fr`, `app.reviu.fr`, `r.reviu.fr`).

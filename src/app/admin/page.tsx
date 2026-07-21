@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { listAllStands } from "@/lib/admin";
+import { listAllStands, listSubscriptions } from "@/lib/admin";
 import { standUrl } from "@/lib/qr";
 import { StatCard, StatusBadge } from "@/components/dashboard/ui";
 import { GenerateForm } from "./generate-form";
+import { SubscriptionToggle } from "./subscription-toggle";
 
 export default async function AdminPage() {
-  const stands = await listAllStands(300);
+  const [stands, subs] = await Promise.all([
+    listAllStands(300),
+    listSubscriptions(),
+  ]);
   const blank = stands.filter((s) => s.status === "blank").length;
   const active = stands.filter((s) => s.status === "active").length;
 
@@ -75,6 +79,7 @@ export default async function AdminPage() {
                   <th className="px-4 py-3 font-medium">QR</th>
                   <th className="px-4 py-3 font-medium">Code</th>
                   <th className="px-4 py-3 font-medium">Statut</th>
+                  <th className="px-4 py-3 font-medium">Abonnement</th>
                   <th className="px-4 py-3 font-medium">URL</th>
                   <th className="px-4 py-3 font-medium">SVG</th>
                 </tr>
@@ -95,6 +100,12 @@ export default async function AdminPage() {
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge status={s.status} />
+                    </td>
+                    <td className="px-4 py-3">
+                      <SubscriptionToggle
+                        standId={s.id}
+                        status={subs[s.id] ?? "inactive"}
+                      />
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-muted">
                       {standUrl(s.code).replace(/^https?:\/\//, "")}

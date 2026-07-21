@@ -1,4 +1,5 @@
 import { createSupabaseServer } from "./supabase/server";
+import { isEntitled } from "./subscription";
 
 export interface EstablishmentRow {
   id: string;
@@ -69,21 +70,48 @@ export async function getMyContext(): Promise<DashContext | null> {
   };
 }
 
-export async function getStats() {
+/** Statistiques agrégées, restreintes aux présentoirs passés (abonnés). */
+export async function getStats(standIds: string[]) {
+  if (standIds.length === 0) return { views: 0, clicks: 0, conversion: 0 };
   const supabase = await createSupabaseServer();
   const [views, clicks] = await Promise.all([
     supabase
       .from("scans")
       .select("*", { count: "exact", head: true })
-      .eq("kind", "view"),
+      .eq("kind", "view")
+      .in("stand_id", standIds),
     supabase
       .from("scans")
       .select("*", { count: "exact", head: true })
-      .eq("kind", "click"),
+      .eq("kind", "click")
+      .in("stand_id", standIds),
   ]);
   const v = views.count ?? 0;
   const c = clicks.count ?? 0;
   return { views: v, clicks: c, conversion: v > 0 ? Math.round((c / v) * 100) : 0 };
+}
+
+/** Statut d'abonnement par présentoir (stand_id -> status), limité par RLS au propriétaire. */
+export async function getSubscriptionMap(): Promise<Record<string, string>> {
+  const supabase = await createSupabaseServer();
+  const { data } = await supabase.from("subscriptions").select("stand_id,status");
+  const map: Record<string, string> = {};
+  for (const row of (data ?? []) as { stand_id: string; status: string }[]) {
+    map[row.stand_id] = row.status;
+  }
+  return map;
+}
+
+/** Présentoirs abonnés du compte + drapeau premium global. */
+export async function getEntitlement(): Promise<{
+  subscribedStandIds: string[];
+  hasPremium: boolean;
+}> {
+  const map = await getSubscriptionMap();
+  const subscribedStandIds = Object.keys(map).filter((id) =>
+    isEntitled(map[id]),
+  );
+  return { subscribedStandIds, hasPremium: subscribedStandIds.length > 0 };
 }
 
 export async function getStands(): Promise<StandRow[]> {
