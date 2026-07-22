@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition, type FormEvent } from "react";
-import { activateStand, setSelfSubscription } from "@/lib/activation-actions";
+import { activateStand } from "@/lib/activation-actions";
+import { startSelfCheckout } from "@/lib/stripe-actions";
 import { StarMark } from "@/components/ui/logo";
 import { Field } from "@/components/ui/field";
 import { APP_BASE, REDIRECT_BASE, SUBSCRIPTION } from "@/lib/brand";
@@ -21,7 +22,6 @@ export function ActivateFlow({ code }: { code: string }) {
   const [googleUrl, setGoogleUrl] = useState("");
   const [email, setEmail] = useState("");
   const [pin, setPin] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -38,10 +38,10 @@ export function ActivateFlow({ code }: { code: string }) {
   function subscribe() {
     setError(null);
     startTransition(async () => {
-      const res = await setSelfSubscription({ code, pin, action: "subscribe" });
+      const res = await startSelfCheckout({ code, pin });
       if (res.ok) {
-        setSubscribed(true);
-        setStep("done");
+        // Redirection vers la page de paiement sécurisée Stripe.
+        window.location.href = res.url;
       } else setError(res.error);
     });
   }
@@ -178,9 +178,8 @@ export function ActivateFlow({ code }: { code: string }) {
         Tout est prêt
       </h1>
       <p className="mt-2 text-sm text-muted">
-        {subscribed
-          ? "Votre suivi est actif : retrouvez vos statistiques sur votre compte."
-          : "Votre présentoir redirige déjà vos clients. Vous pourrez activer le suivi à tout moment."}
+        Votre présentoir redirige déjà vos clients. Vous pourrez activer le suivi
+        à tout moment depuis votre compte.
       </p>
       <div className="mt-5 rounded-xl border border-line bg-canvas px-4 py-3">
         <p className="text-xs text-muted">Adresse de votre présentoir</p>

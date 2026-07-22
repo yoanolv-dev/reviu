@@ -12,7 +12,11 @@ import { BuyStandButton, BuyStandCard } from "@/components/dashboard/buy-cta";
 import { ClaimStandForm } from "./claim-stand-form";
 import { StandManage } from "./stand-manage";
 
-export default async function StandsPage() {
+export default async function StandsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sub?: string }>;
+}) {
   const ctx = await getMyContext();
   if (!ctx?.establishment) redirect("/dashboard/onboarding");
   const [stands, counts, subs] = await Promise.all([
@@ -21,9 +25,21 @@ export default async function StandsPage() {
     getSubscriptions(),
   ]);
   const base = REDIRECT_BASE.replace(/^https?:\/\//, "");
+  const { sub } = await searchParams;
 
   return (
     <div className="flex flex-col gap-6">
+      {sub === "success" && (
+        <div className="pop rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+          Paiement confirmé&nbsp;! Votre suivi s&apos;active dans quelques
+          instants — actualisez la page si le statut n&apos;apparaît pas encore.
+        </div>
+      )}
+      {sub === "cancel" && (
+        <div className="rounded-2xl border border-line bg-surface px-4 py-3 text-sm text-muted">
+          Paiement annulé. Vous pouvez réessayer à tout moment.
+        </div>
+      )}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-brand">
