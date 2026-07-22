@@ -1,13 +1,17 @@
 import Link from "next/link";
-import { listAllStands } from "@/lib/admin";
-import { standUrl } from "@/lib/qr";
-import { StatCard, StatusBadge } from "@/components/dashboard/ui";
+import { listAllStands, listBatches } from "@/lib/admin";
+import { standGenerationAllowed } from "@/lib/env";
+import { StatCard } from "@/components/dashboard/ui";
 import { GenerateForm } from "./generate-form";
+import { BatchList } from "./batches";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  const stands = await listAllStands(300);
+  const [stands, batches] = await Promise.all([listAllStands(1000), listBatches()]);
   const blank = stands.filter((s) => s.status === "blank").length;
   const active = stands.filter((s) => s.status === "active").length;
+  const genOn = standGenerationAllowed();
 
   return (
     <div className="flex flex-col gap-8">
@@ -16,44 +20,46 @@ export default async function AdminPage() {
           Admin
         </p>
         <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
-          Générateur de présentoirs
+          Génération des présentoirs
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Créez des lots de codes uniques + QR vectoriels prêts pour votre
-          fournisseur.
+          Lots de codes uniques et permanents + secret d&apos;activation, prêts
+          pour votre fournisseur.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Total présentoirs" value={stands.length} />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+        <StatCard label="Présentoirs" value={stands.length} />
         <StatCard label="Vierges" value={blank} />
         <StatCard label="Actifs" value={active} />
+        <StatCard label="Lots" value={batches.length} />
       </div>
 
-      <section className="rounded-3xl border border-line bg-surface p-6">
+      <section className="rounded-3xl border border-line bg-surface p-5 sm:p-6">
         <h2 className="font-display text-base font-semibold text-ink">
           Générer un lot
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Chaque présentoir reçoit un code à 7 caractères non devinable et un PIN
-          d&apos;activation (affiché une seule fois — non re-consultable ensuite).
+          Chaque présentoir reçoit un code public à 7 caractères, permanent et
+          non modifiable, et un secret d&apos;activation à 8 caractères (à
+          imprimer discrètement, jamais dans le QR/NFC).
         </p>
         <div className="mt-4">
-          <GenerateForm />
+          <GenerateForm enabled={genOn} />
         </div>
       </section>
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-lg font-semibold text-ink">
-            Présentoirs
+            Lots de production
           </h2>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <a
               href="/admin/export"
               className="rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-line-soft"
             >
-              Export CSV fournisseur
+              Export global (.xlsx)
             </a>
             <Link
               href="/admin/print"
@@ -63,58 +69,7 @@ export default async function AdminPage() {
             </Link>
           </div>
         </div>
-
-        {stands.length === 0 ? (
-          <p className="rounded-2xl border border-line bg-surface p-6 text-center text-sm text-muted">
-            Aucun présentoir. Générez un premier lot ci-dessus.
-          </p>
-        ) : (
-          <div className="overflow-x-auto rounded-2xl border border-line">
-            <table className="w-full min-w-[560px] text-sm">
-              <thead className="bg-line-soft text-left text-xs uppercase tracking-wide text-muted">
-                <tr>
-                  <th className="px-4 py-3 font-medium">QR</th>
-                  <th className="px-4 py-3 font-medium">Code</th>
-                  <th className="px-4 py-3 font-medium">Statut</th>
-                  <th className="px-4 py-3 font-medium">URL</th>
-                  <th className="px-4 py-3 font-medium">SVG</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line bg-surface">
-                {stands.map((s) => (
-                  <tr key={s.id}>
-                    <td className="px-4 py-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`/admin/qr/${s.code}`}
-                        alt={`QR ${s.code}`}
-                        className="h-12 w-12"
-                      />
-                    </td>
-                    <td className="px-4 py-3 font-mono font-medium text-ink">
-                      {s.code}
-                    </td>
-                    <td className="px-4 py-3">
-                      <StatusBadge status={s.status} />
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs text-muted">
-                      {standUrl(s.code).replace(/^https?:\/\//, "")}
-                    </td>
-                    <td className="px-4 py-3">
-                      <a
-                        href={`/admin/qr/${s.code}`}
-                        download={`reviu-${s.code}.svg`}
-                        className="text-brand hover:underline"
-                      >
-                        Télécharger
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <BatchList batches={batches} />
       </section>
     </div>
   );

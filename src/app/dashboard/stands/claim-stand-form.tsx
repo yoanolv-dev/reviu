@@ -21,8 +21,9 @@ export function ClaimStandForm({
         />
         <input
           name="pin"
-          placeholder="PIN"
-          className="h-11 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm uppercase tracking-wider text-ink outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-muted focus:border-brand sm:w-28"
+          placeholder="Secret"
+          autoCapitalize="characters"
+          className="h-11 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm uppercase tracking-wider text-ink outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-muted focus:border-brand sm:w-32"
         />
         <button
           type="submit"
@@ -33,7 +34,8 @@ export function ClaimStandForm({
         </button>
       </div>
       <p className="text-xs text-muted">
-        Le code et le PIN figurent sous le présentoir.
+        Le code figure dans le QR&nbsp;; le secret d&apos;activation est imprimé
+        sous le présentoir.
       </p>
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state?.success && (

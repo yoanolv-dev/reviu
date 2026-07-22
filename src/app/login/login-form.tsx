@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { signInAction, sendMagicLinkAction } from "@/lib/auth-actions";
 import { Field } from "@/components/ui/field";
@@ -62,14 +63,22 @@ export function LoginForm() {
           autoComplete="email"
           placeholder="vous@exemple.fr"
         />
-        <Field
-          label="Mot de passe"
-          name="password"
-          type="password"
-          required
-          autoComplete="current-password"
-          placeholder="••••••••"
-        />
+        <div className="flex flex-col gap-1.5">
+          <Field
+            label="Mot de passe"
+            name="password"
+            type="password"
+            required
+            autoComplete="current-password"
+            placeholder="••••••••"
+          />
+          <Link
+            href="/forgot-password"
+            className="self-end text-xs text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
+          >
+            Mot de passe oublié ?
+          </Link>
+        </div>
         {pwState?.error && (
           <p className="text-sm text-red-600">{pwState.error}</p>
         )}

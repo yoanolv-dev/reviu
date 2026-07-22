@@ -51,6 +51,11 @@ const STATUS: Record<string, { label: string; className: string }> = {
   active: { label: "Actif", className: "bg-emerald-50 text-emerald-700" },
   blank: { label: "Vierge", className: "bg-line-soft text-ink-soft" },
   disabled: { label: "Désactivé", className: "bg-amber-50 text-amber-700" },
+  suspended: { label: "Suspendu", className: "bg-amber-50 text-amber-700" },
+  defective: { label: "Défectueux", className: "bg-red-50 text-red-700" },
+  lost: { label: "Perdu", className: "bg-red-50 text-red-700" },
+  replaced: { label: "Remplacé", className: "bg-violet-50 text-violet-700" },
+  retired: { label: "Retiré", className: "bg-line-soft text-muted" },
 };
 
 export function StatusBadge({ status }: { status: string }) {

@@ -16,7 +16,13 @@ export async function proxy(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  return updateSession(req);
+  // Ne rafraîchir la session Supabase (appel réseau à l'auth) que sur les zones
+  // authentifiées. Les pages publiques (landing, login, parcours d'avis) évitent
+  // ainsi un aller-retour réseau à chaque navigation.
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/admin")) {
+    return updateSession(req);
+  }
+  return NextResponse.next({ request: req });
 }
 
 export const config = {

@@ -9,7 +9,7 @@ import { APP_BASE, REDIRECT_BASE, SUBSCRIPTION } from "@/lib/brand";
 type Step = "config" | "offer" | "done";
 
 const card =
-  "w-full max-w-sm rounded-3xl border border-line bg-surface p-8 shadow-sm";
+  "w-full max-w-sm rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8";
 const primaryBtn =
   "flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-50";
 const ghostBtn =
@@ -88,13 +88,14 @@ export function ActivateFlow({ code }: { code: string }) {
             hint="Pour retrouver votre présentoir et le gérer plus tard."
           />
           <Field
-            label="Code d'activation (PIN)"
+            label="Secret d'activation"
             name="pin"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            placeholder="ABC123"
+            placeholder="ABCD1234"
+            autoCapitalize="characters"
             className="font-mono uppercase tracking-wider"
-            hint="Il figure sous le présentoir."
+            hint="Imprimé sous votre présentoir — il ne figure pas dans le QR code."
           />
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={pending} className={primaryBtn}>

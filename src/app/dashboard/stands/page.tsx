@@ -8,6 +8,7 @@ import {
 } from "@/lib/dashboard";
 import { REDIRECT_BASE } from "@/lib/brand";
 import { StatusBadge } from "@/components/dashboard/ui";
+import { BuyStandButton, BuyStandCard } from "@/components/dashboard/buy-cta";
 import { ClaimStandForm } from "./claim-stand-form";
 import { StandManage } from "./stand-manage";
 
@@ -23,17 +24,20 @@ export default async function StandsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">
-          Présentoirs
-        </p>
-        <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
-          Vos présentoirs
-        </h1>
-        <p className="mt-2 text-sm text-muted">
-          Rattachez un présentoir reçu en saisissant son code, puis abonnez-vous
-          pour suivre ses scans et modifier ses liens.
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-brand">
+            Présentoirs
+          </p>
+          <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
+            Vos présentoirs
+          </h1>
+          <p className="mt-2 text-sm text-muted">
+            Rattachez un présentoir reçu en saisissant son code, puis
+            abonnez-vous pour suivre ses scans et modifier ses liens.
+          </p>
+        </div>
+        <BuyStandButton className="shrink-0" />
       </div>
 
       <div className="rounded-3xl border border-line bg-surface p-6">
@@ -49,9 +53,7 @@ export default async function StandsPage() {
       </div>
 
       {stands.length === 0 ? (
-        <p className="rounded-2xl border border-line bg-surface p-6 text-center text-sm text-muted">
-          Aucun présentoir rattaché pour l&apos;instant.
-        </p>
+        <BuyStandCard />
       ) : (
         <ul className="flex flex-col gap-3">
           {stands.map((s) => {

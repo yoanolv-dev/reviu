@@ -42,7 +42,7 @@ export default async function RedirectPage({
 
   return (
     <ScreenShell>
-      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-8 text-center shadow-sm">
+      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
         <Avatar name={est.name} logoUrl={est.logoUrl} />
         <h1 className="mt-5 font-display text-xl font-semibold text-ink">
           {est.name}
@@ -76,7 +76,7 @@ export default async function RedirectPage({
 function NotFoundView({ code }: { code: string }) {
   return (
     <ScreenShell>
-      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-8 text-center shadow-sm">
+      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
         <h1 className="font-display text-xl font-semibold text-ink">
           Présentoir introuvable
         </h1>

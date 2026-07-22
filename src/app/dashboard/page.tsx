@@ -9,6 +9,7 @@ import {
 } from "@/lib/dashboard";
 import { SUBSCRIPTION } from "@/lib/brand";
 import { StatCard, FeedbackItem } from "@/components/dashboard/ui";
+import { BuyStandButton } from "@/components/dashboard/buy-cta";
 
 export default async function DashboardHome() {
   const ctx = await getMyContext();
@@ -23,13 +24,16 @@ export default async function DashboardHome() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">
-          Vue d&apos;ensemble
-        </p>
-        <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
-          {est.name}
-        </h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-brand">
+            Vue d&apos;ensemble
+          </p>
+          <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
+            {est.name}
+          </h1>
+        </div>
+        <BuyStandButton className="shrink-0" />
       </div>
 
       {tracked ? (
