@@ -25,18 +25,23 @@ export function StarMark({
   );
 }
 
+/** Doré des étoiles d'avis Google — accent du monogramme. */
+export const REVIEW_GOLD = "#FBBC04";
+
 /**
- * Marque reviu : une bulle d'avis (message) contenant une étoile.
- * Bulle = avis client · étoile = note. Épuré, un seul aplat cobalt.
+ * Marque reviu : monogramme « r » dans un carré arrondi cobalt, ponctué d'une
+ * étincelle au doré des étoiles Google. Le « r » se lit seul (app icon, favicon),
+ * le point rappelle la note d'avis. Un aplat cobalt, un accent doré.
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 28 28" className={className} aria-hidden>
+    <svg viewBox="0 0 48 48" className={className} aria-hidden>
+      <rect x="4" y="4" width="40" height="40" rx="13" fill="var(--color-brand)" />
       <path
-        d="M6.5 2H21.5A4.5 4.5 0 0 1 26 6.5V15.5A4.5 4.5 0 0 1 21.5 20H11L6.5 25V20A4.5 4.5 0 0 1 2 15.5V6.5A4.5 4.5 0 0 1 6.5 2Z"
-        fill="var(--color-brand)"
+        d="M18 35V16.5h5.4v3.1c1.2-2.2 3.3-3.4 6.1-3.4.6 0 1.1.05 1.6.15v5.1c-.7-.2-1.4-.3-2.2-.3-3.3 0-5.5 2-5.5 5.6V35H18Z"
+        fill="#fff"
       />
-      <path transform="translate(4 1.9) scale(0.82)" d={STAR} fill="#fff" />
+      <circle cx="33.5" cy="14.5" r="3.6" fill={REVIEW_GOLD} />
     </svg>
   );
 }
