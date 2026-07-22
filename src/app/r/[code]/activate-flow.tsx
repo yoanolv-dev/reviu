@@ -9,9 +9,9 @@ import { APP_BASE, REDIRECT_BASE, SUBSCRIPTION } from "@/lib/brand";
 type Step = "config" | "offer" | "done";
 
 const card =
-  "w-full max-w-sm rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8";
+  "pop elev w-full max-w-sm rounded-3xl border border-line bg-surface p-6 sm:p-8";
 const primaryBtn =
-  "flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand text-[15px] font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-50";
+  "flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand text-[15px] font-medium text-white shadow-[0_10px_22px_-10px_var(--color-brand)] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-brand-strong hover:shadow-[0_16px_30px_-12px_var(--color-brand)] disabled:opacity-50";
 const ghostBtn =
   "flex h-11 w-full items-center justify-center rounded-full text-sm font-medium text-muted transition-colors hover:bg-line-soft hover:text-ink";
 

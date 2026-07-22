@@ -29,10 +29,10 @@ export default async function AdminPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-        <StatCard label="Présentoirs" value={stands.length} />
-        <StatCard label="Vierges" value={blank} />
-        <StatCard label="Actifs" value={active} />
-        <StatCard label="Lots" value={batches.length} />
+        <StatCard label="Présentoirs" value={stands.length} className="reveal-1" />
+        <StatCard label="Vierges" value={blank} className="reveal-2" />
+        <StatCard label="Actifs" value={active} className="reveal-3" />
+        <StatCard label="Lots" value={batches.length} className="reveal-4" />
       </div>
 
       <section className="rounded-3xl border border-line bg-surface p-5 sm:p-6">

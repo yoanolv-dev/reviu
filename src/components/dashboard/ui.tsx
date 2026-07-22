@@ -5,14 +5,23 @@ import type { FeedbackRow } from "@/lib/dashboard";
 export function StatCard({
   label,
   value,
+  className,
 }: {
   label: string;
   value: string | number;
+  className?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface p-5">
+    <div
+      className={cn(
+        "reveal elev elev-hover rounded-2xl border border-line bg-surface p-5",
+        className,
+      )}
+    >
       <p className="text-sm text-muted">{label}</p>
-      <p className="mt-2 font-display text-3xl font-semibold text-ink">{value}</p>
+      <p className="mt-2 font-display text-3xl font-semibold tabular-nums text-ink">
+        {value}
+      </p>
     </div>
   );
 }
@@ -29,7 +38,7 @@ export function formatDate(iso: string) {
 
 export function FeedbackItem({ f }: { f: FeedbackRow }) {
   return (
-    <li className="rounded-2xl border border-line bg-surface p-5">
+    <li className="reveal elev elev-hover rounded-2xl border border-line bg-surface p-5">
       <div className="flex items-center justify-between gap-3">
         {f.rating ? (
           <Stars count={f.rating} size={15} />
