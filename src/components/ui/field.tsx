@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const inputBase =
-  "w-full rounded-xl border border-line bg-surface px-3.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand";
+  "w-full rounded-xl border border-line bg-surface px-3.5 text-sm text-ink outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-muted focus:border-brand focus:shadow-[0_0_0_3px_var(--color-brand-soft)]";
 
 export function Field({
   label,

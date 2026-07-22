@@ -74,7 +74,7 @@ export function BatchList({ batches }: { batches: BatchRow[] }) {
         return (
           <li
             key={b.id}
-            className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
+            className="reveal elev elev-hover flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">

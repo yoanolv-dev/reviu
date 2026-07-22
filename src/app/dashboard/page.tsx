@@ -38,9 +38,9 @@ export default async function DashboardHome() {
 
       {tracked ? (
         <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard label="Scans" value={stats.views} />
-          <StatCard label="Clics vers Google" value={stats.clicks} />
-          <StatCard label="Taux de conversion" value={`${stats.conversion}%`} />
+          <StatCard label="Scans" value={stats.views} className="reveal-1" />
+          <StatCard label="Clics vers Google" value={stats.clicks} className="reveal-2" />
+          <StatCard label="Taux de conversion" value={`${stats.conversion}%`} className="reveal-3" />
         </div>
       ) : (
         <div className="rounded-3xl border border-line bg-surface p-6">

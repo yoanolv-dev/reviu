@@ -12,7 +12,7 @@ export function Stars({
 }) {
   return (
     <span
-      className={cn("inline-flex items-center gap-0.5 text-star", className)}
+      className={cn("inline-flex items-center gap-0.5 text-accent", className)}
       role="img"
       aria-label={`${count} étoiles sur 5`}
     >
