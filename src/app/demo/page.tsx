@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Stars } from "@/components/ui/stars";
 import { Logo } from "@/components/ui/logo";
+import { ProductPhoto } from "@/components/site/product-photo";
 import { buttonClass } from "@/components/ui/button";
 import { qrSvg } from "@/lib/qr";
 import {
@@ -13,7 +14,7 @@ import {
   SUBSCRIPTION,
   CONTACT_EMAIL,
   STAND_PRICE,
-  SHOPIFY_PRODUCT_URL,
+  BOUTIQUE_URL,
 } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -204,6 +205,11 @@ export default async function DemoPage() {
         <section className="border-t border-line">
           <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="justify-self-center" style={{ width: 260 }}>
+              <ProductPhoto
+                src="/products/presentoir-angle.png"
+                alt="Présentoir reviu NFC + QR pour avis Google"
+                className="mb-6 aspect-square w-full shadow-[0_24px_50px_-30px_rgba(20,30,70,0.55)]"
+              />
               <div className="rounded-[20px] border border-line bg-surface p-6 text-center shadow-[0_16px_40px_-28px_rgba(20,30,70,0.5)]">
                 <div
                   className="mx-auto h-[150px] w-[150px] rounded-xl bg-white p-2 shadow-[0_0_0_1px_var(--color-line)] [&_svg]:h-full [&_svg]:w-full"
@@ -493,9 +499,7 @@ export default async function DemoPage() {
                 évolue vers un vrai hub de réputation.
               </p>
               <a
-                href={SHOPIFY_PRODUCT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={BOUTIQUE_URL}
                 className="mt-4 inline-block font-mono text-sm text-brand hover:underline"
               >
                 Commander un présentoir ({STAND_PRICE}) →

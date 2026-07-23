@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { getStripe, STRIPE_PRICE_ID } from "./stripe";
 import { createSupabaseServer } from "./supabase/server";
 import { createSupabaseAdmin } from "./supabase/admin";
-import { APP_BASE } from "./brand";
+import { APP_BASE, SITE_URL } from "./brand";
+import { getProduct, requiresShipping, SHIPPING_COUNTRIES } from "./shop";
 import type { FormState } from "./form";
 
 /**
@@ -91,6 +92,76 @@ export async function openBillingPortalAction(
     customer: sub.stripe_customer_id,
     return_url: `${APP_BASE}/dashboard/stands`,
   });
+  redirect(session.url);
+}
+
+// --- Boutique : achat unique (présentoir, formation, packs revendeurs) ------
+/**
+ * Ouvre une session Stripe Checkout en paiement unique pour un produit de la
+ * boutique. Le montant est construit à partir du catalogue (`price_data` en
+ * ligne) : la source de vérité des prix reste `src/lib/shop.ts`, aucun produit
+ * Stripe à créer à la main. Le webhook enregistre la commande (mail de
+ * confirmation + accès formation) une fois le paiement confirmé.
+ */
+export async function startShopCheckout(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const stripe = getStripe();
+  if (!stripe) {
+    return { error: "Le paiement n'est pas disponible pour le moment." };
+  }
+  const product = getProduct(String(formData.get("product") ?? ""));
+  if (!product) return { error: "Produit introuvable." };
+
+  const qtyRaw = Number(formData.get("quantity") ?? 1);
+  const quantity =
+    product.adjustableQuantity && Number.isFinite(qtyRaw)
+      ? Math.min(Math.max(Math.trunc(qtyRaw), 1), 50)
+      : 1;
+
+  const ship = requiresShipping(product);
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: [
+      {
+        quantity,
+        ...(product.adjustableQuantity
+          ? { adjustable_quantity: { enabled: true, minimum: 1, maximum: 50 } }
+          : {}),
+        price_data: {
+          currency: "eur",
+          unit_amount: product.priceCents,
+          product_data: {
+            name: product.name,
+            description: product.tagline,
+          },
+        },
+      },
+    ],
+    customer_creation: "always",
+    billing_address_collection: "auto",
+    invoice_creation: { enabled: true },
+    allow_promotion_codes: true,
+    ...(ship
+      ? {
+          shipping_address_collection: {
+            allowed_countries: [...SHIPPING_COUNTRIES],
+          },
+        }
+      : {}),
+    metadata: {
+      shop_product: product.id,
+      product_name: product.name,
+      grants_formation: product.grantsFormation ? "1" : "0",
+      stands_included: String(product.standsIncluded),
+    },
+    success_url: `${SITE_URL}/boutique/merci?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}/boutique?checkout=cancel`,
+  });
+
+  if (!session.url) return { error: "Impossible de démarrer le paiement." };
   redirect(session.url);
 }
 

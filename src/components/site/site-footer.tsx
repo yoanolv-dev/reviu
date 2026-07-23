@@ -13,6 +13,7 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
     title: "Produit",
     links: [
       { label: "Fonctionnement", href: "/home#fonctionnement" },
+      { label: "Boutique", href: "/boutique" },
       { label: "Démo", href: "/demo" },
       { label: "Tarifs", href: "/demo#tarifs" },
       { label: "Google Business Profile", href: "/google-business-profile" },

@@ -1,0 +1,179 @@
+import crypto from "node:crypto";
+import { SITE_URL } from "./brand";
+
+/**
+ * Catalogue de la boutique reviu (vente en ligne, paiement unique via Stripe).
+ *
+ * ── Où changer les prix ? ─────────────────────────────────────────────────
+ * Ici, dans `CATALOG` (champ `priceCents`, en centimes d'euro). Chaque prix
+ * peut aussi être surchargé par variable d'environnement (voir `SHOP_PRICE_*`)
+ * sans toucher au code. C'est la SEULE source de vérité des tarifs boutique :
+ * le montant réellement facturé par Stripe est construit à partir d'ici
+ * (`price_data` en ligne), donc pas de produit Stripe à créer à la main.
+ *
+ * Les abonnements de suivi (2,99 €/mois par présentoir) restent gérés à part,
+ * dans le dashboard et le parcours de scan (`stripe-actions.ts`).
+ */
+
+/** Type de produit → conditionne livraison, TVA, et accès formation. */
+export type ShopProductKind = "physical" | "digital" | "bundle";
+
+export type ShopProduct = {
+  /** Identifiant stable (voyage dans les métadonnées Stripe). */
+  id: "stand" | "formation" | "pack10" | "pack20";
+  name: string;
+  /** Accroche courte (affichée sous le titre + envoyée à Stripe). */
+  tagline: string;
+  priceCents: number;
+  /** `physical` = livré · `digital` = accès en ligne · `bundle` = les deux. */
+  kind: ShopProductKind;
+  /** Débloque l'accès à la formation en ligne après paiement. */
+  grantsFormation: boolean;
+  /** Nombre de présentoirs inclus (0 pour la formation seule). */
+  standsIncluded: number;
+  /** Autoriser le client à ajuster la quantité au checkout. */
+  adjustableQuantity: boolean;
+  /** Points de valeur affichés sur la carte produit. */
+  features: string[];
+  /** Pastille optionnelle ("Le plus vendu", "Meilleure marge"…). */
+  badge?: string;
+  /** Prix unitaire indicatif par présentoir (packs), pour l'argumentaire. */
+  perUnitLabel?: string;
+};
+
+function envCents(key: string, fallback: number): number {
+  const raw = process.env[key];
+  const n = raw ? Number(raw) : NaN;
+  return Number.isFinite(n) && n > 0 ? Math.round(n) : fallback;
+}
+
+export const CATALOG: ShopProduct[] = [
+  {
+    id: "stand",
+    name: "Présentoir NFC + QR",
+    tagline: "Le présentoir connecté, prêt à poser sur le comptoir.",
+    priceCents: envCents("SHOP_PRICE_STAND", 2990),
+    kind: "physical",
+    grantsFormation: false,
+    standsIncluded: 1,
+    adjustableQuantity: true,
+    features: [
+      "NFC + QR déjà encodés, prêts à l'emploi",
+      "Redirection modifiable à distance",
+      "Activation gratuite, abonnement de suivi séparé (2,99 €/mois)",
+    ],
+  },
+  {
+    id: "formation",
+    name: "Formation — Lance ton business d'avis Google",
+    tagline:
+      "La méthode complète pour produire, vendre et déployer des présentoirs d'avis Google.",
+    priceCents: envCents("SHOP_PRICE_FORMATION", 4900),
+    kind: "digital",
+    grantsFormation: true,
+    standsIncluded: 0,
+    adjustableQuantity: false,
+    features: [
+      "Sourcing & production des présentoirs",
+      "Argumentaire, tarifs et prospection locale",
+      "Déploiement avec reviu : abonnements récurrents, pas de vente one-shot",
+      "Accès en ligne immédiat, à vie",
+    ],
+    badge: "100 % en ligne",
+  },
+  {
+    id: "pack10",
+    name: "Pack Revendeur 10",
+    tagline: "Formation + 10 présentoirs pour lancer ton activité dès le jour 1.",
+    priceCents: envCents("SHOP_PRICE_PACK10", 19900),
+    kind: "bundle",
+    grantsFormation: true,
+    standsIncluded: 10,
+    adjustableQuantity: false,
+    features: [
+      "10 présentoirs NFC + QR livrés",
+      "Formation complète incluse",
+      "≈ 19,90 €/présentoir — marge à la revente à 29,90 €",
+      "Chaque présentoir placé = un abonnement 2,99 €/mois",
+    ],
+    badge: "Le plus vendu",
+    perUnitLabel: "≈ 19,90 € / présentoir",
+  },
+  {
+    id: "pack20",
+    name: "Pack Revendeur 20",
+    tagline: "Formation + 20 présentoirs pour passer à l'échelle.",
+    priceCents: envCents("SHOP_PRICE_PACK20", 34900),
+    kind: "bundle",
+    grantsFormation: true,
+    standsIncluded: 20,
+    adjustableQuantity: false,
+    features: [
+      "20 présentoirs NFC + QR livrés",
+      "Formation complète incluse",
+      "≈ 17,45 €/présentoir — meilleure marge du catalogue",
+      "Idéal pour bâtir un portefeuille d'abonnements récurrents",
+    ],
+    badge: "Meilleure marge",
+    perUnitLabel: "≈ 17,45 € / présentoir",
+  },
+];
+
+export function getProduct(id: string): ShopProduct | undefined {
+  return CATALOG.find((p) => p.id === id);
+}
+
+/** Formate des centimes d'euro en libellé français : 2990 → "29,90 €". */
+export function formatEuros(cents: number): string {
+  return (cents / 100).toLocaleString("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+  });
+}
+
+export function requiresShipping(p: ShopProduct): boolean {
+  return p.kind === "physical" || p.kind === "bundle";
+}
+
+/** Pays de livraison autorisés au checkout (France métropolitaine + voisins FR). */
+export const SHIPPING_COUNTRIES = ["FR", "MC", "BE", "LU"] as const;
+
+// ── Accès formation (produit numérique) ────────────────────────────────────
+// L'achat donne accès à une page protégée (`/formation`). Plutôt qu'une table
+// en base, on émet un jeton signé (HMAC) lié à la session de paiement Stripe :
+// impossible à falsifier, vérifiable sans état, valable à vie.
+//
+// Secret dédié `REVIU_SHOP_SECRET` recommandé ; à défaut on réutilise la clé
+// service role (déjà présente en prod) pour fonctionner sans config supplémentaire.
+const GRANT_SECRET =
+  process.env.REVIU_SHOP_SECRET ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
+
+function sign(sessionId: string): string {
+  return crypto
+    .createHmac("sha256", GRANT_SECRET)
+    .update(`formation:${sessionId}`)
+    .digest("base64url");
+}
+
+/** Jeton d'accès formation à partir d'un identifiant de session Stripe payée. */
+export function formationGrantToken(sessionId: string): string {
+  return `${sessionId}.${sign(sessionId)}`;
+}
+
+/** Vérifie un jeton d'accès formation (comparaison à temps constant). */
+export function verifyFormationGrant(token: string | undefined | null): boolean {
+  if (!token || !GRANT_SECRET) return false;
+  const dot = token.lastIndexOf(".");
+  if (dot <= 0) return false;
+  const sessionId = token.slice(0, dot);
+  const provided = token.slice(dot + 1);
+  const expected = sign(sessionId);
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+/** Lien d'accès direct à la formation (mail de confirmation + page merci). */
+export function formationAccessUrl(sessionId: string): string {
+  return `${SITE_URL}/formation?token=${formationGrantToken(sessionId)}`;
+}

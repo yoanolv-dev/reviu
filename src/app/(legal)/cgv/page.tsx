@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P, UL, Fill } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, STAND_PRICE, SUBSCRIPTION } from "@/lib/brand";
+import { formatEuros, getProduct } from "@/lib/shop";
+
+const FORMATION_PRICE = formatEuros(getProduct("formation")!.priceCents);
+const PACK10_PRICE = formatEuros(getProduct("pack10")!.priceCents);
+const PACK20_PRICE = formatEuros(getProduct("pack20")!.priceCents);
 
 export const metadata: Metadata = {
   title: "Conditions générales de vente — reviu",
@@ -25,7 +30,16 @@ export default function CGV() {
       <UL>
         <li>
           <strong>Présentoir NFC + QR</strong> : {STAND_PRICE} l&apos;unité,
-          achat unique.
+          achat unique (produit physique).
+        </li>
+        <li>
+          <strong>Formation en ligne</strong> : {FORMATION_PRICE}, achat unique
+          (contenu numérique, accès en ligne immédiat et à vie).
+        </li>
+        <li>
+          <strong>Pack Revendeur 10</strong> : {PACK10_PRICE} (formation + 10
+          présentoirs) · <strong>Pack Revendeur 20</strong> : {PACK20_PRICE}{" "}
+          (formation + 20 présentoirs).
         </li>
         <li>
           <strong>Abonnement de suivi</strong> : {SUBSCRIPTION.priceLabel}/
@@ -64,12 +78,23 @@ export default function CGV() {
 
       <H2>4. Droit de rétractation</H2>
       <P>
-        Conformément aux articles L221-18 et suivants du Code de la consommation,
-        vous disposez d&apos;un délai de <strong>14 jours</strong> à compter de
-        la réception pour vous rétracter, sans motif. Le présentoir doit être
+        <strong>Produits physiques (présentoirs, packs).</strong> Conformément
+        aux articles L221-18 et suivants du Code de la consommation, vous
+        disposez d&apos;un délai de <strong>14 jours</strong> à compter de la
+        réception pour vous rétracter, sans motif. Le présentoir doit être
         retourné dans son état d&apos;origine ; les frais de retour sont à votre
         charge. Le remboursement intervient sous 14 jours après réception du
         retour.
+      </P>
+      <P>
+        <strong>Contenu numérique (formation).</strong> Conformément à
+        l&apos;article L221-28, 13° du Code de la consommation, en demandant
+        l&apos;accès immédiat à la formation, vous consentez expressément à son
+        exécution avant la fin du délai de rétractation et reconnaissez{" "}
+        <strong>renoncer à votre droit de rétractation</strong> une fois
+        l&apos;accès ouvert. Pour un pack, cette renonciation ne concerne que la
+        partie formation ; les présentoirs restent soumis au droit de
+        rétractation ci-dessus.
       </P>
 
       <H2>5. Garanties</H2>

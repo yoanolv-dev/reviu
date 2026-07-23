@@ -39,14 +39,17 @@ export const CONTACT_EMAIL = "contact@reviu.fr";
 export const ADMIN_NOTIFY_EMAIL = "yoan.oliveira30@gmail.com";
 
 /**
- * Page produit Shopify pour l'achat d'un présentoir. Pilotée par variable
- * d'environnement : modifiable sans toucher au code (voir docs/HANDOFF.md).
+ * Boutique interne (vente des présentoirs, formation et packs revendeurs).
+ * Sert de destination aux boutons « Commander » du site et du dashboard.
+ * Surchargeable par variable d'environnement, mais par défaut = `/boutique`
+ * sur le site vitrine.
  */
-export const SHOPIFY_PRODUCT_URL =
-  process.env.NEXT_PUBLIC_SHOPIFY_PRODUCT_URL ?? "https://reviu.fr/boutique";
+export const BOUTIQUE_URL =
+  process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/boutique`;
 
 export const NAV = [
   { label: "Fonctionnement", href: "/home#fonctionnement" },
   { label: "Avantages", href: "/home#avantages" },
+  { label: "Boutique", href: "/boutique" },
   { label: "Démo", href: "/demo" },
 ] as const;

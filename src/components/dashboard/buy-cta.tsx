@@ -1,10 +1,10 @@
-import { SHOPIFY_PRODUCT_URL } from "@/lib/brand";
+import { BOUTIQUE_URL } from "@/lib/brand";
 
-/** Bouton d'achat d'un présentoir (redirige vers la boutique Shopify). */
+/** Bouton d'achat d'un présentoir (redirige vers la boutique reviu). */
 export function BuyStandButton({ className = "" }: { className?: string }) {
   return (
     <a
-      href={SHOPIFY_PRODUCT_URL}
+      href={BOUTIQUE_URL}
       target="_blank"
       rel="noopener noreferrer"
       className={

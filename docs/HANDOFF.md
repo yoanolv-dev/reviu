@@ -85,7 +85,33 @@ migration nécessaire.
   « paiement indisponible » (le reste marche).
 
 **Tarifs** : présentoir **29,90 €** (achat unique, `STAND_PRICE`) + activation gratuite +
-abonnement **2,99 €/mois** par présentoir. Lien boutique = `NEXT_PUBLIC_SHOPIFY_PRODUCT_URL`.
+abonnement **2,99 €/mois** par présentoir. Les boutons « Commander » pointent vers la
+**boutique interne** `/boutique` (`BOUTIQUE_URL`, plus de dépendance Shopify).
+
+## Boutique e-commerce interne (nouveau)
+
+Vraie boutique servie par la même app, sur `reviu.fr/boutique` (routes non réécrites par
+`proxy.ts`, servies telles quelles). Remplace toute idée de site Shopify externe.
+
+- **Catalogue** — source de vérité unique des prix : `src/lib/shop.ts` (`CATALOG`, montants en
+  centimes, surchargeables par `SHOP_PRICE_*`). 4 produits : `stand` (29,90 €), `formation`
+  (49 €, numérique), `pack10` (199 €) et `pack20` (349 €) = formation + 10/20 présentoirs.
+- **Pages** : `/boutique` (vitrine + cartes produit), `/boutique/merci` (confirmation, vérifie
+  la session Stripe côté serveur), `/formation` (espace formation protégé).
+- **Checkout** : `startShopCheckout` (`src/lib/stripe-actions.ts`) — Stripe Checkout
+  `mode: 'payment'`, `price_data` en ligne (aucun produit Stripe à créer), collecte d'adresse
+  pour le physique, `invoice_creation`, `allow_promotion_codes`. Bouton client : `buy-button.tsx`.
+- **Webhook** (`api/stripe/webhook`) : le cas `checkout.session.completed` branche sur `mode`.
+  `payment` + `shop_product` → `handleShopOrder` : e-mail commerçant (préparation + adresse) +
+  e-mail client (confirmation + accès formation). Le flux abonnement est inchangé.
+- **Accès formation** : produit numérique livré par **page protégée** `/formation?token=…`.
+  Le jeton est un HMAC signé de la session Stripe (`formationGrantToken`), vérifié sans état.
+  Secret : `REVIU_SHOP_SECRET` (à défaut, réutilise `SUPABASE_SERVICE_ROLE_KEY`). Contenu du
+  cours = structure en place dans `formation/page.tsx` (`MODULES`), **à remplir**.
+- **Programme revendeur** = packs remisés (achat groupé) pour cette V1. La **commission
+  récurrente** sur les abonnements (attribution revendeur→présentoir→abo) est une **phase 2**.
+- **Photos produit** : `public/products/{presentoir,presentoir-angle,presentoir-comptoir}.png`
+  (voir `public/products/README.md`). Repli de marque automatique si absentes (`ProductPhoto`).
 
 ## Notifications e-mail
 
@@ -102,7 +128,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
 NEXT_PUBLIC_APP_BASE=https://app.reviu.fr           # http://localhost:3000 en dev
 NEXT_PUBLIC_REDIRECT_BASE=https://r.reviu.fr        # http://localhost:3000 en dev
 NEXT_PUBLIC_SITE_URL=https://reviu.fr               # site vitrine (canonical)
-NEXT_PUBLIC_SHOPIFY_PRODUCT_URL=https://reviu.fr/boutique   # page produit (à définir)
+# NEXT_PUBLIC_BOUTIQUE_URL=https://reviu.fr/boutique  # optionnel (défaut = SITE_URL + /boutique)
 
 # Serveur uniquement (secrets) :
 SUPABASE_SERVICE_ROLE_KEY=...       # webhook Stripe, notifs e-mail, dérivation secret
@@ -111,6 +137,8 @@ REVIU_EMAIL_FROM=reviu <avis@reviu.fr>
 STRIPE_SECRET_KEY=sk_live_...       # ⚠️ jamais dans le code — Vercel uniquement
 STRIPE_PRICE_ID=price_...           # tarif récurrent 2,99 €/mois
 STRIPE_WEBHOOK_SECRET=whsec_...     # créé à l'ajout du endpoint webhook
+# REVIU_SHOP_SECRET=...             # signe les accès formation (défaut : SERVICE_ROLE_KEY)
+# SHOP_PRICE_STAND=2990 SHOP_PRICE_FORMATION=4900 SHOP_PRICE_PACK10=19900 SHOP_PRICE_PACK20=34900
 # REVIU_ALLOW_STAND_GENERATION=true # UNIQUEMENT en local si besoin de générer
 ```
 
@@ -130,7 +158,9 @@ STRIPE_WEBHOOK_SECRET=whsec_...     # créé à l'ajout du endpoint webhook
    (seule la page publique de divulgation existe).
 5. **Supabase Auth** : *Leaked password protection* activé ; Redirect URLs (`/auth/callback`,
    `/reset-password`).
-6. **Shopify** : renseigner `NEXT_PUBLIC_SHOPIFY_PRODUCT_URL` (boutique de vente du présentoir).
+6. **Boutique** : déposer les **photos produit** dans `public/products/` (voir son README) ;
+   remplir le **contenu de la formation** (`src/app/formation/page.tsx`, `MODULES`) ; ajuster les
+   prix si besoin dans `src/lib/shop.ts`. La boutique fonctionne dès que Stripe est configuré (§2).
 7. **Clé Vault** `stand_activation_key` : déjà créée, **ne jamais supprimer/régénérer**.
 
 ## Base de données (objets hors repo)

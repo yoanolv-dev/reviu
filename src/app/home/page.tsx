@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { HeroVisual } from "@/components/site/hero-visual";
+import { ProductPhoto } from "@/components/site/product-photo";
 import { buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
 import { Testimonials } from "@/components/site/testimonials";
@@ -12,7 +13,7 @@ import {
   SITE_URL,
   SUBSCRIPTION,
   STAND_PRICE,
-  SHOPIFY_PRODUCT_URL,
+  BOUTIQUE_URL,
 } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
@@ -246,6 +247,11 @@ export default function HomePage() {
               </ul>
             </div>
             <div className="elev rounded-3xl border border-line bg-canvas p-8">
+              <ProductPhoto
+                src="/products/presentoir.png"
+                alt="Présentoir reviu NFC + QR pour avis Google"
+                className="mb-6 aspect-[16/10] w-full"
+              />
               <div className="flex items-baseline justify-between">
                 <span className="text-sm font-medium text-ink">Présentoir</span>
                 <span className="font-display text-2xl font-semibold text-ink">
@@ -271,9 +277,7 @@ export default function HomePage() {
                 Par présentoir · sans engagement · résiliable à tout moment
               </p>
               <a
-                href={SHOPIFY_PRODUCT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={BOUTIQUE_URL}
                 className={buttonClass("primary", "lg", "mt-6 w-full")}
               >
                 Commander un présentoir
