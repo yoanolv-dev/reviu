@@ -43,6 +43,44 @@ export function EstablishmentForm({ est }: { est: EstablishmentRow }) {
         defaultValue={est.welcome_message ?? ""}
         placeholder="Merci de votre visite !"
       />
+      <fieldset className="flex flex-col gap-2">
+        <legend className="text-sm font-medium text-ink-soft">
+          Comportement au scan
+        </legend>
+        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-line p-3 transition-colors hover:border-brand/40 has-[:checked]:border-brand has-[:checked]:bg-brand-soft">
+          <input
+            type="radio"
+            name="scan_mode"
+            value="direct"
+            defaultChecked={est.scan_mode !== "page"}
+            className="mt-0.5 h-4 w-4 accent-brand"
+          />
+          <span className="text-sm">
+            <span className="font-medium text-ink">Accès direct Google</span>
+            <span className="block text-muted">
+              Un seul scan → la page d&apos;avis Google s&apos;ouvre
+              instantanément. Maximum d&apos;avis.
+            </span>
+          </span>
+        </label>
+        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-line p-3 transition-colors hover:border-brand/40 has-[:checked]:border-brand has-[:checked]:bg-brand-soft">
+          <input
+            type="radio"
+            name="scan_mode"
+            value="page"
+            defaultChecked={est.scan_mode === "page"}
+            className="mt-0.5 h-4 w-4 accent-brand"
+          />
+          <span className="text-sm">
+            <span className="font-medium text-ink">Page reviu</span>
+            <span className="block text-muted">
+              Affiche votre page (message d&apos;accueil + retour privé) avant
+              l&apos;avis Google.
+            </span>
+          </span>
+        </label>
+      </fieldset>
+
       <label className="flex items-center gap-3">
         <input
           type="checkbox"
@@ -51,7 +89,8 @@ export function EstablishmentForm({ est }: { est: EstablishmentRow }) {
           className="h-4 w-4 accent-brand"
         />
         <span className="text-sm text-ink-soft">
-          Proposer un canal de retour privé (conforme)
+          Proposer un canal de retour privé (conforme) — visible en mode « Page
+          reviu »
         </span>
       </label>
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}

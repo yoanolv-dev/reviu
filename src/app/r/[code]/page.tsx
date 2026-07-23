@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getStandByCode, recordEvent } from "@/lib/data";
 import { StarMark } from "@/components/ui/logo";
@@ -32,13 +33,24 @@ export default async function RedirectPage({
   // Canal transmis par l'URL physique, ex. r.reviu.fr/{code}?s=nfc
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
   const h = await headers();
-  void recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
 
   // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
   const onRedirectSub =
     (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
   const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
+
+  // Mode « Accès direct » (défaut) : on enregistre le scan, puis on redirige
+  // immédiatement vers l'avis Google via /go (qui trace le clic). Un seul geste
+  // pour le client, statistiques conservées. On ne bascule que si une cible
+  // existe, sinon on affiche la page reviu.
+  if (est.scanMode === "direct" && stand.targetUrl) {
+    await recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
+    redirect(goHref);
+  }
+
+  // Mode « Page reviu » : page de choix (avis Google + retour privé).
+  void recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
 
   return (
     <ScreenShell>

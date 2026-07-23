@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { SITE_URL } from "@/lib/brand";
 
 const ITEMS = [
   { href: "/dashboard", label: "Vue d'ensemble" },
@@ -35,6 +36,14 @@ export function DashboardNav() {
           </Link>
         );
       })}
+      <a
+        href={SITE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-1 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-line-soft hover:text-ink md:mt-2 md:border-t md:border-line md:pt-3.5"
+      >
+        Site reviu.fr ↗
+      </a>
     </nav>
   );
 }

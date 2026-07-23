@@ -2,8 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy-session";
 
 /**
- * - r.reviu.fr/{code} -> /r/{code} (redirection NFC/QR)
- * - autres hôtes : rafraîchit la session Supabase pour le dashboard
+ * - r.reviu.fr/{code}     -> /r/{code} (redirection NFC/QR)
+ * - reviu.fr (+ www)      -> site vitrine public (landing sur /, pages légales)
+ * - autres hôtes (app)    -> rafraîchit la session Supabase pour le dashboard
  */
 export async function proxy(req: NextRequest) {
   const host = (req.headers.get("host") ?? "").split(":")[0];
@@ -13,6 +14,15 @@ export async function proxy(req: NextRequest) {
   if (sub === "r" && !pathname.startsWith("/r")) {
     const url = req.nextUrl.clone();
     url.pathname = `/r${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  // Domaine vitrine : la racine affiche la landing (les pages légales sont
+  // servies telles quelles). L'app reste sur app.reviu.fr.
+  const isMarketingHost = host === "reviu.fr" || host === "www.reviu.fr";
+  if (isMarketingHost && pathname === "/") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/home";
     return NextResponse.rewrite(url);
   }
 
