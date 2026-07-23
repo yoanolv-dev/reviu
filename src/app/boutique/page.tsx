@@ -4,18 +4,43 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
+import { Testimonials } from "@/components/site/testimonials";
 import { StarMark } from "@/components/ui/logo";
 import { APP_BASE, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
 import { CATALOG, formatEuros, type ShopProduct } from "@/lib/shop";
 import { BuyButton } from "./buy-button";
 
 export const metadata: Metadata = {
-  title: "Boutique — Présentoirs, formation & packs revendeurs | reviu",
+  title: "reviu — Présentoirs NFC + QR pour plus d'avis Google",
   description:
-    "Commandez votre présentoir NFC + QR pour collecter des avis Google, la formation pour lancer votre business, ou un pack revendeur (10 ou 20 présentoirs). Paiement sécurisé, livraison en France.",
-  alternates: { canonical: `${SITE_URL}/boutique` },
+    "Commandez votre présentoir NFC + QR pour collecter des avis Google en un geste, la formation pour lancer votre business, ou un pack revendeur (10 ou 20 présentoirs). Paiement sécurisé, livraison en France.",
+  alternates: { canonical: SITE_URL },
   robots: { index: true, follow: true },
 };
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Recevez votre présentoir",
+    body: "NFC et QR déjà encodés, prêt à poser sur le comptoir. Rien à installer.",
+  },
+  {
+    n: "02",
+    title: "Activez en 2 minutes",
+    body: "Scannez, collez votre lien Google, personnalisez. En ligne immédiatement.",
+  },
+  {
+    n: "03",
+    title: "Les avis affluent",
+    body: "Un geste suffit à vos clients. Vous suivez tout depuis votre tableau de bord.",
+  },
+];
+
+const COMPLIANCE = [
+  "Le bouton « Avis Google » est proposé à tous vos clients, sans distinction.",
+  "En complément, un canal de contact direct permet de joindre l'établissement.",
+  "Aucun tri automatique selon la note : chaque client choisit librement.",
+];
 
 const PHOTO = {
   hero: "/products/presentoir-angle.png",
@@ -77,6 +102,26 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
+        {/* COMMENT ÇA MARCHE */}
+        <section className="border-b border-line bg-surface">
+          <Container className="py-14 sm:py-16">
+            <SectionHead eyebrow="Comment ça marche" title="Trois étapes, zéro friction." />
+            <div className="mt-10 grid gap-8 sm:grid-cols-3">
+              {STEPS.map((s) => (
+                <div key={s.n} className="flex flex-col">
+                  <span className="font-mono text-sm text-brand">{s.n}</span>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-ink">
+                    {s.title}
+                  </h3>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                    {s.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+
         {/* PRODUITS */}
         <section id="produits" className="scroll-mt-24">
           <Container className="py-16 sm:py-20">
@@ -97,6 +142,39 @@ export default function BoutiquePage() {
               ({SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} par présentoir,
               sans engagement) se souscrit ensuite depuis votre espace.
             </p>
+          </Container>
+        </section>
+
+        {/* PREUVE SOCIALE / CAS D'USAGE */}
+        <Testimonials />
+
+        {/* CONFORMITÉ GOOGLE */}
+        <section className="border-t border-line bg-surface">
+          <Container className="grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
+            <div>
+              <SectionHead
+                eyebrow="Conformité"
+                title="Avis public ou retour privé, au choix du client."
+                align="left"
+              />
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
+                reviu invite tous vos clients à laisser un avis Google, quel que
+                soit leur ressenti. Le retour privé est un canal de contact
+                proposé en complément — jamais un moyen d&apos;éviter un avis
+                négatif. Aucun tri automatique selon la note.
+              </p>
+            </div>
+            <ul className="flex flex-col gap-3">
+              {COMPLIANCE.map((c) => (
+                <li
+                  key={c}
+                  className="flex items-start gap-3 rounded-xl border border-line bg-canvas p-4"
+                >
+                  <Check />
+                  <span className="text-[15px] leading-relaxed text-ink">{c}</span>
+                </li>
+              ))}
+            </ul>
           </Container>
         </section>
 

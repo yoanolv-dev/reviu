@@ -17,12 +17,13 @@ export async function proxy(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Domaine vitrine : la racine affiche la landing (les pages légales sont
-  // servies telles quelles). L'app reste sur app.reviu.fr.
+  // Domaine vitrine : la racine affiche la boutique (page d'accueil orientée
+  // commerce). L'ancienne landing explicative reste servie sur /home. Les pages
+  // légales sont servies telles quelles. L'app reste sur app.reviu.fr.
   const isMarketingHost = host === "reviu.fr" || host === "www.reviu.fr";
   if (isMarketingHost && pathname === "/") {
     const url = req.nextUrl.clone();
-    url.pathname = "/home";
+    url.pathname = "/boutique";
     return NextResponse.rewrite(url);
   }
 

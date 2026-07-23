@@ -48,8 +48,7 @@ export const BOUTIQUE_URL =
   process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/boutique`;
 
 export const NAV = [
-  { label: "Fonctionnement", href: "/home#fonctionnement" },
-  { label: "Avantages", href: "/home#avantages" },
-  { label: "Boutique", href: "/boutique" },
+  { label: "Comment ça marche", href: "/home" },
+  { label: "Tarifs", href: "/#produits" },
   { label: "Démo", href: "/demo" },
 ] as const;

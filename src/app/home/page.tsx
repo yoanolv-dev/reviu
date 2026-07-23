@@ -18,10 +18,10 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "reviu — Plus d'avis Google, sans effort",
+  title: "Comment ça marche — reviu",
   description:
     "Présentoirs NFC et QR codes dynamiques pour faciliter le dépôt d'avis Google de vos vrais clients. Avis public ou retour privé, au choix du client — vous pilotez tout depuis une seule plateforme.",
-  alternates: { canonical: SITE_URL },
+  alternates: { canonical: `${SITE_URL}/home` },
   robots: { index: true, follow: true },
 };
 

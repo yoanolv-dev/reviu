@@ -12,10 +12,10 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
   {
     title: "Produit",
     links: [
-      { label: "Fonctionnement", href: "/home#fonctionnement" },
-      { label: "Boutique", href: "/boutique" },
+      { label: "Boutique", href: "/" },
+      { label: "Comment ça marche", href: "/home" },
       { label: "Démo", href: "/demo" },
-      { label: "Tarifs", href: "/demo#tarifs" },
+      { label: "Tarifs", href: "/#produits" },
       { label: "Google Business Profile", href: "/google-business-profile" },
     ],
   },

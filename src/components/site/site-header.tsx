@@ -8,7 +8,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-canvas/85 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/home" aria-label="reviu — accueil" className="shrink-0">
+        <Link href="/" aria-label="reviu — accueil" className="shrink-0">
           <Logo />
         </Link>
 
