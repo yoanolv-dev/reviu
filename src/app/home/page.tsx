@@ -119,11 +119,7 @@ export default function HomePage() {
                 >
                   Créer mon compte
                 </a>
-                <Link
-                  href="/r/demo"
-                  prefetch={false}
-                  className={buttonClass("secondary", "lg")}
-                >
+                <Link href="/demo" className={buttonClass("secondary", "lg")}>
                   Voir la démo
                 </Link>
               </div>
