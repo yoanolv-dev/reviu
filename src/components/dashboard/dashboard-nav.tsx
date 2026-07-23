@@ -12,11 +12,14 @@ const ITEMS = [
   { href: "/dashboard/feedback", label: "Avis privés" },
 ];
 
-export function DashboardNav() {
+export function DashboardNav({ showReseller = false }: { showReseller?: boolean }) {
   const pathname = usePathname();
+  const items = showReseller
+    ? [...ITEMS, { href: "/dashboard/revendeur", label: "Revendeur" }]
+    : ITEMS;
   return (
     <nav className="-mx-5 flex gap-1 overflow-x-auto px-5 md:mx-0 md:w-52 md:flex-col md:overflow-visible md:px-0">
-      {ITEMS.map((it) => {
+      {items.map((it) => {
         const active =
           it.href === "/dashboard"
             ? pathname === it.href

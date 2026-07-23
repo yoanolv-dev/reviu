@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/dashboard";
 import { getIsAdmin } from "@/lib/admin";
+import { getIsReseller } from "@/lib/reseller";
 import { signOutAction } from "@/lib/auth-actions";
 import { Logo } from "@/components/ui/logo";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
@@ -13,7 +14,7 @@ export default async function DashboardLayout({
 }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
-  const admin = await getIsAdmin();
+  const [admin, isReseller] = await Promise.all([getIsAdmin(), getIsReseller()]);
 
   return (
     <div className="min-h-screen bg-canvas">
@@ -42,7 +43,7 @@ export default async function DashboardLayout({
       </header>
       <div className="mx-auto max-w-6xl px-5 py-8">
         <div className="flex flex-col gap-8 md:flex-row md:gap-10">
-          <DashboardNav />
+          <DashboardNav showReseller={isReseller} />
           <main className="min-w-0 flex-1">{children}</main>
         </div>
       </div>

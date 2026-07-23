@@ -113,6 +113,33 @@ Vraie boutique servie par la même app, sur `reviu.fr/boutique` (routes non ré�
 - **Photos produit** : `public/products/{presentoir,presentoir-angle,presentoir-comptoir}.png`
   (voir `public/products/README.md`). Repli de marque automatique si absentes (`ProductPhoto`).
 
+## Programme revendeur & emailing d'abonnement (phase 2)
+
+**Modèle retenu : « marge physique ».** Le revendeur achète les présentoirs en
+pack remisé et les revend : sa rémunération = la **marge à la revente**, encaissée
+une fois. **reviu garde 100 % du récurrent** (abonnement 2,99 €/mois), vendu en
+direct au commerçant — notamment par e-mail. Pas de commission récurrente.
+
+- **Attribution** : `stands.reseller_id` (nullable) relie un présentoir à un
+  `resellers`. Écritures via RPC `SECURITY DEFINER` (comme les stands).
+- **Espace revendeur** `/dashboard/revendeur` (lien de nav affiché si `getIsReseller()`)
+  — **informatif** : présentoirs attribués / déployés / commerçants abonnés + code
+  revendeur. Aucune notion d'argent. RPC `reseller_overview`, `reseller_stands`.
+- **Admin** `/admin/resellers` : créer un revendeur (à partir de l'e-mail d'un
+  compte existant) et lui attribuer des présentoirs (par codes ou par lot).
+  RPC `admin_create_reseller`, `admin_assign_stands`, `admin_assign_batch`,
+  `admin_list_resellers`. ⚠️ `resellers.commission_cents` existe mais est **dormant**
+  (réservé si un programme de commission était réactivé un jour).
+- **Emailing d'abonnement** (le levier de conversion du récurrent) :
+  - **Auto** à l'activation d'un présentoir → offre d'abonnement au commerçant
+    (`sendSubscriptionOffer`, branché dans `activation-actions.ts`).
+  - **À la demande** `/admin/emailing` : « Relancer les non-abonnés » envoie l'offre
+    à tous les commerçants sans abonnement actif (RPC `admin_unsubscribed_contacts`,
+    action `relanceUnsubscribedAction`, dédupliqué, best-effort).
+  - Dépend de `RESEND_API_KEY` + `REVIU_EMAIL_FROM` (comme les autres e-mails).
+- **Migrations** : `20260723160000_reviu_resellers_phase2.sql`,
+  `20260723170000_reviu_unsubscribed_contacts.sql` (dans le repo **et** appliquées en prod).
+
 ## Notifications e-mail
 
 - **Retour client** (`feedback`) → e-mail au commerçant (`src/app/r/[code]/feedback/actions.ts`).

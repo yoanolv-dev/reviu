@@ -1,6 +1,7 @@
 "use server";
 
 import { createPublicClient } from "./supabase/public";
+import { sendSubscriptionOffer } from "./subscription-emails";
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
 
@@ -47,6 +48,14 @@ export async function activateStand(input: {
   });
   if (error) {
     return { ok: false, error: mapError(error.message, "Activation impossible. Réessayez.") };
+  }
+
+  // Le présentoir est actif : on propose le suivi par e-mail (best-effort, ne
+  // bloque jamais l'activation même si l'envoi échoue).
+  try {
+    await sendSubscriptionOffer({ to: email, name, cta: "signup" });
+  } catch {
+    /* ignore : l'activation reste réussie */
   }
   return { ok: true };
 }

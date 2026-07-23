@@ -114,15 +114,15 @@ export default function BoutiquePage() {
             <div>
               <SectionHead
                 eyebrow="Programme revendeur"
-                title="Ne vendez pas une carte. Vendez un abonnement."
+                title="Ne revendez pas une carte morte. Revendez un présentoir intelligent."
                 align="left"
               />
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                La plupart des cartes NFC d&apos;avis Google sont vendues une
-                fois, puis oubliées. Un présentoir reviu, lui, est adossé à un
-                SaaS : statistiques, retours privés, liens modifiables — et un
-                abonnement récurrent. Chaque présentoir que vous placez peut
-                générer un revenu mois après mois.
+                Achetez les présentoirs en pack remisé, revendez-les au prix
+                public : votre marge est encaissée à la vente. Et comme le
+                présentoir reviu est adossé à un vrai service (statistiques,
+                retours privés, liens modifiables), il se vend bien plus
+                facilement qu&apos;une simple carte NFC.
               </p>
               <ul className="mt-6 flex flex-col gap-3">
                 {RESELLER_POINTS.map((pt) => (
@@ -285,10 +285,10 @@ function ProductCard({ product }: { product: ShopProduct }) {
 }
 
 const RESELLER_POINTS = [
-  "Marge immédiate à la revente du présentoir (≈ 10 €/unité).",
-  "Revenu récurrent : chaque présentoir activé génère un abonnement 2,99 €/mois.",
-  "Un vrai outil à montrer : dashboard, stats de scan, retours privés.",
-  "La formation vous donne l'argumentaire, les tarifs et la méthode de prospection.",
+  "Marge immédiate à la revente : achat en pack remisé, revente au prix public (≈ 10 €/unité).",
+  "Un produit facile à vendre : soutenu par un vrai service, pas un gadget qui finit dans un tiroir.",
+  "Un outil concret à montrer en rendez-vous : dashboard, stats de scan, retours privés.",
+  "La formation vous donne l'argumentaire, les tarifs et la méthode de prospection locale.",
 ];
 
 const FAQ: { q: string; a: string }[] = [
