@@ -4,17 +4,22 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { HeroVisual } from "@/components/site/hero-visual";
-import { Stars } from "@/components/ui/stars";
 import { buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
 import { Testimonials } from "@/components/site/testimonials";
-import { APP_BASE, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
+import {
+  APP_BASE,
+  SITE_URL,
+  SUBSCRIPTION,
+  STAND_PRICE,
+  SHOPIFY_PRODUCT_URL,
+} from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "reviu — Plus d'avis Google, sans effort",
   description:
-    "Présentoirs NFC et QR codes dynamiques pour collecter un maximum d'avis Google. Vos clients laissent un avis en un geste, vous pilotez tout depuis une seule plateforme.",
+    "Présentoirs NFC et QR codes dynamiques pour faciliter le dépôt d'avis Google de vos vrais clients. Avis public ou retour privé, au choix du client — vous pilotez tout depuis une seule plateforme.",
   alternates: { canonical: SITE_URL },
   robots: { index: true, follow: true },
 };
@@ -47,12 +52,12 @@ const FEATURES = [
     body: "Choisissez : redirection Google instantanée, ou page de marque avec retour privé.",
   },
   {
-    title: "100 % conforme",
-    body: "Aucune technique interdite : zéro filtrage caché, votre fiche Google reste protégée.",
+    title: "Conçu pour les règles de Google",
+    body: "Le bouton Google est proposé à tous vos clients, quel que soit leur ressenti.",
   },
   {
     title: "Statistiques claires",
-    body: "Scans, taux de conversion, canal NFC vs QR, par établissement.",
+    body: "Scans, clics vers Google, canal NFC vs QR, par établissement.",
   },
 ];
 
@@ -63,9 +68,9 @@ const PERKS_SOON = [
 ];
 
 const COMPLIANCE = [
-  "Tous vos clients accèdent à l'avis Google en un seul geste.",
-  "Un canal privé, visible mais discret, recueille les remarques d'amélioration.",
-  "Aucun filtrage interdit des avis négatifs : votre fiche reste protégée.",
+  "Le bouton « Avis Google » est proposé à tous vos clients, sans distinction.",
+  "En complément, un canal de contact direct permet de joindre l'établissement.",
+  "Aucun tri automatique selon la note : chaque client choisit librement.",
 ];
 
 export default function HomePage() {
@@ -86,7 +91,7 @@ export default function HomePage() {
                 Présentoirs NFC + QR dynamiques
               </span>
               <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
-                Transformez chaque client en{" "}
+                Le dépôt d&apos;
                 <span className="relative whitespace-nowrap text-brand">
                   avis Google
                   <svg
@@ -105,7 +110,7 @@ export default function HomePage() {
                     />
                   </svg>
                 </span>
-                .
+                , simplifié.
               </h1>
               <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
                 Des présentoirs NFC et QR codes dynamiques, pilotés à distance
@@ -123,11 +128,12 @@ export default function HomePage() {
                   Voir la démo
                 </Link>
               </div>
-              <div className="mt-8 flex items-center gap-3">
-                <Stars size={16} />
-                <span className="text-sm text-muted">
-                  Conforme aux règles de Google · sans risque
-                </span>
+              <div className="mt-8 flex items-center gap-2.5 text-sm text-muted">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-brand">
+                  <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+                Conçu pour respecter les règles de collecte d&apos;avis de Google
               </div>
             </div>
             <HeroVisual />
@@ -207,8 +213,9 @@ export default function HomePage() {
                 align="left"
               />
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                Le présentoir est gratuit à activer. L&apos;abonnement de suivi
-                débloque les statistiques, la modification illimitée de vos liens
+                Le présentoir s&apos;achète une fois ({STAND_PRICE}) et
+                s&apos;active gratuitement. L&apos;abonnement de suivi débloque
+                ensuite les statistiques, la modification illimitée de vos liens
                 et vos retours privés — et bientôt la gestion de vos avis Google
                 directement depuis reviu.
               </p>
@@ -238,22 +245,44 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-            <div className="elev rounded-3xl border border-line bg-canvas p-8 text-center">
-              <p className="font-display text-5xl font-semibold tracking-tight text-ink">
-                {SUBSCRIPTION.priceLabel}
-                <span className="text-lg font-normal text-muted">
-                  {" "}
-                  /{SUBSCRIPTION.period}
+            <div className="elev rounded-3xl border border-line bg-canvas p-8">
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm font-medium text-ink">Présentoir</span>
+                <span className="font-display text-2xl font-semibold text-ink">
+                  {STAND_PRICE}
+                  <span className="text-sm font-normal text-muted"> · achat unique</span>
                 </span>
+              </div>
+              <p className="mt-1 text-xs text-muted">
+                Livraison en France métropolitaine · activation gratuite
               </p>
-              <p className="mt-2 text-sm text-muted">
+              <div className="mt-5 flex items-baseline justify-between border-t border-line pt-5">
+                <span className="text-sm font-medium text-ink">
+                  Abonnement de suivi
+                </span>
+                <span className="font-display text-2xl font-semibold text-ink">
+                  {SUBSCRIPTION.priceLabel}
+                  <span className="text-sm font-normal text-muted">
+                    /{SUBSCRIPTION.period}
+                  </span>
+                </span>
+              </div>
+              <p className="mt-1 text-xs text-muted">
                 Par présentoir · sans engagement · résiliable à tout moment
               </p>
               <a
-                href={`${APP_BASE}/signup`}
+                href={SHOPIFY_PRODUCT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={buttonClass("primary", "lg", "mt-6 w-full")}
               >
-                Commencer
+                Commander un présentoir
+              </a>
+              <a
+                href={`${APP_BASE}/signup`}
+                className={buttonClass("secondary", "md", "mt-2 w-full")}
+              >
+                Créer mon compte
               </a>
             </div>
           </Container>
@@ -268,13 +297,14 @@ export default function HomePage() {
             <div>
               <SectionHead
                 eyebrow="Conformité"
-                title="La conformité, pas la triche."
+                title="Avis public ou retour privé, au choix du client."
                 align="left"
               />
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                Beaucoup de solutions filtrent les clients mécontents pour gonfler
-                la note — une pratique contraire aux règles de Google, qui peut
-                faire supprimer vos avis. reviu prend le parti inverse.
+                reviu invite tous vos clients à laisser un avis Google, quel que
+                soit leur ressenti. Le retour privé est un canal de contact
+                direct proposé en complément — jamais un moyen d&apos;éviter un
+                avis négatif. Aucun tri automatique selon la note.
               </p>
             </div>
             <ul className="flex flex-col gap-3">

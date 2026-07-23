@@ -1,16 +1,21 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
-import { APP_BASE, CONTACT_EMAIL, SUBSCRIPTION } from "@/lib/brand";
+import {
+  APP_BASE,
+  CONTACT_EMAIL,
+  SUBSCRIPTION,
+  GOOGLE_DISCLAIMER,
+} from "@/lib/brand";
 
 const COLS: { title: string; links: { label: string; href: string; ext?: boolean }[] }[] = [
   {
     title: "Produit",
     links: [
       { label: "Fonctionnement", href: "/home#fonctionnement" },
-      { label: "Avantages", href: "/home#avantages" },
       { label: "Démo", href: "/demo" },
       { label: "Tarifs", href: "/demo#tarifs" },
+      { label: "Google Business Profile", href: "/google-business-profile" },
     ],
   },
   {
@@ -26,6 +31,7 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
       { label: "Mentions légales", href: "/mentions-legales" },
       { label: "Confidentialité", href: "/confidentialite" },
       { label: "CGU", href: "/cgu" },
+      { label: "CGV", href: "/cgv" },
       { label: "Cookies", href: "/cookies" },
     ],
   },
@@ -38,9 +44,9 @@ export function SiteFooter() {
         <div className="flex flex-col gap-4">
           <Logo />
           <p className="max-w-xs text-sm leading-relaxed text-muted">
-            Des présentoirs NFC + QR pour transformer chaque client en avis
-            Google, à partir de {SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period}{" "}
-            par présentoir.
+            Des présentoirs NFC + QR pour faciliter le dépôt d&apos;avis Google
+            de vos clients, à partir de {SUBSCRIPTION.priceLabel}/
+            {SUBSCRIPTION.period} par présentoir.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
@@ -79,11 +85,16 @@ export function SiteFooter() {
       </Container>
 
       <div className="border-t border-line">
-        <Container className="flex flex-col gap-2 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted">
-            © {new Date().getFullYear()} reviu — NEVIFY. Tous droits réservés.
+        <Container className="flex flex-col gap-4 py-6">
+          <p className="max-w-3xl text-xs leading-relaxed text-muted">
+            {GOOGLE_DISCLAIMER}
           </p>
-          <p className="text-sm text-muted">Conçu en France 🇫🇷</p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted">
+              © {new Date().getFullYear()} reviu — NEVIFY. Tous droits réservés.
+            </p>
+            <p className="text-sm text-muted">Conçu en France 🇫🇷</p>
+          </div>
         </Container>
       </div>
     </footer>

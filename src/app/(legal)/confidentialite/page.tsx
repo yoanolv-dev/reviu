@@ -114,10 +114,44 @@ export default function Confidentialite() {
       <H2>Durée de conservation</H2>
       <P>
         Les données de compte sont conservées tant que le compte est actif, puis
-        supprimées ou anonymisées dans un délai raisonnable après sa clôture. Les
-        données de facturation sont conservées conformément aux obligations
-        légales (jusqu&apos;à 10 ans).
+        supprimées ou anonymisées <strong>sous 30 jours</strong> après sa
+        clôture. Les données de facturation sont conservées conformément aux
+        obligations légales (jusqu&apos;à 10 ans). Les données d&apos;usage des
+        présentoirs (scans, clics) sont conservées 24 mois à des fins
+        statistiques.
       </P>
+
+      <H2>Données Google : accès, conservation et suppression</H2>
+      <P>
+        L&apos;accès à Google Business Profile est <strong>facultatif</strong> et
+        nécessite votre <strong>autorisation explicite</strong> via Google
+        (OAuth). Nous accédons alors à vos avis, réponses, notes et statistiques
+        de fiche, uniquement pour vous les afficher et vous permettre d&apos;y
+        répondre depuis reviu. reviu ne publie ni ne modifie rien sans une action
+        de votre part.
+      </P>
+      <UL>
+        <li>
+          <strong>Déconnexion</strong> : vous pouvez déconnecter votre compte
+          Google à tout moment depuis vos réglages reviu, ou depuis les
+          paramètres de votre compte Google.
+        </li>
+        <li>
+          <strong>Jetons OAuth</strong> : ils sont <strong>supprimés
+          immédiatement</strong> lors de la déconnexion ou de la révocation de
+          l&apos;accès, et ne sont plus utilisables.
+        </li>
+        <li>
+          <strong>Données synchronisées</strong> : les données issues de Google
+          sont supprimées ou anonymisées <strong>sous 30 jours</strong> après la
+          déconnexion.
+        </li>
+        <li>
+          Ces données ne sont <strong>ni vendues, ni utilisées à des fins
+          publicitaires</strong>, ni partagées en dehors de ce qui est
+          strictement nécessaire au service.
+        </li>
+      </UL>
 
       <H2>Vos droits</H2>
       <P>

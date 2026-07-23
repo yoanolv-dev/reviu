@@ -7,7 +7,14 @@ import { Stars } from "@/components/ui/stars";
 import { Logo } from "@/components/ui/logo";
 import { buttonClass } from "@/components/ui/button";
 import { qrSvg } from "@/lib/qr";
-import { APP_BASE, SITE_URL, SUBSCRIPTION, CONTACT_EMAIL } from "@/lib/brand";
+import {
+  APP_BASE,
+  SITE_URL,
+  SUBSCRIPTION,
+  CONTACT_EMAIL,
+  STAND_PRICE,
+  SHOPIFY_PRODUCT_URL,
+} from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Démo produit — reviu",
@@ -94,9 +101,9 @@ export default async function DemoPage() {
           <div>
             <Kicker>Démo produit · NFC + QR</Kicker>
             <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
-              Chaque client,
+              Un scan pour simplifier
               <br />
-              un avis Google.
+              chaque avis Google.
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
               Un présentoir sur le comptoir, un scan, un avis. reviu enregistre
@@ -240,8 +247,9 @@ export default async function DemoPage() {
               Ce qui se passe sur le comptoir, en clair.
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
-              Scans, clics, taux de conversion et présentoirs — par établissement,
-              en temps réel.
+              Scans, clics vers Google, taux de clic et présentoirs — par
+              établissement, en temps réel.{" "}
+              <span className="text-muted">Aperçu avec données de démonstration.</span>
             </p>
 
             <div className="mt-10 overflow-hidden rounded-2xl border border-line bg-canvas shadow-[0_36px_70px_-40px_rgba(20,30,70,0.5)]">
@@ -291,7 +299,7 @@ export default async function DemoPage() {
                     {[
                       ["Scans · 30 j", "248", "+18 %"],
                       ["Clics vers Google", "205", "+12 %"],
-                      ["Conversion", "83 %", "Élevé"],
+                      ["Taux de clic Google", "83 %", "+6 %"],
                     ].map(([k, v, d]) => (
                       <div
                         key={k}
@@ -461,8 +469,8 @@ export default async function DemoPage() {
                     Page reviu
                   </h3>
                   <p className="mx-auto mt-1.5 max-w-[34ch] text-[15px] text-ink-soft">
-                    Votre marque, un accueil, et un canal privé pour les
-                    remarques — sans impacter votre note.
+                    Votre marque, un accueil, et un canal de contact direct — le
+                    bouton « Avis Google » reste proposé à tous.
                   </p>
                 </div>
               </div>
@@ -479,10 +487,19 @@ export default async function DemoPage() {
                 Simple, à l&apos;usage, sans engagement.
               </h2>
               <p className="mt-3 text-ink-soft">
-                Le présentoir s&apos;active gratuitement. L&apos;abonnement se
-                paie par présentoir suivi — et évolue vers un vrai hub de
-                réputation.
+                Le présentoir s&apos;achète une fois ({STAND_PRICE}, livraison en
+                France métropolitaine) et s&apos;active gratuitement.
+                L&apos;abonnement de suivi se paie ensuite par présentoir — et
+                évolue vers un vrai hub de réputation.
               </p>
+              <a
+                href={SHOPIFY_PRODUCT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block font-mono text-sm text-brand hover:underline"
+              >
+                Commander un présentoir ({STAND_PRICE}) →
+              </a>
             </div>
 
             <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -515,10 +532,10 @@ export default async function DemoPage() {
                 <ul className="mt-7 flex flex-col gap-3 text-[15px] text-ink">
                   {[
                     "Statistiques de scan en temps réel",
-                    "Taux de conversion & attribution NFC vs QR",
+                    "Taux de clic vers Google & attribution NFC vs QR",
                     "Modification illimitée des liens à distance",
                     "Choix du mode de scan (direct Google ou page reviu)",
-                    "Retours privés des clients insatisfaits",
+                    "Retours privés : un canal de contact direct",
                   ].map((f) => (
                     <li key={f} className="flex items-start gap-3">
                       <Check />
@@ -527,8 +544,10 @@ export default async function DemoPage() {
                   ))}
                 </ul>
                 <p className="mt-6 text-xs text-muted">
-                  Présentoir gratuit à activer. Résiliable à tout moment depuis
-                  votre espace.
+                  Présentoir vendu séparément ({STAND_PRICE}, achat unique) ;
+                  activation gratuite. Résiliable à tout moment : la redirection
+                  du présentoir continue, seules les fonctions de suivi sont
+                  désactivées.
                 </p>
               </div>
 

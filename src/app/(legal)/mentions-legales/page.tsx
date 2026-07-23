@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P } from "@/components/site/legal";
-import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
+import { CONTACT_EMAIL, SITE_URL, GOOGLE_DISCLAIMER } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Mentions légales — reviu",
@@ -57,6 +57,9 @@ export default function MentionsLegales() {
         informations diffusées mais ne saurait être tenu responsable des
         omissions, inexactitudes ou indisponibilités du service.
       </P>
+
+      <H2>Indépendance vis-à-vis de Google</H2>
+      <P>{GOOGLE_DISCLAIMER}</P>
     </LegalPage>
   );
 }
