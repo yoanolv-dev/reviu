@@ -7,7 +7,7 @@ import { Stars } from "@/components/ui/stars";
 import { Logo } from "@/components/ui/logo";
 import { buttonClass } from "@/components/ui/button";
 import { qrSvg } from "@/lib/qr";
-import { APP_BASE, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
+import { APP_BASE, SITE_URL, SUBSCRIPTION, CONTACT_EMAIL } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Démo produit — reviu",
@@ -28,6 +28,26 @@ function GoogleG({ size = 18 }: { size?: number }) {
     </svg>
   );
 }
+
+function Check() {
+  return (
+    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white">
+      <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M5 13l4 4L19 7" />
+      </svg>
+    </span>
+  );
+}
+
+/* Exemples de commerces (illustratifs) — à remplacer par de vrais clients. */
+const CLIENTS: { name: string; icon: React.ReactNode }[] = [
+  { name: "Le Comptoir de Camille", icon: <path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Zm13 1h2a2 2 0 0 1 0 4h-2" /> },
+  { name: "Studio Épure", icon: <><circle cx="12" cy="12" r="8" /><path d="M12 4v8l5 3" /></> },
+  { name: "Garage Central", icon: <path d="M14.7 6.3a4 4 0 0 0-5 5L4 17l3 3 5.7-5.7a4 4 0 0 0 5-5l-2.6 2.6-2.1-2.1 2.7-2.5Z" /> },
+  { name: "Boulangerie Marlow", icon: <><path d="M6 20V9a6 6 0 0 1 12 0v11" /><path d="M6 13h12M12 7v13" /></> },
+  { name: "Hôtel Rivage", icon: <><path d="M3 20V7l9-4 9 4v13" /><path d="M9 20v-6h6v6" /></> },
+  { name: "Salon Nour", icon: <><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M20 4 8.5 15.5M20 20 8.5 8.5" /></> },
+];
 
 /* Cadre de téléphone réutilisable. */
 function Phone({
@@ -135,6 +155,43 @@ export default async function DemoPage() {
             </Phone>
           </div>
         </Container>
+
+        {/* BANDE CLIENTS */}
+        <section className="border-y border-line bg-surface">
+          <Container className="py-9">
+            <p className="text-center font-mono text-[11px] uppercase tracking-wider text-muted">
+              Pensé pour les commerces de proximité
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-9 gap-y-5">
+              {CLIENTS.map((c) => (
+                <span
+                  key={c.name}
+                  className="flex items-center gap-2 text-muted transition-colors hover:text-ink-soft"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    {c.icon}
+                  </svg>
+                  <span className="font-display text-[15px] font-semibold tracking-tight">
+                    {c.name}
+                  </span>
+                </span>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-xs text-muted">
+              Commerces illustratifs — vos futurs clients ici.
+            </p>
+          </Container>
+        </section>
 
         {/* PRÉSENTOIR */}
         <section className="border-t border-line">
@@ -413,59 +470,112 @@ export default async function DemoPage() {
           </Container>
         </section>
 
-        {/* ABONNEMENT / ROADMAP */}
-        <section className="border-t border-line bg-surface">
+        {/* TARIFS */}
+        <section className="border-t border-line bg-surface" id="tarifs">
           <Container className="py-16 sm:py-20">
-            <Kicker>L&apos;abonnement</Kicker>
-            <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              Un compteur aujourd&apos;hui, un hub de réputation demain.
-            </h2>
-            <div className="mt-8 border-t border-line">
-              {[
-                [
-                  "Inclus",
-                  "Statistiques & liens illimités",
-                  "Scans, conversion, canal NFC/QR, et modification de la destination à distance.",
-                  false,
-                ],
-                [
-                  "Inclus",
-                  "Retours privés",
-                  "Les remarques d'amélioration arrivent dans votre tableau de bord, pas sur la place publique.",
-                  false,
-                ],
-                [
-                  "Bientôt",
-                  "Alertes & réponses assistées par IA",
-                  "Une notification à chaque nouvel avis, et une réponse personnalisée à publier en un clic.",
-                  true,
-                ],
-                [
-                  "Bientôt",
-                  "Avis Google intégrés",
-                  "Consultez et répondez à tous vos avis Google directement depuis reviu.",
-                  true,
-                ],
-              ].map(([when, title, body, soon]) => (
-                <div
-                  key={title as string}
-                  className="grid items-baseline gap-2 border-b border-line py-5 sm:grid-cols-[150px_1fr] sm:gap-6"
-                >
-                  <span
-                    className={`font-mono text-xs uppercase tracking-wider ${
-                      soon ? "text-muted" : "text-brand"
-                    }`}
-                  >
-                    {when}
+            <div className="max-w-2xl">
+              <Kicker>Tarifs</Kicker>
+              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+                Simple, à l&apos;usage, sans engagement.
+              </h2>
+              <p className="mt-3 text-ink-soft">
+                Le présentoir s&apos;active gratuitement. L&apos;abonnement se
+                paie par présentoir suivi — et évolue vers un vrai hub de
+                réputation.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              {/* Essentiel */}
+              <div className="flex flex-col rounded-3xl border-2 border-brand bg-canvas p-8 shadow-[0_24px_60px_-40px_rgba(27,77,255,0.55)]">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-xl font-semibold text-ink">
+                    Essentiel
+                  </h3>
+                  <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
+                    Disponible
                   </span>
-                  <div>
-                    <h4 className="font-display text-[1.05rem] font-semibold tracking-tight text-ink">
-                      {title}
-                    </h4>
-                    <p className="mt-1 text-[15px] text-ink-soft">{body}</p>
-                  </div>
                 </div>
-              ))}
+                <p className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink">
+                  {SUBSCRIPTION.priceLabel}
+                  <span className="text-lg font-normal text-muted">
+                    {" "}
+                    /{SUBSCRIPTION.period}
+                  </span>
+                </p>
+                <p className="mt-1 text-sm text-muted">
+                  par présentoir · sans engagement
+                </p>
+                <a
+                  href={`${APP_BASE}/signup`}
+                  className={buttonClass("primary", "lg", "mt-6 w-full")}
+                >
+                  Commencer
+                </a>
+                <ul className="mt-7 flex flex-col gap-3 text-[15px] text-ink">
+                  {[
+                    "Statistiques de scan en temps réel",
+                    "Taux de conversion & attribution NFC vs QR",
+                    "Modification illimitée des liens à distance",
+                    "Choix du mode de scan (direct Google ou page reviu)",
+                    "Retours privés des clients insatisfaits",
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-3">
+                      <Check />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-xs text-muted">
+                  Présentoir gratuit à activer. Résiliable à tout moment depuis
+                  votre espace.
+                </p>
+              </div>
+
+              {/* Pro */}
+              <div className="flex flex-col rounded-3xl border border-line bg-surface p-8">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-xl font-semibold text-ink">
+                    Pro
+                  </h3>
+                  <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent">
+                    Bientôt
+                  </span>
+                </div>
+                <p className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink">
+                  Bientôt
+                </p>
+                <p className="mt-1 text-sm text-muted">
+                  pour la gestion complète de votre réputation
+                </p>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=reviu%20Pro`}
+                  className={buttonClass("secondary", "lg", "mt-6 w-full")}
+                >
+                  Être prévenu
+                </a>
+                <p className="mt-7 text-sm font-medium text-ink-soft">
+                  Tout l&apos;Essentiel, plus :
+                </p>
+                <ul className="mt-3 flex flex-col gap-3 text-[15px] text-ink">
+                  {[
+                    "Alertes e-mail à chaque nouvel avis Google",
+                    "Réponses aux avis assistées par IA",
+                    "Avis Google intégrés : consulter & répondre depuis reviu",
+                    "Statistiques de votre fiche Google",
+                    "Gestion multi-établissements",
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-3 text-ink-soft">
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
+                        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Container>
         </section>

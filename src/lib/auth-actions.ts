@@ -3,7 +3,8 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { createSupabaseServer } from "./supabase/server";
-import { APP_BASE } from "./brand";
+import { APP_BASE, ADMIN_NOTIFY_EMAIL } from "./brand";
+import { sendEmail } from "./email";
 import type { FormState } from "./form";
 
 export async function signInAction(
@@ -45,6 +46,20 @@ export async function signUpAction(
     },
   });
   if (error) return { error: error.message };
+
+  // Notification interne à chaque nouvelle inscription (best-effort : n'échoue
+  // jamais le parcours si l'e-mail ne part pas).
+  await sendEmail({
+    to: ADMIN_NOTIFY_EMAIL,
+    subject: `Nouvelle inscription reviu — ${email}`,
+    html: `<p>Nouvelle inscription sur reviu.</p>
+<ul>
+  <li><strong>E-mail :</strong> ${email}</li>
+  <li><strong>Nom :</strong> ${fullName || "(non renseigné)"}</li>
+  <li><strong>Date :</strong> ${new Date().toLocaleString("fr-FR")}</li>
+</ul>`,
+  });
+
   if (!data.session) {
     return {
       info: "Compte créé. Vérifiez votre e-mail pour confirmer votre inscription.",
