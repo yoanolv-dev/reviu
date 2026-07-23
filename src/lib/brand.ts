@@ -22,6 +22,11 @@ export const SUBSCRIPTION = {
 export const APP_BASE = process.env.NEXT_PUBLIC_APP_BASE ?? "https://app.reviu.fr";
 export const REDIRECT_BASE =
   process.env.NEXT_PUBLIC_REDIRECT_BASE ?? "https://r.reviu.fr";
+/** Site vitrine public (landing + pages légales). */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://reviu.fr";
+
+/** Adresse de contact affichée sur le site et les pages légales. */
+export const CONTACT_EMAIL = "contact@reviu.fr";
 
 /**
  * Page produit Shopify pour l'achat d'un présentoir. Pilotée par variable

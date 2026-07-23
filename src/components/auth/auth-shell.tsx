@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
+import { SITE_URL } from "@/lib/brand";
 
 export function AuthShell({
   title,
@@ -26,6 +27,14 @@ export function AuthShell({
         {footer && (
           <p className="mt-6 text-center text-sm text-muted">{footer}</p>
         )}
+        <p className="mt-4 text-center text-sm">
+          <a
+            href={SITE_URL}
+            className="text-muted transition-colors hover:text-ink"
+          >
+            ← Retour sur reviu.fr
+          </a>
+        </p>
       </div>
     </main>
   );
