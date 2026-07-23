@@ -28,6 +28,9 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://reviu.fr";
 /** Adresse de contact affichée sur le site et les pages légales. */
 export const CONTACT_EMAIL = "contact@reviu.fr";
 
+/** Adresse recevant les notifications internes (nouvelles inscriptions…). */
+export const ADMIN_NOTIFY_EMAIL = "yoan.oliveira30@gmail.com";
+
 /**
  * Page produit Shopify pour l'achat d'un présentoir. Pilotée par variable
  * d'environnement : modifiable sans toucher au code (voir docs/HANDOFF.md).
