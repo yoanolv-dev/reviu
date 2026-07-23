@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, H2, P, Fill } from "@/components/site/legal";
+import { LegalPage, H2, P } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -20,14 +20,15 @@ export default function MentionsLegales() {
       <H2>Éditeur du site</H2>
       <P>
         Le site {SITE_URL} et le service reviu sont édités par{" "}
-        <Fill>raison sociale — ex. Reviu SAS</Fill>, <Fill>forme juridique</Fill>{" "}
-        au capital de <Fill>montant</Fill> €, immatriculée au RCS de{" "}
-        <Fill>ville</Fill> sous le numéro <Fill>SIREN / SIRET</Fill>, dont le
-        siège social est situé <Fill>adresse complète du siège</Fill>.
+        <strong>NEVIFY</strong>, entreprise individuelle (entrepreneur
+        individuel) représentée par Yoan Oliveira, immatriculée au Registre
+        national des entreprises sous le numéro SIREN 992&nbsp;266&nbsp;197
+        (SIRET 992&nbsp;266&nbsp;197&nbsp;00019), dont le siège est situé
+        14&nbsp;rue de la République, 30000 Nîmes, France.
       </P>
       <P>
-        Numéro de TVA intracommunautaire : <Fill>FR…</Fill>. Directeur de la
-        publication : <Fill>nom du responsable</Fill>. Contact :{" "}
+        TVA non applicable, article 293 B du Code général des impôts. Directeur
+        de la publication : Yoan Oliveira. Contact :{" "}
         <a className="text-brand hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
           {CONTACT_EMAIL}
         </a>

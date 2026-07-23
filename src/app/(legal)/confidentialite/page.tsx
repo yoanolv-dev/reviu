@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, H2, P, UL, Fill } from "@/components/site/legal";
+import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -21,9 +21,9 @@ export default function Confidentialite() {
 
       <H2>Responsable du traitement</H2>
       <P>
-        Le responsable du traitement est <Fill>raison sociale</Fill>,{" "}
-        <Fill>adresse du siège</Fill>. Pour toute question relative à vos
-        données :{" "}
+        Le responsable du traitement est <strong>NEVIFY</strong> (entrepreneur
+        individuel — Yoan Oliveira), 14 rue de la République, 30000 Nîmes. Pour
+        toute question relative à vos données :{" "}
         <a className="text-brand hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
           {CONTACT_EMAIL}
         </a>
