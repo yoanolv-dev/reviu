@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, H2, P, UL, Fill } from "@/components/site/legal";
+import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -16,8 +16,8 @@ export default function CGU() {
     >
       <P>
         Les présentes conditions régissent l&apos;utilisation du service reviu,
-        édité par <Fill>raison sociale</Fill>. En créant un compte, vous les
-        acceptez sans réserve.
+        édité par NEVIFY (entrepreneur individuel — Yoan Oliveira). En créant un
+        compte, vous les acceptez sans réserve.
       </P>
 
       <H2>1. Objet du service</H2>
