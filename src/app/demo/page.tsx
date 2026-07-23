@@ -208,7 +208,7 @@ export default async function DemoPage() {
               <ProductPhoto
                 src="/products/presentoir-angle.png"
                 alt="Présentoir reviu NFC + QR pour avis Google"
-                className="mb-6 aspect-square w-full shadow-[0_24px_50px_-30px_rgba(20,30,70,0.55)]"
+                className="mb-6 aspect-square w-full rounded-3xl shadow-[0_24px_50px_-30px_rgba(20,30,70,0.55)]"
               />
               <div className="rounded-[20px] border border-line bg-surface p-6 text-center shadow-[0_16px_40px_-28px_rgba(20,30,70,0.5)]">
                 <div

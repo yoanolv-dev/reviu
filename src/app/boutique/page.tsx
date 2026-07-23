@@ -59,36 +59,36 @@ export default function BoutiquePage() {
             aria-hidden
             className="pointer-events-none absolute -top-24 right-[-6rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-brand-soft opacity-70 blur-3xl"
           />
-          <Container className="grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1fr_0.9fr]">
-            <div className="reveal flex flex-col items-start">
+          <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-24">
+            <div className="reveal order-2 flex flex-col items-start lg:order-1">
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Boutique officielle reviu
               </span>
-              <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl">
+              <h1 className="mt-5 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[3.15rem] lg:leading-[1.05]">
                 Le présentoir qui transforme vos clients en{" "}
                 <span className="text-brand">avis Google</span>.
               </h1>
-              <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
                 Un geste — coller le téléphone ou scanner le QR — et l&apos;avis
                 est lancé. Commandez à l&apos;unité, ou lancez votre propre
                 activité avec un pack revendeur et la formation.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted">
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm text-muted sm:mt-8 sm:gap-x-6">
                 <TrustItem>Paiement sécurisé Stripe</TrustItem>
                 <TrustItem>Livraison en France</TrustItem>
                 <TrustItem>NFC + QR déjà encodés</TrustItem>
               </div>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a
                   href="#produits"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand px-6 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_var(--color-brand)] transition-colors hover:bg-brand-strong"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_var(--color-brand)] transition-colors hover:bg-brand-strong sm:w-auto"
                 >
                   Voir les produits
                 </a>
                 <a
                   href="#revendeur"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-[15px] font-medium text-ink transition-colors hover:border-brand/40"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-[15px] font-medium text-ink transition-colors hover:border-brand/40 sm:w-auto"
                 >
                   Devenir revendeur
                 </a>
@@ -97,7 +97,7 @@ export default function BoutiquePage() {
             <ProductPhoto
               src={PHOTO.hero}
               alt="Présentoir reviu NFC + QR pour avis Google"
-              className="aspect-square w-full shadow-[var(--shadow-soft)]"
+              className="order-1 mx-auto aspect-square w-full max-w-[18rem] rounded-3xl shadow-[var(--shadow-soft)] sm:max-w-sm lg:order-2 lg:max-w-none"
             />
           </Container>
         </section>
@@ -187,7 +187,7 @@ export default function BoutiquePage() {
             <ProductPhoto
               src={PHOTO.comptoir}
               alt="Présentoir reviu posé sur le comptoir d'un commerce"
-              className="aspect-[4/3] w-full shadow-[var(--shadow-soft)]"
+              className="aspect-[4/3] w-full rounded-3xl shadow-[var(--shadow-soft)]"
             />
             <div>
               <SectionHead
@@ -306,7 +306,7 @@ function ProductCard({ product }: { product: ShopProduct }) {
           <ProductPhoto
             src={PHOTO.front}
             alt={product.name}
-            className="aspect-[16/9] w-full rounded-none"
+            className="aspect-[16/9] w-full"
           />
         )}
         {product.standsIncluded > 1 && (

@@ -85,13 +85,13 @@ export default function HomePage() {
             aria-hidden
             className="pointer-events-none absolute -top-24 right-[-6rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-brand-soft opacity-70 blur-3xl"
           />
-          <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
+          <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
             <div className="reveal flex flex-col items-start">
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Présentoirs NFC + QR dynamiques
               </span>
-              <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="mt-5 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-tight text-ink sm:text-4xl sm:leading-[1.05] lg:text-[3.25rem]">
                 Le dépôt d&apos;
                 <span className="relative whitespace-nowrap text-brand">
                   avis Google
@@ -113,7 +113,7 @@ export default function HomePage() {
                 </span>
                 , simplifié.
               </h1>
-              <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
                 Des présentoirs NFC et QR codes dynamiques, pilotés à distance
                 depuis une seule plateforme. Vos clients laissent un avis en un
                 geste — vous gardez le contrôle.
@@ -121,11 +121,14 @@ export default function HomePage() {
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a
                   href={`${APP_BASE}/signup`}
-                  className={buttonClass("primary", "lg")}
+                  className={buttonClass("primary", "lg", "w-full sm:w-auto")}
                 >
                   Créer mon compte
                 </a>
-                <Link href="/demo" className={buttonClass("secondary", "lg")}>
+                <Link
+                  href="/demo"
+                  className={buttonClass("secondary", "lg", "w-full sm:w-auto")}
+                >
                   Voir la démo
                 </Link>
               </div>
@@ -250,7 +253,7 @@ export default function HomePage() {
               <ProductPhoto
                 src="/products/presentoir.png"
                 alt="Présentoir reviu NFC + QR pour avis Google"
-                className="mb-6 aspect-[16/10] w-full"
+                className="mb-6 aspect-[16/10] w-full rounded-2xl"
               />
               <div className="flex items-baseline justify-between">
                 <span className="text-sm font-medium text-ink">Présentoir</span>
