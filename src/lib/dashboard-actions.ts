@@ -54,6 +54,7 @@ export async function updateEstablishmentAction(
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Le nom est requis." };
 
+  const scanMode = formData.get("scan_mode") === "page" ? "page" : "direct";
   const patch = {
     name,
     google_review_url:
@@ -62,6 +63,7 @@ export async function updateEstablishmentAction(
     welcome_message: String(formData.get("welcome_message") ?? "").trim() || null,
     brand_color: String(formData.get("brand_color") ?? "#1b4dff"),
     feedback_enabled: formData.get("feedback_enabled") === "on",
+    scan_mode: scanMode,
   };
   const { error } = await supabase
     .from("establishments")

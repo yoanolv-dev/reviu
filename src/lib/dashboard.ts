@@ -10,6 +10,7 @@ export interface EstablishmentRow {
   brand_color: string;
   welcome_message: string | null;
   feedback_enabled: boolean;
+  scan_mode: string;
   created_at: string;
 }
 

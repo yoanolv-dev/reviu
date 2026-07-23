@@ -1,5 +1,11 @@
 import { createPublicClient } from "./supabase/public";
-import type { EventKind, Stand, StandStatus, TargetType } from "./types";
+import type {
+  Establishment,
+  EventKind,
+  Stand,
+  StandStatus,
+  TargetType,
+} from "./types";
 
 interface ResolveStandRow {
   status: StandStatus;
@@ -11,6 +17,7 @@ interface ResolveStandRow {
   brand_color: string | null;
   welcome_message: string | null;
   feedback_enabled: boolean | null;
+  scan_mode: string | null;
   target_url: string | null;
 }
 
@@ -23,7 +30,7 @@ export async function getStandByCode(code: string): Promise<Stand | null> {
 
   if (error || !data) return null;
 
-  const establishment =
+  const establishment: Establishment | null =
     data.establishment_id && data.google_review_url
       ? {
           id: data.establishment_id,
@@ -33,6 +40,7 @@ export async function getStandByCode(code: string): Promise<Stand | null> {
           brandColor: data.brand_color,
           welcomeMessage: data.welcome_message,
           feedbackEnabled: data.feedback_enabled ?? false,
+          scanMode: data.scan_mode === "page" ? "page" : "direct",
         }
       : null;
 
