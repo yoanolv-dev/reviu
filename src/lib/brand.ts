@@ -36,7 +36,7 @@ export const SHOPIFY_PRODUCT_URL =
   process.env.NEXT_PUBLIC_SHOPIFY_PRODUCT_URL ?? "https://reviu.fr/boutique";
 
 export const NAV = [
-  { label: "Fonctionnement", href: "#fonctionnement" },
-  { label: "Avantages", href: "#avantages" },
-  { label: "Conformité", href: "#conformite" },
+  { label: "Fonctionnement", href: "/home#fonctionnement" },
+  { label: "Avantages", href: "/home#avantages" },
+  { label: "Démo", href: "/demo" },
 ] as const;
