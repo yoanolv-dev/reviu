@@ -15,11 +15,27 @@ Branche par défaut = **`main`** ; Vercel redéploie à chaque push. Développem
 PR vers `main`. **Code et base synchronisés** (migrations dans `supabase/migrations/`, mais
 certaines fonctions/tables vivent directement dans la base — voir « Base de données »).
 
+## Mises à jour récentes (à connaître pour la reprise)
+
+- **Accueil = boutique** : `reviu.fr/` sert `/boutique`, enrichie des sections « Comment ça
+  marche », preuve sociale (`Testimonials`) et conformité Google. `/home` = page « Comment ça
+  marche » (canonical `/home`). Nav recentrée ; logo → racine.
+- **Responsive** : `SiteHeader` est un composant client avec **menu déroulant mobile**
+  (hamburger) à la place de la CTA ; hero ajusté (tailles fluides, photo capée/centrée mobile).
+  `ProductPhoto` = `background-image` CSS sur dégradé de marque (repli fiable, sans JS ; plus
+  jamais d'image cassée). **Photos à déposer** dans `public/products/` (voir son README) — de
+  préférence en **WebP compressé** (~1000 px, < 120 Ko) pour le LCP.
+- **Perf** : parcours de scan non bloquant (écritures via `after()`, redirection immédiate ; le
+  mode « direct » va droit vers Google sans passer par `/go`). Dashboard : `getCurrentUser`
+  mémoïsé (`cache`), `getMyContext` en une requête (embedding). RLS `resellers` en
+  `(select auth.uid())`. Migration `20260724100000_reviu_resellers_rls_perf.sql`.
+
 ## Routage par domaine (`src/proxy.ts`)
 
 - `r.reviu.fr/<code>` → `/r/<code>` (redirection présentoir).
-- `reviu.fr` et `www.reviu.fr` → la racine `/` est réécrite vers `/home` (landing). Les pages
-  légales et `/demo` sont servies telles quelles.
+- `reviu.fr` et `www.reviu.fr` → la racine `/` est réécrite vers **`/boutique`** (page d'accueil
+  orientée commerce). L'ancienne landing explicative reste servie sur `/home` (« Comment ça
+  marche »). Les pages légales et `/demo` sont servies telles quelles.
 - `app.reviu.fr/` → `/login` (ou `/dashboard` si connecté). Session Supabase rafraîchie sur
   `/dashboard` et `/admin` uniquement.
 
