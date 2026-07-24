@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { buttonClass } from "@/components/ui/button";
-import { Aurora } from "@/components/site/aurora";
+import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { GUIDES } from "@/lib/guides";
 import { APP_BASE } from "@/lib/brand";
@@ -52,7 +52,7 @@ export default function GuidesIndexPage() {
       <main className="bg-canvas">
         {/* HERO */}
         <section className="relative isolate overflow-hidden border-b border-line">
-          <Aurora variant="soft" />
+          <HeroBackground />
           <Container className="py-16 sm:py-24">
             <nav aria-label="Fil d'Ariane" className="text-sm text-muted">
               <Link href="/" className="hover:text-ink">

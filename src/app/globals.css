@@ -155,6 +155,15 @@
   pointer-events: none;
 }
 
+/* Texture pointillée subtile pour les fonds de hero (estompée par un masque
+   pour rester loin du texte et garder une lisibilité parfaite). */
+.hero-grid {
+  background-image: radial-gradient(circle, rgba(27, 77, 255, 0.08) 1px, transparent 1.4px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 72% 0%, #000 8%, transparent 70%);
+  mask-image: radial-gradient(ellipse 85% 70% at 72% 0%, #000 8%, transparent 70%);
+}
+
 /* ── Aurora : halos de couleur flous et dérivants en fond de section ──────── */
 .aurora {
   position: absolute;

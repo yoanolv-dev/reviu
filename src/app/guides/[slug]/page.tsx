@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
-import { Aurora } from "@/components/site/aurora";
+import { HeroBackground } from "@/components/site/hero-background";
 import { buttonClass } from "@/components/ui/button";
 import {
   getGuide,
@@ -82,7 +82,7 @@ export default async function GuidePage({ params }: Props) {
       <main className="bg-canvas">
         {/* EN-TÊTE */}
         <section className="relative isolate overflow-hidden border-b border-line">
-          <Aurora variant="soft" />
+          <HeroBackground />
           <Container className="py-12 sm:py-16">
             <nav aria-label="Fil d'Ariane" className="text-sm text-muted">
               <Link href="/" className="hover:text-ink">

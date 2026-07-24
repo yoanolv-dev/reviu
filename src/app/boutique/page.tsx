@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
 import { Testimonials } from "@/components/site/testimonials";
-import { Aurora } from "@/components/site/aurora";
+import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
@@ -86,7 +86,7 @@ export default function BoutiquePage() {
       <main className="bg-canvas">
         {/* HERO */}
         <section className="relative isolate overflow-hidden border-b border-line">
-          <Aurora variant="hero" />
+          <HeroBackground />
           <Container className="grid items-center gap-10 py-14 sm:gap-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
             <div className="reveal order-2 flex flex-col items-start lg:order-1">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
