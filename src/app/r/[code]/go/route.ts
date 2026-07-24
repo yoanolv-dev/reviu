@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, type NextRequest, after } from "next/server";
 import { getStandByCode, recordEvent } from "@/lib/data";
 
 /**
@@ -19,10 +19,14 @@ export async function GET(
 
   const s = req.nextUrl.searchParams.get("s");
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
-  await recordEvent(code, "click", {
-    channel,
-    userAgent: req.headers.get("user-agent"),
-  });
+  // Écriture du clic en arrière-plan : la redirection vers Google part sans
+  // attendre l'aller-retour DB (after garantit l'exécution après la réponse).
+  after(() =>
+    recordEvent(code, "click", {
+      channel,
+      userAgent: req.headers.get("user-agent"),
+    }),
+  );
   // Lien effectif du présentoir : override propre s'il existe, sinon avis Google.
   const target = stand.targetUrl ?? stand.establishment.googleReviewUrl;
   return NextResponse.redirect(target, { status: 302 });

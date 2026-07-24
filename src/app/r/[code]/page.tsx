@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -33,6 +34,7 @@ export default async function RedirectPage({
   // Canal transmis par l'URL physique, ex. r.reviu.fr/{code}?s=nfc
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
   const h = await headers();
+  const ua = h.get("user-agent");
 
   // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
   const onRedirectSub =
@@ -40,17 +42,20 @@ export default async function RedirectPage({
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
   const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
 
-  // Mode « Accès direct » (défaut) : on enregistre le scan, puis on redirige
-  // immédiatement vers l'avis Google via /go (qui trace le clic). Un seul geste
-  // pour le client, statistiques conservées. On ne bascule que si une cible
-  // existe, sinon on affiche la page reviu.
+  // Mode « Accès direct » (défaut) : redirection immédiate vers l'avis Google.
+  // Les écritures (vue + clic — un seul geste en mode direct) partent en
+  // arrière-plan via after() : le client n'attend AUCUN aller-retour DB, et on
+  // évite le hop intermédiaire /go. Statistiques conservées à l'identique.
   if (est.scanMode === "direct" && stand.targetUrl) {
-    await recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
-    redirect(goHref);
+    after(() => recordEvent(code, "view", { channel, userAgent: ua }));
+    after(() => recordEvent(code, "click", { channel, userAgent: ua }));
+    redirect(stand.targetUrl);
   }
 
-  // Mode « Page reviu » : page de choix (avis Google + retour privé).
-  void recordEvent(code, "view", { channel, userAgent: h.get("user-agent") });
+  // Mode « Page reviu » : page de choix (avis Google + retour privé). L'écriture
+  // de la vue se fait en arrière-plan (after garantit l'exécution même après la
+  // réponse, contrairement à un simple fire-and-forget).
+  after(() => recordEvent(code, "view", { channel, userAgent: ua }));
 
   return (
     <ScreenShell>

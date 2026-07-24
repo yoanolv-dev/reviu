@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createSupabaseServer } from "./supabase/server";
 
 export interface EstablishmentRow {
@@ -44,38 +45,41 @@ export interface DashContext {
   establishment: EstablishmentRow | null;
 }
 
-export async function getCurrentUser() {
+// Mémoïsé par requête (React cache) : plusieurs appels dans un même rendu
+// (layout + page) ne déclenchent qu'une seule validation getUser() réseau.
+export const getCurrentUser = cache(async () => {
   const supabase = await createSupabaseServer();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   return user;
-}
+});
 
 export async function getMyContext(): Promise<DashContext | null> {
   const supabase = await createSupabaseServer();
   // bind_account() (rattachement des présentoirs self-service au compte) n'est
   // plus appelé ici : il l'est une seule fois à la connexion, pas à chaque
   // chargement de page (c'était une écriture répétée inutile).
+  //
+  // Organisation + établissement récupérés en UNE requête (embedding PostgREST)
+  // au lieu de deux allers-retours séquentiels.
   const { data: org } = await supabase
     .from("organizations")
-    .select("id,name")
+    .select("id,name,establishments(*)")
     .order("created_at")
     .limit(1)
-    .maybeSingle();
+    .maybeSingle<{
+      id: string;
+      name: string;
+      establishments: EstablishmentRow[] | null;
+    }>();
   if (!org) return null;
-  const { data: est } = await supabase
-    .from("establishments")
-    .select("*")
-    .eq("org_id", org.id)
-    .order("created_at")
-    .limit(1)
-    .maybeSingle<EstablishmentRow>();
-  return {
-    orgId: org.id as string,
-    orgName: org.name as string,
-    establishment: est ?? null,
-  };
+  const rows = org.establishments ?? [];
+  // Le plus ancien établissement de l'organisation (comportement historique).
+  const establishment = rows.length
+    ? rows.reduce((a, b) => (a.created_at <= b.created_at ? a : b))
+    : null;
+  return { orgId: org.id, orgName: org.name, establishment };
 }
 
 export async function getStats() {
