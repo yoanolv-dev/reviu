@@ -50,5 +50,6 @@ export const BOUTIQUE_URL =
 export const NAV = [
   { label: "Comment ça marche", href: "/home" },
   { label: "Tarifs", href: "/#produits" },
+  { label: "Guides", href: "/guides" },
   { label: "Démo", href: "/demo" },
 ] as const;

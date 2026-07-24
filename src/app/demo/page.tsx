@@ -10,20 +10,26 @@ import { buttonClass } from "@/components/ui/button";
 import { qrSvg } from "@/lib/qr";
 import {
   APP_BASE,
-  SITE_URL,
   SUBSCRIPTION,
   CONTACT_EMAIL,
   STAND_PRICE,
   BOUTIQUE_URL,
 } from "@/lib/brand";
+import { buildMetadata, graph, breadcrumbSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Démo produit — reviu",
   description:
     "Découvrez reviu en images : le parcours de scan vers l'avis Google, le présentoir NFC + QR, le tableau de bord et les deux modes de redirection.",
-  alternates: { canonical: `${SITE_URL}/demo` },
-  robots: { index: true, follow: true },
-};
+  path: "/demo",
+  keywords: [
+    "démo présentoir avis Google",
+    "exemple QR code avis",
+    "parcours avis Google",
+    "tableau de bord avis clients",
+  ],
+});
 
 /* Petit « G » Google multicolore. */
 function GoogleG({ size = 18 }: { size?: number }) {
@@ -92,9 +98,16 @@ function Kicker({ children }: { children: React.ReactNode }) {
 
 export default async function DemoPage() {
   const qr = await qrSvg("demo");
+  const schema = graph(
+    breadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: "Démo produit", path: "/demo" },
+    ]),
+  );
 
   return (
     <>
+      <JsonLd schema={schema} />
       <SiteHeader />
       <main>
         {/* HERO */}

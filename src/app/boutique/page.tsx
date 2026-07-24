@@ -6,17 +6,26 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
 import { Testimonials } from "@/components/site/testimonials";
 import { StarMark } from "@/components/ui/logo";
-import { APP_BASE, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
-import { CATALOG, formatEuros, type ShopProduct } from "@/lib/shop";
+import { APP_BASE, SUBSCRIPTION } from "@/lib/brand";
+import { CATALOG, formatEuros, getProduct, type ShopProduct } from "@/lib/shop";
+import { buildMetadata, graph, productSchema, faqSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 import { BuyButton } from "./buy-button";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "reviu — Présentoirs NFC + QR pour plus d'avis Google",
   description:
     "Commandez votre présentoir NFC + QR pour collecter des avis Google en un geste, la formation pour lancer votre business, ou un pack revendeur (10 ou 20 présentoirs). Paiement sécurisé, livraison en France.",
-  alternates: { canonical: SITE_URL },
-  robots: { index: true, follow: true },
-};
+  path: "/",
+  keywords: [
+    "présentoir avis Google",
+    "plaque NFC avis Google",
+    "QR code avis Google",
+    "acheter présentoir avis",
+    "collecter avis Google commerce",
+    "pack revendeur avis Google",
+  ],
+});
 
 const STEPS = [
   {
@@ -49,8 +58,27 @@ const PHOTO = {
 } as const;
 
 export default function BoutiquePage() {
+  const stand = getProduct("stand");
+  const schema = graph(
+    ...(stand
+      ? [
+          productSchema({
+            name: "Présentoir reviu NFC + QR pour avis Google",
+            description:
+              "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour collecter des avis Google en un geste. Redirection modifiable à distance, activation gratuite.",
+            priceCents: stand.priceCents,
+            path: "/",
+            image: "/products/presentoir.png",
+            sku: stand.id,
+          }),
+        ]
+      : []),
+    faqSchema(FAQ),
+  );
+
   return (
     <>
+      <JsonLd schema={schema} />
       <SiteHeader />
       <main className="bg-canvas">
         {/* HERO */}

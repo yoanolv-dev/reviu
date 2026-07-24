@@ -10,20 +10,32 @@ import { StarMark } from "@/components/ui/logo";
 import { Testimonials } from "@/components/site/testimonials";
 import {
   APP_BASE,
-  SITE_URL,
   SUBSCRIPTION,
   STAND_PRICE,
   BOUTIQUE_URL,
 } from "@/lib/brand";
+import {
+  buildMetadata,
+  graph,
+  softwareApplicationSchema,
+  breadcrumbSchema,
+} from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Comment ça marche — reviu",
   description:
     "Présentoirs NFC et QR codes dynamiques pour faciliter le dépôt d'avis Google de vos vrais clients. Avis public ou retour privé, au choix du client — vous pilotez tout depuis une seule plateforme.",
-  alternates: { canonical: `${SITE_URL}/home` },
-  robots: { index: true, follow: true },
-};
+  path: "/home",
+  keywords: [
+    "comment collecter des avis Google",
+    "avis Google en un geste",
+    "présentoir NFC avis",
+    "plateforme avis Google",
+    "logiciel avis clients",
+  ],
+});
 
 const STEPS = [
   {
@@ -75,8 +87,17 @@ const COMPLIANCE = [
 ];
 
 export default function HomePage() {
+  const schema = graph(
+    softwareApplicationSchema(),
+    breadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: "Comment ça marche", path: "/home" },
+    ]),
+  );
+
   return (
     <>
+      <JsonLd schema={schema} />
       <SiteHeader />
       <main>
         {/* HERO */}
