@@ -21,7 +21,7 @@ function DecorativeQR() {
     [10, 22], [12, 24], [14, 22], [11, 25], [13, 26], [10, 24], [16, 23],
   ];
   return (
-    <svg viewBox="0 0 29 29" className="h-16 w-16 text-ink" aria-hidden shapeRendering="crispEdges">
+    <svg viewBox="0 0 29 29" className="h-14 w-14 text-ink" aria-hidden shapeRendering="crispEdges">
       <FinderPattern x={0} y={0} />
       <FinderPattern x={22} y={0} />
       <FinderPattern x={0} y={22} />
@@ -34,36 +34,53 @@ function DecorativeQR() {
 
 export function HeroVisual() {
   return (
-    <div className="relative mx-auto w-full max-w-[320px]">
+    <div className="reveal relative mx-auto w-full max-w-[340px]">
+      {/* Halo lumineux dégradé derrière le téléphone. */}
       <div
-        className="absolute inset-4 -z-10 rounded-[3rem] bg-brand-soft blur-2xl"
         aria-hidden
+        className="absolute inset-2 -z-10 rounded-[3.5rem] bg-gradient-brand opacity-30 blur-3xl"
       />
 
       {/* Téléphone : aperçu de la page d'avis */}
-      <div className="relative rounded-[2.6rem] border border-line bg-ink p-2.5 shadow-[0_30px_60px_-20px_rgba(10,13,22,0.35)]">
-        <div className="rounded-[2.1rem] bg-surface p-6">
-          <div className="flex flex-col items-center text-center">
-            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft font-display text-lg font-semibold text-brand">
+      <div className="relative rounded-[2.8rem] border border-white/60 bg-ink p-2.5 shadow-[0_40px_80px_-24px_rgba(17,57,201,0.5)]">
+        <div className="overflow-hidden rounded-[2.3rem] bg-surface">
+          {/* En-tête dégradé */}
+          <div className="bg-gradient-brand px-6 pb-8 pt-7 text-center">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-white/15 font-display text-lg font-semibold text-white backdrop-blur">
               C
             </div>
-            <p className="mt-4 font-display text-base font-semibold text-ink">
+            <p className="mt-3 font-display text-base font-semibold text-white">
               Le Comptoir de Camille
             </p>
-            <p className="mt-1 text-xs text-muted">
+            <p className="mt-1 text-xs text-white/70">
               Comment s&apos;est passée votre visite ?
             </p>
-            <Stars size={22} className="mt-4" />
-            <div className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand text-sm font-medium text-white">
-              <StarMark className="h-4 w-4" /> Laisser un avis
+          </div>
+          <div className="flex flex-col items-center px-6 pb-7 pt-5 text-center">
+            <Stars size={24} className="shimmer" />
+            <div className="mt-5 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-gradient-brand text-sm font-medium text-white shadow-[0_10px_24px_-10px_var(--color-brand)]">
+              <StarMark className="h-4 w-4" /> Laisser un avis Google
             </div>
             <p className="mt-3 text-[11px] text-muted">J&apos;ai rencontré un souci</p>
           </div>
         </div>
       </div>
 
-      {/* Carte présentoir flottante */}
-      <div className="absolute -bottom-5 -left-5 hidden -rotate-6 rounded-2xl border border-line bg-surface p-3 shadow-lg sm:block">
+      {/* Carte « nouvel avis » flottante (aperçu UI, illustratif). */}
+      <div className="float absolute -right-4 top-10 hidden rounded-2xl border border-line bg-surface/95 p-3 shadow-[var(--shadow-lift)] backdrop-blur sm:block">
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-accent-soft">
+            <StarMark className="h-4 w-4 text-accent" />
+          </span>
+          <div className="text-left">
+            <p className="text-[11px] font-semibold text-ink">Nouvel avis Google</p>
+            <Stars size={11} className="mt-0.5" />
+          </div>
+        </div>
+      </div>
+
+      {/* Carte présentoir flottante (QR/NFC). */}
+      <div className="float-slow absolute -bottom-6 -left-5 hidden -rotate-6 rounded-2xl border border-line bg-surface p-3 shadow-[var(--shadow-lift)] sm:block">
         <DecorativeQR />
         <p className="mt-1.5 text-center text-[10px] font-medium text-ink-soft">
           Scan · NFC

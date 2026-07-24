@@ -14,12 +14,16 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "reveal elev elev-hover rounded-2xl border border-line bg-surface p-5",
+        "reveal elev elev-hover relative overflow-hidden rounded-2xl border border-line bg-surface p-5",
         className,
       )}
     >
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-0.5 bg-gradient-brand opacity-70"
+      />
       <p className="text-sm text-muted">{label}</p>
-      <p className="mt-2 font-display text-3xl font-semibold tabular-nums text-ink">
+      <p className="mt-2 font-display text-3xl font-semibold tabular-nums text-gradient">
         {value}
       </p>
     </div>

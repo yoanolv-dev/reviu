@@ -4,6 +4,8 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { buttonClass } from "@/components/ui/button";
+import { Aurora } from "@/components/site/aurora";
+import { Reveal } from "@/components/site/reveal";
 import { GUIDES } from "@/lib/guides";
 import { APP_BASE } from "@/lib/brand";
 import { buildMetadata, graph, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
@@ -49,8 +51,9 @@ export default function GuidesIndexPage() {
       <SiteHeader />
       <main className="bg-canvas">
         {/* HERO */}
-        <section className="border-b border-line">
-          <Container className="py-14 sm:py-20">
+        <section className="relative isolate overflow-hidden border-b border-line">
+          <Aurora variant="soft" />
+          <Container className="py-16 sm:py-24">
             <nav aria-label="Fil d'Ariane" className="text-sm text-muted">
               <Link href="/" className="hover:text-ink">
                 Accueil
@@ -62,7 +65,8 @@ export default function GuidesIndexPage() {
               Ressources
             </span>
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[3rem] lg:leading-[1.05]">
-              Tout pour collecter plus d&apos;avis Google
+              Tout pour collecter plus d&apos;
+              <span className="text-gradient">avis Google</span>
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-soft sm:text-lg">
               Des guides concrets pour les commerces de proximité : quand
@@ -77,11 +81,11 @@ export default function GuidesIndexPage() {
         <section>
           <Container className="py-14 sm:py-16">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {GUIDES.map((g) => (
+              {GUIDES.map((g, i) => (
+                <Reveal key={g.slug} delay={i * 70} className="h-full">
                 <Link
-                  key={g.slug}
                   href={`/guides/${g.slug}`}
-                  className="elev elev-hover group flex flex-col rounded-3xl border border-line bg-surface p-6"
+                  className="elev elev-hover group flex h-full flex-col rounded-3xl border border-line bg-surface p-6"
                 >
                   <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand">
                     {g.category}
@@ -113,6 +117,7 @@ export default function GuidesIndexPage() {
                     {g.readMinutes} min de lecture
                   </span>
                 </Link>
+                </Reveal>
               ))}
             </div>
           </Container>
@@ -129,7 +134,7 @@ export default function GuidesIndexPage() {
               comptoir : un geste, un avis.
             </p>
             <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-              <Link href="/" className={buttonClass("primary", "lg")}>
+              <Link href="/" className={buttonClass("gradient", "lg")}>
                 Voir les présentoirs
               </Link>
               <a

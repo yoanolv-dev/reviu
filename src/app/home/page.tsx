@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { HeroVisual } from "@/components/site/hero-visual";
 import { ProductPhoto } from "@/components/site/product-photo";
+import { Aurora } from "@/components/site/aurora";
+import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
 import { Testimonials } from "@/components/site/testimonials";
@@ -86,6 +88,11 @@ const COMPLIANCE = [
   "Aucun tri automatique selon la note : chaque client choisit librement.",
 ];
 
+const TRADES = [
+  "Restaurants", "Cafés", "Salons", "Garages", "Hôtels", "Boulangeries",
+  "Instituts", "Coiffeurs", "Boutiques", "Fleuristes",
+];
+
 export default function HomePage() {
   const schema = graph(
     softwareApplicationSchema(),
@@ -102,39 +109,19 @@ export default function HomePage() {
       <main>
         {/* HERO */}
         <section className="relative isolate overflow-hidden">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-24 right-[-6rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-brand-soft opacity-70 blur-3xl"
-          />
-          <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
+          <Aurora variant="hero" />
+          <Container className="grid items-center gap-10 py-14 sm:gap-12 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-28">
             <div className="reveal flex flex-col items-start">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Présentoirs NFC + QR dynamiques
               </span>
-              <h1 className="mt-5 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-tight text-ink sm:text-4xl sm:leading-[1.05] lg:text-[3.25rem]">
+              <h1 className="mt-5 font-display text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl sm:leading-[1.02] lg:text-[3.5rem]">
                 Le dépôt d&apos;
-                <span className="relative whitespace-nowrap text-brand">
-                  avis Google
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 200 10"
-                    preserveAspectRatio="none"
-                    className="absolute -bottom-1.5 left-0 h-2 w-full"
-                  >
-                    <path
-                      d="M3 7 Q100 1 197 6"
-                      fill="none"
-                      stroke="var(--color-brand)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      opacity="0.35"
-                    />
-                  </svg>
-                </span>
-                , simplifié.
+                <span className="text-gradient">avis Google</span>,
+                <br className="hidden sm:block" /> simplifié.
               </h1>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
+              <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-lg">
                 Des présentoirs NFC et QR codes dynamiques, pilotés à distance
                 depuis une seule plateforme. Vos clients laissent un avis en un
                 geste — vous gardez le contrôle.
@@ -142,7 +129,7 @@ export default function HomePage() {
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a
                   href={`${APP_BASE}/signup`}
-                  className={buttonClass("primary", "lg", "w-full sm:w-auto")}
+                  className={buttonClass("gradient", "lg", "w-full sm:w-auto")}
                 >
                   Créer mon compte
                 </a>
@@ -165,154 +152,173 @@ export default function HomePage() {
           </Container>
         </section>
 
-        {/* BANDEAU COMMERCES */}
-        <section className="border-y border-line bg-surface">
-          <Container className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-5 text-sm">
-            <span className="font-medium text-ink-soft">Sur tous les comptoirs :</span>
-            {["Restaurants", "Cafés", "Salons", "Garages", "Hôtels", "Boulangeries"].map(
-              (t, i) => (
-                <span key={t} className="text-muted">
-                  {i > 0 && <span className="mr-6 text-line">•</span>}
-                  {t}
-                </span>
-              ),
-            )}
+        {/* BANDEAU COMMERCES — marquee */}
+        <section className="border-y border-line bg-surface/70 backdrop-blur">
+          <Container className="py-6">
+            <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted">
+              Sur tous les comptoirs
+            </p>
+            <div className="marquee fade-x mt-4">
+              <div className="marquee-track gap-3 pr-3">
+                {[...TRADES, ...TRADES].map((t, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-2 rounded-full border border-line bg-canvas px-4 py-1.5 text-sm font-medium text-ink-soft"
+                  >
+                    <StarMark className="h-3.5 w-3.5 text-accent" />
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
           </Container>
         </section>
 
         {/* FONCTIONNEMENT */}
-        <section id="fonctionnement" className="border-t border-line bg-surface">
-          <Container className="py-16 sm:py-20">
-            <SectionHead eyebrow="Fonctionnement" title="Trois étapes, zéro friction." />
-            <div className="mt-12 grid gap-8 sm:grid-cols-3">
-              {STEPS.map((s) => (
-                <div key={s.n} className="flex flex-col">
-                  <span className="font-mono text-sm text-brand">{s.n}</span>
-                  <h3 className="mt-3 font-display text-xl font-semibold text-ink">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-                    {s.body}
-                  </p>
-                </div>
+        <section id="fonctionnement" className="relative overflow-hidden">
+          <Container className="py-16 sm:py-24">
+            <Reveal>
+              <SectionHead eyebrow="Fonctionnement" title="Trois étapes, zéro friction." />
+            </Reveal>
+            <div className="mt-14 grid gap-8 sm:grid-cols-3">
+              {STEPS.map((s, i) => (
+                <Reveal key={s.n} delay={i * 90}>
+                  <div className="group relative flex h-full flex-col rounded-3xl border border-line bg-surface p-7 elev elev-hover">
+                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-brand font-mono text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                      {s.n}
+                    </span>
+                    <h3 className="mt-5 font-display text-xl font-semibold text-ink">
+                      {s.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                      {s.body}
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </Container>
         </section>
 
         {/* AVANTAGES */}
-        <section id="avantages">
-          <Container className="py-16 sm:py-20">
-            <SectionHead
-              eyebrow="Avantages"
-              title="Pensé pour collecter, simple à piloter."
-            />
-            <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {FEATURES.map((f) => (
-                <div
-                  key={f.title}
-                  className="elev elev-hover rounded-2xl border border-line bg-surface p-6"
-                >
-                  <div className="grid h-9 w-9 place-items-center rounded-lg bg-brand-soft text-brand">
-                    <StarMark className="h-4 w-4" />
+        <section id="avantages" className="relative overflow-hidden border-y border-line bg-surface">
+          <Aurora variant="soft" />
+          <Container className="py-16 sm:py-24">
+            <Reveal>
+              <SectionHead
+                eyebrow="Avantages"
+                title="Pensé pour collecter, simple à piloter."
+              />
+            </Reveal>
+            <div className="mt-14 grid gap-5 sm:grid-cols-2">
+              {FEATURES.map((f, i) => (
+                <Reveal key={f.title} delay={i * 80}>
+                  <div className="elev elev-hover group h-full rounded-3xl border border-line bg-canvas p-7">
+                    <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-brand text-white shadow-[var(--shadow-glow)] transition-transform group-hover:scale-105">
+                      <StarMark className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-5 font-display text-lg font-semibold text-ink">
+                      {f.title}
+                    </h3>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                      {f.body}
+                    </p>
                   </div>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-ink">
-                    {f.title}
-                  </h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
-                    {f.body}
-                  </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </Container>
         </section>
 
         {/* ABONNEMENT / VALEUR */}
-        <section id="abonnement" className="border-t border-line bg-surface">
-          <Container className="grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
-            <div>
-              <SectionHead
-                eyebrow="Abonnement"
-                title="Le suivi qui fait grandir votre réputation."
-                align="left"
-              />
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                Le présentoir s&apos;achète une fois ({STAND_PRICE}) et
-                s&apos;active gratuitement. L&apos;abonnement de suivi débloque
-                ensuite les statistiques, la modification illimitée de vos liens
-                et vos retours privés — et bientôt la gestion de vos avis Google
-                directement depuis reviu.
-              </p>
-              <ul className="mt-6 flex flex-col gap-2.5">
-                {SUBSCRIPTION.perks.map((perk) => (
-                  <li
-                    key={perk}
-                    className="flex items-start gap-3 text-[15px] text-ink"
-                  >
-                    <CheckIcon />
-                    {perk}
-                  </li>
-                ))}
-                {PERKS_SOON.map((perk) => (
-                  <li
-                    key={perk}
-                    className="flex items-start gap-3 text-[15px] text-muted"
-                  >
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-soft text-[10px] font-semibold text-accent">
-                      ★
-                    </span>
-                    {perk}
-                    <span className="rounded-full bg-line-soft px-2 py-0.5 text-[11px] font-medium text-muted">
-                      bientôt
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="elev rounded-3xl border border-line bg-canvas p-8">
-              <ProductPhoto
-                src="/products/presentoir.png"
-                alt="Présentoir reviu NFC + QR pour avis Google"
-                className="mb-6 aspect-[16/10] w-full rounded-2xl"
-              />
-              <div className="flex items-baseline justify-between">
-                <span className="text-sm font-medium text-ink">Présentoir</span>
-                <span className="font-display text-2xl font-semibold text-ink">
-                  {STAND_PRICE}
-                  <span className="text-sm font-normal text-muted"> · achat unique</span>
-                </span>
+        <section id="abonnement" className="relative overflow-hidden">
+          <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
+            <Reveal>
+              <div>
+                <SectionHead
+                  eyebrow="Abonnement"
+                  title="Le suivi qui fait grandir votre réputation."
+                  align="left"
+                />
+                <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
+                  Le présentoir s&apos;achète une fois ({STAND_PRICE}) et
+                  s&apos;active gratuitement. L&apos;abonnement de suivi débloque
+                  ensuite les statistiques, la modification illimitée de vos liens
+                  et vos retours privés — et bientôt la gestion de vos avis Google
+                  directement depuis reviu.
+                </p>
+                <ul className="mt-6 flex flex-col gap-2.5">
+                  {SUBSCRIPTION.perks.map((perk) => (
+                    <li
+                      key={perk}
+                      className="flex items-start gap-3 text-[15px] text-ink"
+                    >
+                      <CheckIcon />
+                      {perk}
+                    </li>
+                  ))}
+                  {PERKS_SOON.map((perk) => (
+                    <li
+                      key={perk}
+                      className="flex items-start gap-3 text-[15px] text-muted"
+                    >
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-soft text-[10px] font-semibold text-accent">
+                        ★
+                      </span>
+                      {perk}
+                      <span className="rounded-full bg-line-soft px-2 py-0.5 text-[11px] font-medium text-muted">
+                        bientôt
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <p className="mt-1 text-xs text-muted">
-                Livraison en France métropolitaine · activation gratuite
-              </p>
-              <div className="mt-5 flex items-baseline justify-between border-t border-line pt-5">
-                <span className="text-sm font-medium text-ink">
-                  Abonnement de suivi
-                </span>
-                <span className="font-display text-2xl font-semibold text-ink">
-                  {SUBSCRIPTION.priceLabel}
-                  <span className="text-sm font-normal text-muted">
-                    /{SUBSCRIPTION.period}
+            </Reveal>
+            <Reveal delay={120}>
+              <div className="ring-gradient elev rounded-[2rem] border border-line bg-surface p-8 shadow-[var(--shadow-lift)]">
+                <ProductPhoto
+                  src="/products/presentoir.png"
+                  alt="Présentoir reviu NFC + QR pour avis Google"
+                  className="mb-6 aspect-[16/10] w-full rounded-2xl"
+                />
+                <div className="flex items-baseline justify-between">
+                  <span className="text-sm font-medium text-ink">Présentoir</span>
+                  <span className="font-display text-2xl font-semibold text-ink">
+                    {STAND_PRICE}
+                    <span className="text-sm font-normal text-muted"> · achat unique</span>
                   </span>
-                </span>
+                </div>
+                <p className="mt-1 text-xs text-muted">
+                  Livraison en France métropolitaine · activation gratuite
+                </p>
+                <div className="mt-5 flex items-baseline justify-between border-t border-line pt-5">
+                  <span className="text-sm font-medium text-ink">
+                    Abonnement de suivi
+                  </span>
+                  <span className="font-display text-2xl font-semibold text-ink">
+                    {SUBSCRIPTION.priceLabel}
+                    <span className="text-sm font-normal text-muted">
+                      /{SUBSCRIPTION.period}
+                    </span>
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted">
+                  Par présentoir · sans engagement · résiliable à tout moment
+                </p>
+                <a
+                  href={BOUTIQUE_URL}
+                  className={buttonClass("gradient", "lg", "mt-6 w-full")}
+                >
+                  Commander un présentoir
+                </a>
+                <a
+                  href={`${APP_BASE}/signup`}
+                  className={buttonClass("secondary", "md", "mt-2 w-full")}
+                >
+                  Créer mon compte
+                </a>
               </div>
-              <p className="mt-1 text-xs text-muted">
-                Par présentoir · sans engagement · résiliable à tout moment
-              </p>
-              <a
-                href={BOUTIQUE_URL}
-                className={buttonClass("primary", "lg", "mt-6 w-full")}
-              >
-                Commander un présentoir
-              </a>
-              <a
-                href={`${APP_BASE}/signup`}
-                className={buttonClass("secondary", "md", "mt-2 w-full")}
-              >
-                Créer mon compte
-              </a>
-            </div>
+            </Reveal>
           </Container>
         </section>
 
@@ -321,38 +327,40 @@ export default function HomePage() {
 
         {/* CONFORMITÉ */}
         <section id="conformite" className="border-y border-line bg-surface">
-          <Container className="grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center">
-            <div>
-              <SectionHead
-                eyebrow="Conformité"
-                title="Avis public ou retour privé, au choix du client."
-                align="left"
-              />
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                reviu invite tous vos clients à laisser un avis Google, quel que
-                soit leur ressenti. Le retour privé est un canal de contact
-                direct proposé en complément — jamais un moyen d&apos;éviter un
-                avis négatif. Aucun tri automatique selon la note.
-              </p>
-            </div>
+          <Container className="grid gap-10 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
+            <Reveal>
+              <div>
+                <SectionHead
+                  eyebrow="Conformité"
+                  title="Avis public ou retour privé, au choix du client."
+                  align="left"
+                />
+                <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
+                  reviu invite tous vos clients à laisser un avis Google, quel que
+                  soit leur ressenti. Le retour privé est un canal de contact
+                  direct proposé en complément — jamais un moyen d&apos;éviter un
+                  avis négatif. Aucun tri automatique selon la note.
+                </p>
+              </div>
+            </Reveal>
             <ul className="flex flex-col gap-3">
-              {COMPLIANCE.map((c) => (
-                <li
-                  key={c}
-                  className="flex items-start gap-3 rounded-xl border border-line bg-canvas p-4"
-                >
-                  <CheckIcon />
-                  <span className="text-[15px] leading-relaxed text-ink">{c}</span>
-                </li>
+              {COMPLIANCE.map((c, i) => (
+                <Reveal key={c} delay={i * 90}>
+                  <li className="flex items-start gap-3 rounded-2xl border border-line bg-canvas p-4">
+                    <CheckIcon />
+                    <span className="text-[15px] leading-relaxed text-ink">{c}</span>
+                  </li>
+                </Reveal>
               ))}
             </ul>
           </Container>
         </section>
 
         {/* CTA */}
-        <section>
+        <section className="relative overflow-hidden">
           <Container className="py-20 sm:py-24">
-            <div className="rounded-3xl bg-ink px-6 py-14 text-center sm:px-12">
+            <div className="relative isolate overflow-hidden rounded-[2.5rem] bg-ink px-6 py-16 text-center sm:px-12">
+              <Aurora variant="violet" className="opacity-70" />
               <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
                 Prêt à collecter plus d&apos;avis ?
               </h2>
@@ -363,11 +371,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <a
                   href={`${APP_BASE}/signup`}
-                  className={buttonClass(
-                    "secondary",
-                    "lg",
-                    "border-transparent",
-                  )}
+                  className={buttonClass("secondary", "lg", "border-transparent")}
                 >
                   Créer mon compte
                 </a>
@@ -419,7 +423,7 @@ function SectionHead({
 
 function CheckIcon() {
   return (
-    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white">
+    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gradient-brand text-white">
       <svg
         viewBox="0 0 24 24"
         className="h-3 w-3"

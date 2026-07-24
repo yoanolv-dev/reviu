@@ -29,9 +29,9 @@ export function DashboardNav({ showReseller = false }: { showReseller?: boolean 
             key={it.href}
             href={it.href}
             className={cn(
-              "whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors",
+              "whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
               active
-                ? "bg-brand-soft text-brand"
+                ? "bg-gradient-brand text-white shadow-[var(--shadow-glow)]"
                 : "text-ink-soft hover:bg-line-soft",
             )}
           >

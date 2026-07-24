@@ -20,6 +20,12 @@
   --color-brand-soft: #edf1ff;
   --color-star: #f5a524;
 
+  /* Compagnons de dégradé — cobalt vers périwinkle/violet, plus un azur clair.
+     Donnent de la profondeur et de la lumière sans quitter l'ADN cobalt. */
+  --color-brand-2: #6d5cff;
+  --color-violet: #8b5cf6;
+  --color-azure: #38b6ff;
+
   /* Accent d'énergie : le doré des étoiles d'avis Google (logo + états positifs). */
   --color-accent: #fbbc04;
   --color-accent-soft: #fff5d6;
@@ -27,6 +33,13 @@
   /* Ombres douces à deux niveaux — profondeur sans glassmorphism. */
   --shadow-soft: 0 1px 2px rgba(10, 13, 22, 0.04), 0 8px 24px -12px rgba(17, 57, 201, 0.14);
   --shadow-lift: 0 2px 4px rgba(10, 13, 22, 0.05), 0 22px 48px -18px rgba(17, 57, 201, 0.24);
+  /* Ombres colorées « premium » — lueur cobalt/violet sous les éléments clés. */
+  --shadow-glow: 0 24px 70px -24px rgba(27, 77, 255, 0.5);
+  --shadow-glow-violet: 0 24px 70px -24px rgba(124, 92, 246, 0.45);
+
+  /* Dégradés de marque réutilisables. */
+  --gradient-brand: linear-gradient(115deg, #1b4dff 0%, #5a6bff 48%, #8b5cf6 100%);
+  --gradient-brand-soft: linear-gradient(115deg, #edf1ff 0%, #eef0ff 50%, #f3edff 100%);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     sans-serif;
@@ -94,9 +107,128 @@
   transform: translateY(-3px);
 }
 
+/* ---------------------------------------------------------------------------
+   Premium & lumineux — dégradés, halos animés (aurora), verre, mouvement.
+   Ajoute de la vie et de la profondeur tout en gardant l'ADN cobalt + doré.
+--------------------------------------------------------------------------- */
+
+/* Texte en dégradé de marque. */
+.text-gradient {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Aplats/dégradés utilitaires. */
+.bg-gradient-brand { background-image: var(--gradient-brand); }
+.bg-gradient-brand-soft { background-image: var(--gradient-brand-soft); }
+
+/* Lueurs colorées. */
+.glow { box-shadow: var(--shadow-glow); }
+.glow-violet { box-shadow: var(--shadow-glow-violet); }
+
+/* Carte « verre » translucide — profondeur douce sur fonds colorés. */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Bordure en dégradé (masque composite) — liseré premium autour d'une carte. */
+.ring-gradient {
+  position: relative;
+}
+.ring-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-brand);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Aurora : halos de couleur flous et dérivants en fond de section ──────── */
+.aurora {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.55;
+  will-change: transform;
+  animation: reviu-drift 20s ease-in-out infinite;
+}
+@keyframes reviu-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(5%, -7%, 0) scale(1.1); }
+  66% { transform: translate3d(-6%, 4%, 0) scale(0.94); }
+}
+
+/* ── Marquee : bandeau qui défile en boucle (types de commerces, avis) ───── */
+.marquee { overflow: hidden; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: reviu-marquee 38s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes reviu-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Masque de fondu latéral (bords du marquee). */
+.fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* ── Étoiles scintillantes ──────────────────────────────────────────────── */
+.shimmer { animation: reviu-shimmer 2.6s ease-in-out infinite; }
+@keyframes reviu-shimmer {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; filter: drop-shadow(0 0 6px rgba(251, 188, 4, 0.6)); }
+}
+
+/* ── Apparition au scroll (piloté par le composant <Reveal>) ─────────────── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Léger flottement (cartes décoratives du hero). */
+.float { animation: reviu-float 7s ease-in-out infinite; }
+.float-slow { animation: reviu-float 10s ease-in-out infinite; }
+@keyframes reviu-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tw-rotate, 0)); }
+  50% { transform: translateY(-10px) rotate(var(--tw-rotate, 0)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .pop { animation: none !important; }
   .elev-hover:hover { transform: none; }
+  .aurora-blob, .marquee-track, .shimmer, .float, .float-slow { animation: none !important; }
+  .reveal-up { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

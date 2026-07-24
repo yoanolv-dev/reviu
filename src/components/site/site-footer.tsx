@@ -41,7 +41,11 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer className="relative border-t border-line bg-surface">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-brand opacity-60"
+      />
       <Container className="grid gap-10 py-14 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
           <Logo />

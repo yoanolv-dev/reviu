@@ -5,6 +5,9 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
 import { Testimonials } from "@/components/site/testimonials";
+import { Aurora } from "@/components/site/aurora";
+import { Reveal } from "@/components/site/reveal";
+import { buttonClass } from "@/components/ui/button";
 import { StarMark } from "@/components/ui/logo";
 import { APP_BASE, SUBSCRIPTION } from "@/lib/brand";
 import { CATALOG, formatEuros, getProduct, type ShopProduct } from "@/lib/shop";
@@ -83,19 +86,16 @@ export default function BoutiquePage() {
       <main className="bg-canvas">
         {/* HERO */}
         <section className="relative isolate overflow-hidden border-b border-line">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-24 right-[-6rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-brand-soft opacity-70 blur-3xl"
-          />
-          <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-24">
+          <Aurora variant="hero" />
+          <Container className="grid items-center gap-10 py-14 sm:gap-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
             <div className="reveal order-2 flex flex-col items-start lg:order-1">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Boutique officielle reviu
               </span>
-              <h1 className="mt-5 font-display text-[1.9rem] font-semibold leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[3.15rem] lg:leading-[1.05]">
+              <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem] lg:leading-[1.03]">
                 Le présentoir qui transforme vos clients en{" "}
-                <span className="text-brand">avis Google</span>.
+                <span className="text-gradient">avis Google</span>.
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
                 Un geste — coller le téléphone ou scanner le QR — et l&apos;avis
@@ -108,43 +108,49 @@ export default function BoutiquePage() {
                 <TrustItem>NFC + QR déjà encodés</TrustItem>
               </div>
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                <a
-                  href="#produits"
-                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_var(--color-brand)] transition-colors hover:bg-brand-strong sm:w-auto"
-                >
+                <a href="#produits" className={buttonClass("gradient", "lg", "w-full sm:w-auto")}>
                   Voir les produits
                 </a>
-                <a
-                  href="#revendeur"
-                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-[15px] font-medium text-ink transition-colors hover:border-brand/40 sm:w-auto"
-                >
+                <a href="#revendeur" className={buttonClass("secondary", "lg", "w-full sm:w-auto")}>
                   Devenir revendeur
                 </a>
               </div>
             </div>
-            <ProductPhoto
-              src={PHOTO.hero}
-              alt="Présentoir reviu NFC + QR pour avis Google"
-              className="order-1 mx-auto aspect-square w-full max-w-[18rem] rounded-3xl shadow-[var(--shadow-soft)] sm:max-w-sm lg:order-2 lg:max-w-none"
-            />
+            <div className="relative order-1 mx-auto w-full max-w-[18rem] sm:max-w-sm lg:order-2 lg:max-w-none">
+              <div
+                aria-hidden
+                className="absolute inset-3 -z-10 rounded-[3rem] bg-gradient-brand opacity-25 blur-3xl"
+              />
+              <ProductPhoto
+                src={PHOTO.hero}
+                alt="Présentoir reviu NFC + QR pour avis Google"
+                className="ring-gradient aspect-square w-full rounded-[2rem] shadow-[var(--shadow-lift)]"
+              />
+            </div>
           </Container>
         </section>
 
         {/* COMMENT ÇA MARCHE */}
         <section className="border-b border-line bg-surface">
-          <Container className="py-14 sm:py-16">
-            <SectionHead eyebrow="Comment ça marche" title="Trois étapes, zéro friction." />
-            <div className="mt-10 grid gap-8 sm:grid-cols-3">
-              {STEPS.map((s) => (
-                <div key={s.n} className="flex flex-col">
-                  <span className="font-mono text-sm text-brand">{s.n}</span>
-                  <h3 className="mt-3 font-display text-lg font-semibold text-ink">
-                    {s.title}
-                  </h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
-                    {s.body}
-                  </p>
-                </div>
+          <Container className="py-16 sm:py-20">
+            <Reveal>
+              <SectionHead eyebrow="Comment ça marche" title="Trois étapes, zéro friction." />
+            </Reveal>
+            <div className="mt-12 grid gap-6 sm:grid-cols-3">
+              {STEPS.map((s, i) => (
+                <Reveal key={s.n} delay={i * 90}>
+                  <div className="elev elev-hover flex h-full flex-col rounded-3xl border border-line bg-canvas p-7">
+                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-brand font-mono text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                      {s.n}
+                    </span>
+                    <h3 className="mt-5 font-display text-lg font-semibold text-ink">
+                      {s.title}
+                    </h3>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                      {s.body}
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </Container>
@@ -158,8 +164,10 @@ export default function BoutiquePage() {
               title="Choisissez votre point de départ."
             />
             <div className="mt-12 grid gap-6 lg:grid-cols-2">
-              {CATALOG.map((p) => (
-                <ProductCard key={p.id} product={p} />
+              {CATALOG.map((p, i) => (
+                <Reveal key={p.id} delay={i * 80} className="h-full">
+                  <ProductCard product={p} />
+                </Reveal>
               ))}
             </div>
             <p className="mt-8 text-center text-sm text-muted">
@@ -239,10 +247,8 @@ export default function BoutiquePage() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="#produits" className="inline-flex">
-                  <span className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand px-6 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_var(--color-brand)] transition-colors hover:bg-brand-strong">
-                    Voir les packs revendeurs
-                  </span>
+                <a href="#produits" className={buttonClass("gradient", "lg")}>
+                  Voir les packs revendeurs
                 </a>
               </div>
             </div>
@@ -285,16 +291,10 @@ export default function BoutiquePage() {
               suivre vos statistiques.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`${APP_BASE}/signup`}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-brand px-6 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
-              >
+              <a href={`${APP_BASE}/signup`} className={buttonClass("gradient", "md")}>
                 Créer mon compte
               </a>
-              <Link
-                href="/demo"
-                className="inline-flex h-11 items-center justify-center rounded-full border border-line bg-canvas px-6 text-sm font-medium text-ink transition-colors hover:border-brand/40"
-              >
+              <Link href="/demo" className={buttonClass("secondary", "md")}>
                 Voir la démo
               </Link>
             </div>
@@ -314,13 +314,15 @@ function ProductCard({ product }: { product: ShopProduct }) {
   return (
     <div
       className={
-        "elev flex flex-col overflow-hidden rounded-3xl border bg-surface " +
-        (highlight ? "border-brand/50 ring-1 ring-brand/20" : "border-line")
+        "elev elev-hover flex h-full flex-col overflow-hidden rounded-3xl border bg-surface " +
+        (highlight
+          ? "ring-gradient border-brand/40 shadow-[var(--shadow-glow)]"
+          : "border-line")
       }
     >
       <div className="relative">
         {isDigital ? (
-          <div className="grid aspect-[16/9] w-full place-items-center bg-gradient-to-br from-brand to-brand-strong">
+          <div className="grid aspect-[16/9] w-full place-items-center bg-gradient-brand">
             <div className="flex flex-col items-center gap-2 text-white">
               <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/15">
                 <StarMark className="h-6 w-6 text-white" />

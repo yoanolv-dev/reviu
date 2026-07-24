@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
+import { Aurora } from "@/components/site/aurora";
 import { buttonClass } from "@/components/ui/button";
 import {
   getGuide,
@@ -80,8 +81,9 @@ export default async function GuidePage({ params }: Props) {
       <SiteHeader />
       <main className="bg-canvas">
         {/* EN-TÊTE */}
-        <section className="border-b border-line">
-          <Container className="py-10 sm:py-14">
+        <section className="relative isolate overflow-hidden border-b border-line">
+          <Aurora variant="soft" />
+          <Container className="py-12 sm:py-16">
             <nav aria-label="Fil d'Ariane" className="text-sm text-muted">
               <Link href="/" className="hover:text-ink">
                 Accueil

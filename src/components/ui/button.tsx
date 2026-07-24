@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "gradient";
 type Size = "md" | "lg";
 
 const base =
@@ -11,6 +11,8 @@ const base =
 const variants: Record<Variant, string> = {
   primary:
     "bg-brand text-white shadow-[0_8px_20px_-8px_var(--color-brand)] hover:bg-brand-strong hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-10px_var(--color-brand)]",
+  gradient:
+    "bg-gradient-brand text-white shadow-[var(--shadow-glow)] hover:-translate-y-0.5 hover:shadow-[0_28px_60px_-18px_rgba(27,77,255,0.6)]",
   secondary:
     "bg-surface text-ink border border-line hover:border-brand/40 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]",
   ghost: "text-ink hover:bg-line-soft",

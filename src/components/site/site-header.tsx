@@ -19,7 +19,7 @@ export function SiteHeader() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-canvas/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-white/50 bg-canvas/70 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
@@ -51,7 +51,7 @@ export function SiteHeader() {
           >
             Se connecter
           </a>
-          <a href={`${APP_BASE}/signup`} className={buttonClass("primary", "md")}>
+          <a href={`${APP_BASE}/signup`} className={buttonClass("gradient", "md")}>
             Créer un compte
           </a>
         </div>
@@ -93,7 +93,7 @@ export function SiteHeader() {
               <a
                 href={`${APP_BASE}/signup`}
                 onClick={close}
-                className={buttonClass("primary", "lg", "w-full")}
+                className={buttonClass("gradient", "lg", "w-full")}
               >
                 Créer un compte
               </a>

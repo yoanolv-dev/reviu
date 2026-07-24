@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
+import { Aurora } from "@/components/site/aurora";
 import { SITE_URL } from "@/lib/brand";
 
 export function AuthShell({
@@ -14,12 +15,13 @@ export function AuthShell({
   footer?: React.ReactNode;
 }) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-canvas px-5 py-10">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-canvas px-5 py-10">
+      <Aurora variant="soft" />
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-8 flex justify-center">
           <Logo />
         </Link>
-        <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8">
+        <div className="ring-gradient rounded-3xl border border-white/60 bg-surface/85 p-6 shadow-[var(--shadow-lift)] backdrop-blur sm:p-8">
           <h1 className="font-display text-xl font-semibold text-ink">{title}</h1>
           {subtitle && <p className="mt-1.5 text-sm text-muted">{subtitle}</p>}
           <div className="mt-6">{children}</div>

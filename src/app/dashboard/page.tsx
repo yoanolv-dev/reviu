@@ -43,21 +43,30 @@ export default async function DashboardHome() {
           <StatCard label="Taux de conversion" value={`${stats.conversion}%`} className="reveal-3" />
         </div>
       ) : (
-        <div className="rounded-3xl border border-line bg-surface p-6">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">🔒</span>
+        <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-6">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-brand opacity-10 blur-3xl"
+          />
+          <div className="flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand text-white shadow-[var(--shadow-glow)]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+              </svg>
+            </span>
             <h2 className="font-display text-base font-semibold text-ink">
               Suivi des statistiques verrouillé
             </h2>
           </div>
-          <p className="mt-2 text-sm text-muted">
+          <p className="mt-3 text-sm text-muted">
             Abonnez-vous à {SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} pour
             suivre vos scans, clics et taux de conversion. Sans engagement,
             résiliable à tout moment.
           </p>
           <Link
             href="/dashboard/stands"
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-full bg-brand px-5 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
+            className="mt-4 inline-flex h-10 items-center justify-center rounded-full bg-gradient-brand px-5 text-sm font-medium text-white shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5"
           >
             Activer le suivi
           </Link>

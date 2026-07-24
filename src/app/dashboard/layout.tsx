@@ -18,7 +18,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-canvas">
-      <header className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/50 bg-surface/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-5">
           <Logo />
           <div className="flex items-center gap-1">
