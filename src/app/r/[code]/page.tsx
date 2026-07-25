@@ -43,7 +43,7 @@ export default async function RedirectPage({
   const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
 
   // Mode « Accès direct » (défaut) : redirection immédiate vers l'avis Google.
-  // Les écritures (vue + clic — un seul geste en mode direct) partent en
+  // Les écritures (vue + clic - un seul geste en mode direct) partent en
   // arrière-plan via after() : le client n'attend AUCUN aller-retour DB, et on
   // évite le hop intermédiaire /go. Statistiques conservées à l'identique.
   if (est.scanMode === "direct" && stand.targetUrl) {

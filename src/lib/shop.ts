@@ -65,7 +65,7 @@ export const CATALOG: ShopProduct[] = [
   },
   {
     id: "formation",
-    name: "Formation — Lance ton business d'avis Google",
+    name: "Formation - Lance ton business d'avis Google",
     tagline:
       "La méthode complète pour produire, vendre et déployer des présentoirs d'avis Google.",
     priceCents: envCents("SHOP_PRICE_FORMATION", 4900),
@@ -93,7 +93,7 @@ export const CATALOG: ShopProduct[] = [
     features: [
       "10 présentoirs NFC + QR livrés",
       "Formation complète incluse",
-      "≈ 19,90 €/présentoir — marge à la revente à 29,90 €",
+      "≈ 19,90 €/présentoir - marge à la revente à 29,90 €",
       "Chaque présentoir placé = un abonnement 2,99 €/mois",
     ],
     badge: "Le plus vendu",
@@ -111,7 +111,7 @@ export const CATALOG: ShopProduct[] = [
     features: [
       "20 présentoirs NFC + QR livrés",
       "Formation complète incluse",
-      "≈ 17,45 €/présentoir — meilleure marge du catalogue",
+      "≈ 17,45 €/présentoir - meilleure marge du catalogue",
       "Idéal pour bâtir un portefeuille d'abonnements récurrents",
     ],
     badge: "Meilleure marge",

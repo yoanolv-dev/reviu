@@ -27,9 +27,9 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Comment ça marche — reviu",
+  title: "Comment ça marche - reviu",
   description:
-    "Présentoirs NFC et QR codes dynamiques pour faciliter le dépôt d'avis Google de vos vrais clients. Avis public ou retour privé, au choix du client — vous pilotez tout depuis une seule plateforme.",
+    "Présentoirs NFC et QR codes dynamiques pour faciliter le dépôt d'avis Google de vos vrais clients. Avis public ou retour privé, au choix du client - vous pilotez tout depuis une seule plateforme.",
   path: "/home",
   keywords: [
     "comment collecter des avis Google",
@@ -125,7 +125,7 @@ export default function HomePage() {
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-lg">
                 Des présentoirs NFC et QR codes dynamiques, pilotés à distance
                 depuis une seule plateforme. Vos clients laissent un avis en un
-                geste — vous gardez le contrôle.
+                geste - vous gardez le contrôle.
               </p>
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a
@@ -153,7 +153,7 @@ export default function HomePage() {
           </Container>
         </section>
 
-        {/* BANDEAU COMMERCES — marquee */}
+        {/* BANDEAU COMMERCES - marquee */}
         <section className="border-y border-line bg-surface/70 backdrop-blur">
           <Container className="py-6">
             <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted">
@@ -245,7 +245,7 @@ export default function HomePage() {
                   Le présentoir s&apos;achète une fois ({STAND_PRICE}) et
                   s&apos;active gratuitement. L&apos;abonnement de suivi débloque
                   ensuite les statistiques, la modification illimitée de vos liens
-                  et vos retours privés — et bientôt la gestion de vos avis Google
+                  et vos retours privés - et bientôt la gestion de vos avis Google
                   directement depuis reviu.
                 </p>
                 <ul className="mt-6 flex flex-col gap-2.5">
@@ -339,7 +339,7 @@ export default function HomePage() {
                 <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
                   reviu invite tous vos clients à laisser un avis Google, quel que
                   soit leur ressenti. Le retour privé est un canal de contact
-                  direct proposé en complément — jamais un moyen d&apos;éviter un
+                  direct proposé en complément - jamais un moyen d&apos;éviter un
                   avis négatif. Aucun tri automatique selon la note.
                 </p>
               </div>

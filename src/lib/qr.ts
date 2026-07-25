@@ -7,7 +7,7 @@ export function standUrl(code: string, channel?: "nfc" | "qr") {
   return channel ? `${url}?s=${channel}` : url;
 }
 
-/** QR code vectoriel (SVG) encodant l'URL du présentoir — prêt pour le fournisseur. */
+/** QR code vectoriel (SVG) encodant l'URL du présentoir - prêt pour le fournisseur. */
 export async function qrSvg(code: string): Promise<string> {
   return QRCode.toString(standUrl(code, "qr"), {
     type: "svg",

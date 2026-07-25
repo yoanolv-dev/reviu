@@ -3,7 +3,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { GUIDES } from "@/lib/guides";
 
 /**
- * Plan du site (sitemap.xml) — ne liste que les pages publiques indexables.
+ * Plan du site (sitemap.xml) - ne liste que les pages publiques indexables.
  * La page d’accueil canonique est la racine `/` (réécrite vers la boutique), on
  * ne liste donc pas `/boutique` en double. Les guides sont générés depuis la
  * source de contenu pour rester automatiquement à jour.

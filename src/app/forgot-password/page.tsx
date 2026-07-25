@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { ForgotForm } from "./forgot-form";
 
-export const metadata: Metadata = { title: "Mot de passe oublié — reviu" };
+export const metadata: Metadata = { title: "Mot de passe oublié - reviu" };
 
 export default function ForgotPasswordPage() {
   return (

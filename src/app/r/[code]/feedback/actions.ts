@@ -38,7 +38,7 @@ function feedbackEmailHtml(row: NotifyTarget): string {
 /**
  * Enregistre le retour client puis notifie le commerçant par e-mail (best-effort :
  * n'interrompt jamais le parcours client). Ne concerne QUE les retours saisis
- * dans Reviu — les avis Google ne sont pas détectés (aucune intégration GBP).
+ * dans Reviu - les avis Google ne sont pas détectés (aucune intégration GBP).
  */
 export async function submitFeedbackAction(
   code: string,
@@ -58,7 +58,7 @@ export async function submitFeedbackAction(
     if (!row?.email) return;
     await sendEmail({
       to: row.email,
-      subject: `Nouveau retour client — ${row.establishment_name ?? "reviu"}`,
+      subject: `Nouveau retour client - ${row.establishment_name ?? "reviu"}`,
       html: feedbackEmailHtml(row),
     });
   } catch (err) {

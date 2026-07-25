@@ -42,7 +42,7 @@ export function StandManage({
           >
             {subPending
               ? "Redirection…"
-              : `S'abonner au suivi — ${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period}`}
+              : `S'abonner au suivi - ${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period}`}
           </button>
           <p className="text-xs text-muted">
             Statistiques + modification illimitée du lien. Paiement sécurisé par

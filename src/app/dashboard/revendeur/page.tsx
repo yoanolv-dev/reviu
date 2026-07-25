@@ -3,7 +3,7 @@ import { getResellerOverview, getResellerStands } from "@/lib/reseller";
 import { StatCard, StatusBadge, formatDate } from "@/components/dashboard/ui";
 import { SITE_URL } from "@/lib/brand";
 
-export const metadata = { title: "Espace revendeur — reviu" };
+export const metadata = { title: "Espace revendeur - reviu" };
 
 export default async function ResellerPage() {
   const overview = await getResellerOverview();
@@ -23,7 +23,7 @@ export default async function ResellerPage() {
         </p>
       </div>
 
-      {/* KPIs — impact, sans notion de commission */}
+      {/* KPIs - impact, sans notion de commission */}
       <div className="grid gap-4 sm:grid-cols-3">
         <StatCard label="Présentoirs attribués" value={overview.total_stands} />
         <StatCard label="Déployés (activés)" value={overview.deployed_stands} />
@@ -35,7 +35,7 @@ export default async function ResellerPage() {
         <p className="text-[15px] leading-relaxed text-ink-soft">
           Votre gain, c&apos;est votre <strong className="font-medium text-ink">marge à la
           revente</strong> du présentoir (acheté remisé en pack). Le suivi reviu
-          (abonnement) est ensuite proposé au commerçant par reviu — vous n&apos;avez
+          (abonnement) est ensuite proposé au commerçant par reviu - vous n&apos;avez
           rien à gérer de ce côté. Ce tableau vous montre simplement l&apos;impact de
           votre activité.
         </p>
@@ -77,7 +77,7 @@ export default async function ResellerPage() {
                       <StatusBadge status={s.status} />
                     </td>
                     <td className="px-4 py-3 text-ink-soft">
-                      {s.deployed ? "Oui" : "—"}
+                      {s.deployed ? "Oui" : "-"}
                     </td>
                     <td className="px-4 py-3">
                       {s.sub_active ? (
@@ -85,11 +85,11 @@ export default async function ResellerPage() {
                           Abonné
                         </span>
                       ) : (
-                        <span className="text-xs text-muted">—</span>
+                        <span className="text-xs text-muted">-</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-muted">
-                      {s.activated_at ? formatDate(s.activated_at) : "—"}
+                      {s.activated_at ? formatDate(s.activated_at) : "-"}
                     </td>
                   </tr>
                 ))}

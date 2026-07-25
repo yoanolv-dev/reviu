@@ -1,8 +1,8 @@
 /**
  * Envoi d'e-mails transactionnels via Resend (API REST, aucune dépendance).
  * Piloté par variables d'environnement :
- *   RESEND_API_KEY      — clé API Resend (secrète, côté serveur)
- *   REVIU_EMAIL_FROM    — expéditeur vérifié, ex. "reviu <avis@reviu.fr>"
+ *   RESEND_API_KEY      - clé API Resend (secrète, côté serveur)
+ *   REVIU_EMAIL_FROM    - expéditeur vérifié, ex. "reviu <avis@reviu.fr>"
  * Sans clé configurée, l'envoi est ignoré proprement (pas d'erreur bloquante).
  */
 
@@ -15,7 +15,7 @@ export async function sendEmail(opts: {
   html: string;
 }): Promise<boolean> {
   if (!RESEND_API_KEY) {
-    console.warn("[email] RESEND_API_KEY absent — e-mail non envoyé.");
+    console.warn("[email] RESEND_API_KEY absent - e-mail non envoyé.");
     return false;
   }
   try {

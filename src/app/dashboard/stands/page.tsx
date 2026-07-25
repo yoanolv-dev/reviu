@@ -32,7 +32,7 @@ export default async function StandsPage({
       {sub === "success" && (
         <div className="pop rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
           Paiement confirmé&nbsp;! Votre suivi s&apos;active dans quelques
-          instants — actualisez la page si le statut n&apos;apparaît pas encore.
+          instants - actualisez la page si le statut n&apos;apparaît pas encore.
         </div>
       )}
       {sub === "cancel" && (

@@ -25,7 +25,7 @@ export function StarMark({
   );
 }
 
-/** Doré des étoiles d'avis Google — accent du monogramme. */
+/** Doré des étoiles d'avis Google - accent du monogramme. */
 export const REVIEW_GOLD = "#FBBC04";
 
 /**

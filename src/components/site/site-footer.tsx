@@ -97,7 +97,7 @@ export function SiteFooter() {
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted">
-              © {new Date().getFullYear()} reviu — NEVIFY. Tous droits réservés.
+              © {new Date().getFullYear()} reviu - NEVIFY. Tous droits réservés.
             </p>
             <p className="text-sm text-muted">Conçu en France 🇫🇷</p>
           </div>

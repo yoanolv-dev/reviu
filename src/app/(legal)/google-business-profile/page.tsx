@@ -3,7 +3,7 @@ import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, GOOGLE_DISCLAIMER } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Connexion Google Business Profile — reviu",
+  title: "Connexion Google Business Profile - reviu",
   description:
     "Pourquoi et comment reviu se connecte à Google Business Profile : données consultées, actions possibles, caractère facultatif, déconnexion et suppression des données.",
   alternates: { canonical: `${SITE_URL}/google-business-profile` },
@@ -26,7 +26,7 @@ export default function GoogleBusinessProfile() {
       <P>
         Pour centraliser la gestion de votre réputation : consulter vos avis
         Google, y répondre et suivre les statistiques de votre fiche, directement
-        depuis reviu. Sans cette connexion, reviu fonctionne normalement — vous
+        depuis reviu. Sans cette connexion, reviu fonctionne normalement - vous
         perdez simplement ces fonctionnalités liées à Google.
       </P>
 

@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/container";
 import { ShopScene, type ShopVariant } from "./shop-scene";
 import { Reveal } from "./reveal";
 
-/** Attributs produit factuels — aucun résultat chiffré ni témoignage. */
+/** Attributs produit factuels - aucun résultat chiffré ni témoignage. */
 const FACTS = [
   { value: "NFC + QR", label: "sur le même présentoir" },
   { value: "À distance", label: "vous pilotez la destination, sans réimprimer" },

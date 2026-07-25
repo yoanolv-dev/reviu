@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { verifyFormationGrant } from "@/lib/shop";
 
 export const metadata: Metadata = {
-  title: "Formation — Lance ton business d'avis Google | reviu",
+  title: "Formation - Lance ton business d'avis Google | reviu",
   robots: { index: false, follow: false },
 };
 
@@ -42,7 +42,7 @@ export default async function FormationPage({
             </h1>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-soft">
               De la production des présentoirs à la signature de tes premiers
-              clients récurrents. Suis les modules dans l&apos;ordre — chaque
+              clients récurrents. Suis les modules dans l&apos;ordre - chaque
               étape est actionnable dès aujourd&apos;hui.
             </p>
           </Container>

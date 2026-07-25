@@ -8,7 +8,7 @@ const PACK10_PRICE = formatEuros(getProduct("pack10")!.priceCents);
 const PACK20_PRICE = formatEuros(getProduct("pack20")!.priceCents);
 
 export const metadata: Metadata = {
-  title: "Conditions générales de vente — reviu",
+  title: "Conditions générales de vente - reviu",
   description:
     "Conditions générales de vente des présentoirs reviu et de l'abonnement de suivi : prix, livraison, rétractation, garanties, résiliation.",
   alternates: { canonical: `${SITE_URL}/cgv` },
@@ -22,7 +22,7 @@ export default function CGV() {
     >
       <P>
         Les présentes conditions régissent la vente des présentoirs reviu et de
-        l&apos;abonnement de suivi, par NEVIFY (entrepreneur individuel — Yoan
+        l&apos;abonnement de suivi, par NEVIFY (entrepreneur individuel - Yoan
         Oliveira), ci-après « le Vendeur ».
       </P>
 

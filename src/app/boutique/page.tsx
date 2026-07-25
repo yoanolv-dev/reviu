@@ -16,7 +16,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { BuyButton } from "./buy-button";
 
 export const metadata: Metadata = buildMetadata({
-  title: "reviu — Présentoirs NFC + QR pour plus d'avis Google",
+  title: "reviu - Présentoirs NFC + QR pour plus d'avis Google",
   description:
     "Commandez votre présentoir NFC + QR pour collecter des avis Google en un geste, la formation pour lancer votre business, ou un pack revendeur (10 ou 20 présentoirs). Paiement sécurisé, livraison en France.",
   path: "/",
@@ -98,7 +98,7 @@ export default function BoutiquePage() {
                 <span className="text-gradient">avis Google</span>.
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
-                Un geste — coller le téléphone ou scanner le QR — et l&apos;avis
+                Un geste - coller le téléphone ou scanner le QR - et l&apos;avis
                 est lancé. Commandez à l&apos;unité, ou lancez votre propre
                 activité avec un pack revendeur et la formation.
               </p>
@@ -196,7 +196,7 @@ export default function BoutiquePage() {
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
                 reviu invite tous vos clients à laisser un avis Google, quel que
                 soit leur ressenti. Le retour privé est un canal de contact
-                proposé en complément — jamais un moyen d&apos;éviter un avis
+                proposé en complément - jamais un moyen d&apos;éviter un avis
                 négatif. Aucun tri automatique selon la note.
               </p>
             </div>
@@ -214,7 +214,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* REVENDEUR — le différenciateur */}
+        {/* REVENDEUR - le différenciateur */}
         <section
           id="revendeur"
           className="scroll-mt-24 border-y border-line bg-surface"

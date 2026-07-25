@@ -3,7 +3,7 @@ import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Conditions générales d'utilisation — reviu",
+  title: "Conditions générales d'utilisation - reviu",
   description: "Conditions générales d'utilisation et de vente du service reviu.",
   alternates: { canonical: `${SITE_URL}/cgu` },
 };
@@ -16,7 +16,7 @@ export default function CGU() {
     >
       <P>
         Les présentes conditions régissent l&apos;utilisation du service reviu,
-        édité par NEVIFY (entrepreneur individuel — Yoan Oliveira). En créant un
+        édité par NEVIFY (entrepreneur individuel - Yoan Oliveira). En créant un
         compte, vous les acceptez sans réserve.
       </P>
 

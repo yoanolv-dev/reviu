@@ -6,7 +6,7 @@ import { ADMIN_NOTIFY_EMAIL, SITE_URL } from "@/lib/brand";
 import { formationAccessUrl, formatEuros } from "@/lib/shop";
 
 /**
- * Webhook Stripe — source de vérité des abonnements.
+ * Webhook Stripe - source de vérité des abonnements.
  *
  * Stripe appelle cette route après chaque événement (paiement, renouvellement,
  * résiliation…). On vérifie la signature avec `STRIPE_WEBHOOK_SECRET`, puis on
@@ -121,7 +121,7 @@ async function handleShopOrder(
     });
     const quantity = full.line_items?.data?.[0]?.quantity ?? 1;
     const productName = full.metadata?.product_name ?? "Commande reviu";
-    const amount = full.amount_total != null ? formatEuros(full.amount_total) : "—";
+    const amount = full.amount_total != null ? formatEuros(full.amount_total) : "-";
     const email = full.customer_details?.email ?? null;
     const grantsFormation = full.metadata?.grants_formation === "1";
     const standsIncluded = Number(full.metadata?.stands_included ?? 0);
@@ -135,7 +135,7 @@ async function handleShopOrder(
     // 1) Notification exploitant (déclenche la préparation / l'expédition).
     await sendEmail({
       to: ADMIN_NOTIFY_EMAIL,
-      subject: `Nouvelle commande boutique — ${productName}`,
+      subject: `Nouvelle commande boutique - ${productName}`,
       html: adminOrderHtml({
         productName,
         quantity,
@@ -192,7 +192,7 @@ function adminOrderHtml(o: {
     <div style="border:1px solid #e6e8ef;border-radius:12px;padding:16px;margin-top:12px">
       <p style="margin:0 0 4px"><strong>${o.productName}</strong> × ${o.quantity}</p>
       <p style="margin:0;color:#6b7382">Montant : ${o.amount}</p>
-      <p style="margin:8px 0 0;color:#6b7382">Client : ${o.email ?? "—"}</p>
+      <p style="margin:8px 0 0;color:#6b7382">Client : ${o.email ?? "-"}</p>
       ${
         o.standsIncluded > 0
           ? `<p style="margin:12px 0 4px"><strong>Livraison</strong></p>
@@ -216,7 +216,7 @@ function customerOrderHtml(o: {
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:auto;color:#0a0d16">
     <h2 style="font-size:18px">Merci pour votre commande !</h2>
-    <p style="color:#6b7382;margin:4px 0 16px">${o.productName} — ${o.amount}</p>
+    <p style="color:#6b7382;margin:4px 0 16px">${o.productName} - ${o.amount}</p>
     ${
       o.physical
         ? `<p style="margin:0 0 12px">📦 Votre commande est en préparation. Vous recevrez vos présentoirs à l'adresse indiquée lors du paiement.</p>`
@@ -230,7 +230,7 @@ function customerOrderHtml(o: {
                 style="background:#1b4dff;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:500;display:inline-block">
                Accéder à la formation
              </a>
-             <p style="margin:10px 0 0;color:#6b7382;font-size:12px">Accès valable à vie — conservez cet e-mail.</p>
+             <p style="margin:10px 0 0;color:#6b7382;font-size:12px">Accès valable à vie - conservez cet e-mail.</p>
            </div>`
         : ""
     }

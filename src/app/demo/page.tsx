@@ -19,7 +19,7 @@ import { buildMetadata, graph, breadcrumbSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Démo produit — reviu",
+  title: "Démo produit - reviu",
   description:
     "Découvrez reviu en images : le parcours de scan vers l'avis Google, le présentoir NFC + QR, le tableau de bord et les deux modes de redirection.",
   path: "/demo",
@@ -53,7 +53,7 @@ function Check() {
   );
 }
 
-/* Exemples de commerces (illustratifs) — à remplacer par de vrais clients. */
+/* Exemples de commerces (illustratifs) - à remplacer par de vrais clients. */
 const CLIENTS: { name: string; icon: React.ReactNode }[] = [
   { name: "Le Comptoir de Camille", icon: <path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Zm13 1h2a2 2 0 0 1 0 4h-2" /> },
   { name: "Studio Épure", icon: <><circle cx="12" cy="12" r="8" /><path d="M12 4v8l5 3" /></> },
@@ -121,7 +121,7 @@ export default async function DemoPage() {
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
               Un présentoir sur le comptoir, un scan, un avis. reviu enregistre
-              chaque interaction et vous laisse tout piloter à distance — sans
+              chaque interaction et vous laisse tout piloter à distance - sans
               jamais réimprimer.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -144,7 +144,7 @@ export default async function DemoPage() {
             </p>
           </div>
 
-          {/* Téléphone — UI d'avis Google */}
+          {/* Téléphone - UI d'avis Google */}
           <div className="justify-self-center">
             <Phone>
               <div className="flex items-center gap-2.5 border-b border-line pb-3.5">
@@ -209,7 +209,7 @@ export default async function DemoPage() {
               ))}
             </div>
             <p className="mt-6 text-center text-xs text-muted">
-              Commerces illustratifs — vos futurs clients ici.
+              Commerces illustratifs - vos futurs clients ici.
             </p>
           </Container>
         </section>
@@ -266,7 +266,7 @@ export default async function DemoPage() {
               Ce qui se passe sur le comptoir, en clair.
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
-              Scans, clics vers Google, taux de clic et présentoirs — par
+              Scans, clics vers Google, taux de clic et présentoirs - par
               établissement, en temps réel.{" "}
               <span className="text-muted">Aperçu avec données de démonstration.</span>
             </p>
@@ -377,7 +377,7 @@ export default async function DemoPage() {
                     {[
                       ["k7Qm2p", "Actif", "142", true],
                       ["a3Xf9r", "Actif", "106", true],
-                      ["m8Zt4w", "Vierge", "—", false],
+                      ["m8Zt4w", "Vierge", "-", false],
                     ].map(([code, status, n, active], i) => (
                       <div
                         key={code as string}
@@ -420,7 +420,7 @@ export default async function DemoPage() {
               Direct, ou à votre image.
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
-              Le même présentoir, le comportement que vous choisissez —
+              Le même présentoir, le comportement que vous choisissez -
               modifiable à tout moment, sans réimprimer.
             </p>
 
@@ -488,7 +488,7 @@ export default async function DemoPage() {
                     Page reviu
                   </h3>
                   <p className="mx-auto mt-1.5 max-w-[34ch] text-[15px] text-ink-soft">
-                    Votre marque, un accueil, et un canal de contact direct — le
+                    Votre marque, un accueil, et un canal de contact direct - le
                     bouton « Avis Google » reste proposé à tous.
                   </p>
                 </div>
@@ -508,7 +508,7 @@ export default async function DemoPage() {
               <p className="mt-3 text-ink-soft">
                 Le présentoir s&apos;achète une fois ({STAND_PRICE}, livraison en
                 France métropolitaine) et s&apos;active gratuitement.
-                L&apos;abonnement de suivi se paie ensuite par présentoir — et
+                L&apos;abonnement de suivi se paie ensuite par présentoir - et
                 évolue vers un vrai hub de réputation.
               </p>
               <a

@@ -1,11 +1,11 @@
 import { createSupabaseServer } from "./supabase/server";
 
 /**
- * Programme revendeur (phase 2 — modèle « marge physique »).
+ * Programme revendeur (phase 2 - modèle « marge physique »).
  *
  * Le revendeur gagne sa marge en revendant le présentoir physique (acheté
  * remisé en pack). L'abonnement de suivi reste vendu par reviu, en direct : le
- * revendeur n'y touche pas. Ce portail est donc purement informatif — il montre
+ * revendeur n'y touche pas. Ce portail est donc purement informatif - il montre
  * au revendeur l'impact de son activité (présentoirs placés, activés, abonnés),
  * sans notion de commission. L'attribution présentoir → revendeur se fait côté
  * admin ; les données passent par des RPC SECURITY DEFINER.

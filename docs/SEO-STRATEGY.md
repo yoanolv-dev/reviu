@@ -5,7 +5,7 @@
 > ce qui est implémenté dans le code, la carte de mots-clés, et les actions
 > manuelles à réaliser (Search Console, etc.). À tenir à jour à chaque évolution.
 
-## 1. Le diagnostic : « React/Next ne se référence pas » — vrai ou faux ?
+## 1. Le diagnostic : « React/Next ne se référence pas » - vrai ou faux ?
 
 C'est une idée reçue. Une SPA React classique (rendu 100 % côté client) est
 effectivement mauvaise pour le SEO. **Mais reviu n'est pas dans ce cas** : le
@@ -84,20 +84,20 @@ Ajouter un objet dans `GUIDES` (`src/lib/guides.ts`) suffit : sitemap, JSON-LD,
 maillage et page se génèrent automatiquement. Cibles à fort potentiel :
 
 - `avis-google-salon-coiffure`, `avis-google-garage`, `avis-google-hotel`,
-  `avis-google-boulangerie` (déclinaisons par métier — fort intérêt local).
+  `avis-google-boulangerie` (déclinaisons par métier - fort intérêt local).
 - `augmenter-note-google` (« améliorer sa note Google »).
 - `lien-avis-google` (« créer un lien avis Google », « obtenir le lien de sa
   fiche »).
 - `avis-google-faux` / `supprimer-avis-google` (défense de e-réputation).
 - `nfc-vs-qr-avis` (comparatif, capte les requêtes de comparaison).
 
-## 4. GEO — se référencer dans les moteurs génératifs
+## 4. GEO - se référencer dans les moteurs génératifs
 
 Les assistants (ChatGPT, Perplexity, Gemini, aperçus IA de Google) recommandent
 de plus en plus les produits. Pour être **cité** :
 
 1. **Répondre clairement à une vraie question** en tête d'article (chaque guide
-   ouvre par une définition/réponse directe — format « extractible »).
+   ouvre par une définition/réponse directe - format « extractible »).
 2. **Données structurées** : Organization, Product, FAQPage, Article aident les
    modèles à identifier l'entité et à citer des réponses.
 3. **FAQ explicites** : les blocs question/réponse sont le format le plus repris
@@ -111,7 +111,7 @@ de plus en plus les produits. Pour être **cité** :
 
 Par ordre de priorité :
 
-1. **Brancher `reviu.fr` sur Vercel** (prérequis absolu — voir `HANDOFF.md`).
+1. **Brancher `reviu.fr` sur Vercel** (prérequis absolu - voir `HANDOFF.md`).
    Sans le domaine en ligne, rien n'est indexable.
 2. **Google Search Console** : ajouter et vérifier la propriété `reviu.fr`,
    puis **soumettre `https://reviu.fr/sitemap.xml`**. Suivre la couverture et

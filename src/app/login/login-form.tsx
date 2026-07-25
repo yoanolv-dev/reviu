@@ -29,7 +29,7 @@ export function LoginForm() {
             required
             autoComplete="email"
             placeholder="vous@exemple.fr"
-            hint="Nous vous enverrons un lien de connexion — sans mot de passe."
+            hint="Nous vous enverrons un lien de connexion - sans mot de passe."
           />
           {mlState?.error && (
             <p className="text-sm text-red-600">{mlState.error}</p>

@@ -2,7 +2,7 @@ import { listResellers } from "@/lib/reseller";
 import { listBatches } from "@/lib/admin";
 import { ResellersAdmin } from "./resellers-admin";
 
-export const metadata = { title: "Revendeurs — admin reviu" };
+export const metadata = { title: "Revendeurs - admin reviu" };
 
 export default async function AdminResellersPage() {
   const [resellers, batches] = await Promise.all([listResellers(), listBatches()]);

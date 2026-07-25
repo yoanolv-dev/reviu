@@ -12,7 +12,7 @@ import { NAV, APP_BASE } from "@/lib/brand";
  *
  * Desktop : logo + navigation en ligne + accès compte.
  * Mobile : logo + bouton menu (hamburger) qui déroule un panneau contenant la
- * navigation et les accès compte — plus de grosse CTA qui déborde sur petit écran.
+ * navigation et les accès compte - plus de grosse CTA qui déborde sur petit écran.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export function SiteHeader() {
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          aria-label="reviu — accueil"
+          aria-label="reviu - accueil"
           className="shrink-0"
           onClick={close}
         >

@@ -95,7 +95,7 @@ export function ActivateFlow({ code }: { code: string }) {
             placeholder="ABCD1234"
             autoCapitalize="characters"
             className="font-mono uppercase tracking-wider"
-            hint="Imprimé sous votre présentoir — il ne figure pas dans le QR code."
+            hint="Imprimé sous votre présentoir - il ne figure pas dans le QR code."
           />
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={pending} className={primaryBtn}>

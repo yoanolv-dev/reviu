@@ -51,7 +51,7 @@ export async function signUpAction(
   // jamais le parcours si l'e-mail ne part pas).
   await sendEmail({
     to: ADMIN_NOTIFY_EMAIL,
-    subject: `Nouvelle inscription reviu — ${email}`,
+    subject: `Nouvelle inscription reviu - ${email}`,
     html: `<p>Nouvelle inscription sur reviu.</p>
 <ul>
   <li><strong>E-mail :</strong> ${email}</li>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { LoginForm } from "./login-form";
 
-export const metadata: Metadata = { title: "Connexion — reviu" };
+export const metadata: Metadata = { title: "Connexion - reviu" };
 
 export default async function LoginPage({
   searchParams,

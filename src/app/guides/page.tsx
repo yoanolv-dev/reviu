@@ -12,7 +12,7 @@ import { buildMetadata, graph, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Guides & ressources sur les avis Google — reviu",
+  title: "Guides & ressources sur les avis Google - reviu",
   description:
     "Nos guides pour collecter plus d'avis Google : présentoir et plaque NFC, QR code, référencement local, réponses aux avis. Des méthodes concrètes, dans les règles de Google.",
   path: "/guides",
@@ -70,7 +70,7 @@ export default function GuidesIndexPage() {
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-soft sm:text-lg">
               Des guides concrets pour les commerces de proximité : quand
-              demander un avis, quel support choisir, comment répondre — et
+              demander un avis, quel support choisir, comment répondre - et
               comment transformer vos clients satisfaits en avis, dans les
               règles de Google.
             </p>

@@ -5,7 +5,7 @@ import { APP_BASE, SUBSCRIPTION } from "./brand";
  * E-mails de conversion vers l'abonnement de suivi (2,99 €/mois).
  *
  * C'est le levier commercial de reviu : le revendeur vend le présentoir
- * physique, et reviu propose ensuite le suivi au commerçant — notamment par
+ * physique, et reviu propose ensuite le suivi au commerçant - notamment par
  * e-mail. Ces messages sont envoyés :
  *  - automatiquement à l'activation d'un présentoir (parcours de scan) ;
  *  - à la demande, en relance des commerçants non-abonnés (espace admin).

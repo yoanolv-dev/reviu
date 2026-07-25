@@ -3,7 +3,7 @@ import { LegalPage, H2, P } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, GOOGLE_DISCLAIMER } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — reviu",
+  title: "Mentions légales - reviu",
   description: "Mentions légales du service reviu.",
   alternates: { canonical: `${SITE_URL}/mentions-legales` },
 };

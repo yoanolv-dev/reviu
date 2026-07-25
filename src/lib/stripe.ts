@@ -5,7 +5,7 @@ import Stripe from "stripe";
  *
  * La clé secrète (`STRIPE_SECRET_KEY`) et l'identifiant du tarif
  * (`STRIPE_PRICE_ID`, le prix récurrent 2,99 €/mois) sont pilotés par variables
- * d'environnement — jamais codés en dur. Si la clé n'est pas configurée, on
+ * d'environnement - jamais codés en dur. Si la clé n'est pas configurée, on
  * renvoie `null` pour dégrader proprement (les boutons afficheront une erreur
  * plutôt que de casser).
  */

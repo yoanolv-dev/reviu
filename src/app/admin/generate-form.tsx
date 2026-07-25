@@ -33,7 +33,7 @@ export function GenerateForm({ enabled }: { enabled: boolean }) {
             <Field
               label="Lot (optionnel)"
               name="label"
-              placeholder="Commande fournisseur — mars"
+              placeholder="Commande fournisseur - mars"
             />
           </div>
           <button
@@ -51,7 +51,7 @@ export function GenerateForm({ enabled }: { enabled: boolean }) {
         <div className="rounded-2xl border border-emerald-300 bg-emerald-50 p-4">
           <p className="text-sm font-medium text-emerald-900">
             {rows.length} présentoir(s) généré(s)
-            {state?.label ? ` — lot « ${state.label} »` : ""}. Les secrets
+            {state?.label ? ` - lot « ${state.label} »` : ""}. Les secrets
             d&apos;activation sont aussi récupérables à tout moment via
             l&apos;export du lot.
           </p>

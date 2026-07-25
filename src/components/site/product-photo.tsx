@@ -6,7 +6,7 @@ import { StarMark } from "@/components/ui/logo";
  *
  * La vraie photo (déposée dans `public/products/`) est affichée en
  * `background-image` par-dessus un repli décoratif de marque. Si le fichier
- * n'existe pas encore — ou ne charge pas — le repli reste visible : un dégradé
+ * n'existe pas encore - ou ne charge pas - le repli reste visible : un dégradé
  * cobalt→violet avec halos lumineux et une pastille étoilée, jamais un aplat
  * plat ni une image cassée, et sans aucun JavaScript. Dès que la photo est
  * ajoutée au repo, elle recouvre automatiquement le repli.

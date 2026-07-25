@@ -89,7 +89,7 @@ export function EstablishmentForm({ est }: { est: EstablishmentRow }) {
           className="h-4 w-4 accent-brand"
         />
         <span className="text-sm text-ink-soft">
-          Proposer un canal de retour privé (conforme) — visible en mode « Page
+          Proposer un canal de retour privé (conforme) - visible en mode « Page
           reviu »
         </span>
       </label>

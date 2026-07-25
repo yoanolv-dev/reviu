@@ -34,7 +34,7 @@ export default async function AdminHistoryPage() {
           Journal des opérations
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Générations, exports, changements de statut et remplacements —
+          Générations, exports, changements de statut et remplacements -
           historique complet et horodaté.
         </p>
       </div>

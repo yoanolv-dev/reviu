@@ -141,7 +141,7 @@ export function websiteSchema() {
 export function softwareApplicationSchema() {
   return {
     "@type": "SoftwareApplication",
-    name: `${SITE.name} — collecte d'avis Google`,
+    name: `${SITE.name} - collecte d'avis Google`,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, iOS, Android",
     url: SITE_URL,
@@ -180,8 +180,33 @@ export function productSchema(p: ProductInput) {
       priceCurrency: "EUR",
       price: (p.priceCents / 100).toFixed(2),
       availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
       areaServed: { "@type": "Country", name: "France" },
       seller: { "@id": ORG_ID },
+      // Livraison : le checkout ne facture aucun frais de port → livraison
+      // gratuite en France métropolitaine (véridique, cf. stripe-actions.ts).
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: 0,
+          currency: "EUR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "FR",
+        },
+      },
+      // Retours : droit de rétractation légal de 14 jours (vente à distance,
+      // droit français) ; les frais de retour restent à la charge du client.
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "FR",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 14,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+      },
     },
   };
 }

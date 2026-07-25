@@ -189,7 +189,7 @@ export async function startSelfCheckout(input: {
     .maybeSingle<{ id: string; status: string }>();
   if (!stand) return { ok: false, error: "Présentoir introuvable." };
 
-  // Vérifie le secret d'activation (imprimé sous le présentoir) — même garde
+  // Vérifie le secret d'activation (imprimé sous le présentoir) - même garde
   // que l'activation, pour empêcher un abonnement par un tiers.
   const { data: secret } = await admin.rpc("derive_stand_secret", { p_code: code });
   if (

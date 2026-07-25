@@ -8,7 +8,7 @@ import { formationAccessUrl, formatEuros } from "@/lib/shop";
 import { APP_BASE } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Merci pour votre commande — reviu",
+  title: "Merci pour votre commande - reviu",
   robots: { index: false, follow: false },
 };
 
@@ -72,7 +72,7 @@ export default async function MerciPage({
                       <strong className="font-medium text-ink">
                         {productName}
                       </strong>
-                      {amount != null && <> — {formatEuros(amount)}</>}
+                      {amount != null && <> - {formatEuros(amount)}</>}
                     </>
                   ) : (
                     "Votre paiement a bien été confirmé."

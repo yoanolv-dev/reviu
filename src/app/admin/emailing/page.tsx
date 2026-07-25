@@ -1,7 +1,7 @@
 import { listUnsubscribedContacts } from "@/lib/emailing";
 import { EmailingAdmin } from "./emailing-admin";
 
-export const metadata = { title: "Emailing — admin reviu" };
+export const metadata = { title: "Emailing - admin reviu" };
 
 export default async function AdminEmailingPage() {
   const contacts = await listUnsubscribedContacts();
@@ -14,7 +14,7 @@ export default async function AdminEmailingPage() {
         <p className="mt-1 max-w-2xl text-sm text-muted">
           Relancez les commerçants qui utilisent un présentoir mais n&apos;ont
           pas encore d&apos;abonnement de suivi actif. C&apos;est le levier pour
-          convertir le récurrent — le revendeur vend le présentoir, reviu vend le
+          convertir le récurrent - le revendeur vend le présentoir, reviu vend le
           suivi.
         </p>
       </div>

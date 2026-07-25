@@ -3,7 +3,7 @@ import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { SITE_URL } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Politique de cookies — reviu",
+  title: "Politique de cookies - reviu",
   description: "Utilisation des cookies et traceurs sur le service reviu.",
   alternates: { canonical: `${SITE_URL}/cookies` },
 };

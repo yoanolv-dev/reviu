@@ -3,7 +3,7 @@ import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — reviu",
+  title: "Politique de confidentialité - reviu",
   description:
     "Comment reviu collecte, utilise et protège vos données personnelles, conformément au RGPD et aux règles des API Google.",
   alternates: { canonical: `${SITE_URL}/confidentialite` },
@@ -22,7 +22,7 @@ export default function Confidentialite() {
       <H2>Responsable du traitement</H2>
       <P>
         Le responsable du traitement est <strong>NEVIFY</strong> (entrepreneur
-        individuel — Yoan Oliveira), 14 rue de la République, 30000 Nîmes. Pour
+        individuel - Yoan Oliveira), 14 rue de la République, 30000 Nîmes. Pour
         toute question relative à vos données :{" "}
         <a className="text-brand hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
           {CONTACT_EMAIL}
@@ -93,20 +93,20 @@ export default function Confidentialite() {
       <P>Nous faisons appel à des prestataires qui traitent des données pour notre compte :</P>
       <UL>
         <li>
-          <strong>Supabase</strong> — hébergement de la base de données et
+          <strong>Supabase</strong> - hébergement de la base de données et
           authentification (Union européenne).
         </li>
         <li>
-          <strong>Vercel</strong> — hébergement de l&apos;application.
+          <strong>Vercel</strong> - hébergement de l&apos;application.
         </li>
         <li>
-          <strong>Stripe</strong> — traitement des paiements.
+          <strong>Stripe</strong> - traitement des paiements.
         </li>
         <li>
-          <strong>Resend</strong> — envoi des e-mails transactionnels.
+          <strong>Resend</strong> - envoi des e-mails transactionnels.
         </li>
         <li>
-          <strong>Google</strong> — API Business Profile (si vous activez cette
+          <strong>Google</strong> - API Business Profile (si vous activez cette
           fonctionnalité).
         </li>
       </UL>

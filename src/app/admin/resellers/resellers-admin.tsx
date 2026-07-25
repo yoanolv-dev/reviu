@@ -80,7 +80,7 @@ export function ResellersAdmin({
           </div>
           <p className="text-xs text-muted">
             Un code de parrainage lui est attribué. Sa rémunération se fait à la
-            revente physique du présentoir (marge) — rien à gérer ici.
+            revente physique du présentoir (marge) - rien à gérer ici.
           </p>
         </form>
       </section>
@@ -139,7 +139,7 @@ export function ResellersAdmin({
               </option>
               {batches.map((b) => (
                 <option key={b.id} value={b.id}>
-                  {b.label ?? b.id.slice(0, 8)} — {b.quantity} présentoirs (
+                  {b.label ?? b.id.slice(0, 8)} - {b.quantity} présentoirs (
                   {b.status})
                 </option>
               ))}
@@ -185,7 +185,7 @@ export function ResellersAdmin({
                           <span className="text-xs text-muted">{r.email}</span>
                         </>
                       ) : (
-                        r.email ?? "—"
+                        r.email ?? "-"
                       )}
                     </td>
                     <td className="px-4 py-3 font-mono text-brand">{r.code}</td>

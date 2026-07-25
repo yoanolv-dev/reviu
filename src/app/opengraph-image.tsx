@@ -11,7 +11,7 @@ import { ImageResponse } from "next/og";
  * glyphes hors police par défaut (pas d’emoji/★ : dessinés en SVG à la place).
  */
 export const alt =
-  "reviu — Présentoirs NFC et QR codes pour collecter plus d’avis Google";
+  "reviu - Présentoirs NFC et QR codes pour collecter plus d’avis Google";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

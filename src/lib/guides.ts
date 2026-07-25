@@ -4,8 +4,8 @@
  * Chaque guide vise une grappe de mots-clés qui entoure l’acte d’achat de reviu
  * (« avoir plus d’avis Google », « plaque NFC avis », « QR code avis »,
  * « avis Google restaurant »…). L’objectif : capter l’intention de recherche en
- * amont, apporter une vraie réponse utile — donc citable par les moteurs
- * génératifs — et diriger vers la boutique. Contenu volontairement conforme aux
+ * amont, apporter une vraie réponse utile - donc citable par les moteurs
+ * génératifs - et diriger vers la boutique. Contenu volontairement conforme aux
  * règles de Google : on invite TOUS les clients à laisser un avis, jamais de
  * filtrage selon la note, aucune statistique inventée.
  *
@@ -51,7 +51,7 @@ export const GUIDES: Guide[] = [
       "Comment avoir plus d’avis Google : le guide complet (2026) · reviu",
     h1: "Comment avoir plus d’avis Google : le guide complet",
     description:
-      "Toutes les méthodes qui marchent pour obtenir plus d’avis Google en 2026 : quand demander, comment faciliter le geste, et les erreurs à éviter — dans les règles de Google.",
+      "Toutes les méthodes qui marchent pour obtenir plus d’avis Google en 2026 : quand demander, comment faciliter le geste, et les erreurs à éviter - dans les règles de Google.",
     excerpt:
       "Plus d’avis Google, mieux notés, plus souvent : voici la méthode complète pour transformer vos clients satisfaits en avis, sans forcer et dans les règles.",
     keywords: [
@@ -68,7 +68,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Les avis Google sont devenus la première vitrine d’un commerce de proximité. Ils rassurent avant même la première visite, pèsent lourd dans le référencement local, et font souvent la différence entre deux établissements voisins. Pourtant, la plupart des clients satisfaits ne laissent jamais d’avis — non par mauvaise volonté, mais parce que personne ne le leur a demandé au bon moment, et que le parcours est trop long. Ce guide rassemble ce qui fonctionne vraiment pour obtenir plus d’avis Google, durablement et sans enfreindre les règles.",
+        text: "Les avis Google sont devenus la première vitrine d’un commerce de proximité. Ils rassurent avant même la première visite, pèsent lourd dans le référencement local, et font souvent la différence entre deux établissements voisins. Pourtant, la plupart des clients satisfaits ne laissent jamais d’avis - non par mauvaise volonté, mais parce que personne ne le leur a demandé au bon moment, et que le parcours est trop long. Ce guide rassemble ce qui fonctionne vraiment pour obtenir plus d’avis Google, durablement et sans enfreindre les règles.",
       },
       { type: "h2", text: "Pourquoi vos clients satisfaits ne laissent pas d’avis" },
       {
@@ -103,12 +103,12 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Réduire le geste au minimum : le levier le plus efficace" },
       {
         type: "p",
-        text: "Chaque étape supprimée entre l’envie et l’avis publié augmente le taux de dépôt. L’idéal : un seul geste. C’est exactement le rôle d’un présentoir posé sur le comptoir, muni d’une puce NFC et d’un QR code. Le client approche son téléphone ou scanne, et la page d’avis Google de l’établissement s’ouvre directement — pas de recherche, pas de saisie.",
+        text: "Chaque étape supprimée entre l’envie et l’avis publié augmente le taux de dépôt. L’idéal : un seul geste. C’est exactement le rôle d’un présentoir posé sur le comptoir, muni d’une puce NFC et d’un QR code. Le client approche son téléphone ou scanne, et la page d’avis Google de l’établissement s’ouvre directement - pas de recherche, pas de saisie.",
       },
       {
         type: "callout",
         title: "L’idée clé",
-        text: "On ne « convainc » pas un client d’écrire un avis : on lui enlève tous les obstacles au moment où il en a déjà envie. Le support physique sur le comptoir fait les deux — il rappelle, et il raccourcit.",
+        text: "On ne « convainc » pas un client d’écrire un avis : on lui enlève tous les obstacles au moment où il en a déjà envie. Le support physique sur le comptoir fait les deux - il rappelle, et il raccourcit.",
       },
       {
         type: "p",
@@ -140,7 +140,7 @@ export const GUIDES: Guide[] = [
       {
         type: "callout",
         title: "Conformité by design",
-        text: "reviu propose le bouton « Avis Google » à tous les clients, sans tri selon la note. Un canal de contact privé est offert en complément — jamais comme un filtre pour éviter les avis négatifs. C’est la façon saine de collecter : plus d’avis, et des avis qui restent.",
+        text: "reviu propose le bouton « Avis Google » à tous les clients, sans tri selon la note. Un canal de contact privé est offert en complément - jamais comme un filtre pour éviter les avis négatifs. C’est la façon saine de collecter : plus d’avis, et des avis qui restent.",
       },
       { type: "h2", text: "Mettre en place une routine durable" },
       {
@@ -149,7 +149,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "En combinant bon moment, geste unique et régularité, un commerce passe de quelques avis par an à un flux régulier — celui qui fait grimper la note, le classement local, et la confiance des nouveaux clients.",
+        text: "En combinant bon moment, geste unique et régularité, un commerce passe de quelques avis par an à un flux régulier - celui qui fait grimper la note, le classement local, et la confiance des nouveaux clients.",
       },
     ],
     faq: [
@@ -181,7 +181,7 @@ export const GUIDES: Guide[] = [
     description:
       "Comment fonctionne une plaque ou un présentoir NFC pour avis Google, ce qui distingue une bonne solution d’un gadget, et comment l’installer en boutique en 2 minutes.",
     excerpt:
-      "La puce NFC transforme un geste — approcher le téléphone — en avis Google. Voici comment ça marche, ce qui compte vraiment, et comment éviter la carte NFC « morte ».",
+      "La puce NFC transforme un geste - approcher le téléphone - en avis Google. Voici comment ça marche, ce qui compte vraiment, et comment éviter la carte NFC « morte ».",
     keywords: [
       "plaque nfc avis google",
       "présentoir avis google",
@@ -211,7 +211,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Le piège de la carte NFC « morte »" },
       {
         type: "p",
-        text: "Beaucoup de cartes NFC vendues en ligne encodent en dur le lien de votre fiche Google. Le jour où vous changez d’enseigne, où Google modifie le format des liens, ou si vous voulez rediriger ailleurs, la carte devient inutilisable : il faut tout racheter et réimprimer. C’est la carte « morte » — figée à jamais.",
+        text: "Beaucoup de cartes NFC vendues en ligne encodent en dur le lien de votre fiche Google. Le jour où vous changez d’enseigne, où Google modifie le format des liens, ou si vous voulez rediriger ailleurs, la carte devient inutilisable : il faut tout racheter et réimprimer. C’est la carte « morte » - figée à jamais.",
       },
       {
         type: "p",
@@ -223,7 +223,7 @@ export const GUIDES: Guide[] = [
         items: [
           "Lien modifiable à distance : vous changez la destination sans réimprimer ni racheter.",
           "NFC + QR ensemble : rapidité et compatibilité universelle.",
-          "Un vrai service derrière : statistiques de scan, canal de retour privé, suivi — pas juste un bout de plastique.",
+          "Un vrai service derrière : statistiques de scan, canal de retour privé, suivi - pas juste un bout de plastique.",
           "Conforme aux règles de Google : bouton d’avis proposé à tous, sans filtrage selon la note.",
           "Robuste et présentable : il vit sur un comptoir, il doit tenir et donner envie.",
         ],
@@ -288,7 +288,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Un QR code avis Google est un code que vos clients scannent avec l’appareil photo de leur téléphone pour ouvrir directement votre page d’avis — sans chercher votre établissement sur Google. Simple à mettre en place, il fait sauter l’obstacle principal du dépôt d’avis : trouver le bon endroit où cliquer. Voici comment le créer correctement et en tirer le maximum.",
+        text: "Un QR code avis Google est un code que vos clients scannent avec l’appareil photo de leur téléphone pour ouvrir directement votre page d’avis - sans chercher votre établissement sur Google. Simple à mettre en place, il fait sauter l’obstacle principal du dépôt d’avis : trouver le bon endroit où cliquer. Voici comment le créer correctement et en tirer le maximum.",
       },
       { type: "h2", text: "Comment obtenir le lien de votre fiche Google" },
       {
@@ -308,7 +308,7 @@ export const GUIDES: Guide[] = [
       {
         type: "callout",
         title: "Pourquoi c’est décisif",
-        text: "Un présentoir posé une fois doit durer des années. Avec un QR dynamique, vous corrigez une faute, changez de fiche ou basculez vers une page à votre marque — sans jamais racheter ni réimprimer le support.",
+        text: "Un présentoir posé une fois doit durer des années. Avec un QR dynamique, vous corrigez une faute, changez de fiche ou basculez vers une page à votre marque - sans jamais racheter ni réimprimer le support.",
       },
       { type: "h2", text: "Où placer le QR code pour qu’il soit vraiment scanné" },
       {
@@ -327,12 +327,12 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Accompagner le QR d’un message clair" },
       {
         type: "p",
-        text: "Un QR seul intrigue mais ne suffit pas toujours. Une phrase courte et honnête multiplie les scans : « Votre avis nous aide beaucoup — scannez pour nous laisser un mot sur Google ». Restez sincère et proposez-le à tout le monde : pas de « seulement si vous avez aimé », qui contreviendrait aux règles de Google.",
+        text: "Un QR seul intrigue mais ne suffit pas toujours. Une phrase courte et honnête multiplie les scans : « Votre avis nous aide beaucoup - scannez pour nous laisser un mot sur Google ». Restez sincère et proposez-le à tout le monde : pas de « seulement si vous avez aimé », qui contreviendrait aux règles de Google.",
       },
       { type: "h2", text: "Aller plus loin : mesurer et ajuster" },
       {
         type: "p",
-        text: "Un QR statique ne dit rien de son efficacité. Une solution comme reviu compte les scans, distingue le canal NFC du QR, et suit les clics vers Google — établissement par établissement. Vous savez ce qui fonctionne, à quel emplacement, et vous ajustez. Le QR n’est plus un pari, c’est un canal piloté.",
+        text: "Un QR statique ne dit rien de son efficacité. Une solution comme reviu compte les scans, distingue le canal NFC du QR, et suit les clics vers Google - établissement par établissement. Vous savez ce qui fonctionne, à quel emplacement, et vous ajustez. Le QR n’est plus un pari, c’est un canal piloté.",
       },
     ],
     faq: [
@@ -391,7 +391,7 @@ export const GUIDES: Guide[] = [
         title: "Un cercle vertueux",
         text: "Plus d’avis récents → meilleure visibilité locale → plus de visites → plus d’avis. Le point de départ, c’est la collecte régulière. Une fois lancée, la dynamique s’auto-entretient.",
       },
-      { type: "h2", text: "Les avis décident du clic — et de la visite" },
+      { type: "h2", text: "Les avis décident du clic - et de la visite" },
       {
         type: "p",
         text: "Être visible ne suffit pas : encore faut-il être choisi. Face à trois établissements côte à côte, l’œil va à la note et au nombre d’avis. Une fiche à 4,7 avec 120 avis récents inspire davantage qu’une fiche à 4,9 avec 6 avis datés. Le client arbitre en quelques secondes, et les avis sont son principal raccourci de confiance.",
@@ -401,7 +401,7 @@ export const GUIDES: Guide[] = [
         type: "ul",
         items: [
           "La note donne le niveau de qualité perçu.",
-          "Le volume donne la crédibilité : beaucoup d’avis, c’est beaucoup de clients — donc un risque perçu plus faible.",
+          "Le volume donne la crédibilité : beaucoup d’avis, c’est beaucoup de clients - donc un risque perçu plus faible.",
           "La fraîcheur prouve que l’établissement est actif et régulier aujourd’hui, pas seulement il y a trois ans.",
         ],
       },
@@ -426,7 +426,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Un commerce qui applique ces quatre points ne subit plus ses avis : il les construit. Et cette régularité se voit — dans le classement local, dans le taux de visite, et bientôt dans les recommandations des assistants IA.",
+        text: "Un commerce qui applique ces quatre points ne subit plus ses avis : il les construit. Et cette régularité se voit - dans le classement local, dans le taux de visite, et bientôt dans les recommandations des assistants IA.",
       },
     ],
     faq: [
@@ -473,7 +473,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Collecter des avis, c’est la moitié du travail. Y répondre, c’est l’autre moitié — et c’est visible de tous vos futurs clients. Une réponse soignée valorise un client satisfait, transforme une critique en preuve de sérieux, et envoie à Google un signal d’activité. Voici comment répondre efficacement, avec des modèles à adapter.",
+        text: "Collecter des avis, c’est la moitié du travail. Y répondre, c’est l’autre moitié - et c’est visible de tous vos futurs clients. Une réponse soignée valorise un client satisfait, transforme une critique en preuve de sérieux, et envoie à Google un signal d’activité. Voici comment répondre efficacement, avec des modèles à adapter.",
       },
       { type: "h2", text: "Pourquoi répondre change tout" },
       {
@@ -492,7 +492,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "callout",
-        title: "Modèle — avis positif",
+        title: "Modèle - avis positif",
         text: "« Merci beaucoup [Prénom] pour votre retour ! Ravis que [le plat / la prestation / votre visite] vous ait plu. Toute l’équipe sera touchée de le lire. À très bientôt chez [Établissement] ! »",
       },
       { type: "h2", text: "Répondre à un avis négatif" },
@@ -512,8 +512,8 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "callout",
-        title: "Modèle — avis négatif",
-        text: "« Bonjour [Prénom], merci d’avoir pris le temps de nous écrire, et désolé que votre expérience n’ait pas été à la hauteur. Ce que vous décrivez ne nous ressemble pas et j’aimerais comprendre ce qui s’est passé. Pouvez-vous me contacter à [e-mail] ? Je tiens à trouver une solution. — [Prénom], [Établissement] »",
+        title: "Modèle - avis négatif",
+        text: "« Bonjour [Prénom], merci d’avoir pris le temps de nous écrire, et désolé que votre expérience n’ait pas été à la hauteur. Ce que vous décrivez ne nous ressemble pas et j’aimerais comprendre ce qui s’est passé. Pouvez-vous me contacter à [e-mail] ? Je tiens à trouver une solution. - [Prénom], [Établissement] »",
       },
       { type: "h2", text: "Les erreurs à éviter" },
       {
@@ -558,7 +558,7 @@ export const GUIDES: Guide[] = [
       "Plus d’avis Google pour un restaurant : la méthode qui marche · reviu",
     h1: "Obtenir plus d’avis Google pour un restaurant",
     description:
-      "La méthode concrète pour collecter plus d’avis Google au restaurant : quand demander, où placer le QR, quoi dire en salle — sans gêner le service.",
+      "La méthode concrète pour collecter plus d’avis Google au restaurant : quand demander, où placer le QR, quoi dire en salle - sans gêner le service.",
     excerpt:
       "En restauration, le bon moment et le bon support font tout. Voici comment récolter des avis Google sans alourdir le service ni forcer la main.",
     keywords: [
@@ -575,12 +575,12 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Au restaurant, les avis Google font venir de nouveaux clients — mais les récolter sans casser le rythme du service est un art. Bonne nouvelle : quelques réflexes simples suffisent à transformer des convives satisfaits en avis, sans gêner ni forcer. Voici la méthode, pensée pour la salle.",
+        text: "Au restaurant, les avis Google font venir de nouveaux clients - mais les récolter sans casser le rythme du service est un art. Bonne nouvelle : quelques réflexes simples suffisent à transformer des convives satisfaits en avis, sans gêner ni forcer. Voici la méthode, pensée pour la salle.",
       },
       { type: "h2", text: "Le moment parfait : la fin du repas" },
       {
         type: "p",
-        text: "L’émotion est au sommet quand le repas s’est bien passé et que l’addition arrive. C’est là qu’il faut proposer l’avis — pas par e-mail le lendemain, quand le souvenir s’estompe. Le client est encore attablé, détendu, téléphone à portée de main : tout est réuni.",
+        text: "L’émotion est au sommet quand le repas s’est bien passé et que l’addition arrive. C’est là qu’il faut proposer l’avis - pas par e-mail le lendemain, quand le souvenir s’estompe. Le client est encore attablé, détendu, téléphone à portée de main : tout est réuni.",
       },
       {
         type: "callout",
@@ -600,7 +600,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Quoi dire, sans que ça sonne forcé" },
       {
         type: "p",
-        text: "Un mot simple du serveur, sincère, fait toute la différence : « Si vous avez passé un bon moment, un avis Google nous aide énormément — c’est juste ici, en un scan. » On propose à tous, on ne conditionne jamais à une bonne note, et on n’offre rien en échange : ce sont les règles de Google, et c’est aussi ce qui garde vos avis crédibles.",
+        text: "Un mot simple du serveur, sincère, fait toute la différence : « Si vous avez passé un bon moment, un avis Google nous aide énormément - c’est juste ici, en un scan. » On propose à tous, on ne conditionne jamais à une bonne note, et on n’offre rien en échange : ce sont les règles de Google, et c’est aussi ce qui garde vos avis crédibles.",
       },
       { type: "h2", text: "Former l’équipe en salle" },
       {
@@ -619,7 +619,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Avec un présentoir reviu sur chaque table ou au comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de fin de service — et la note grimpe, semaine après semaine.",
+        text: "Avec un présentoir reviu sur chaque table ou au comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
       },
     ],
     faq: [

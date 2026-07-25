@@ -4,7 +4,7 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { getCurrentUser } from "@/lib/dashboard";
 import { ResetForm } from "./reset-form";
 
-export const metadata: Metadata = { title: "Nouveau mot de passe — reviu" };
+export const metadata: Metadata = { title: "Nouveau mot de passe - reviu" };
 export const dynamic = "force-dynamic";
 
 export default async function ResetPasswordPage() {
