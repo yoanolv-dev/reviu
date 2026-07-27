@@ -5,7 +5,13 @@ import { getStripe, STRIPE_PRICE_ID } from "./stripe";
 import { createSupabaseServer } from "./supabase/server";
 import { createSupabaseAdmin } from "./supabase/admin";
 import { APP_BASE, SITE_URL } from "./brand";
-import { getProduct, requiresShipping, SHIPPING_COUNTRIES } from "./shop";
+import {
+  getProduct,
+  requiresShipping,
+  SHIPPING_COUNTRIES,
+  clampStandQty,
+  standUnitCents,
+} from "./shop";
 import type { FormState } from "./form";
 
 /**
@@ -114,11 +120,19 @@ export async function startShopCheckout(
   const product = getProduct(String(formData.get("product") ?? ""));
   if (!product) return { error: "Produit introuvable." };
 
+  // Le présentoir applique un tarif dégressif : la quantité est bornée et le
+  // prix unitaire est recalculé par palier (on maîtrise le montant, donc pas
+  // d'`adjustable_quantity` côté Stripe qui casserait la remise). Les autres
+  // produits gardent leur prix fixe.
+  const isStand = product.id === "stand";
   const qtyRaw = Number(formData.get("quantity") ?? 1);
-  const quantity =
-    product.adjustableQuantity && Number.isFinite(qtyRaw)
+  const quantity = isStand
+    ? clampStandQty(qtyRaw)
+    : product.adjustableQuantity && Number.isFinite(qtyRaw)
       ? Math.min(Math.max(Math.trunc(qtyRaw), 1), 50)
       : 1;
+  const unitAmount = isStand ? standUnitCents(quantity) : product.priceCents;
+  const useAdjustable = product.adjustableQuantity && !isStand;
 
   const ship = requiresShipping(product);
 
@@ -127,12 +141,12 @@ export async function startShopCheckout(
     line_items: [
       {
         quantity,
-        ...(product.adjustableQuantity
+        ...(useAdjustable
           ? { adjustable_quantity: { enabled: true, minimum: 1, maximum: 50 } }
           : {}),
         price_data: {
           currency: "eur",
-          unit_amount: product.priceCents,
+          unit_amount: unitAmount,
           product_data: {
             name: product.name,
             description: product.tagline,

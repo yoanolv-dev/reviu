@@ -123,6 +123,42 @@ export function getProduct(id: string): ShopProduct | undefined {
   return CATALOG.find((p) => p.id === id);
 }
 
+// ── Présentoir à l'unité : tarif dégressif public ───────────────────────────
+// Le présentoir est le produit phare, vendu à l'unité avec une remise modérée
+// à la quantité. La vraie marge revendeur (achat en gros à prix cassé) reste
+// réservée aux revendeurs validés via la page /revendeur, pas au public.
+// Source de vérité unique du prix payé : ces paliers (Stripe reçoit le montant
+// calculé ici, `price_data` en ligne).
+export const STAND_TIERS = [
+  { min: 1, unitCents: 2990 },
+  { min: 3, unitCents: 2700 },
+  { min: 5, unitCents: 2500 },
+] as const;
+
+/** Quantité maximale à l'unité en public : au-delà, on oriente vers /revendeur. */
+export const STAND_QTY_MAX = 20;
+
+/** Borne une quantité de présentoirs dans [1, STAND_QTY_MAX]. */
+export function clampStandQty(qty: number): number {
+  const q = Math.trunc(qty);
+  if (!Number.isFinite(q) || q < 1) return 1;
+  return Math.min(q, STAND_QTY_MAX);
+}
+
+/** Prix unitaire (centimes) du présentoir pour une quantité donnée. */
+export function standUnitCents(qty: number): number {
+  const q = clampStandQty(qty);
+  let unit: number = STAND_TIERS[0].unitCents;
+  for (const t of STAND_TIERS) if (q >= t.min) unit = t.unitCents;
+  return unit;
+}
+
+/** Total (centimes) pour une quantité de présentoirs, remise dégressive incluse. */
+export function standTotalCents(qty: number): number {
+  const q = clampStandQty(qty);
+  return standUnitCents(q) * q;
+}
+
 /** Formate des centimes d'euro en libellé français : 2990 → "29,90 €". */
 export function formatEuros(cents: number): string {
   return (cents / 100).toLocaleString("fr-FR", {

@@ -8,17 +8,21 @@ import { Testimonials } from "@/components/site/testimonials";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
-import { StarMark } from "@/components/ui/logo";
 import { APP_BASE, SUBSCRIPTION } from "@/lib/brand";
-import { CATALOG, formatEuros, getProduct, type ShopProduct } from "@/lib/shop";
+import {
+  getProduct,
+  formatEuros,
+  STAND_TIERS,
+  STAND_QTY_MAX,
+} from "@/lib/shop";
 import { buildMetadata, graph, productSchema, faqSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
-import { BuyButton } from "./buy-button";
+import { StandOrder } from "./stand-order";
 
 export const metadata: Metadata = buildMetadata({
-  title: "reviu - Présentoirs NFC + QR pour plus d'avis Google",
+  title: "reviu - Le présentoir NFC + QR pour plus d'avis Google",
   description:
-    "Commandez votre présentoir NFC + QR pour collecter des avis Google en un geste, la formation pour lancer votre business, ou un pack revendeur (10 ou 20 présentoirs). Paiement sécurisé, livraison en France.",
+    "Commandez votre présentoir NFC + QR pour collecter des avis Google en un geste. Activation gratuite, et un abonnement de suivi à 2,99 €/mois qui protège votre réputation et prouve vos résultats. Paiement sécurisé, livraison en France.",
   path: "/",
   keywords: [
     "présentoir avis Google",
@@ -26,7 +30,7 @@ export const metadata: Metadata = buildMetadata({
     "QR code avis Google",
     "acheter présentoir avis",
     "collecter avis Google commerce",
-    "pack revendeur avis Google",
+    "abonnement suivi avis Google",
   ],
 });
 
@@ -99,8 +103,8 @@ export default function BoutiquePage() {
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
                 Un geste - coller le téléphone ou scanner le QR - et l&apos;avis
-                est lancé. Commandez à l&apos;unité, ou lancez votre propre
-                activité avec un pack revendeur et la formation.
+                est lancé. Posez-le sur le comptoir, activez-le en deux minutes,
+                et suivez tout depuis votre tableau de bord.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm text-muted sm:mt-8 sm:gap-x-6">
                 <TrustItem>Paiement sécurisé Stripe</TrustItem>
@@ -109,10 +113,10 @@ export default function BoutiquePage() {
               </div>
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a href="#produits" className={buttonClass("gradient", "lg", "w-full sm:w-auto")}>
-                  Voir les produits
+                  Commander mon présentoir
                 </a>
-                <a href="#revendeur" className={buttonClass("secondary", "lg", "w-full sm:w-auto")}>
-                  Devenir revendeur
+                <a href="#abonnement" className={buttonClass("secondary", "lg", "w-full sm:w-auto")}>
+                  Découvrir le suivi
                 </a>
               </div>
             </div>
@@ -156,28 +160,112 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* PRODUITS */}
+        {/* PRODUIT - le présentoir à l'unité */}
         <section id="produits" className="scroll-mt-24">
           <Container className="py-16 sm:py-20">
             <SectionHead
-              eyebrow="Catalogue"
-              title="Choisissez votre point de départ."
+              eyebrow="Le présentoir"
+              title="Commandez le vôtre, à l'unité."
             />
-            <div className="mt-12 grid gap-6 lg:grid-cols-2">
-              {CATALOG.map((p, i) => (
-                <Reveal key={p.id} delay={i * 80} className="h-full">
-                  <ProductCard product={p} />
-                </Reveal>
-              ))}
+            <div className="mx-auto mt-12 grid max-w-4xl items-center gap-8 rounded-[2rem] border border-line bg-surface p-6 sm:p-8 lg:grid-cols-2 lg:gap-12">
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="absolute inset-4 -z-10 rounded-[2.5rem] bg-gradient-brand opacity-20 blur-3xl"
+                />
+                <ProductPhoto
+                  src={PHOTO.front}
+                  alt="Présentoir reviu NFC + QR"
+                  className="ring-gradient aspect-square w-full rounded-[1.75rem] shadow-[var(--shadow-lift)]"
+                />
+              </div>
+              <div className="flex flex-col">
+                <h3 className="font-display text-2xl font-semibold text-ink">
+                  Présentoir NFC + QR
+                </h3>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                  Le présentoir connecté, prêt à poser. Redirection modifiable à
+                  distance, activation gratuite.
+                </p>
+                <ul className="mt-5 flex flex-col gap-2.5">
+                  {[
+                    "NFC + QR déjà encodés, prêts à l'emploi",
+                    "Redirection modifiable à distance, sans réimprimer",
+                    "Tarif dégressif à la quantité",
+                  ].map((f) => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-ink">
+                      <Check />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 border-t border-line pt-6">
+                  <StandOrder
+                    tiers={STAND_TIERS.map((t) => ({ ...t }))}
+                    max={STAND_QTY_MAX}
+                    subscriptionLabel={SUBSCRIPTION.priceLabel}
+                    period={SUBSCRIPTION.period}
+                  />
+                </div>
+              </div>
             </div>
-            <p className="mt-8 text-center text-sm text-muted">
-              Prix TTC. Le présentoir s&apos;active gratuitement ; l&apos;
-              <strong className="font-medium text-ink-soft">
-                abonnement de suivi
-              </strong>{" "}
-              ({SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} par présentoir,
-              sans engagement) se souscrit ensuite depuis votre espace.
+            <p className="mt-6 text-center text-sm text-muted">
+              Prix TTC. Le présentoir fonctionne dès l&apos;activation, gratuitement.
             </p>
+          </Container>
+        </section>
+
+        {/* ABONNEMENT - l'offre de services (le récurrent) */}
+        <section id="abonnement" className="scroll-mt-24 border-y border-line bg-surface">
+          <Container className="py-16 sm:py-20">
+            <SectionHead
+              eyebrow="Abonnement de suivi"
+              title="Le présentoir attire les avis. L'abonnement protège votre réputation."
+            />
+            <p className="mx-auto mt-4 max-w-2xl text-center text-[15px] leading-relaxed text-ink-soft">
+              {SUBSCRIPTION.pitch}
+            </p>
+            <div className="mx-auto mt-12 grid max-w-4xl gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+              <div className="ring-gradient flex flex-col justify-center rounded-3xl border border-brand/40 bg-canvas p-7 shadow-[var(--shadow-glow)]">
+                <span className="font-mono text-xs uppercase tracking-widest text-brand">
+                  Sans engagement
+                </span>
+                <div className="mt-3 flex items-end gap-1">
+                  <span className="font-display text-5xl font-semibold text-ink">
+                    {SUBSCRIPTION.priceLabel}
+                  </span>
+                  <span className="mb-1.5 text-muted">/{SUBSCRIPTION.period}</span>
+                </div>
+                <p className="mt-1 text-sm text-muted">par présentoir</p>
+                <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">
+                  Un mauvais avis public évité, et l&apos;abonnement est rentabilisé
+                  pour des mois. Résiliable à tout moment.
+                </p>
+                <a
+                  href="#produits"
+                  className={buttonClass("gradient", "md", "mt-6 w-full")}
+                >
+                  Commander un présentoir
+                </a>
+                <Link
+                  href="/demo"
+                  className="mt-3 text-center text-sm text-brand hover:underline"
+                >
+                  Voir la démo du suivi
+                </Link>
+              </div>
+              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 lg:grid-flow-row">
+                {SUBSCRIPTION.perks.map((p) => (
+                  <li
+                    key={p}
+                    className="flex items-start gap-3 rounded-2xl border border-line bg-canvas p-4 text-[15px] leading-relaxed text-ink"
+                  >
+                    <Check />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Container>
         </section>
 
@@ -214,10 +302,10 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* REVENDEUR - le différenciateur */}
+        {/* REVENDEUR - teaser vers la candidature */}
         <section
           id="revendeur"
-          className="scroll-mt-24 border-y border-line bg-surface"
+          className="scroll-mt-24 border-b border-line"
         >
           <Container className="grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-2">
             <ProductPhoto
@@ -228,28 +316,18 @@ export default function BoutiquePage() {
             <div>
               <SectionHead
                 eyebrow="Programme revendeur"
-                title="Ne revendez pas une carte morte. Revendez un présentoir intelligent."
+                title="Vous voulez revendre le présentoir près de chez vous ?"
                 align="left"
               />
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                Achetez les présentoirs en pack remisé, revendez-les au prix
-                public : votre marge est encaissée à la vente. Et comme le
-                présentoir reviu est adossé à un vrai service (statistiques,
-                retours privés, liens modifiables), il se vend bien plus
-                facilement qu&apos;une simple carte NFC.
+                Nous sélectionnons les revendeurs au cas par cas : tarif de gros,
+                conditions de revente claires et une formation accompagnée sur
+                demande. Candidatez, on revient vers vous.
               </p>
-              <ul className="mt-6 flex flex-col gap-3">
-                {RESELLER_POINTS.map((pt) => (
-                  <li key={pt} className="flex items-start gap-3 text-[15px] text-ink">
-                    <Check />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="#produits" className={buttonClass("gradient", "lg")}>
-                  Voir les packs revendeurs
-                </a>
+              <div className="mt-8">
+                <Link href="/revendeur" className={buttonClass("gradient", "lg")}>
+                  Devenir revendeur
+                </Link>
               </div>
             </div>
           </Container>
@@ -287,7 +365,7 @@ export default function BoutiquePage() {
               Déjà un présentoir ?
             </h2>
             <p className="max-w-md text-[15px] text-ink-soft">
-              Créez votre compte pour l&apos;activer, personnaliser vos liens et
+              Créez votre compte pour l&apos;activer, personnaliser votre lien et
               suivre vos statistiques.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -306,115 +384,30 @@ export default function BoutiquePage() {
   );
 }
 
-// ── Carte produit ───────────────────────────────────────────────────────────
-function ProductCard({ product }: { product: ShopProduct }) {
-  const isDigital = product.kind === "digital";
-  const highlight = product.badge === "Le plus vendu";
-
-  return (
-    <div
-      className={
-        "elev elev-hover flex h-full flex-col overflow-hidden rounded-3xl border bg-surface " +
-        (highlight
-          ? "ring-gradient border-brand/40 shadow-[var(--shadow-glow)]"
-          : "border-line")
-      }
-    >
-      <div className="relative">
-        {isDigital ? (
-          <div className="grid aspect-[16/9] w-full place-items-center bg-gradient-brand">
-            <div className="flex flex-col items-center gap-2 text-white">
-              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/15">
-                <StarMark className="h-6 w-6 text-white" />
-              </span>
-              <span className="text-sm font-medium text-white/85">
-                Formation 100 % en ligne
-              </span>
-            </div>
-          </div>
-        ) : (
-          <ProductPhoto
-            src={PHOTO.front}
-            alt={product.name}
-            className="aspect-[16/9] w-full"
-          />
-        )}
-        {product.standsIncluded > 1 && (
-          <span className="absolute left-4 top-4 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">
-            ×{product.standsIncluded} présentoirs
-          </span>
-        )}
-        {product.badge && (
-          <span className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
-            {product.badge}
-          </span>
-        )}
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-xl font-semibold text-ink">
-          {product.name}
-        </h3>
-        <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
-          {product.tagline}
-        </p>
-
-        <ul className="mt-5 flex flex-col gap-2.5">
-          {product.features.map((f) => (
-            <li key={f} className="flex items-start gap-2.5 text-sm text-ink">
-              <Check />
-              {f}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 flex items-end justify-between border-t border-line pt-5">
-          <div>
-            <span className="font-display text-3xl font-semibold text-ink">
-              {formatEuros(product.priceCents)}
-            </span>
-            <span className="ml-1 text-sm text-muted">
-              {product.kind === "digital" ? "· accès à vie" : "· achat unique"}
-            </span>
-            {product.perUnitLabel && (
-              <p className="mt-0.5 text-xs text-muted">{product.perUnitLabel}</p>
-            )}
-          </div>
-        </div>
-
-        <BuyButton
-          product={product.id}
-          label={isDigital ? "Accéder à la formation" : "Commander"}
-          className="mt-5"
-        />
-      </div>
-    </div>
-  );
-}
-
-const RESELLER_POINTS = [
-  "Marge immédiate à la revente : achat en pack remisé, revente au prix public (≈ 10 €/unité).",
-  "Un produit facile à vendre : soutenu par un vrai service, pas un gadget qui finit dans un tiroir.",
-  "Un outil concret à montrer en rendez-vous : dashboard, stats de scan, retours privés.",
-  "La formation vous donne l'argumentaire, les tarifs et la méthode de prospection locale.",
-];
-
 const FAQ: { q: string; a: string }[] = [
   {
     q: "Comment fonctionne le présentoir ?",
     a: "Chaque présentoir intègre une puce NFC et un QR code déjà encodés. Le client colle son téléphone ou scanne le QR, et il est redirigé vers votre page d'avis Google. La destination est modifiable à distance, sans réimprimer.",
   },
   {
+    q: "Le tarif dégressif, comment ça marche ?",
+    a: `Le présentoir est à ${formatEuros(
+      STAND_TIERS[0].unitCents,
+    )} l'unité, avec une remise à la quantité : à partir de ${
+      STAND_TIERS[1].min
+    } présentoirs le prix baisse, et encore au-delà. Le total se met à jour automatiquement au moment de choisir la quantité.`,
+  },
+  {
     q: "Faut-il un abonnement ?",
-    a: "Non pour commander : le présentoir est un achat unique et s'active gratuitement. L'abonnement de suivi (2,99 €/mois par présentoir, sans engagement) est optionnel et débloque les statistiques, la modification illimitée des liens et les retours privés.",
+    a: "Non pour commander : le présentoir est un achat unique et s'active gratuitement, la redirection vers Google fonctionne sans rien payer. L'abonnement de suivi (2,99 €/mois par présentoir, sans engagement) est optionnel : il ajoute les retours privés et leurs alertes, le récap hebdomadaire, les statistiques détaillées et un accompagnement humain.",
   },
   {
-    q: "Qu'est-ce que le pack revendeur ?",
-    a: "Un pack (10 ou 20 présentoirs) livré avec la formation complète. Il vous permet de démarrer une activité de revente : vous placez les présentoirs chez des commerçants, vous marge à la revente, et chaque présentoir activé peut générer un abonnement récurrent.",
+    q: "Qu'apporte vraiment l'abonnement à 2,99 € ?",
+    a: "Il protège votre réputation (un client mécontent vous écrit en privé, avant de le faire en public, et vous êtes alerté par e-mail), il prouve vos résultats (récap hebdomadaire et statistiques de scans/clics), et il vous accompagne (réglages et conseils). C'est un service de suivi, pas un simple logiciel.",
   },
   {
-    q: "Comment j'accède à la formation après achat ?",
-    a: "L'accès est immédiat : après paiement, vous recevez un lien d'accès par e-mail et vous pouvez ouvrir la formation directement depuis la page de confirmation. L'accès est valable à vie.",
+    q: "Je veux en revendre, c'est possible ?",
+    a: "Oui, sur candidature. Nous sélectionnons les revendeurs pour leur proposer un tarif de gros, des conditions de revente claires et une formation accompagnée sur demande. Rendez-vous sur la page Revendeur pour postuler.",
   },
   {
     q: "Livraison et paiement ?",

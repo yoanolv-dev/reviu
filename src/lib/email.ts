@@ -13,6 +13,8 @@ export async function sendEmail(opts: {
   to: string;
   subject: string;
   html: string;
+  /** Adresse de réponse (ex. l'e-mail d'un candidat revendeur). */
+  replyTo?: string;
 }): Promise<boolean> {
   if (!RESEND_API_KEY) {
     console.warn("[email] RESEND_API_KEY absent - e-mail non envoyé.");
@@ -25,7 +27,13 @@ export async function sendEmail(opts: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from: FROM, to: opts.to, subject: opts.subject, html: opts.html }),
+      body: JSON.stringify({
+        from: FROM,
+        to: opts.to,
+        subject: opts.subject,
+        html: opts.html,
+        ...(opts.replyTo ? { reply_to: opts.replyTo } : {}),
+      }),
     });
     if (!res.ok) {
       console.error("[email] envoi échoué", res.status, await res.text());

@@ -8,10 +8,16 @@ export const SITE = {
 export const SUBSCRIPTION = {
   priceLabel: "2,99 €",
   period: "mois",
+  /** Accroche courte de l'offre de services. */
+  pitch:
+    "Bien plus qu'un présentoir : protégez votre réputation, prouvez vos résultats et gardez la main, avec un accompagnement humain.",
   perks: [
-    "Suivi des statistiques de scan et de clics",
-    "Modification illimitée des liens du présentoir",
-    "Retours privés : un canal de contact direct avec vos clients",
+    "Retours privés : un client mécontent vous écrit en direct, avant de le faire en public",
+    "Alerte e-mail à chaque nouveau retour privé, pour réagir tout de suite",
+    "Récap hebdomadaire par e-mail : scans, clics et progression de votre présentoir",
+    "Statistiques détaillées de scan et de clics dans votre tableau de bord",
+    "Modification illimitée du lien du présentoir, à distance",
+    "Accompagnement humain : réglage, conseils et suivi, pas un simple logiciel",
   ],
 } as const;
 

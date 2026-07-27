@@ -194,18 +194,18 @@ function Locked() {
             🔒
           </span>
           <h1 className="mt-6 font-display text-2xl font-semibold text-ink">
-            Accès réservé aux membres
+            Accès réservé aux revendeurs
           </h1>
           <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-soft">
-            La formation est incluse dans les packs revendeurs et disponible à
-            l&apos;unité. Après achat, votre lien d&apos;accès vous est envoyé par
-            e-mail et s&apos;ouvre en un clic.
+            La formation accompagne les revendeurs sélectionnés. Candidatez au
+            programme revendeur : après validation, votre lien d&apos;accès vous
+            est envoyé par e-mail et s&apos;ouvre en un clic.
           </p>
           <Link
-            href="/boutique#produits"
+            href="/revendeur"
             className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-brand px-6 text-[15px] font-medium text-white shadow-[0_8px_20px_-8px_var(--color-brand)] transition-colors hover:bg-brand-strong"
           >
-            Découvrir la formation
+            Devenir revendeur
           </Link>
         </Container>
       </main>

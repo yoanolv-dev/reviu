@@ -56,12 +56,13 @@ export default async function DashboardHome() {
               </svg>
             </span>
             <h2 className="font-display text-base font-semibold text-ink">
-              Suivi des statistiques verrouillé
+              Suivi et réputation verrouillés
             </h2>
           </div>
           <p className="mt-3 text-sm text-muted">
             Abonnez-vous à {SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} pour
-            suivre vos scans, clics et taux de conversion. Sans engagement,
+            recevoir les retours privés et leurs alertes, un récap hebdomadaire,
+            et suivre vos scans, clics et taux de conversion. Sans engagement,
             résiliable à tout moment.
           </p>
           <Link
