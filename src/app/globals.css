@@ -114,12 +114,9 @@
    Ajoute de la vie et de la profondeur tout en gardant l'ADN cobalt + doré.
 --------------------------------------------------------------------------- */
 
-/* Texte en dégradé de marque. */
+/* Accent de titre : bleu cobalt plein (plus de dégradé). */
 .text-gradient {
-  background-image: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-brand);
 }
 
 /* Aplats/dégradés utilitaires. */

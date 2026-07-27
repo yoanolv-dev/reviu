@@ -15,20 +15,21 @@ type Blob = {
   opacity?: number;
 };
 
+// Palette bleu cobalt uniquement (sobre) : des halos bleus discrets, sans
+// violet, cyan ni doré. Opacités volontairement basses.
 const PRESETS: Record<string, Blob[]> = {
   hero: [
-    { size: 540, color: "#6d5cff", pos: { top: "-14%", right: "-6%" } },
-    { size: 480, color: "#1b4dff", pos: { top: "8%", left: "-12%" }, delay: -6 },
-    { size: 360, color: "#38b6ff", pos: { bottom: "-16%", left: "34%" }, delay: -11, opacity: 0.4 },
-    { size: 220, color: "#fbbc04", pos: { top: "16%", right: "24%" }, delay: -3, opacity: 0.26 },
+    { size: 540, color: "#1b4dff", pos: { top: "-14%", right: "-6%" }, opacity: 0.22 },
+    { size: 480, color: "#1139c9", pos: { top: "8%", left: "-12%" }, delay: -6, opacity: 0.18 },
+    { size: 360, color: "#1b4dff", pos: { bottom: "-16%", left: "34%" }, delay: -11, opacity: 0.16 },
   ],
   soft: [
-    { size: 460, color: "#6d5cff", pos: { top: "-20%", right: "-10%" }, opacity: 0.32 },
-    { size: 400, color: "#38b6ff", pos: { bottom: "-24%", left: "-8%" }, delay: -8, opacity: 0.3 },
+    { size: 460, color: "#1b4dff", pos: { top: "-20%", right: "-10%" }, opacity: 0.16 },
+    { size: 400, color: "#1139c9", pos: { bottom: "-24%", left: "-8%" }, delay: -8, opacity: 0.14 },
   ],
   violet: [
-    { size: 520, color: "#8b5cf6", pos: { top: "-18%", left: "-8%" }, opacity: 0.4 },
-    { size: 420, color: "#1b4dff", pos: { bottom: "-20%", right: "-6%" }, delay: -7, opacity: 0.36 },
+    { size: 520, color: "#1b4dff", pos: { top: "-18%", left: "-8%" }, opacity: 0.18 },
+    { size: 420, color: "#1139c9", pos: { bottom: "-20%", right: "-6%" }, delay: -7, opacity: 0.16 },
   ],
 };
 
