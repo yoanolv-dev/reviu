@@ -24,6 +24,16 @@ export const SUBSCRIPTION = {
 /** Prix du présentoir physique (achat unique via la boutique). */
 export const STAND_PRICE = "29,90 €";
 
+/**
+ * Libellés de livraison (affichage). La logique chiffrée (seuil, frais) reste
+ * dans `src/lib/shop.ts` : `FREE_SHIPPING_THRESHOLD_CENTS`, `SHIPPING_FEE_CENTS`.
+ * Ces deux constantes doivent rester cohérentes avec les libellés ci-dessous.
+ */
+export const SHIPPING = {
+  freeFromLabel: "50 €",
+  feeLabel: "3,90 €",
+} as const;
+
 /** Mention d'indépendance vis-à-vis de Google (footer, mentions légales, page GBP). */
 export const GOOGLE_DISCLAIMER =
   "Reviu est un service indépendant et n'est ni affilié, ni sponsorisé, ni approuvé par Google. Google et le logo Google sont des marques de Google LLC.";

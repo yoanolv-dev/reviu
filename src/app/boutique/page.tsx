@@ -8,12 +8,13 @@ import { Testimonials } from "@/components/site/testimonials";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
-import { APP_BASE, SUBSCRIPTION } from "@/lib/brand";
+import { APP_BASE, SUBSCRIPTION, SHIPPING } from "@/lib/brand";
 import {
   getProduct,
   formatEuros,
   STAND_TIERS,
   STAND_QTY_MAX,
+  FREE_SHIPPING_THRESHOLD_CENTS,
 } from "@/lib/shop";
 import { buildMetadata, graph, productSchema, faqSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -205,6 +206,8 @@ export default function BoutiquePage() {
                     max={STAND_QTY_MAX}
                     subscriptionLabel={SUBSCRIPTION.priceLabel}
                     period={SUBSCRIPTION.period}
+                    freeShipThresholdCents={FREE_SHIPPING_THRESHOLD_CENTS}
+                    freeFromLabel={SHIPPING.freeFromLabel}
                   />
                 </div>
               </div>
@@ -411,7 +414,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Livraison et paiement ?",
-    a: "Paiement sécurisé par carte via Stripe. Livraison en France métropolitaine. Une facture vous est automatiquement transmise.",
+    a: `Paiement sécurisé par carte via Stripe. Livraison en France métropolitaine : ${SHIPPING.feeLabel} de frais de port, offerts à partir de ${SHIPPING.freeFromLabel} de commande. Une facture vous est automatiquement transmise.`,
   },
 ];
 

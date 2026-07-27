@@ -11,6 +11,7 @@ import {
   SHIPPING_COUNTRIES,
   clampStandQty,
   standUnitCents,
+  shippingFeeCents,
 } from "./shop";
 import type { FormState } from "./form";
 
@@ -163,6 +164,26 @@ export async function startShopCheckout(
           shipping_address_collection: {
             allowed_countries: [...SHIPPING_COUNTRIES],
           },
+          // Livraison offerte au-delà du seuil, sinon frais forfaitaires.
+          shipping_options: [
+            {
+              shipping_rate_data: {
+                type: "fixed_amount" as const,
+                fixed_amount: {
+                  amount: shippingFeeCents(unitAmount * quantity),
+                  currency: "eur",
+                },
+                display_name:
+                  shippingFeeCents(unitAmount * quantity) === 0
+                    ? "Livraison offerte"
+                    : "Livraison",
+                delivery_estimate: {
+                  minimum: { unit: "business_day" as const, value: 2 },
+                  maximum: { unit: "business_day" as const, value: 5 },
+                },
+              },
+            },
+          ],
         }
       : {}),
     metadata: {

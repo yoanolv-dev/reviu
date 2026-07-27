@@ -30,11 +30,15 @@ export function StandOrder({
   max,
   subscriptionLabel,
   period,
+  freeShipThresholdCents,
+  freeFromLabel,
 }: {
   tiers: Tier[];
   max: number;
   subscriptionLabel: string;
   period: string;
+  freeShipThresholdCents: number;
+  freeFromLabel: string;
 }) {
   const [qty, setQty] = useState(1);
   const [state, action, pending] = useActionState(startShopCheckout, null);
@@ -43,6 +47,8 @@ export function StandOrder({
   const total = unit * qty;
   const baseUnit = tiers[0]?.unitCents ?? 0;
   const saving = (baseUnit - unit) * qty;
+  const freeShip = total >= freeShipThresholdCents;
+  const toFreeShip = freeShipThresholdCents - total;
 
   const set = (v: number) => setQty(Math.min(Math.max(v, 1), max));
 
@@ -116,6 +122,25 @@ export function StandOrder({
             </span>
           );
         })}
+      </div>
+
+      <div
+        className={
+          "flex items-center gap-2 rounded-xl border px-3 py-2 text-xs " +
+          (freeShip
+            ? "border-brand/40 bg-brand-soft text-brand"
+            : "border-line text-muted")
+        }
+      >
+        {freeShip ? (
+          <span className="font-medium">✓ Livraison offerte sur cette commande</span>
+        ) : (
+          <span>
+            Plus que{" "}
+            <span className="font-medium text-ink">{euros(toFreeShip)}</span>{" "}
+            pour la livraison offerte (dès {freeFromLabel}).
+          </span>
+        )}
       </div>
 
       <div className="flex items-center justify-between border-t border-line pt-4">

@@ -159,6 +159,19 @@ export function standTotalCents(qty: number): number {
   return standUnitCents(q) * q;
 }
 
+// ── Livraison : offerte à partir d'un seuil, sinon frais forfaitaires ────────
+/** Seuil (centimes) à partir duquel la livraison est offerte. */
+export const FREE_SHIPPING_THRESHOLD_CENTS = 5000;
+/** Frais de port forfaitaires (centimes) en dessous du seuil. */
+export const SHIPPING_FEE_CENTS = 390;
+
+/** Frais de port (centimes) pour un total de commande donné : 0 au-delà du seuil. */
+export function shippingFeeCents(orderTotalCents: number): number {
+  return orderTotalCents >= FREE_SHIPPING_THRESHOLD_CENTS
+    ? 0
+    : SHIPPING_FEE_CENTS;
+}
+
 /** Formate des centimes d'euro en libellé français : 2990 → "29,90 €". */
 export function formatEuros(cents: number): string {
   return (cents / 100).toLocaleString("fr-FR", {

@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
 import { buttonClass } from "@/components/ui/button";
 import { NAV, APP_BASE } from "@/lib/brand";
+import { AnnounceBar } from "./announce-bar";
 
 /**
  * En-tête du site vitrine.
@@ -19,7 +20,9 @@ export function SiteHeader() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/50 bg-canvas/70 backdrop-blur-xl">
+    <>
+      <AnnounceBar />
+      <header className="sticky top-0 z-50 border-b border-white/50 bg-canvas/70 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
@@ -101,7 +104,8 @@ export function SiteHeader() {
           </Container>
         </div>
       )}
-    </header>
+      </header>
+    </>
   );
 }
 
