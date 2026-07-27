@@ -123,7 +123,9 @@ Vraie boutique servie par la même app, sur `reviu.fr/boutique` (routes non ré�
 - **Accès formation** : produit numérique livré par **page protégée** `/formation?token=…`.
   Le jeton est un HMAC signé de la session Stripe (`formationGrantToken`), vérifié sans état.
   Secret : `REVIU_SHOP_SECRET` (à défaut, réutilise `SUPABASE_SERVICE_ROLE_KEY`). Contenu du
-  cours = structure en place dans `formation/page.tsx` (`MODULES`), **à remplir**.
+  cours **rédigé** dans `formation/page.tsx` (`MODULES`) : 5 modules, 18 leçons (blocs
+  paragraphe/étapes/liste/astuce/script, lecture en accordéons). Modèle enseigné = « marge
+  physique » (revendeur = marge à la revente ; reviu garde le récurrent 2,99 €/mois).
 - **Programme revendeur** = packs remisés (achat groupé) pour cette V1. La **commission
   récurrente** sur les abonnements (attribution revendeur→présentoir→abo) est une **phase 2**.
 - **Photos produit** : `public/products/{presentoir,presentoir-angle,presentoir-comptoir}.png`
@@ -202,8 +204,9 @@ STRIPE_WEBHOOK_SECRET=whsec_...     # créé à l'ajout du endpoint webhook
 5. **Supabase Auth** : *Leaked password protection* activé ; Redirect URLs (`/auth/callback`,
    `/reset-password`).
 6. **Boutique** : déposer les **photos produit** dans `public/products/` (voir son README) ;
-   remplir le **contenu de la formation** (`src/app/formation/page.tsx`, `MODULES`) ; ajuster les
-   prix si besoin dans `src/lib/shop.ts`. La boutique fonctionne dès que Stripe est configuré (§2).
+   ajuster les prix si besoin dans `src/lib/shop.ts`. Le **contenu de la formation** est désormais
+   rédigé (`src/app/formation/page.tsx`, `MODULES`) — relire/affiner le discours au besoin. La
+   boutique fonctionne dès que Stripe est configuré (§2).
 7. **Clé Vault** `stand_activation_key` : déjà créée, **ne jamais supprimer/régénérer**.
 
 ## Base de données (objets hors repo)
