@@ -8,7 +8,7 @@ import { SHIPPING } from "@/lib/brand";
  */
 export function AnnounceBar() {
   return (
-    <div className="bg-gradient-brand text-white">
+    <div className="bg-brand text-white">
       <div className="mx-auto flex h-9 max-w-6xl items-center justify-center gap-3 px-5 text-center text-[13px] font-medium sm:gap-5">
         <span className="inline-flex items-center gap-1.5">
           <TruckIcon />

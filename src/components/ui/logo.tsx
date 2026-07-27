@@ -29,9 +29,8 @@ export function StarMark({
 export const REVIEW_GOLD = "#FBBC04";
 
 /**
- * Marque reviu : monogramme « r » dans un carré arrondi cobalt, ponctué d'une
- * étincelle au doré des étoiles Google. Le « r » se lit seul (app icon, favicon),
- * le point rappelle la note d'avis. Un aplat cobalt, un accent doré.
+ * Marque reviu : monogramme « r » dans un carré arrondi cobalt. Un aplat cobalt
+ * sobre, sans accent doré. Le « r » se lit seul (app icon, favicon).
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
@@ -41,7 +40,6 @@ export function LogoMark({ className }: { className?: string }) {
         d="M18 35V16.5h5.4v3.1c1.2-2.2 3.3-3.4 6.1-3.4.6 0 1.1.05 1.6.15v5.1c-.7-.2-1.4-.3-2.2-.3-3.3 0-5.5 2-5.5 5.6V35H18Z"
         fill="#fff"
       />
-      <circle cx="33.5" cy="14.5" r="3.6" fill={REVIEW_GOLD} />
     </svg>
   );
 }

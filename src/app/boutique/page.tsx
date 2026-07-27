@@ -95,12 +95,12 @@ export default function BoutiquePage() {
           <Container className="grid items-center gap-10 py-14 sm:gap-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
             <div className="reveal order-2 flex flex-col items-start lg:order-1">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                 Boutique officielle reviu
               </span>
               <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem] lg:leading-[1.03]">
                 Le présentoir qui transforme vos clients en{" "}
-                <span className="text-gradient">avis Google</span>.
+                <span className="text-brand">avis Google</span>.
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-5 sm:text-lg">
                 Un geste - coller le téléphone ou scanner le QR - et l&apos;avis
@@ -124,12 +124,12 @@ export default function BoutiquePage() {
             <div className="relative order-1 mx-auto w-full max-w-[18rem] sm:max-w-sm lg:order-2 lg:max-w-none">
               <div
                 aria-hidden
-                className="absolute inset-3 -z-10 rounded-[3rem] bg-gradient-brand opacity-25 blur-3xl"
+                className="absolute inset-3 -z-10 rounded-[3rem] bg-brand opacity-[0.08] blur-3xl"
               />
               <ProductPhoto
                 src={PHOTO.hero}
                 alt="Présentoir reviu NFC + QR pour avis Google"
-                className="ring-gradient aspect-square w-full rounded-[2rem] shadow-[var(--shadow-lift)]"
+                className="aspect-square w-full rounded-[2rem] border border-line shadow-[var(--shadow-soft)]"
               />
             </div>
           </Container>
@@ -144,8 +144,8 @@ export default function BoutiquePage() {
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               {STEPS.map((s, i) => (
                 <Reveal key={s.n} delay={i * 90}>
-                  <div className="elev elev-hover flex h-full flex-col rounded-3xl border border-line bg-canvas p-7">
-                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-brand font-mono text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                  <div className="flex h-full flex-col rounded-3xl border border-line bg-canvas p-7 transition-colors hover:border-brand/30">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-soft font-mono text-sm font-semibold text-brand">
                       {s.n}
                     </span>
                     <h3 className="mt-5 font-display text-lg font-semibold text-ink">
@@ -172,12 +172,12 @@ export default function BoutiquePage() {
               <div className="relative">
                 <div
                   aria-hidden
-                  className="absolute inset-4 -z-10 rounded-[2.5rem] bg-gradient-brand opacity-20 blur-3xl"
+                  className="absolute inset-4 -z-10 rounded-[2.5rem] bg-brand opacity-[0.06] blur-3xl"
                 />
                 <ProductPhoto
                   src={PHOTO.front}
                   alt="Présentoir reviu NFC + QR"
-                  className="ring-gradient aspect-square w-full rounded-[1.75rem] shadow-[var(--shadow-lift)]"
+                  className="aspect-square w-full rounded-[1.75rem] border border-line shadow-[var(--shadow-soft)]"
                 />
               </div>
               <div className="flex flex-col">
@@ -229,7 +229,7 @@ export default function BoutiquePage() {
               {SUBSCRIPTION.pitch}
             </p>
             <div className="mx-auto mt-12 grid max-w-4xl gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-              <div className="ring-gradient flex flex-col justify-center rounded-3xl border border-brand/40 bg-canvas p-7 shadow-[var(--shadow-glow)]">
+              <div className="flex flex-col justify-center rounded-3xl border border-brand/30 bg-canvas p-7 shadow-[var(--shadow-soft)]">
                 <span className="font-mono text-xs uppercase tracking-widest text-brand">
                   Sans engagement
                 </span>
@@ -456,13 +456,13 @@ function TrustItem({ children }: { children: React.ReactNode }) {
 
 function Check() {
   return (
-    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white">
+    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-brand-soft text-brand">
       <svg
         viewBox="0 0 24 24"
         className="h-3 w-3"
         fill="none"
         stroke="currentColor"
-        strokeWidth="3"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden

@@ -37,9 +37,11 @@
   --shadow-glow: 0 24px 70px -24px rgba(27, 77, 255, 0.5);
   --shadow-glow-violet: 0 24px 70px -24px rgba(124, 92, 246, 0.45);
 
-  /* Dégradés de marque réutilisables. */
-  --gradient-brand: linear-gradient(115deg, #1b4dff 0%, #5a6bff 48%, #8b5cf6 100%);
-  --gradient-brand-soft: linear-gradient(115deg, #edf1ff 0%, #eef0ff 50%, #f3edff 100%);
+  /* Dégradés de marque réutilisables — bleu cobalt uniquement (sobre, sans
+     violet). Un léger fondu vers le cobalt foncé pour la profondeur, sans
+     jamais virer au mauve. */
+  --gradient-brand: linear-gradient(120deg, #1b4dff 0%, #1139c9 100%);
+  --gradient-brand-soft: linear-gradient(120deg, #edf1ff 0%, #e6ecff 100%);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     sans-serif;

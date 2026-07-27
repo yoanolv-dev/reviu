@@ -18,22 +18,14 @@ export function HeroBackground({ className }: { className?: string }) {
       )}
     >
       {/* Texture pointillée subtile, masquée vers le haut/droite. */}
-      <div className="absolute inset-0 hero-grid opacity-70" />
+      <div className="absolute inset-0 hero-grid opacity-50" />
 
-      {/* Halo doux en haut à droite, derrière le visuel. */}
+      {/* Halo bleu doux et discret en haut à droite, derrière le visuel. */}
       <div
-        className="absolute -right-40 -top-48 h-[40rem] w-[40rem] rounded-full opacity-70 blur-[100px]"
+        className="absolute -right-40 -top-48 h-[38rem] w-[38rem] rounded-full opacity-60 blur-[110px]"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(109,92,255,0.42), rgba(27,77,255,0.22) 45%, transparent 70%)",
-        }}
-      />
-      {/* Petit rappel doré très discret, encore plus à droite. */}
-      <div
-        className="absolute right-[8%] top-24 hidden h-56 w-56 rounded-full opacity-40 blur-[90px] lg:block"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(251,188,4,0.35), transparent 68%)",
+            "radial-gradient(circle at 50% 50%, rgba(27,77,255,0.20), transparent 68%)",
         }}
       />
 

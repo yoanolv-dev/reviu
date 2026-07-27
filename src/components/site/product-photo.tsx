@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
-import { StarMark } from "@/components/ui/logo";
 
 /**
- * Photo produit avec repli de marque soigné.
+ * Photo produit avec repli neutre et sobre.
  *
  * La vraie photo (déposée dans `public/products/`) est affichée en
- * `background-image` par-dessus un repli décoratif de marque. Si le fichier
- * n'existe pas encore - ou ne charge pas - le repli reste visible : un dégradé
- * cobalt→violet avec halos lumineux et une pastille étoilée, jamais un aplat
- * plat ni une image cassée, et sans aucun JavaScript. Dès que la photo est
+ * `background-image` par-dessus le repli. Tant qu'aucune photo n'est déposée, le
+ * repli reste visible : un aplat neutre discret avec une icône de photo, jamais
+ * un aplat coloré ni une image cassée, et sans JavaScript. Dès que la photo est
  * ajoutée au repo, elle recouvre automatiquement le repli.
+ *
+ * → Déposer les visuels dans `public/products/` (WebP compressé conseillé).
  */
 export function ProductPhoto({
   src,
@@ -23,20 +23,31 @@ export function ProductPhoto({
   return (
     <div
       className={cn(
-        "relative overflow-hidden bg-gradient-brand",
+        "relative overflow-hidden border border-line bg-line-soft",
         className,
       )}
     >
-      {/* Repli de marque décoratif (visible tant qu'aucune photo n'est déposée) */}
-      <div aria-hidden className="absolute inset-0">
-        <div className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/20 blur-3xl" />
-        <div className="absolute -bottom-12 -left-8 h-44 w-44 rounded-full bg-violet/40 blur-3xl" />
-        <StarMark className="absolute -bottom-5 right-4 h-28 w-28 text-white/10" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="grid h-16 w-16 place-items-center rounded-2xl border border-white/20 bg-white/15 backdrop-blur">
-            <StarMark className="h-7 w-7 text-white" />
-          </div>
-        </div>
+      {/* Repli neutre (visible tant qu'aucune photo n'est déposée) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted"
+      >
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="opacity-45"
+        >
+          <rect x="3" y="4" width="18" height="16" rx="2.5" />
+          <circle cx="8.5" cy="9.5" r="1.6" />
+          <path d="M21 16l-5-5L4.5 20" />
+        </svg>
+        <span className="text-[11px] font-medium opacity-60">Photo produit</span>
       </div>
       <div
         role="img"

@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { HeroBackground } from "@/components/site/hero-background";
+import { buttonClass } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
 import { STAND_PRICE } from "@/lib/brand";
 import { ApplicationForm } from "./application-form";
@@ -59,12 +60,12 @@ export default function RevendeurPage() {
           <Container className="py-14 sm:py-20 lg:py-24">
             <div className="reveal max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
                 Programme revendeur
               </span>
               <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl">
                 Revendez le présentoir reviu{" "}
-                <span className="text-gradient">près de chez vous</span>.
+                <span className="text-brand">près de chez vous</span>.
               </h1>
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-ink-soft sm:text-lg">
                 Un produit concret, facile à démontrer, adossé à un vrai service.
@@ -72,7 +73,7 @@ export default function RevendeurPage() {
                 conditions claires et formation accompagnée sur demande.
               </p>
               <div className="mt-8">
-                <a href="#candidature" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-brand px-6 text-[15px] font-medium text-white shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5">
+                <a href="#candidature" className={buttonClass("primary", "lg")}>
                   Postuler maintenant
                 </a>
               </div>
@@ -95,7 +96,7 @@ export default function RevendeurPage() {
                   key={s.n}
                   className="flex h-full flex-col rounded-3xl border border-line bg-canvas p-7"
                 >
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-brand font-mono text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-soft font-mono text-sm font-semibold text-brand">
                     {s.n}
                   </span>
                   <h3 className="mt-5 font-display text-lg font-semibold text-ink">
@@ -132,8 +133,8 @@ export default function RevendeurPage() {
                   key={c}
                   className="flex items-start gap-3 rounded-2xl border border-line bg-surface p-4 text-[15px] leading-relaxed text-ink"
                 >
-                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand text-white">
-                    <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-brand-soft text-brand">
+                    <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                       <path d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
