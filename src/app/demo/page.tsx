@@ -10,7 +10,6 @@ import { buttonClass } from "@/components/ui/button";
 import { qrSvg } from "@/lib/qr";
 import {
   APP_BASE,
-  SUBSCRIPTION,
   CONTACT_EMAIL,
   STAND_PRICE,
   BOUTIQUE_URL,
@@ -125,8 +124,8 @@ export default async function DemoPage() {
               jamais réimprimer.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a href={`${APP_BASE}/signup`} className={buttonClass("primary", "lg")}>
-                Créer mon compte
+              <a href={BOUTIQUE_URL} className={buttonClass("primary", "lg")}>
+                Commander mon présentoir — {STAND_PRICE}
               </a>
               <Link
                 href="/r/demo"
@@ -137,10 +136,8 @@ export default async function DemoPage() {
               </Link>
             </div>
             <p className="mt-4 font-mono text-[13px] text-muted">
-              <span className="font-semibold text-ink">
-                {SUBSCRIPTION.priceLabel}
-              </span>{" "}
-              / {SUBSCRIPTION.period} · par présentoir · sans engagement
+              Achat unique · sans abonnement obligatoire · compatible iPhone et
+              Android
             </p>
           </div>
 
@@ -497,121 +494,49 @@ export default async function DemoPage() {
           </Container>
         </section>
 
-        {/* TARIFS */}
-        <section className="border-t border-line bg-surface" id="tarifs">
+        {/* L'OFFRE — un seul achat principal, sans abonnement */}
+        <section className="border-t border-line bg-surface" id="offre">
           <Container className="py-16 sm:py-20">
-            <div className="max-w-2xl">
-              <Kicker>Tarifs</Kicker>
+            <div className="mx-auto max-w-2xl text-center">
+              <Kicker>L&apos;offre</Kicker>
               <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                Simple, à l&apos;usage, sans engagement.
+                Présentoir Reviu — {STAND_PRICE} TTC.
               </h2>
               <p className="mt-3 text-ink-soft">
-                Le présentoir s&apos;achète une fois ({STAND_PRICE}, livraison en
-                France métropolitaine) et s&apos;active gratuitement.
-                L&apos;abonnement de suivi se paie ensuite par présentoir - et
-                évolue vers un vrai hub de réputation.
+                Un achat unique, sans abonnement obligatoire. Le présentoir
+                s&apos;active gratuitement et redirige vos clients vers votre page
+                d&apos;avis Google, durablement.
               </p>
+              <ul className="mx-auto mt-6 grid max-w-md gap-2 text-left">
+                {[
+                  "Puce NFC + QR code déjà encodés",
+                  "Redirection modifiable à distance",
+                  "Compatible iPhone et Android, aucune application",
+                ].map((f) => (
+                  <li key={f} className="flex items-start gap-3 text-[15px] text-ink">
+                    <Check />
+                    {f}
+                  </li>
+                ))}
+              </ul>
               <a
                 href={BOUTIQUE_URL}
-                className="mt-4 inline-block font-mono text-sm text-brand hover:underline"
+                className={buttonClass("primary", "lg", "mt-8")}
               >
-                Commander un présentoir ({STAND_PRICE}) →
+                Commander mon présentoir — {STAND_PRICE}
               </a>
-            </div>
-
-            <div className="mt-10 grid gap-6 lg:grid-cols-2">
-              {/* Essentiel */}
-              <div className="flex flex-col rounded-3xl border-2 border-brand bg-canvas p-8 shadow-[0_24px_60px_-40px_rgba(27,77,255,0.55)]">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-xl font-semibold text-ink">
-                    Essentiel
-                  </h3>
-                  <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-                    Disponible
-                  </span>
-                </div>
-                <p className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink">
-                  {SUBSCRIPTION.priceLabel}
-                  <span className="text-lg font-normal text-muted">
-                    {" "}
-                    /{SUBSCRIPTION.period}
-                  </span>
-                </p>
-                <p className="mt-1 text-sm text-muted">
-                  par présentoir · sans engagement
-                </p>
+              <p className="mt-6 text-xs leading-relaxed text-muted">
+                Après activation, un espace de pilotage facultatif (statistiques,
+                retours privés, gestion de plusieurs présentoirs) pourra être
+                proposé — jamais nécessaire au fonctionnement du présentoir.{" "}
                 <a
-                  href={`${APP_BASE}/signup`}
-                  className={buttonClass("primary", "lg", "mt-6 w-full")}
+                  href={`mailto:${CONTACT_EMAIL}?subject=Acc%C3%A8s%20anticip%C3%A9%20Reviu`}
+                  className="font-medium text-brand hover:underline"
                 >
-                  Commencer
+                  Rejoindre l&apos;accès anticipé
                 </a>
-                <ul className="mt-7 flex flex-col gap-3 text-[15px] text-ink">
-                  {[
-                    "Statistiques de scan en temps réel",
-                    "Taux de clic vers Google & attribution NFC vs QR",
-                    "Modification illimitée des liens à distance",
-                    "Choix du mode de scan (direct Google ou page reviu)",
-                    "Retours privés : un canal de contact direct",
-                  ].map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <Check />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-6 text-xs text-muted">
-                  Présentoir vendu séparément ({STAND_PRICE}, achat unique) ;
-                  activation gratuite. Résiliable à tout moment : la redirection
-                  du présentoir continue, seules les fonctions de suivi sont
-                  désactivées.
-                </p>
-              </div>
-
-              {/* Pro */}
-              <div className="flex flex-col rounded-3xl border border-line bg-surface p-8">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-xl font-semibold text-ink">
-                    Pro
-                  </h3>
-                  <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent">
-                    Bientôt
-                  </span>
-                </div>
-                <p className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink">
-                  Bientôt
-                </p>
-                <p className="mt-1 text-sm text-muted">
-                  pour la gestion complète de votre réputation
-                </p>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=reviu%20Pro`}
-                  className={buttonClass("secondary", "lg", "mt-6 w-full")}
-                >
-                  Être prévenu
-                </a>
-                <p className="mt-7 text-sm font-medium text-ink-soft">
-                  Tout l&apos;Essentiel, plus :
-                </p>
-                <ul className="mt-3 flex flex-col gap-3 text-[15px] text-ink">
-                  {[
-                    "Alertes e-mail à chaque nouvel avis Google",
-                    "Réponses aux avis assistées par IA",
-                    "Avis Google intégrés : consulter & répondre depuis reviu",
-                    "Statistiques de votre fiche Google",
-                    "Gestion multi-établissements",
-                  ].map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-ink-soft">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-soft text-accent">
-                        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <path d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                .
+              </p>
             </div>
           </Container>
         </section>
@@ -620,15 +545,18 @@ export default async function DemoPage() {
         <Container className="py-16 sm:py-20">
           <div className="flex flex-wrap items-center justify-between gap-8 rounded-3xl border border-line bg-canvas px-8 py-12 sm:px-12">
             <h2 className="max-w-[20ch] font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              Prêt à collecter plus d&apos;avis&nbsp;?
+              Transformez chaque passage client en avis Google.
             </h2>
             <div className="flex flex-wrap gap-3">
-              <a href={`${APP_BASE}/signup`} className={buttonClass("primary", "lg")}>
-                Créer mon compte
+              <a href={BOUTIQUE_URL} className={buttonClass("primary", "lg")}>
+                Commander — {STAND_PRICE}
               </a>
-              <Link href="/home" className={buttonClass("secondary", "lg")}>
-                En savoir plus
-              </Link>
+              <a
+                href={`${APP_BASE}/signup`}
+                className={buttonClass("secondary", "lg")}
+              >
+                Activer un présentoir
+              </a>
             </div>
           </div>
         </Container>

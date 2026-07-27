@@ -28,15 +28,11 @@ function unitCentsFor(qty: number, tiers: Tier[]): number {
 export function StandOrder({
   tiers,
   max,
-  subscriptionLabel,
-  period,
   freeShipThresholdCents,
   freeFromLabel,
 }: {
   tiers: Tier[];
   max: number;
-  subscriptionLabel: string;
-  period: string;
   freeShipThresholdCents: number;
   freeFromLabel: string;
 }) {
@@ -168,9 +164,8 @@ export function StandOrder({
       </form>
 
       <p className="text-center text-xs text-muted">
-        Achat unique. Activation gratuite. Abonnement de suivi{" "}
-        {subscriptionLabel}/{period} en option, souscrit ensuite depuis votre
-        espace. Besoin de plus de {max} présentoirs pour revendre ?{" "}
+        Achat unique, sans abonnement obligatoire. Le présentoir fonctionne dès
+        l&apos;activation. Besoin de plus de {max} présentoirs pour revendre ?{" "}
         <a href="/revendeur" className="font-medium text-brand hover:underline">
           Devenez revendeur
         </a>

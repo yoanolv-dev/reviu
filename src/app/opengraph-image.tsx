@@ -11,7 +11,7 @@ import { ImageResponse } from "next/og";
  * glyphes hors police par défaut (pas d’emoji/★ : dessinés en SVG à la place).
  */
 export const alt =
-  "reviu - Présentoirs NFC et QR codes pour collecter plus d’avis Google";
+  "reviu - Présentoir NFC et QR code pour plus d’avis Google, 29,90 € sans abonnement";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -107,11 +107,11 @@ export default function OpengraphImage() {
                 letterSpacing: -1.5,
               }}
             >
-              sans effort.
+              depuis votre comptoir.
             </div>
           </div>
           <div style={{ marginTop: 24, fontSize: 30, color: "#333a49", maxWidth: 900 }}>
-            Présentoirs NFC + QR codes dynamiques pour les commerces de proximité.
+            Le présentoir NFC + QR code pour accéder à votre page d’avis Google.
           </div>
         </div>
 
@@ -137,7 +137,7 @@ export default function OpengraphImage() {
               fontWeight: 600,
             }}
           >
-            NFC + QR, en un geste
+            29,90 € · sans abonnement obligatoire
           </div>
         </div>
       </div>

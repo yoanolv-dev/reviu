@@ -21,8 +21,7 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Description « maison » réutilisée par défaut (Organization, OG…). */
-export const BRAND_DESCRIPTION =
-  "reviu équipe les commerces de proximité de présentoirs NFC et QR codes dynamiques pour collecter plus d'avis Google, en un seul geste et en toute conformité avec les règles de Google.";
+export const BRAND_DESCRIPTION = `reviu équipe les commerces de proximité d'un présentoir NFC et QR code pour accéder à leur page d'avis Google en un geste. Achat unique à ${STAND_PRICE}, sans abonnement obligatoire, compatible iPhone et Android, aucune application à télécharger.`;
 
 type BuildMeta = {
   /** Titre complet de la page (déjà « brandé », ex. « … · reviu »). */

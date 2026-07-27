@@ -134,14 +134,14 @@ export default function GuidesIndexPage() {
               comptoir : un geste, un avis.
             </p>
             <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-              <Link href="/" className={buttonClass("gradient", "lg")}>
-                Voir les présentoirs
+              <Link href="/#produits" className={buttonClass("primary", "lg")}>
+                Commander mon présentoir
               </Link>
               <a
                 href={`${APP_BASE}/signup`}
                 className={buttonClass("secondary", "lg")}
               >
-                Créer mon compte
+                Activer un présentoir
               </a>
             </div>
           </Container>

@@ -5,15 +5,15 @@ import { GUIDES } from "@/lib/guides";
 /**
  * Plan du site (sitemap.xml) - ne liste que les pages publiques indexables.
  * La page d’accueil canonique est la racine `/` (réécrite vers la boutique), on
- * ne liste donc pas `/boutique` en double. Les guides sont générés depuis la
- * source de contenu pour rester automatiquement à jour.
+ * ne liste donc pas `/boutique` en double. `/home` et `/vitrine` redirigent vers
+ * `/` (308) : on ne les liste plus pour éviter la duplication. Les guides sont
+ * générés depuis la source de contenu pour rester automatiquement à jour.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const core: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: absoluteUrl("/home"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/demo"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];

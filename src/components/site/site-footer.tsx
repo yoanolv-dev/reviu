@@ -4,7 +4,7 @@ import { Logo } from "@/components/ui/logo";
 import {
   APP_BASE,
   CONTACT_EMAIL,
-  SUBSCRIPTION,
+  STAND_PRICE,
   GOOGLE_DISCLAIMER,
 } from "@/lib/brand";
 
@@ -12,11 +12,11 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
   {
     title: "Produit",
     links: [
-      { label: "Boutique", href: "/" },
-      { label: "Comment ça marche", href: "/home" },
+      { label: "Le présentoir", href: "/#produits" },
+      { label: "Comment ça marche", href: "/#fonctionnement" },
+      { label: "Pour qui ?", href: "/#pour-qui" },
+      { label: "Questions fréquentes", href: "/#faq" },
       { label: "Guides", href: "/guides" },
-      { label: "Démo", href: "/demo" },
-      { label: "Abonnement", href: "/#abonnement" },
       { label: "Revendeur", href: "/revendeur" },
       { label: "Google Business Profile", href: "/google-business-profile" },
     ],
@@ -24,8 +24,9 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
   {
     title: "Compte",
     links: [
+      { label: "Commander", href: "/#produits" },
+      { label: "Activer un présentoir", href: `${APP_BASE}/signup`, ext: true },
       { label: "Se connecter", href: `${APP_BASE}/login`, ext: true },
-      { label: "Créer un compte", href: `${APP_BASE}/signup`, ext: true },
     ],
   },
   {
@@ -51,9 +52,9 @@ export function SiteFooter() {
         <div className="flex flex-col gap-4">
           <Logo />
           <p className="max-w-xs text-sm leading-relaxed text-muted">
-            Des présentoirs NFC + QR pour faciliter le dépôt d&apos;avis Google
-            de vos clients, à partir de {SUBSCRIPTION.priceLabel}/
-            {SUBSCRIPTION.period} par présentoir.
+            Le présentoir NFC + QR code qui permet à vos clients d&apos;accéder à
+            votre page d&apos;avis Google en un geste. {STAND_PRICE} TTC, sans
+            abonnement obligatoire.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

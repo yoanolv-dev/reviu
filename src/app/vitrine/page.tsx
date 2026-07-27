@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-// L'ancienne vitrine est remplacée par la landing /home (source unique).
+// L'ancienne vitrine est remplacée par la page d'accueil (boutique). Redirection
+// permanente vers la racine, source unique.
 export default function Vitrine() {
-  redirect("/home");
+  permanentRedirect("/");
 }

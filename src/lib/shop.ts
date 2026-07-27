@@ -60,7 +60,7 @@ export const CATALOG: ShopProduct[] = [
     features: [
       "NFC + QR déjà encodés, prêts à l'emploi",
       "Redirection modifiable à distance",
-      "Activation gratuite, abonnement de suivi séparé (2,99 €/mois)",
+      "Achat unique, sans abonnement obligatoire",
     ],
   },
   {

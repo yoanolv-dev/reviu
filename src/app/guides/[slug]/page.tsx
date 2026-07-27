@@ -160,16 +160,16 @@ export default async function GuidePage({ params }: Props) {
               </p>
               <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
-                  href="/"
+                  href="/#produits"
                   className={buttonClass("secondary", "lg", "border-transparent")}
                 >
-                  Voir les présentoirs
+                  Commander mon présentoir
                 </Link>
                 <a
                   href={`${APP_BASE}/signup`}
                   className={buttonClass("ghost", "lg", "!text-white hover:bg-white/10")}
                 >
-                  Créer mon compte
+                  Activer un présentoir
                 </a>
               </div>
             </aside>

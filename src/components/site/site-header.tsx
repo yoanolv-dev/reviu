@@ -51,7 +51,7 @@ export function SiteHeader() {
           </Link>
 
           {/* Navigation desktop */}
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             {NAV.map((item) => (
               <a
                 key={item.href}
@@ -64,8 +64,8 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          {/* Accès compte desktop */}
-          <div className="hidden items-center gap-3 md:flex">
+          {/* Trois actions clairement séparées : Se connecter · Activer · Commander */}
+          <div className="hidden items-center gap-3 lg:flex">
             <span aria-hidden className="h-5 w-px bg-line" />
             <a
               href={`${APP_BASE}/login`}
@@ -73,26 +73,34 @@ export function SiteHeader() {
             >
               Se connecter
             </a>
-            <a href={`${APP_BASE}/signup`} className={buttonClass("primary", "md")}>
-              Créer un compte
+            <a href={`${APP_BASE}/signup`} className={buttonClass("secondary", "md")}>
+              Activer
             </a>
+            <Link href="/#produits" className={buttonClass("primary", "md")}>
+              Commander
+            </Link>
           </div>
 
-          {/* Bouton menu mobile */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            aria-expanded={open}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line text-ink transition-colors hover:bg-line-soft md:hidden"
-          >
-            {open ? <IconClose /> : <IconMenu />}
-          </button>
+          {/* Sous lg : CTA « Commander » toujours visible + menu déroulant */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <Link href="/#produits" className={buttonClass("primary", "md")}>
+              Commander
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={open}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line text-ink transition-colors hover:bg-line-soft"
+            >
+              {open ? <IconClose /> : <IconMenu />}
+            </button>
+          </div>
         </Container>
 
-        {/* Panneau déroulant mobile */}
+        {/* Panneau déroulant mobile / tablette */}
         {open && (
-          <div className="border-t border-line bg-canvas md:hidden">
+          <div className="border-t border-line bg-canvas lg:hidden">
             <Container className="flex flex-col py-2">
               {NAV.map((item) => (
                 <a
@@ -105,19 +113,26 @@ export function SiteHeader() {
                 </a>
               ))}
               <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
-                <a
-                  href={`${APP_BASE}/login`}
-                  onClick={close}
-                  className={buttonClass("secondary", "lg", "w-full")}
-                >
-                  Se connecter
-                </a>
-                <a
-                  href={`${APP_BASE}/signup`}
+                <Link
+                  href="/#produits"
                   onClick={close}
                   className={buttonClass("primary", "lg", "w-full")}
                 >
-                  Créer un compte
+                  Commander
+                </Link>
+                <a
+                  href={`${APP_BASE}/signup`}
+                  onClick={close}
+                  className={buttonClass("secondary", "lg", "w-full")}
+                >
+                  Activer un présentoir
+                </a>
+                <a
+                  href={`${APP_BASE}/login`}
+                  onClick={close}
+                  className="rounded-full px-2 py-3 text-center text-[15px] font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
+                >
+                  Se connecter
                 </a>
               </div>
             </Container>

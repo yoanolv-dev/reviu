@@ -1,18 +1,34 @@
 export const SITE = {
   name: "reviu",
-  tagline: "Plus d'avis Google, sans effort.",
+  tagline: "Plus d'avis Google, directement depuis votre comptoir.",
   domain: "reviu.fr",
 } as const;
 
-/** Abonnement de suivi (par présentoir). Sans engagement, résiliable à tout moment. */
+/**
+ * Nom commercial et descriptif du produit — à employer partout, sans varier
+ * (pas de « plaque », « borne », « carte », « support », « hub »… dans le
+ * discours commercial). « plaque NFC avis Google » reste réservé au SEO.
+ */
+export const PRODUCT = {
+  name: "Présentoir Reviu",
+  descriptive: "Présentoir NFC et QR code pour avis Google",
+} as const;
+
+/**
+ * Abonnement de suivi (par présentoir). Sans engagement, résiliable à tout
+ * moment. IMPORTANT : c'est une amélioration FACULTATIVE, commercialisée
+ * APRÈS l'achat (dashboard + e-mailing). Le prix mensuel ne doit pas apparaître
+ * dans le tunnel d'achat du présentoir ni concurrencer le bouton « Commander ».
+ * Les libellés ci-dessous restent utilisés côté espace client / e-mails.
+ */
 export const SUBSCRIPTION = {
   priceLabel: "2,99 €",
   period: "mois",
-  /** Accroche courte de l'offre de services. */
+  /** Accroche courte de l'offre de services (espace client, e-mails). */
   pitch:
-    "Bien plus qu'un présentoir : protégez votre réputation, prouvez vos résultats et gardez la main, avec un accompagnement humain.",
+    "Après activation, un espace de pilotage facultatif vous aide à suivre vos statistiques, recueillir des retours privés et gérer vos présentoirs.",
   perks: [
-    "Retours privés : un client mécontent vous écrit en direct, avant de le faire en public",
+    "Retours privés : un client peut aussi vous contacter en direct",
     "Alerte e-mail à chaque nouveau retour privé, pour réagir tout de suite",
     "Récap hebdomadaire par e-mail : scans, clics et progression de votre présentoir",
     "Statistiques détaillées de scan et de clics dans votre tableau de bord",
@@ -23,6 +39,18 @@ export const SUBSCRIPTION = {
 
 /** Prix du présentoir physique (achat unique via la boutique). */
 export const STAND_PRICE = "29,90 €";
+
+/**
+ * Réassurances clés affichées sous le hero et dans le bandeau produit.
+ * Le cœur du positionnement : achat unique, sans abonnement obligatoire,
+ * compatible partout, installation rapide.
+ */
+export const REASSURANCE = [
+  "Achat unique",
+  "Sans abonnement obligatoire",
+  "Activation rapide",
+  "Compatible iPhone et Android",
+] as const;
 
 /**
  * Libellés de livraison (affichage). La logique chiffrée (seuil, frais) reste
@@ -63,9 +91,14 @@ export const ADMIN_NOTIFY_EMAIL = "yoan.oliveira30@gmail.com";
 export const BOUTIQUE_URL =
   process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/boutique`;
 
+/**
+ * Navigation courte et orientée conversion. Les trois actions (Commander,
+ * Activer, Se connecter) sont gérées séparément dans l'en-tête, pas ici.
+ */
 export const NAV = [
-  { label: "Comment ça marche", href: "/home" },
-  { label: "Tarifs", href: "/#produits" },
+  { label: "Le présentoir", href: "/#produits" },
+  { label: "Comment ça marche", href: "/#fonctionnement" },
+  { label: "Pour qui ?", href: "/#pour-qui" },
+  { label: "Questions fréquentes", href: "/#faq" },
   { label: "Guides", href: "/guides" },
-  { label: "Démo", href: "/demo" },
 ] as const;
