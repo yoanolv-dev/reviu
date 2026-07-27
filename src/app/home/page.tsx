@@ -278,7 +278,7 @@ export default function HomePage() {
             <Reveal delay={120}>
               <div className="ring-gradient elev rounded-[2rem] border border-line bg-surface p-8 shadow-[var(--shadow-lift)]">
                 <ProductPhoto
-                  src="/products/presentoir.png"
+                  src="/products/presentoir.webp"
                   alt="Présentoir reviu NFC + QR pour avis Google"
                   className="mb-6 aspect-[16/10] w-full rounded-2xl"
                 />

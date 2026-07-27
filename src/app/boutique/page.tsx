@@ -40,21 +40,21 @@ const STEPS = [
     n: "01",
     title: "Scannez le QR code",
     body: "Scannez le QR fourni avec votre présentoir depuis votre smartphone.",
-    img: "/products/etape-1.png",
+    img: "/products/etape-1.webp",
     alt: "Scanner le QR code du présentoir reviu avec un smartphone",
   },
   {
     n: "02",
     title: "Activez votre présentoir",
     body: "Connectez-vous à votre espace et collez le lien de votre fiche Google.",
-    img: "/products/etape-2.png",
+    img: "/products/etape-2.webp",
     alt: "Activation du présentoir reviu depuis l'espace client",
   },
   {
     n: "03",
     title: "Vous êtes prêt !",
     body: "Posez le présentoir en caisse et regardez les avis affluer.",
-    img: "/products/etape-3.png",
+    img: "/products/etape-3.webp",
     alt: "Présentoir reviu posé sur le comptoir, un client laisse un avis",
   },
 ];
@@ -66,9 +66,9 @@ const COMPLIANCE = [
 ];
 
 const PHOTO = {
-  hero: "/products/presentoir-angle.png",
-  front: "/products/presentoir.png",
-  comptoir: "/products/presentoir-comptoir.png",
+  hero: "/products/presentoir-angle.webp",
+  front: "/products/presentoir.webp",
+  comptoir: "/products/presentoir-comptoir.webp",
 } as const;
 
 export default function BoutiquePage() {
@@ -82,7 +82,7 @@ export default function BoutiquePage() {
               "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour collecter des avis Google en un geste. Redirection modifiable à distance, activation gratuite.",
             priceCents: stand.priceCents,
             path: "/",
-            image: "/products/presentoir.png",
+            image: "/products/presentoir.webp",
             sku: stand.id,
           }),
         ]

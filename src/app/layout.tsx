@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE } from "@/lib/brand";
 import {
@@ -25,8 +25,9 @@ const geistMono = Geist_Mono({
   display: "swap",
   preload: false,
 });
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+// Police d'affichage (titres) : Plus Jakarta Sans, moderne et commerciale.
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
@@ -94,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${jakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         {/* Graphe de marque (Organization + WebSite), lu par Google et les

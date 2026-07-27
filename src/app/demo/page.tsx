@@ -219,7 +219,7 @@ export default async function DemoPage() {
           <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="justify-self-center" style={{ width: 260 }}>
               <ProductPhoto
-                src="/products/presentoir-angle.png"
+                src="/products/presentoir-angle.webp"
                 alt="Présentoir reviu NFC + QR pour avis Google"
                 className="mb-6 aspect-square w-full rounded-3xl shadow-[0_24px_50px_-30px_rgba(20,30,70,0.55)]"
               />
