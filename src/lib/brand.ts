@@ -32,7 +32,7 @@ export const SUBSCRIPTION = {
     "Alerte e-mail à chaque nouveau retour privé, pour réagir tout de suite",
     "Récap hebdomadaire par e-mail : scans, clics et progression de votre présentoir",
     "Statistiques détaillées de scan et de clics dans votre tableau de bord",
-    "Modification illimitée du lien du présentoir, à distance",
+    "Historique et rapports d'activité de votre présentoir",
     "Accompagnement humain : réglage, conseils et suivi, pas un simple logiciel",
   ],
 } as const;

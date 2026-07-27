@@ -16,21 +16,22 @@ export default function GoogleBusinessProfile() {
       updated="23 juillet 2026"
     >
       <P>
-        reviu propose une connexion <strong>facultative</strong> à votre fiche
-        Google Business Profile, afin de vous permettre de suivre et de gérer vos
-        avis Google sans quitter la plateforme. Cette page décrit précisément ce
-        à quoi reviu accède et ce que vous pouvez contrôler.
+        <strong>reviu prépare une connexion facultative</strong> à Google
+        Business Profile. Cette page décrit les accès qui seront demandés lors
+        du lancement de cette connexion, ainsi que ce que vous pourrez contrôler.
+        La fonctionnalité n&apos;est pas encore active : le présentoir et la
+        collecte d&apos;avis fonctionnent aujourd&apos;hui sans elle.
       </P>
 
-      <H2>Pourquoi reviu demande cet accès</H2>
+      <H2>Pourquoi reviu demandera cet accès</H2>
       <P>
         Pour centraliser la gestion de votre réputation : consulter vos avis
         Google, y répondre et suivre les statistiques de votre fiche, directement
-        depuis reviu. Sans cette connexion, reviu fonctionne normalement - vous
-        perdez simplement ces fonctionnalités liées à Google.
+        depuis reviu. Sans cette connexion, reviu fonctionnera normalement - vous
+        n&apos;aurez simplement pas ces fonctionnalités liées à Google.
       </P>
 
-      <H2>Quelles données sont consultées</H2>
+      <H2>Quelles données seront consultées</H2>
       <UL>
         <li>Les avis reçus sur votre fiche (note, texte, date, réponses).</li>
         <li>Les informations publiques de votre établissement.</li>

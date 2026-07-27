@@ -17,6 +17,14 @@ export async function proxy(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  // Anciennes pages d'accueil : redirection permanente (301) vers la racine,
+  // source unique. Évite toute duplication /↔/home↔/vitrine côté SEO.
+  if (pathname === "/home" || pathname === "/vitrine") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url, 301);
+  }
+
   // Domaine vitrine : la racine affiche la boutique (page d'accueil orientée
   // commerce). L'ancienne landing explicative reste servie sur /home. Les pages
   // légales sont servies telles quelles. L'app reste sur app.reviu.fr.

@@ -95,7 +95,7 @@ export async function claimStandAction(
       establishment_not_owned: "Établissement introuvable.",
       stand_not_found: "Aucun présentoir avec ce code.",
       stand_already_assigned: "Ce présentoir est déjà rattaché à un compte.",
-      invalid_pin: "Code PIN d'activation incorrect (il figure sous le présentoir).",
+      invalid_pin: "Code PIN d'activation incorrect (il figure à côté du QR code, sur le présentoir).",
     };
     const known = Object.keys(map).find((k) => error.message.includes(k));
     return { error: known ? map[known] : "Impossible de rattacher ce présentoir." };
@@ -147,9 +147,12 @@ export async function setStandTargetAction(
   });
   if (error) {
     if (error.message.includes("subscription_required")) {
+      // La modification du lien doit rester libre (fonction de sécurité). Tant
+      // que la RPC `set_stand_target` n'est pas dégatée côté base, on renvoie un
+      // message neutre plutôt qu'une incitation à l'abonnement.
       return {
         error:
-          "Abonnez-vous à ce présentoir pour modifier son lien en illimité.",
+          "La mise à jour du lien n'a pas pu être enregistrée pour le moment. Réessayez, ou écrivez-nous à contact@reviu.fr.",
       };
     }
     if (error.message.includes("stand_not_owned")) {

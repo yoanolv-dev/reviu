@@ -47,7 +47,7 @@ export function ProductPhoto({
           <circle cx="8.5" cy="9.5" r="1.6" />
           <path d="M21 16l-5-5L4.5 20" />
         </svg>
-        <span className="text-[11px] font-medium opacity-60">Photo produit</span>
+        <span className="text-[11px] font-medium opacity-60">Présentoir Reviu</span>
       </div>
       <div
         role="img"

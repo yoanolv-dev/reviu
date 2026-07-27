@@ -64,7 +64,7 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          {/* Trois actions clairement séparées : Se connecter · Activer · Commander */}
+          {/* Accès : Se connecter + Commander (le bouton principal est identifiable) */}
           <div className="hidden items-center gap-3 lg:flex">
             <span aria-hidden className="h-5 w-px bg-line" />
             <a
@@ -72,9 +72,6 @@ export function SiteHeader() {
               className="text-sm font-medium text-ink-soft transition-colors hover:text-ink"
             >
               Se connecter
-            </a>
-            <a href={`${APP_BASE}/signup`} className={buttonClass("secondary", "md")}>
-              Activer
             </a>
             <Link href="/#produits" className={buttonClass("primary", "md")}>
               Commander
@@ -120,13 +117,6 @@ export function SiteHeader() {
                 >
                   Commander
                 </Link>
-                <a
-                  href={`${APP_BASE}/signup`}
-                  onClick={close}
-                  className={buttonClass("secondary", "lg", "w-full")}
-                >
-                  Activer un présentoir
-                </a>
                 <a
                   href={`${APP_BASE}/login`}
                   onClick={close}

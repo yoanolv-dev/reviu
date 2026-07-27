@@ -35,7 +35,7 @@ export function ClaimStandForm({
       </div>
       <p className="text-xs text-muted">
         Le code figure dans le QR&nbsp;; le secret d&apos;activation est imprimé
-        sous le présentoir.
+        à côté du QR code, sur le présentoir.
       </p>
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state?.success && (

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage, H2, P, UL, Fill } from "@/components/site/legal";
+import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL, STAND_PRICE, SUBSCRIPTION } from "@/lib/brand";
 import { formatEuros, getProduct } from "@/lib/shop";
 
@@ -108,10 +108,12 @@ export default function CGV() {
       <P>
         L&apos;abonnement est renouvelé automatiquement chaque mois. Vous pouvez
         le résilier à tout moment depuis votre espace ; il reste actif
-        jusqu&apos;à la fin de la période en cours. Après résiliation, la
-        redirection du présentoir continue de fonctionner ; seules les
-        fonctionnalités de suivi (statistiques, modification des liens, retours
-        privés) sont désactivées.
+        jusqu&apos;à la fin de la période en cours. Après résiliation, votre
+        présentoir continue de fonctionner normalement : la redirection NFC/QR,
+        l&apos;accès à votre page d&apos;avis Google et{" "}
+        <strong>la modification de votre lien restent disponibles sans
+        abonnement</strong>. Seules les fonctionnalités avancées de suivi
+        (statistiques détaillées, retours privés, rapports) sont désactivées.
       </P>
 
       <H2>7. Réclamations et médiation</H2>
@@ -121,16 +123,11 @@ export default function CGV() {
           {CONTACT_EMAIL}
         </a>
         . Conformément à l&apos;article L612-1 du Code de la consommation, vous
-        pouvez recourir gratuitement à un médiateur de la consommation :{" "}
-        <Fill>nom et coordonnées du médiateur</Fill>. Plateforme européenne de
-        règlement des litiges :{" "}
-        <a
-          className="text-brand hover:underline"
-          href="https://ec.europa.eu/consumers/odr"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ec.europa.eu/consumers/odr
+        pouvez recourir gratuitement à un médiateur de la consommation. Les
+        coordonnées du médiateur compétent vous sont communiquées sur simple
+        demande à{" "}
+        <a className="text-brand hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
         </a>
         .
       </P>

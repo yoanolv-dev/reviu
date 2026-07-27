@@ -30,34 +30,10 @@ export function StandManage({
     null,
   );
 
-  if (!subscribed) {
-    return (
-      <div className="mt-4 border-t border-line pt-4">
-        <form action={subAction} className="flex flex-col gap-2">
-          <input type="hidden" name="stand_id" value={standId} />
-          <button
-            type="submit"
-            disabled={subPending}
-            className="flex h-10 items-center justify-center rounded-full bg-brand px-5 text-sm font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-50"
-          >
-            {subPending
-              ? "Redirection…"
-              : `S'abonner au suivi - ${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period}`}
-          </button>
-          <p className="text-xs text-muted">
-            Statistiques + modification illimitée du lien. Paiement sécurisé par
-            Stripe, sans engagement.
-          </p>
-          {subState?.error && (
-            <p className="text-sm text-red-600">{subState.error}</p>
-          )}
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4">
+      {/* Modification du lien : toujours disponible, sans abonnement
+          (fonction de sécurité fondamentale du présentoir). */}
       <form action={tgtAction} className="flex flex-col gap-2">
         <label className="text-xs font-medium text-ink-soft">
           Lien du présentoir
@@ -86,19 +62,41 @@ export function StandManage({
         )}
       </form>
 
-      <form action={portalAction}>
-        <input type="hidden" name="stand_id" value={standId} />
-        <button
-          type="submit"
-          disabled={portalPending}
-          className="text-sm text-muted underline-offset-4 transition-colors hover:text-ink hover:underline disabled:opacity-50"
-        >
-          {portalPending ? "Ouverture…" : "Gérer mon abonnement (facture, résiliation)"}
-        </button>
-        {portalState?.error && (
-          <p className="mt-1 text-sm text-red-600">{portalState.error}</p>
-        )}
-      </form>
+      {subscribed ? (
+        <form action={portalAction}>
+          <input type="hidden" name="stand_id" value={standId} />
+          <button
+            type="submit"
+            disabled={portalPending}
+            className="text-sm text-muted underline-offset-4 transition-colors hover:text-ink hover:underline disabled:opacity-50"
+          >
+            {portalPending ? "Ouverture…" : "Gérer mon abonnement (facture, résiliation)"}
+          </button>
+          {portalState?.error && (
+            <p className="mt-1 text-sm text-red-600">{portalState.error}</p>
+          )}
+        </form>
+      ) : (
+        <form action={subAction} className="flex flex-col gap-2 border-t border-line pt-3">
+          <input type="hidden" name="stand_id" value={standId} />
+          <button
+            type="submit"
+            disabled={subPending}
+            className="flex h-10 items-center justify-center rounded-full bg-brand px-5 text-sm font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-50"
+          >
+            {subPending
+              ? "Redirection…"
+              : `Activer le suivi - ${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period}`}
+          </button>
+          <p className="text-xs text-muted">
+            Fonctionnalités avancées facultatives : statistiques détaillées,
+            retours privés et rapports. Sans engagement.
+          </p>
+          {subState?.error && (
+            <p className="text-sm text-red-600">{subState.error}</p>
+          )}
+        </form>
+      )}
     </div>
   );
 }

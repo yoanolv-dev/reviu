@@ -248,7 +248,7 @@ export default async function DemoPage() {
                 destination quand vous voulez, l&apos;objet reste le même.
               </p>
               <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
-                Un secret d&apos;activation imprimé sous la base garantit que
+                Un secret d&apos;activation imprimé à côté du QR code garantit que
                 seul le commerçant peut le relier à son établissement.
               </p>
             </div>

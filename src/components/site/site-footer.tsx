@@ -17,26 +17,25 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
       { label: "Pour qui ?", href: "/#pour-qui" },
       { label: "Questions fréquentes", href: "/#faq" },
       { label: "Guides", href: "/guides" },
-      { label: "Revendeur", href: "/revendeur" },
-      { label: "Google Business Profile", href: "/google-business-profile" },
     ],
   },
   {
-    title: "Compte",
+    title: "Reviu",
     links: [
-      { label: "Commander", href: "/#produits" },
-      { label: "Activer un présentoir", href: `${APP_BASE}/signup`, ext: true },
-      { label: "Se connecter", href: `${APP_BASE}/login`, ext: true },
+      { label: "Revendeur", href: "/revendeur" },
+      { label: "Contact", href: `mailto:${CONTACT_EMAIL}`, ext: true },
+      { label: "Connexion", href: `${APP_BASE}/login`, ext: true },
     ],
   },
   {
     title: "Légal",
     links: [
       { label: "Mentions légales", href: "/mentions-legales" },
-      { label: "Confidentialité", href: "/confidentialite" },
-      { label: "CGU", href: "/cgu" },
       { label: "CGV", href: "/cgv" },
+      { label: "CGU", href: "/cgu" },
+      { label: "Confidentialité", href: "/confidentialite" },
       { label: "Cookies", href: "/cookies" },
+      { label: "Google Business Profile", href: "/google-business-profile" },
     ],
   },
 ];
@@ -52,9 +51,9 @@ export function SiteFooter() {
         <div className="flex flex-col gap-4">
           <Logo />
           <p className="max-w-xs text-sm leading-relaxed text-muted">
-            Le présentoir NFC + QR code qui permet à vos clients d&apos;accéder à
-            votre page d&apos;avis Google en un geste. {STAND_PRICE} TTC, sans
-            abonnement obligatoire.
+            Le présentoir NFC + QR code pour accéder aux avis Google en un geste.
+            {" "}
+            {STAND_PRICE} TTC, sans abonnement obligatoire.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

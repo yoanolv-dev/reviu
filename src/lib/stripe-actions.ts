@@ -22,7 +22,7 @@ import type { FormState } from "./form";
  *   Stripe Checkout pour un présentoir qu'il possède ; `openBillingPortalAction`
  *   ouvre le portail de facturation Stripe (gérer la carte, résilier).
  * - Scan (parcours anonyme) : `startSelfCheckout` ouvre une session Checkout
- *   gardée par le secret d'activation imprimé sous le présentoir.
+ *   gardée par le secret d'activation imprimé à côté du QR code du présentoir.
  *
  * Aucun statut d'abonnement n'est écrit ici : c'est le webhook Stripe qui met à
  * jour la table `subscriptions` une fois le paiement confirmé (source de vérité).
@@ -224,7 +224,7 @@ export async function startSelfCheckout(input: {
     .maybeSingle<{ id: string; status: string }>();
   if (!stand) return { ok: false, error: "Présentoir introuvable." };
 
-  // Vérifie le secret d'activation (imprimé sous le présentoir) - même garde
+  // Vérifie le secret d'activation (imprimé à côté du QR code) - même garde
   // que l'activation, pour empêcher un abonnement par un tiers.
   const { data: secret } = await admin.rpc("derive_stand_secret", { p_code: code });
   if (

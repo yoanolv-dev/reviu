@@ -12,7 +12,7 @@ const ERRORS: Record<string, string> = {
   stand_already_assigned:
     "Ce présentoir est déjà configuré. Connectez-vous pour le gérer.",
   invalid_pin:
-    "Code d'activation (PIN) incorrect. Il figure sous le présentoir.",
+    "Code d'activation (PIN) incorrect. Il figure à côté du QR code, sur le présentoir.",
   invalid_action: "Action invalide.",
 };
 

@@ -61,7 +61,7 @@ export default async function StandsPage({
           Rattacher un présentoir
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Le code figure sous le présentoir (ex.&nbsp;k7Qm2p).
+          Le code figure sur le présentoir, à côté du QR code (ex.&nbsp;k7Qm2p).
         </p>
         <div className="mt-4">
           <ClaimStandForm establishmentId={ctx.establishment.id} />
