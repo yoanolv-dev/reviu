@@ -17,6 +17,31 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
 
 ## Mises à jour récentes (à connaître pour la reprise)
 
+- **Repositionnement boutique (juillet 2026)** : le site est recentré sur la
+  vente d'**un seul présentoir** et sur l'**abonnement de suivi** (le récurrent).
+  - Catalogue public = **le présentoir uniquement**, à l'unité, **tarif dégressif**
+    modéré (1=29,90 € · 3+=27 € · 5+=25 €). Paliers dans `src/lib/shop.ts`
+    (`STAND_TIERS`, `standUnitCents`) ; sélecteur de quantité `StandOrder`. Le
+    serveur recalcule le prix par palier au checkout (source de vérité).
+  - **Packs & formation retirés du shop public** (toujours vendables aux
+    revendeurs validés ; `getProduct` les connaît encore pour la CGV).
+  - Nouvelle section **Abonnement** présentée comme une offre de **services**
+    (réputation/alertes, récap hebdo, accompagnement humain) — `SUBSCRIPTION`
+    enrichi dans `brand.ts`.
+  - **Livraison** : offerte dès **50 €**, sinon **3,90 €** de port
+    (`FREE_SHIPPING_THRESHOLD_CENTS`, `SHIPPING_FEE_CENTS`, `shippingFeeCents`
+    → `shipping_options` Stripe). **Bandeau d'annonce** `AnnounceBar` au-dessus
+    du header.
+  - Nouvelle page **`/revendeur`** : conditions de revente + **formulaire de
+    candidature envoyé par e-mail** au propriétaire (`submitResellerApplication`
+    dans `src/lib/reseller-application-actions.ts` — à ne pas confondre avec
+    `reseller-actions.ts`, l'admin des revendeurs validés). La formation devient
+    **accompagnée sur demande** (écran verrouillé `/formation` → `/revendeur`).
+  - **Reste à faire (Phase 2 abonnement, choisi mais non développé)** : **digest
+    hebdomadaire** par e-mail + **alertes** retour privé, pour donner une vraie
+    valeur récurrente aux 2,99 €. (L'alerte e-mail à chaque retour privé existe
+    déjà ; le récap hebdo est à construire, probablement via un cron.)
+
 - **Accueil = boutique** : `reviu.fr/` sert `/boutique`, enrichie des sections « Comment ça
   marche », preuve sociale (`Testimonials`) et conformité Google. `/home` = page « Comment ça
   marche » (canonical `/home`). Nav recentrée ; logo → racine.
