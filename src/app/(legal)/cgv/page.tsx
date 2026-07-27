@@ -108,12 +108,12 @@ export default function CGV() {
       <P>
         L&apos;abonnement est renouvelé automatiquement chaque mois. Vous pouvez
         le résilier à tout moment depuis votre espace ; il reste actif
-        jusqu&apos;à la fin de la période en cours. Après résiliation, votre
-        présentoir continue de fonctionner normalement : la redirection NFC/QR,
-        l&apos;accès à votre page d&apos;avis Google et{" "}
-        <strong>la modification de votre lien restent disponibles sans
-        abonnement</strong>. Seules les fonctionnalités avancées de suivi
-        (statistiques détaillées, retours privés, rapports) sont désactivées.
+        jusqu&apos;à la fin de la période en cours. Après résiliation, la
+        redirection de votre présentoir vers votre page d&apos;avis Google
+        continue de fonctionner ; seules les fonctionnalités de suivi
+        (statistiques détaillées, modification du lien à distance, retours
+        privés, rapports) sont désactivées. L&apos;adresse encodée du présentoir
+        (QR&nbsp;/&nbsp;NFC), elle, ne change jamais.
       </P>
 
       <H2>7. Réclamations et médiation</H2>

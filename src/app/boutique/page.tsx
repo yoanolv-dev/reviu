@@ -54,27 +54,28 @@ const GALLERY = [
   { src: PHOTO.etape1, alt: "Client approchant son smartphone du présentoir Reviu pour laisser un avis Google" },
 ];
 
+// Étapes de configuration du présentoir APRÈS réception (pas l'usage client).
 const STEPS = [
   {
     n: "1",
-    title: "Posez le présentoir sur votre comptoir",
-    body: "À portée des clients, au moment du paiement. Rien à visser.",
-    img: PHOTO.etape3,
-    alt: "Présentoir Reviu NFC et QR code posé sur le comptoir d'un commerce",
+    title: "Scannez le QR code",
+    body: "Scannez le QR code fourni dans votre colis depuis votre smartphone.",
+    img: PHOTO.etape1,
+    alt: "Smartphone scannant le QR code du présentoir Reviu à la réception",
   },
   {
     n: "2",
-    title: "Le client approche son téléphone ou scanne le QR code",
-    body: "Un geste suffit. Aucune application à installer.",
-    img: PHOTO.etape1,
-    alt: "Client approchant son smartphone de la zone NFC du présentoir Reviu",
+    title: "Activez votre présentoir",
+    body: "Connectez-vous à votre espace client et entrez le lien vers votre fiche Google.",
+    img: PHOTO.etape2,
+    alt: "Écran d'activation du présentoir Reviu dans l'espace client",
   },
   {
     n: "3",
-    title: "La page d'avis Google s'ouvre instantanément",
-    body: "Votre client laisse son avis en quelques secondes.",
-    img: PHOTO.etape2,
-    alt: "Page d'avis Google du commerce ouverte sur le smartphone du client",
+    title: "Vous êtes prêt !",
+    body: "Placez votre présentoir en caisse et regardez les avis affluer.",
+    img: PHOTO.etape3,
+    alt: "Présentoir Reviu posé sur le comptoir, prêt à recueillir des avis Google",
   },
 ];
 
@@ -82,7 +83,7 @@ const BENEFITS = [
   "Accédez à votre page d'avis en un geste",
   "Aucune application à télécharger",
   "Compatible iPhone et Android",
-  "Votre lien reste modifiable",
+  "Aucun abonnement obligatoire",
 ];
 
 const WHY = [
@@ -170,7 +171,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Puis-je modifier mon lien ?",
-    a: "Oui. Votre lien reste modifiable à distance depuis votre espace Reviu, autant de fois que vous le souhaitez, sans réimprimer ni racheter le présentoir.",
+    a: "Vous choisissez le lien de votre fiche Google lors de l'activation, gratuitement. Sa modification à distance ensuite (par exemple si l'adresse de votre fiche change) fait partie des outils de suivi optionnels de votre espace Reviu. Le présentoir, lui, garde toujours la même adresse : rien à réimprimer.",
   },
   {
     q: "Quels sont les délais et les frais de livraison ?",
@@ -262,8 +263,8 @@ export default function BoutiquePage() {
           <Container className="py-14 sm:py-16">
             <Reveal>
               <SectionHead
-                eyebrow="Comment ça marche"
-                title="Trois étapes, aucune application."
+                eyebrow="Configuration"
+                title="Configurez votre présentoir en 2 minutes."
               />
             </Reveal>
             <div className="mt-10 grid gap-6 sm:grid-cols-3">

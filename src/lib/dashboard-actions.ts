@@ -147,12 +147,9 @@ export async function setStandTargetAction(
   });
   if (error) {
     if (error.message.includes("subscription_required")) {
-      // La modification du lien doit rester libre (fonction de sécurité). Tant
-      // que la RPC `set_stand_target` n'est pas dégatée côté base, on renvoie un
-      // message neutre plutôt qu'une incitation à l'abonnement.
       return {
         error:
-          "La mise à jour du lien n'a pas pu être enregistrée pour le moment. Réessayez, ou écrivez-nous à contact@reviu.fr.",
+          "La modification du lien à distance fait partie du suivi. Abonnez-vous à ce présentoir pour l'activer.",
       };
     }
     if (error.message.includes("stand_not_owned")) {

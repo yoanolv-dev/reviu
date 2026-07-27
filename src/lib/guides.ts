@@ -245,7 +245,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Combien ça coûte ?" },
       {
         type: "p",
-        text: "Un présentoir reviu est un achat unique (29,90 €) et s’active gratuitement, sans abonnement obligatoire. La redirection vers votre page Google et la modification de votre lien fonctionnent toujours, gratuitement. Des outils de suivi avancés (statistiques détaillées, retours privés, rapports) restent optionnels, à activer plus tard si vous le souhaitez.",
+        text: "Un présentoir reviu est un achat unique (29,90 €) et s’active gratuitement, sans abonnement obligatoire. La redirection vers votre page Google fonctionne toujours. Des outils de suivi optionnels (statistiques détaillées, modification du lien à distance, retours privés, rapports) restent disponibles à part, à activer plus tard si vous le souhaitez.",
       },
     ],
     faq: [
