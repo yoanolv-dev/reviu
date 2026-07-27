@@ -38,18 +38,24 @@ export const metadata: Metadata = buildMetadata({
 const STEPS = [
   {
     n: "01",
-    title: "Recevez votre présentoir",
-    body: "NFC et QR déjà encodés, prêt à poser sur le comptoir. Rien à installer.",
+    title: "Scannez le QR code",
+    body: "Scannez le QR fourni avec votre présentoir depuis votre smartphone.",
+    img: "/products/etape-1.png",
+    alt: "Scanner le QR code du présentoir reviu avec un smartphone",
   },
   {
     n: "02",
-    title: "Activez en 2 minutes",
-    body: "Scannez, collez votre lien Google, personnalisez. En ligne immédiatement.",
+    title: "Activez votre présentoir",
+    body: "Connectez-vous à votre espace et collez le lien de votre fiche Google.",
+    img: "/products/etape-2.png",
+    alt: "Activation du présentoir reviu depuis l'espace client",
   },
   {
     n: "03",
-    title: "Les avis affluent",
-    body: "Un geste suffit à vos clients. Vous suivez tout depuis votre tableau de bord.",
+    title: "Vous êtes prêt !",
+    body: "Posez le présentoir en caisse et regardez les avis affluer.",
+    img: "/products/etape-3.png",
+    alt: "Présentoir reviu posé sur le comptoir, un client laisse un avis",
   },
 ];
 
@@ -139,19 +145,32 @@ export default function BoutiquePage() {
         <section className="border-b border-line bg-surface">
           <Container className="py-16 sm:py-20">
             <Reveal>
-              <SectionHead eyebrow="Comment ça marche" title="Trois étapes, zéro friction." />
+              <div className="text-center">
+                <span className="font-mono text-xs uppercase tracking-widest text-brand">
+                  Comment ça marche
+                </span>
+                <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                  Configurez votre présentoir en{" "}
+                  <span className="text-brand">2 minutes</span>.
+                </h2>
+              </div>
             </Reveal>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               {STEPS.map((s, i) => (
                 <Reveal key={s.n} delay={i * 90}>
-                  <div className="flex h-full flex-col rounded-3xl border border-line bg-canvas p-7 transition-colors hover:border-brand/30">
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-soft font-mono text-sm font-semibold text-brand">
+                  <div className="flex h-full flex-col rounded-3xl border border-line bg-canvas p-4 transition-colors hover:border-brand/30 sm:p-5">
+                    <span className="px-1 font-mono text-sm font-semibold text-ink-soft">
                       {s.n}
                     </span>
-                    <h3 className="mt-5 font-display text-lg font-semibold text-ink">
+                    <ProductPhoto
+                      src={s.img}
+                      alt={s.alt}
+                      className="mt-2 aspect-[4/3] w-full rounded-2xl"
+                    />
+                    <h3 className="mt-5 text-center font-display text-lg font-semibold text-ink">
                       {s.title}
                     </h3>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                    <p className="mx-auto mt-1.5 max-w-[16rem] text-center text-[15px] leading-relaxed text-ink-soft">
                       {s.body}
                     </p>
                   </div>

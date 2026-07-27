@@ -11,6 +11,12 @@ qu'ils sont présents ; en leur absence, un visuel de marque de repli s'affiche
 | `presentoir.png` | Carte produit boutique + carte tarifaire (home) | Face avant, fond clair/studio |
 | `presentoir-angle.png` | Hero boutique + section « Le présentoir » (démo) | Vue 3/4, dynamique |
 | `presentoir-comptoir.png` | Section « Programme revendeur » (boutique) | Mise en situation (comptoir / accueil) |
+| `etape-1.png` | Section « Comment ça marche » — étape 1 | Smartphone qui scanne le QR du présentoir |
+| `etape-2.png` | Section « Comment ça marche » — étape 2 | Écran d'activation / espace client |
+| `etape-3.png` | Section « Comment ça marche » — étape 3 | Présentoir en situation, un client laisse un avis |
+
+Les trois `etape-*.png` sont affichées en **4/3** côte à côte : cadrez-les de
+façon homogène (même fond / même échelle) pour un rendu propre.
 
 Formats : PNG ou JPG, idéalement carré ou 4/3, ~1200 px de côté, < 500 Ko
 (compressez si besoin). Les fichiers de ce dossier sont servis publiquement.
