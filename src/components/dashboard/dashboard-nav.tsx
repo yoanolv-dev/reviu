@@ -31,7 +31,7 @@ export function DashboardNav({ showReseller = false }: { showReseller?: boolean 
             className={cn(
               "whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all",
               active
-                ? "bg-gradient-brand text-white shadow-[var(--shadow-glow)]"
+                ? "bg-brand text-white"
                 : "text-ink-soft hover:bg-line-soft",
             )}
           >

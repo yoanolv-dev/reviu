@@ -8,7 +8,7 @@ export function BuyStandButton({ className = "" }: { className?: string }) {
       target="_blank"
       rel="noopener noreferrer"
       className={
-        "inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-brand px-5 text-sm font-medium text-white shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5 " +
+        "inline-flex h-11 items-center justify-center gap-2 rounded-full bg-brand px-5 text-sm font-medium text-white transition-colors hover:bg-brand-strong " +
         className
       }
     >

@@ -67,7 +67,7 @@ const STATUS: Record<string, { label: string; className: string }> = {
   suspended: { label: "Suspendu", className: "bg-amber-50 text-amber-700" },
   defective: { label: "Défectueux", className: "bg-red-50 text-red-700" },
   lost: { label: "Perdu", className: "bg-red-50 text-red-700" },
-  replaced: { label: "Remplacé", className: "bg-violet-50 text-violet-700" },
+  replaced: { label: "Remplacé", className: "bg-slate-100 text-slate-600" },
   retired: { label: "Retiré", className: "bg-line-soft text-muted" },
 };
 
