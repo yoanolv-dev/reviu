@@ -215,11 +215,7 @@ export default function BoutiquePage() {
           <HeroBackground />
           <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">
             <div className="reveal order-2 flex flex-col items-start lg:order-1">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                Présentoir NFC + QR pour avis Google
-              </span>
-              <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-[2.75rem] lg:text-5xl lg:leading-[1.05]">
+              <h1 className="font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-[2.75rem] lg:text-5xl lg:leading-[1.05]">
                 Obtenez plus d&apos;avis Google, directement depuis votre{" "}
                 <span className="text-brand">comptoir</span>.
               </h1>
@@ -233,7 +229,8 @@ export default function BoutiquePage() {
                   href="#produits"
                   className={buttonClass("primary", "lg", "w-full sm:w-auto")}
                 >
-                  Commander — {STAND_PRICE}
+                  <span className="sm:hidden">Commander le présentoir</span>
+                  <span className="hidden sm:inline">Commander — {STAND_PRICE}</span>
                 </a>
                 <a
                   href="#fonctionnement"
@@ -276,7 +273,7 @@ export default function BoutiquePage() {
                     <ProductPhoto
                       src={s.img}
                       alt={s.alt}
-                      className="aspect-[4/3] w-full rounded-2xl"
+                      className="aspect-square w-full rounded-2xl"
                     />
                     <div className="mt-4 flex items-baseline gap-2">
                       <span className="font-mono text-sm font-semibold text-brand">
@@ -502,7 +499,10 @@ export default function BoutiquePage() {
               </h2>
               <div className="mt-8">
                 <a href="#produits" className={buttonClass("primary", "lg", "border-transparent")}>
-                  Commander mon présentoir — {STAND_PRICE}
+                  <span className="sm:hidden">Commander le présentoir</span>
+                  <span className="hidden sm:inline">
+                    Commander mon présentoir — {STAND_PRICE}
+                  </span>
                 </a>
               </div>
             </div>

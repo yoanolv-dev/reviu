@@ -98,7 +98,6 @@ export const BOUTIQUE_URL =
 export const NAV = [
   { label: "Le présentoir", href: "/#produits" },
   { label: "Comment ça marche", href: "/#fonctionnement" },
-  { label: "Pour qui ?", href: "/#pour-qui" },
   { label: "Questions fréquentes", href: "/#faq" },
   { label: "Guides", href: "/guides" },
 ] as const;
