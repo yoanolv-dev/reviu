@@ -187,19 +187,20 @@ export default function BoutiquePage() {
               eyebrow="Le présentoir"
               title="Commandez le vôtre, à l'unité."
             />
-            <div className="mx-auto mt-12 grid max-w-4xl items-center gap-8 rounded-[2rem] border border-line bg-surface p-6 sm:p-8 lg:grid-cols-2 lg:gap-12">
-              <div className="relative">
-                <div
-                  aria-hidden
-                  className="absolute inset-4 -z-10 rounded-[2.5rem] bg-brand opacity-[0.06] blur-3xl"
-                />
+            <div className="mx-auto mt-12 grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+              {/* Image mise en avant dans un panneau de marque */}
+              <div className="relative overflow-hidden rounded-[2rem] border border-line bg-brand-soft/60 p-5 sm:p-8">
+                <span className="absolute left-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1 text-xs font-semibold text-ink shadow-[var(--shadow-soft)] backdrop-blur">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                  Officiel reviu
+                </span>
                 <ProductPhoto
                   src={PHOTO.front}
                   alt="Présentoir reviu NFC + QR"
-                  className="aspect-square w-full rounded-[1.75rem] border border-line shadow-[var(--shadow-soft)]"
+                  className="aspect-[4/5] w-full rounded-[1.5rem] shadow-[var(--shadow-lift)]"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col rounded-[2rem] border border-line bg-surface p-6 sm:p-8">
                 <h3 className="font-display text-2xl font-semibold text-ink">
                   Présentoir NFC + QR
                 </h3>

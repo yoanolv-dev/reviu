@@ -3,6 +3,7 @@
 import { useActionState, useMemo, useState } from "react";
 import { startShopCheckout } from "@/lib/stripe-actions";
 import { buttonClass } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Tier = { min: number; unitCents: number };
 
@@ -20,10 +21,11 @@ function unitCentsFor(qty: number, tiers: Tier[]): number {
 }
 
 /**
- * Sélecteur de quantité + achat du présentoir, avec tarif dégressif calculé en
- * direct. La quantité est postée à `startShopCheckout` (le serveur recalcule le
- * prix par palier, source de vérité). Au-delà du plafond public, on oriente
- * vers la page revendeur.
+ * Choix de quantité par cartes (plus efficace qu'un stepper) + achat du
+ * présentoir. Chaque carte affiche la quantité, le prix unitaire remisé et un
+ * repère (économie / livraison offerte). La quantité choisie est postée à
+ * `startShopCheckout` (le serveur recalcule le prix par palier, source de
+ * vérité). Au-delà du plafond public, on oriente vers /revendeur.
  */
 export function StandOrder({
   tiers,
@@ -43,113 +45,92 @@ export function StandOrder({
   const [qty, setQty] = useState(1);
   const [state, action, pending] = useActionState(startShopCheckout, null);
 
-  const unit = useMemo(() => unitCentsFor(qty, tiers), [qty, tiers]);
-  const total = unit * qty;
+  const options = useMemo(
+    () => [1, 2, 3, 5, 10].filter((q) => q <= max),
+    [max],
+  );
   const baseUnit = tiers[0]?.unitCents ?? 0;
+  const unit = unitCentsFor(qty, tiers);
+  const total = unit * qty;
   const saving = (baseUnit - unit) * qty;
   const freeShip = total >= freeShipThresholdCents;
   const toFreeShip = freeShipThresholdCents - total;
 
-  const set = (v: number) => setQty(Math.min(Math.max(v, 1), max));
-
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <span className="font-display text-4xl font-semibold text-ink">
-            {euros(unit)}
+      <div>
+        <span className="text-sm font-medium text-ink">Choisissez la quantité</span>
+        <div className="mt-2.5 grid grid-cols-3 gap-2 sm:grid-cols-5">
+          {options.map((q) => {
+            const u = unitCentsFor(q, tiers);
+            const selected = q === qty;
+            const qualifies = u * q >= freeShipThresholdCents;
+            return (
+              <button
+                key={q}
+                type="button"
+                onClick={() => setQty(q)}
+                aria-pressed={selected}
+                className={cn(
+                  "relative flex flex-col items-center rounded-2xl border px-2 py-3 text-center transition-colors",
+                  selected
+                    ? "border-brand bg-brand-soft ring-1 ring-brand"
+                    : "border-line bg-canvas hover:border-brand/40",
+                )}
+              >
+                <span className="font-display text-xl font-semibold text-ink">
+                  {q}
+                </span>
+                <span className="text-[10px] uppercase tracking-wide text-muted">
+                  {q > 1 ? "présentoirs" : "présentoir"}
+                </span>
+                <span
+                  className={cn(
+                    "mt-1.5 text-xs font-medium",
+                    u < baseUnit ? "text-brand" : "text-ink-soft",
+                  )}
+                >
+                  {euros(u)}/u
+                </span>
+                {qualifies && (
+                  <span className="mt-1 text-[9px] font-semibold uppercase tracking-wide text-brand">
+                    Livr. offerte
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Résumé */}
+      <div className="rounded-2xl border border-line bg-canvas p-4">
+        <div className="flex items-end justify-between">
+          <div>
+            <span className="text-sm text-muted">
+              Total{qty > 1 ? ` · ${qty} présentoirs` : ""}
+            </span>
+            {saving > 0 && (
+              <p className="text-xs font-medium text-brand">
+                Vous économisez {euros(saving)}
+              </p>
+            )}
+          </div>
+          <span className="font-display text-3xl font-semibold text-ink">
+            {euros(total)}
           </span>
-          <span className="ml-1.5 text-sm text-muted">/ présentoir</span>
-          {saving > 0 && (
-            <p className="mt-1 text-xs font-medium text-brand">
-              Vous économisez {euros(saving)} sur cette commande
-            </p>
+        </div>
+        <div className="mt-3 border-t border-line pt-3 text-xs">
+          {freeShip ? (
+            <span className="font-medium text-brand">✓ Livraison offerte</span>
+          ) : (
+            <span className="text-muted">
+              Plus que{" "}
+              <span className="font-medium text-ink">{euros(toFreeShip)}</span>{" "}
+              pour la livraison offerte (dès {freeFromLabel}).
+            </span>
           )}
         </div>
-        <div className="flex items-center gap-1 rounded-full border border-line bg-canvas p-1">
-          <button
-            type="button"
-            aria-label="Diminuer la quantité"
-            onClick={() => set(qty - 1)}
-            disabled={qty <= 1}
-            className="grid h-9 w-9 place-items-center rounded-full text-lg text-ink transition-colors hover:bg-brand-soft disabled:opacity-40"
-          >
-            −
-          </button>
-          <input
-            type="number"
-            inputMode="numeric"
-            aria-label="Quantité de présentoirs"
-            value={qty}
-            min={1}
-            max={max}
-            onChange={(e) => set(Number(e.target.value))}
-            className="w-12 bg-transparent text-center font-mono text-base text-ink outline-none"
-          />
-          <button
-            type="button"
-            aria-label="Augmenter la quantité"
-            onClick={() => set(qty + 1)}
-            disabled={qty >= max}
-            className="grid h-9 w-9 place-items-center rounded-full text-lg text-ink transition-colors hover:bg-brand-soft disabled:opacity-40"
-          >
-            +
-          </button>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2 text-xs text-muted">
-        {tiers.map((t, i) => {
-          const upTo = tiers[i + 1] ? tiers[i + 1].min - 1 : null;
-          const label =
-            upTo && upTo !== t.min
-              ? `${t.min}-${upTo}`
-              : upTo === t.min
-                ? `${t.min}`
-                : `${t.min}+`;
-          const activeTier = unitCentsFor(qty, tiers) === t.unitCents;
-          return (
-            <span
-              key={t.min}
-              className={
-                "rounded-full border px-2.5 py-1 " +
-                (activeTier
-                  ? "border-brand/50 bg-brand-soft text-brand"
-                  : "border-line")
-              }
-            >
-              {label} : {euros(t.unitCents)}
-            </span>
-          );
-        })}
-      </div>
-
-      <div
-        className={
-          "flex items-center gap-2 rounded-xl border px-3 py-2 text-xs " +
-          (freeShip
-            ? "border-brand/40 bg-brand-soft text-brand"
-            : "border-line text-muted")
-        }
-      >
-        {freeShip ? (
-          <span className="font-medium">✓ Livraison offerte sur cette commande</span>
-        ) : (
-          <span>
-            Plus que{" "}
-            <span className="font-medium text-ink">{euros(toFreeShip)}</span>{" "}
-            pour la livraison offerte (dès {freeFromLabel}).
-          </span>
-        )}
-      </div>
-
-      <div className="flex items-center justify-between border-t border-line pt-4">
-        <span className="text-sm text-muted">
-          Total {qty > 1 ? `(${qty} présentoirs)` : ""}
-        </span>
-        <span className="font-display text-2xl font-semibold text-ink">
-          {euros(total)}
-        </span>
       </div>
 
       <form action={action} className="flex flex-col gap-2">
@@ -158,9 +139,9 @@ export function StandOrder({
         <button
           type="submit"
           disabled={pending}
-          className={buttonClass("gradient", "lg", "w-full")}
+          className={buttonClass("primary", "lg", "h-14 w-full text-base")}
         >
-          {pending ? "Redirection…" : "Commander"}
+          {pending ? "Redirection…" : `Commander · ${euros(total)}`}
         </button>
         {state?.error && (
           <p className="text-center text-xs text-red-600">{state.error}</p>
@@ -169,8 +150,8 @@ export function StandOrder({
 
       <p className="text-center text-xs text-muted">
         Achat unique. Activation gratuite. Abonnement de suivi{" "}
-        {subscriptionLabel}/{period} en option, souscrit ensuite depuis votre
-        espace. Besoin de plus de {max} présentoirs pour revendre ?{" "}
+        {subscriptionLabel}/{period} en option. Besoin de plus de {max}{" "}
+        présentoirs ?{" "}
         <a href="/revendeur" className="font-medium text-brand hover:underline">
           Devenez revendeur
         </a>

@@ -1,27 +1,16 @@
 import { SHIPPING } from "@/lib/brand";
 
 /**
- * Bandeau d'annonce au-dessus du header (réassurance commerciale).
- * Non-sticky : il défile hors de l'écran, le header reste épinglé.
- * La livraison offerte dès un seuil est le message principal ; les autres
- * réassurances sont masquées sur mobile pour éviter le débordement.
+ * Bandeau d'annonce au-dessus du header : un seul message, centré, en bleu
+ * plein — la livraison offerte dès un seuil. Non-sticky (défile), le header
+ * reste épinglé.
  */
 export function AnnounceBar() {
   return (
     <div className="bg-brand text-white">
-      <div className="mx-auto flex h-9 max-w-6xl items-center justify-center gap-3 px-5 text-center text-[13px] font-medium sm:gap-5">
-        <span className="inline-flex items-center gap-1.5">
-          <TruckIcon />
-          Livraison offerte dès {SHIPPING.freeFromLabel}
-        </span>
-        <span aria-hidden className="hidden text-white/40 sm:inline">
-          •
-        </span>
-        <span className="hidden sm:inline">Paiement sécurisé</span>
-        <span aria-hidden className="hidden text-white/40 md:inline">
-          •
-        </span>
-        <span className="hidden md:inline">NFC + QR déjà encodés</span>
+      <div className="mx-auto flex h-10 max-w-6xl items-center justify-center gap-2 px-5 text-center text-[13px] font-semibold tracking-wide">
+        <TruckIcon />
+        Livraison gratuite à partir de {SHIPPING.freeFromLabel}
       </div>
     </div>
   );
@@ -30,8 +19,8 @@ export function AnnounceBar() {
 function TruckIcon() {
   return (
     <svg
-      width="15"
-      height="15"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
