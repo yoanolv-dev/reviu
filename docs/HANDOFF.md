@@ -1,5 +1,90 @@
 # reviu — note de reprise
 
+> Dernière mise à jour : **28 juillet 2026**. **À lire en premier : la section
+> « 🟦 Reprise — état au 28/07 » ci-dessous fait foi.** Les parties « historiques »
+> plus bas datent d'avant le retrait de l'abonnement payant ; partout où elles
+> présentent l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**,
+> c'est **OBSOLÈTE** (le détail technique — présentoirs, Stripe, RLS — reste, lui,
+> valable).
+
+## 🟦 Reprise — état au 28 juillet 2026 (fait foi)
+
+### ⚠️ Le point qui a changé : plus d'abonnement payant
+- Le présentoir est un **achat unique 29,90 €**. L'**espace Reviu est INCLUS,
+  sans abonnement ni frais récurrents** (statistiques de scans, gestion des
+  présentoirs, **modification du lien**). Les mots « abonnement » / « /mois » ont
+  disparu du **parcours commerçant** (boutique, dashboard, activation, légal, SEO).
+- **Reviu Pro** = offre avancée **« bientôt disponible »** (liste d'attente, aucun
+  achat) : connexion Google Business Profile, centralisation/réponses aux avis,
+  alertes, IA, analyses. Constantes `INCLUDED_SPACE` et `REVIU_PRO` dans
+  `src/lib/brand.ts`. La constante `SUBSCRIPTION` (2,99 €) est **conservée en
+  LEGACY** (anciens abonnés + portail Stripe de résiliation), à ne PAS réutiliser
+  côté commerçant.
+- **Base de données** : le verrou `subscription_required` a été retiré du RPC
+  `set_stand_target` (migration `20260728120000_reviu_included_unlock_set_stand_target.sql`,
+  appliquée en prod). La modification du lien est donc **réellement gratuite**.
+  L'adresse encodée QR/NFC (`code`) reste immuable.
+
+### Domaines & SEO technique
+- **Domaine canonique = `https://reviu.fr` (NON-www).** Tout le code (canonical,
+  sitemap, robots) est non-www. Vercel a été réglé pour que `reviu.fr` serve 200.
+- ⚠️ **Reliquat** : au 28/07, `https://www.reviu.fr/` répond **encore 200** (au lieu
+  de 301 → reviu.fr). Non bloquant (les canonical consolident vers reviu.fr), mais
+  **à forcer côté Vercel** : `www.reviu.fr` → *Redirect to* `reviu.fr`.
+- **`www` et `reviu.fr` = le MÊME site** (même code/contenu), pas deux versions.
+- **Rendu** : Next.js 16 (App Router + Turbopack). **Toutes les pages publiques sont
+  SSG/statiques** — HTML complet (titres, H1/H2, liens, JSON-LD) **sans JS client**.
+  → **NE PAS migrer** vers Astro/autre.
+
+### Livré cette session (tout est sur `main`, déployé)
+- **Repositionnement « offre incluse »** : commit `ede387c` (parcours commerçant,
+  légal, SEO, bloc Reviu Pro) + complétion (verrou DB retiré ; purge de l'upsell
+  d'abonnement : e-mail auto à l'activation supprimé, page `admin/emailing` +
+  helpers supprimés, actions mortes retirées).
+- **Hero pleine hauteur** sur `/boutique` : `min-h-[calc(100svh-104px)]` (104px =
+  bandeau 36 + header 68), `svh`, contenu centré, mobile texte-d'abord.
+- **Description SEO** de l'accueil renforcée (mène par la marque + le produit).
+- **Footer refondu épuré** (typo + blanc + air, sans bandeau/pastilles/icônes) —
+  `src/components/site/site-footer.tsx`.
+
+### Chantiers ouverts (un AUDIT SEO complet a été produit en artefact)
+- **P0** : forcer `www → 301 → reviu.fr` (Vercel) ; `/boutique → 301 → /`
+  (`src/proxy.ts`) ; ajouter `/revendeur` au `sitemap.ts` ; côté Search Console :
+  « Valider la correction » + demander l'indexation de `/` et `/guides` + ajouter
+  une propriété **Domaine**.
+- **P1** : **images crawlables** — `ProductPhoto`/`ProductGallery` utilisent des
+  `background-image` CSS (0 `<img>`) → non indexables par Google Images + risque
+  LCP ; passer en `<img>`/`next/image` (alt, dimensions, `priority` sur le hero).
+  Fichiers : `src/components/site/product-photo.tsx`, `product-gallery.tsx`,
+  `src/app/boutique/page.tsx`. Intégrer « présentoir/plaque NFC avis Google » dans
+  le H1/H2 de l'accueil. Créer des **pages sectorielles** (restaurant, coiffeur,
+  hôtel, garage…).
+- **P2** : **pages locales programmatiques** (Nîmes, Occitanie, villes) — c'est LE
+  levier pour l'objectif « top SERP local » ; `aggregateRating` sur Product (avec
+  de VRAIS avis uniquement) ; schémas affinés.
+- **⚠️ Décision produit en attente** : le contenu **revendeur & formation**
+  (`src/app/formation/page.tsx`, `src/app/revendeur/page.tsx`,
+  `src/lib/shop.ts`, `src/lib/reseller.ts`) **vend encore l'abonnement 2,99 €/mois**
+  → incohérent avec l'offre incluse. À trancher AVANT réécriture : quel modèle
+  récurrent pour reviu maintenant (aucun ? Reviu Pro plus tard ?).
+- **SANS OBJET** : le « digest hebdomadaire » mentionné dans l'historique visait
+  l'abonnement 2,99 € qui n'existe plus — à ne pas construire en l'état.
+
+### Repères dev & vérification
+- Build/dev exigent les variables `NEXT_PUBLIC_*` (placeholders OK en local).
+- Déploiement de la session : **push direct sur `main`** en fast-forward (Vercel
+  déploie `main`). Branche de dev : `claude/reprise-projet-0epbog` (= `main`).
+- Captures visuelles : `playwright-core` + Chromium pré-installé
+  (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`). Détail : `pkill` renvoie
+  un code 144 sans conséquence ; les sections en `Reveal` s'agrandissent au scroll
+  (scroller par paliers avant de capturer le bas de page).
+
+---
+
+> _Ci-dessous : note de reprise **historique (≤ 23/07)**, conservée pour le détail
+> technique encore valable (système de présentoirs, Stripe, RLS, e-mails…).
+> **Ignorer tout ce qui présente l'abonnement 2,99 €/mois comme le modèle courant.**_
+
 > Dernière mise à jour : 23 juillet 2026. Ce document est la **source de reprise** :
 > il reflète l'état réel du code sur `main`.
 
