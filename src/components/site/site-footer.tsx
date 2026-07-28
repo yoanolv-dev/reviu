@@ -53,18 +53,15 @@ const TRUST: { icon: React.ReactNode; label: string }[] = [
 export function SiteFooter() {
   return (
     <footer className="relative border-t border-line bg-surface">
-      {/* Liseré cobalt en haut du pied de page */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gradient-brand opacity-70"
-      />
-
-      {/* Bandeau de réassurance */}
-      <div className="border-b border-line-soft">
-        <Container className="grid grid-cols-2 gap-x-6 gap-y-5 py-7 sm:grid-cols-4">
+      {/* Bandeau de réassurance — bande cobalt clair qui OUVRE nettement le pied
+          de page et le détache des sections (blanches ou grises) au-dessus.
+          Barre cobalt pleine en haut pour trancher, pastilles blanches en relief. */}
+      <div className="border-b border-line bg-brand-soft">
+        <div aria-hidden className="h-1 w-full bg-gradient-brand" />
+        <Container className="grid grid-cols-2 gap-x-6 gap-y-5 py-8 sm:grid-cols-4">
           {TRUST.map((t) => (
             <div key={t.label} className="flex items-center gap-3">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-brand shadow-[var(--shadow-soft)]">
                 {t.icon}
               </span>
               <span className="text-[13px] font-medium leading-snug text-ink-soft">
