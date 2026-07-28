@@ -15,11 +15,12 @@ export const PRODUCT = {
 } as const;
 
 /**
- * Abonnement de suivi (par présentoir). Sans engagement, résiliable à tout
- * moment. IMPORTANT : c'est une amélioration FACULTATIVE, commercialisée
- * APRÈS l'achat (dashboard + e-mailing). Le prix mensuel ne doit pas apparaître
- * dans le tunnel d'achat du présentoir ni concurrencer le bouton « Commander ».
- * Les libellés ci-dessous restent utilisés côté espace client / e-mails.
+ * LEGACY — l'ancien « abonnement de suivi » 2,99 €/mois. Le repositionnement a
+ * INTÉGRÉ ses fonctions (statistiques, gestion, modification du lien) à l'espace
+ * Reviu inclus avec la plaque : il n'est plus proposé dans le parcours
+ * commerçant. Cette constante n'est conservée que pour les canaux non encore
+ * migrés (programme revendeur, formation, e-mails) — à retirer lors de leur
+ * refonte. Ne pas réutiliser côté commerçant.
  */
 export const SUBSCRIPTION = {
   priceLabel: "2,99 €",
@@ -42,15 +43,53 @@ export const STAND_PRICE = "29,90 €";
 
 /**
  * Réassurances clés affichées sous le hero et dans le bandeau produit.
- * Le cœur du positionnement : achat unique, sans abonnement obligatoire,
+ * Cœur du positionnement : achat unique, sans frais supplémentaires,
  * compatible partout, installation rapide.
  */
 export const REASSURANCE = [
   "Achat unique",
-  "Sans abonnement obligatoire",
+  "Sans frais supplémentaires",
   "Activation rapide",
   "Compatible iPhone et Android",
 ] as const;
+
+/**
+ * Espace Reviu INCLUS avec la plaque (aucun frais récurrent). Regroupe ce que
+ * le client obtient sans surcoût après activation. Employé côté public et
+ * tableau de bord pour un discours cohérent.
+ */
+export const INCLUDED_SPACE = {
+  title: "Espace Reviu inclus",
+  tagline: "Inclus avec votre plaque, sans frais supplémentaires.",
+  features: [
+    "Statistiques de scans, QR et NFC distingués",
+    "Gestion de vos présentoirs",
+    "Modification de votre lien de redirection à tout moment",
+  ],
+} as const;
+
+/**
+ * Reviu Pro — offre AVANCÉE À VENIR (non disponible, aucun achat pour l'instant).
+ * Présentée comme optionnelle : la plaque reste complète sans elle. Le CTA se
+ * limite à une inscription (liste d'attente), jamais un paiement.
+ */
+export const REVIU_PRO = {
+  name: "Reviu Pro",
+  status: "Bientôt disponible",
+  intro:
+    "Votre plaque et votre espace Reviu vous suffisent au quotidien. Pour aller plus loin, Reviu Pro arrivera bientôt, en option.",
+  features: [
+    "Connexion à Google Business Profile",
+    "Centralisation de tous vos avis Google",
+    "Réponses aux avis directement depuis Reviu",
+    "Alertes à chaque nouvel avis",
+    "Assistance IA pour préparer vos réponses",
+    "Analyses et rapports avancés",
+  ],
+  cta: "Me prévenir au lancement",
+  /** Sujet de l'e-mail de mise en relation (liste d'attente). */
+  waitlistSubject: "Reviu Pro - me prevenir au lancement",
+} as const;
 
 /**
  * Libellés de livraison (affichage). La logique chiffrée (seuil, frais) reste

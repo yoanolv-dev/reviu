@@ -53,7 +53,7 @@ export function SiteFooter() {
           <p className="max-w-xs text-sm leading-relaxed text-muted">
             Le présentoir NFC + QR code pour accéder aux avis Google en un geste.
             {" "}
-            {STAND_PRICE} TTC, sans abonnement obligatoire.
+            {STAND_PRICE} TTC, espace Reviu inclus, sans frais supplémentaires.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

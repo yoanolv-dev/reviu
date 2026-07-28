@@ -1,13 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import {
-  getMyContext,
-  getStats,
-  getFeedback,
-  getSubscriptions,
-  isTracked,
-} from "@/lib/dashboard";
-import { SUBSCRIPTION } from "@/lib/brand";
+import { getMyContext, getStats, getFeedback } from "@/lib/dashboard";
+import { REVIU_PRO, CONTACT_EMAIL } from "@/lib/brand";
 import { StatCard, FeedbackItem } from "@/components/dashboard/ui";
 import { BuyStandButton } from "@/components/dashboard/buy-cta";
 
@@ -15,12 +9,10 @@ export default async function DashboardHome() {
   const ctx = await getMyContext();
   if (!ctx || !ctx.establishment) redirect("/dashboard/onboarding");
   const est = ctx.establishment;
-  const [stats, feedback, subs] = await Promise.all([
+  const [stats, feedback] = await Promise.all([
     getStats(),
     getFeedback(est.id, 5),
-    getSubscriptions(),
   ]);
-  const tracked = Object.values(subs).some(isTracked);
 
   return (
     <div className="flex flex-col gap-8">
@@ -36,43 +28,17 @@ export default async function DashboardHome() {
         <BuyStandButton className="shrink-0" />
       </div>
 
-      {tracked ? (
+      {/* Statistiques — incluses avec votre plaque, sans frais supplémentaires */}
+      <div>
         <div className="grid gap-4 sm:grid-cols-3">
           <StatCard label="Scans" value={stats.views} className="reveal-1" />
           <StatCard label="Clics vers Google" value={stats.clicks} className="reveal-2" />
           <StatCard label="Taux de conversion" value={`${stats.conversion}%`} className="reveal-3" />
         </div>
-      ) : (
-        <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-6">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-brand opacity-10 blur-3xl"
-          />
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <rect x="5" y="11" width="14" height="10" rx="2" />
-                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-              </svg>
-            </span>
-            <h2 className="font-display text-base font-semibold text-ink">
-              Suivi et réputation verrouillés
-            </h2>
-          </div>
-          <p className="mt-3 text-sm text-muted">
-            Abonnez-vous à {SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} pour
-            recevoir les retours privés et leurs alertes, un récap hebdomadaire,
-            et suivre vos scans, clics et taux de conversion. Sans engagement,
-            résiliable à tout moment.
-          </p>
-          <Link
-            href="/dashboard/stands"
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-full bg-brand px-5 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
-          >
-            Activer le suivi
-          </Link>
-        </div>
-      )}
+        <p className="mt-2 text-xs text-muted">
+          Espace Reviu inclus avec votre plaque, sans frais supplémentaires.
+        </p>
+      </div>
 
       {!est.google_review_url && (
         <Link
@@ -109,6 +75,29 @@ export default async function DashboardHome() {
             </ul>
           )}
         </div>
+      </section>
+
+      {/* Reviu Pro — bientôt disponible : carte discrète, ne bloque rien. */}
+      <section className="rounded-3xl border border-line bg-surface p-6">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <h2 className="font-display text-base font-semibold text-ink">
+            {REVIU_PRO.name}
+          </h2>
+          <span className="rounded-full bg-line-soft px-2.5 py-0.5 text-xs font-medium text-muted">
+            {REVIU_PRO.status}
+          </span>
+        </div>
+        <p className="mt-2 max-w-2xl text-sm text-muted">
+          Connexion à Google Business Profile, centralisation des avis, réponses
+          et alertes, assistance IA et analyses avancées. En option, bientôt —
+          vos fonctionnalités actuelles restent inchangées.
+        </p>
+        <a
+          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(REVIU_PRO.waitlistSubject)}`}
+          className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-line bg-canvas px-5 text-sm font-medium text-ink transition-colors hover:border-brand/40"
+        >
+          {REVIU_PRO.cta}
+        </a>
       </section>
     </div>
   );

@@ -60,7 +60,7 @@ export const CATALOG: ShopProduct[] = [
     features: [
       "NFC + QR déjà encodés, prêts à l'emploi",
       "Redirection modifiable à distance",
-      "Achat unique, sans abonnement obligatoire",
+      "Espace Reviu inclus, sans frais supplémentaires",
     ],
   },
   {

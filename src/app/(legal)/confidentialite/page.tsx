@@ -46,9 +46,9 @@ export default function Confidentialite() {
           laissés par un client via le canal privé.
         </li>
         <li>
-          <strong>Paiement</strong> : les abonnements sont gérés par Stripe.
-          Nous ne stockons jamais les numéros de carte ; nous conservons
-          uniquement un identifiant d&apos;abonnement et son statut.
+          <strong>Paiement</strong> : les paiements sont gérés par Stripe. Nous
+          ne stockons jamais les numéros de carte ; nous conservons uniquement
+          un identifiant de paiement et son statut.
         </li>
         <li>
           <strong>Données Google Business Profile</strong> (fonctionnalité
@@ -85,7 +85,7 @@ export default function Confidentialite() {
           Mesurer l&apos;audience des présentoirs et établir des statistiques
           (intérêt légitime).
         </li>
-        <li>Gérer la facturation des abonnements (obligation légale, contrat).</li>
+        <li>Gérer la facturation (obligation légale, contrat).</li>
         <li>Envoyer des notifications liées au service (intérêt légitime).</li>
       </UL>
 

@@ -11,7 +11,7 @@ import { ImageResponse } from "next/og";
  * glyphes hors police par défaut (pas d’emoji/★ : dessinés en SVG à la place).
  */
 export const alt =
-  "reviu - Présentoir NFC et QR code pour plus d’avis Google, 29,90 € sans abonnement";
+  "reviu - Présentoir NFC et QR code pour plus d’avis Google, 29,90 € espace Reviu inclus";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -137,7 +137,7 @@ export default function OpengraphImage() {
               fontWeight: 600,
             }}
           >
-            29,90 € · sans abonnement obligatoire
+            29,90 € · espace Reviu inclus
           </div>
         </div>
       </div>

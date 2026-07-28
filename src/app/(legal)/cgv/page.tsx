@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P, UL } from "@/components/site/legal";
-import { CONTACT_EMAIL, SITE_URL, STAND_PRICE, SUBSCRIPTION } from "@/lib/brand";
+import { CONTACT_EMAIL, SITE_URL, STAND_PRICE } from "@/lib/brand";
 import { formatEuros, getProduct } from "@/lib/shop";
 
 const FORMATION_PRICE = formatEuros(getProduct("formation")!.priceCents);
@@ -10,7 +10,7 @@ const PACK20_PRICE = formatEuros(getProduct("pack20")!.priceCents);
 export const metadata: Metadata = {
   title: "Conditions générales de vente - reviu",
   description:
-    "Conditions générales de vente des présentoirs reviu et de l'abonnement de suivi : prix, livraison, rétractation, garanties, résiliation.",
+    "Conditions générales de vente des présentoirs reviu : prix, livraison, rétractation, garanties. Espace Reviu inclus, sans frais supplémentaires.",
   alternates: { canonical: `${SITE_URL}/cgv` },
 };
 
@@ -18,12 +18,12 @@ export default function CGV() {
   return (
     <LegalPage
       title="Conditions générales de vente"
-      updated="23 juillet 2026"
+      updated="27 juillet 2026"
     >
       <P>
-        Les présentes conditions régissent la vente des présentoirs reviu et de
-        l&apos;abonnement de suivi, par NEVIFY (entrepreneur individuel - Yoan
-        Oliveira), ci-après « le Vendeur ».
+        Les présentes conditions régissent la vente des présentoirs reviu et des
+        produits associés, par NEVIFY (entrepreneur individuel - Yoan Oliveira),
+        ci-après « le Vendeur ».
       </P>
 
       <H2>1. Produits et prix</H2>
@@ -41,23 +41,22 @@ export default function CGV() {
           présentoirs) · <strong>Pack Revendeur 20</strong> : {PACK20_PRICE}{" "}
           (formation + 20 présentoirs).
         </li>
-        <li>
-          <strong>Abonnement de suivi</strong> : {SUBSCRIPTION.priceLabel}/
-          {SUBSCRIPTION.period} par présentoir, sans engagement.
-        </li>
       </UL>
       <P>
-        Prix en euros. TVA non applicable, article 293 B du CGI.
-        L&apos;activation d&apos;un présentoir est gratuite et n&apos;entraîne
-        aucun frais.
+        Prix en euros. TVA non applicable, article 293 B du CGI. L&apos;achat
+        d&apos;un présentoir donne accès, sans frais supplémentaires, à
+        l&apos;espace Reviu inclus (activation, statistiques de scans, gestion
+        des présentoirs et modification du lien de redirection).{" "}
+        <strong>Reviu Pro</strong>, offre de fonctionnalités avancées, sera
+        proposée ultérieurement ; ses conditions et son tarif seront communiqués
+        lors de son lancement.
       </P>
 
       <H2>2. Commande et paiement</H2>
       <P>
         Les présentoirs sont commandés via notre boutique en ligne ; le paiement
-        y est sécurisé. L&apos;abonnement est souscrit depuis l&apos;application
-        et géré par Stripe. La commande est validée après confirmation du
-        paiement.
+        y est sécurisé et géré par Stripe. La commande est validée après
+        confirmation du paiement.
       </P>
 
       <H2>3. Livraison</H2>
@@ -104,16 +103,18 @@ export default function CGV() {
         les vices cachés (art. 1641 et s. du Code civil).
       </P>
 
-      <H2>6. Abonnement et résiliation</H2>
+      <H2>6. Espace Reviu inclus et Reviu Pro</H2>
       <P>
-        L&apos;abonnement est renouvelé automatiquement chaque mois. Vous pouvez
-        le résilier à tout moment depuis votre espace ; il reste actif
-        jusqu&apos;à la fin de la période en cours. Après résiliation, la
-        redirection de votre présentoir vers votre page d&apos;avis Google
-        continue de fonctionner ; seules les fonctionnalités de suivi
-        (statistiques détaillées, modification du lien à distance, retours
-        privés, rapports) sont désactivées. L&apos;adresse encodée du présentoir
-        (QR&nbsp;/&nbsp;NFC), elle, ne change jamais.
+        L&apos;achat d&apos;un présentoir inclut l&apos;espace Reviu, sans frais
+        supplémentaires ni paiement récurrent : statistiques de scans (QR et NFC
+        distingués), gestion des présentoirs et modification du lien de
+        redirection à tout moment. L&apos;adresse encodée du présentoir
+        (QR&nbsp;/&nbsp;NFC) reste, elle, immuable. <strong>Reviu Pro</strong>
+        {" "}(fonctionnalités avancées à venir) fera l&apos;objet de conditions
+        spécifiques communiquées lors de son lancement ; sa souscription sera
+        facultative et sans incidence sur les fonctions incluses. Les
+        abonnements souscrits avant cette évolution restent résiliables à tout
+        moment depuis l&apos;espace client.
       </P>
 
       <H2>7. Réclamations et médiation</H2>

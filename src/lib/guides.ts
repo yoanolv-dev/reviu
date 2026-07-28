@@ -245,7 +245,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Combien ça coûte ?" },
       {
         type: "p",
-        text: "Un présentoir reviu est un achat unique (29,90 €) et s’active gratuitement, sans abonnement obligatoire. La redirection vers votre page Google fonctionne toujours. Des outils de suivi optionnels (statistiques détaillées, modification du lien à distance, retours privés, rapports) restent disponibles à part, à activer plus tard si vous le souhaitez.",
+        text: "Un présentoir reviu est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment. Reviu Pro (connexion Google Business Profile, assistance IA, analyses avancées) arrivera plus tard, en option.",
       },
     ],
     faq: [
@@ -258,8 +258,8 @@ export const GUIDES: Guide[] = [
         a: "Avec reviu, oui, autant de fois que vous voulez, à distance et sans réimprimer. C’est justement ce qui évite la carte NFC « morte » : l’objet reste, la destination s’ajuste.",
       },
       {
-        q: "Le présentoir fonctionne-t-il sans abonnement ?",
-        a: "Oui. Le présentoir s’achète une fois et redirige gratuitement vers votre page d’avis Google. L’abonnement de suivi est optionnel : il ajoute les statistiques, la modification illimitée des liens et les retours privés.",
+        q: "Y a-t-il des frais récurrents ?",
+        a: "Non. Le présentoir s’achète une fois et votre espace Reviu est inclus, sans frais supplémentaires : statistiques de scans, gestion et modification du lien à tout moment. Reviu Pro (fonctions avancées comme la connexion Google Business Profile) sera proposé plus tard, en option.",
       },
     ],
     related: ["avoir-plus-avis-google", "qr-code-avis-google", "avis-google-restaurant"],

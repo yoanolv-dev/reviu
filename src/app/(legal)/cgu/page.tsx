@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P, UL } from "@/components/site/legal";
-import { CONTACT_EMAIL, SITE_URL, SUBSCRIPTION } from "@/lib/brand";
+import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Conditions générales d'utilisation - reviu",
@@ -34,21 +34,23 @@ export default function CGU() {
         votre compte relève de votre responsabilité.
       </P>
 
-      <H2>3. Abonnement et paiement</H2>
+      <H2>3. Espace inclus, paiement et Reviu Pro</H2>
       <UL>
         <li>
-          L&apos;abonnement de suivi est proposé au tarif de{" "}
-          {SUBSCRIPTION.priceLabel}/{SUBSCRIPTION.period} par présentoir, sans
-          engagement.
+          L&apos;achat d&apos;un présentoir (paiement unique, traité par Stripe)
+          inclut l&apos;espace Reviu, sans frais supplémentaires : statistiques
+          de scans, gestion des présentoirs et modification du lien de
+          redirection.
         </li>
         <li>
-          Le paiement est traité par Stripe. L&apos;abonnement est renouvelé
-          automatiquement à chaque échéance jusqu&apos;à résiliation.
+          <strong>Reviu Pro</strong> (fonctionnalités avancées) est à venir. Son
+          tarif et ses conditions seront communiqués lors de son lancement ; sa
+          souscription sera facultative.
         </li>
         <li>
-          Vous pouvez résilier à tout moment depuis votre espace ; l&apos;accès
-          aux fonctionnalités payantes reste actif jusqu&apos;à la fin de la
-          période en cours.
+          Les abonnements souscrits avant cette évolution restent résiliables à
+          tout moment depuis votre espace ; l&apos;accès reste actif jusqu&apos;à
+          la fin de la période en cours.
         </li>
       </UL>
 

@@ -136,7 +136,7 @@ export default async function DemoPage() {
               </Link>
             </div>
             <p className="mt-4 font-mono text-[13px] text-muted">
-              Achat unique · sans abonnement obligatoire · compatible iPhone et
+              Achat unique · sans frais supplémentaires · compatible iPhone et
               Android
             </p>
           </div>
@@ -494,7 +494,7 @@ export default async function DemoPage() {
           </Container>
         </section>
 
-        {/* L'OFFRE — un seul achat principal, sans abonnement */}
+        {/* L'OFFRE — un seul achat principal, sans frais récurrent */}
         <section className="border-t border-line bg-surface" id="offre">
           <Container className="py-16 sm:py-20">
             <div className="mx-auto max-w-2xl text-center">
@@ -503,9 +503,9 @@ export default async function DemoPage() {
                 Présentoir Reviu — {STAND_PRICE} TTC.
               </h2>
               <p className="mt-3 text-ink-soft">
-                Un achat unique, sans abonnement obligatoire. Le présentoir
-                s&apos;active gratuitement et redirige vos clients vers votre page
-                d&apos;avis Google, durablement.
+                Un achat unique, sans frais supplémentaires. Le présentoir
+                s&apos;active et redirige vos clients vers votre page d&apos;avis
+                Google, durablement. Votre espace Reviu est inclus.
               </p>
               <ul className="mx-auto mt-6 grid max-w-md gap-2 text-left">
                 {[
@@ -526,14 +526,15 @@ export default async function DemoPage() {
                 Commander mon présentoir — {STAND_PRICE}
               </a>
               <p className="mt-6 text-xs leading-relaxed text-muted">
-                Après activation, un espace de pilotage facultatif (statistiques,
-                retours privés, gestion de plusieurs présentoirs) pourra être
-                proposé — jamais nécessaire au fonctionnement du présentoir.{" "}
+                Espace Reviu inclus : statistiques (QR et NFC), gestion et
+                modification du lien, sans frais supplémentaires. Reviu Pro
+                (connexion Google Business Profile, IA…) arrivera bientôt en
+                option.{" "}
                 <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=Acc%C3%A8s%20anticip%C3%A9%20Reviu`}
+                  href={`mailto:${CONTACT_EMAIL}?subject=Reviu%20Pro%20-%20me%20prevenir%20au%20lancement`}
                   className="font-medium text-brand hover:underline"
                 >
-                  Rejoindre l&apos;accès anticipé
+                  Me prévenir au lancement
                 </a>
                 .
               </p>

@@ -147,9 +147,11 @@ export async function setStandTargetAction(
   });
   if (error) {
     if (error.message.includes("subscription_required")) {
+      // La modification du lien est désormais incluse : ce verrou doit être
+      // retiré côté base (RPC set_stand_target). En attendant, message neutre.
       return {
         error:
-          "La modification du lien à distance fait partie du suivi. Abonnez-vous à ce présentoir pour l'activer.",
+          "La mise à jour du lien n'a pas pu être enregistrée pour le moment. Réessayez, ou écrivez-nous à contact@reviu.fr.",
       };
     }
     if (error.message.includes("stand_not_owned")) {

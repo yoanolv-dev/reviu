@@ -8,7 +8,13 @@ import { ProductGallery } from "@/components/site/product-gallery";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
-import { STAND_PRICE, SHIPPING } from "@/lib/brand";
+import {
+  STAND_PRICE,
+  SHIPPING,
+  CONTACT_EMAIL,
+  INCLUDED_SPACE,
+  REVIU_PRO,
+} from "@/lib/brand";
 import {
   getProduct,
   STAND_TIERS,
@@ -21,9 +27,9 @@ import { StandOrder } from "./stand-order";
 
 export const metadata: Metadata = buildMetadata({
   title:
-    "Présentoir NFC + QR pour avis Google — 29,90 € sans abonnement · reviu",
+    "Présentoir NFC + QR pour avis Google — 29,90 €, espace Reviu inclus · reviu",
   description:
-    "Le présentoir Reviu (NFC + QR code) permet à vos clients d'accéder à votre page d'avis Google en un geste. 29,90 € TTC, achat unique, sans abonnement obligatoire. Compatible iPhone et Android, aucune application à télécharger.",
+    "Le présentoir Reviu (NFC + QR code) permet à vos clients d'accéder à votre page d'avis Google en un geste. 29,90 € TTC, achat unique, sans frais supplémentaires. Espace Reviu inclus : statistiques, gestion et modification du lien. Compatible iPhone et Android, aucune application.",
   path: "/",
   keywords: [
     "présentoir avis Google",
@@ -83,7 +89,7 @@ const BENEFITS = [
   "Accédez à votre page d'avis en un geste",
   "Aucune application à télécharger",
   "Compatible iPhone et Android",
-  "Aucun abonnement obligatoire",
+  "Espace Reviu inclus, sans frais supplémentaires",
 ];
 
 const WHY = [
@@ -128,7 +134,7 @@ const TRUST = [
   "Garantie légale (2 ans)",
   "Activation accompagnée",
   "Assistance par e-mail",
-  "Sans abonnement obligatoire",
+  "Sans frais supplémentaires",
 ];
 
 // ── Accordéons de la fiche produit ───────────────────────────────────────────
@@ -154,8 +160,8 @@ const SPECS: { label: string; value: string }[] = [
 
 const FAQ: { q: string; a: string }[] = [
   {
-    q: "Faut-il un abonnement ?",
-    a: "Non. Le présentoir est un achat unique à 29,90 € TTC. Il s'active gratuitement et redirige vos clients vers votre page d'avis Google, sans aucun frais récurrent.",
+    q: "Y a-t-il des frais récurrents ?",
+    a: "Non. Le présentoir est un achat unique à 29,90 € TTC. Votre espace Reviu est inclus, sans frais supplémentaires : vous suivez vos statistiques de scans (QR et NFC distingués), gérez vos présentoirs et modifiez votre lien de redirection à tout moment.",
   },
   {
     q: "Comment fonctionne le présentoir ?",
@@ -171,7 +177,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Puis-je modifier mon lien ?",
-    a: "Vous choisissez le lien de votre fiche Google lors de l'activation, gratuitement. Sa modification à distance ensuite (par exemple si l'adresse de votre fiche change) fait partie des outils de suivi optionnels de votre espace Reviu. Le présentoir, lui, garde toujours la même adresse : rien à réimprimer.",
+    a: "Oui, à tout moment depuis votre espace Reviu inclus, sans frais supplémentaires. Vous mettez à jour la destination de votre présentoir (par exemple si l'adresse de votre fiche Google change) ; le présentoir, lui, garde toujours la même adresse : rien à réimprimer.",
   },
   {
     q: "Quels sont les délais et les frais de livraison ?",
@@ -191,7 +197,7 @@ export default function BoutiquePage() {
           productSchema({
             name: "Présentoir Reviu — NFC + QR code pour avis Google",
             description:
-              "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans abonnement obligatoire, redirection modifiable à distance.",
+              "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans frais supplémentaires ; espace Reviu inclus (statistiques, gestion, modification du lien).",
             priceCents: stand.priceCents,
             path: "/",
             image: "/products/presentoir.webp",
@@ -223,7 +229,7 @@ export default function BoutiquePage() {
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-lg">
                 Vos clients approchent leur téléphone ou scannent le QR code pour
                 accéder instantanément à votre page d&apos;avis Google. Aucun
-                téléchargement et aucun abonnement obligatoire.
+                téléchargement et aucun frais récurrent.
               </p>
               <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <a
@@ -241,7 +247,8 @@ export default function BoutiquePage() {
                 </a>
               </div>
               <p className="mt-5 text-[13px] font-medium text-muted">
-                Achat unique · Sans abonnement · Compatible iPhone et Android
+                Achat unique · Sans frais supplémentaires · Compatible iPhone et
+                Android
               </p>
             </div>
             <div className="reveal relative order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-none">
@@ -339,8 +346,9 @@ export default function BoutiquePage() {
                   />
                 </div>
                 <p className="mt-4 text-xs leading-relaxed text-muted">
-                  Un espace Reviu gratuit vous permet d&apos;activer et de gérer
-                  votre présentoir.
+                  Espace Reviu inclus : activez votre présentoir, suivez vos
+                  statistiques (QR et NFC) et modifiez votre lien à tout moment,
+                  sans frais supplémentaires.
                 </p>
 
                 {/* Détails techniques en accordéons */}
@@ -411,6 +419,63 @@ export default function BoutiquePage() {
                   </div>
                 </Reveal>
               ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* ESPACE REVIU INCLUS + REVIU PRO (à venir) */}
+        <section className="border-b border-line bg-surface">
+          <Container className="py-14 sm:py-16">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+              {/* Inclus avec la plaque */}
+              <div className="flex flex-col rounded-3xl border border-line bg-canvas p-7">
+                <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
+                  Inclus avec votre plaque
+                </span>
+                <h3 className="mt-4 font-display text-xl font-semibold text-ink">
+                  {INCLUDED_SPACE.title}
+                </h3>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                  Sans frais supplémentaires, dès l&apos;activation.
+                </p>
+                <ul className="mt-5 grid gap-2.5">
+                  {INCLUDED_SPACE.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-ink">
+                      <Check />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Reviu Pro — à venir, optionnel */}
+              <div className="flex flex-col rounded-3xl border border-line bg-canvas p-7">
+                <span className="w-fit rounded-full bg-line-soft px-3 py-1 text-xs font-semibold text-muted">
+                  {REVIU_PRO.status}
+                </span>
+                <h3 className="mt-4 font-display text-xl font-semibold text-ink">
+                  {REVIU_PRO.name}
+                </h3>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
+                  {REVIU_PRO.intro}
+                </p>
+                <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+                  {REVIU_PRO.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-muted">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand/40" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(REVIU_PRO.waitlistSubject)}`}
+                  className={buttonClass("secondary", "md", "mt-6 w-fit")}
+                >
+                  {REVIU_PRO.cta}
+                </a>
+                <p className="mt-3 text-xs text-muted">
+                  Optionnel : votre plaque reste complète sans Reviu Pro.
+                </p>
+              </div>
             </div>
           </Container>
         </section>

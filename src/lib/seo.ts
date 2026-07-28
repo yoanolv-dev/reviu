@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_URL, SITE, CONTACT_EMAIL, SUBSCRIPTION, STAND_PRICE } from "@/lib/brand";
+import { SITE_URL, SITE, CONTACT_EMAIL, STAND_PRICE } from "@/lib/brand";
 
 /**
  * Boîte à outils SEO / GEO du site vitrine.
@@ -21,7 +21,7 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Description « maison » réutilisée par défaut (Organization, OG…). */
-export const BRAND_DESCRIPTION = `reviu équipe les commerces de proximité d'un présentoir NFC et QR code pour accéder à leur page d'avis Google en un geste. Achat unique à ${STAND_PRICE}, sans abonnement obligatoire, compatible iPhone et Android, aucune application à télécharger.`;
+export const BRAND_DESCRIPTION = `reviu équipe les commerces de proximité d'un présentoir NFC et QR code pour accéder à leur page d'avis Google en un geste. Achat unique à ${STAND_PRICE}, sans frais supplémentaires, avec l'espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android, aucune application.`;
 
 type BuildMeta = {
   /** Titre complet de la page (déjà « brandé », ex. « … · reviu »). */
@@ -149,9 +149,9 @@ export function softwareApplicationSchema() {
     provider: { "@id": ORG_ID },
     offers: {
       "@type": "Offer",
-      price: SUBSCRIPTION.priceLabel.replace(/[^\d,]/g, "").replace(",", "."),
+      price: STAND_PRICE.replace(/[^\d,]/g, "").replace(",", "."),
       priceCurrency: "EUR",
-      description: `Abonnement de suivi ${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period} par présentoir, sans engagement.`,
+      description: `Présentoir ${STAND_PRICE}, achat unique. Espace Reviu inclus (statistiques, gestion, modification du lien), sans frais supplémentaires.`,
     },
   };
 }
@@ -270,9 +270,3 @@ export function graph(...nodes: object[]) {
     "@graph": nodes,
   };
 }
-
-/** Petites constantes de discours réutilisées dans le contenu. */
-export const SELLING_POINTS = {
-  standPrice: STAND_PRICE,
-  subPrice: `${SUBSCRIPTION.priceLabel}/${SUBSCRIPTION.period}`,
-} as const;

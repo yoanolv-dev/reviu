@@ -12,11 +12,7 @@ import { BuyStandButton, BuyStandCard } from "@/components/dashboard/buy-cta";
 import { ClaimStandForm } from "./claim-stand-form";
 import { StandManage } from "./stand-manage";
 
-export default async function StandsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ sub?: string }>;
-}) {
+export default async function StandsPage() {
   const ctx = await getMyContext();
   if (!ctx?.establishment) redirect("/dashboard/onboarding");
   const [stands, counts, subs] = await Promise.all([
@@ -25,21 +21,9 @@ export default async function StandsPage({
     getSubscriptions(),
   ]);
   const base = REDIRECT_BASE.replace(/^https?:\/\//, "");
-  const { sub } = await searchParams;
 
   return (
     <div className="flex flex-col gap-6">
-      {sub === "success" && (
-        <div className="pop rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-          Paiement confirmé&nbsp;! Votre suivi s&apos;active dans quelques
-          instants - actualisez la page si le statut n&apos;apparaît pas encore.
-        </div>
-      )}
-      {sub === "cancel" && (
-        <div className="rounded-2xl border border-line bg-surface px-4 py-3 text-sm text-muted">
-          Paiement annulé. Vous pouvez réessayer à tout moment.
-        </div>
-      )}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-brand">
@@ -49,8 +33,8 @@ export default async function StandsPage({
             Vos présentoirs
           </h1>
           <p className="mt-2 text-sm text-muted">
-            Rattachez un présentoir reçu en saisissant son code, puis
-            abonnez-vous pour suivre ses scans et modifier ses liens.
+            Rattachez un présentoir reçu en saisissant son code : vous suivez ses
+            scans et modifiez son lien, sans frais supplémentaires.
           </p>
         </div>
         <BuyStandButton className="shrink-0" />
@@ -72,53 +56,39 @@ export default async function StandsPage({
         <BuyStandCard />
       ) : (
         <ul className="flex flex-col gap-3">
-          {stands.map((s) => {
-            const tracked = isTracked(subs[s.id]);
-            return (
-              <li
-                key={s.id}
-                className="rounded-2xl border border-line bg-surface p-5"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <span className="font-mono text-sm font-medium text-ink">
-                        {s.code}
-                      </span>
-                      <StatusBadge status={s.status} />
-                      {tracked && (
-                        <span className="inline-flex items-center rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">
-                          Suivi actif
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 truncate font-mono text-xs text-muted">
-                      {base}/{s.code}
-                    </p>
+          {stands.map((s) => (
+            <li
+              key={s.id}
+              className="rounded-2xl border border-line bg-surface p-5"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="font-mono text-sm font-medium text-ink">
+                      {s.code}
+                    </span>
+                    <StatusBadge status={s.status} />
                   </div>
-                  <div className="text-right">
-                    {tracked ? (
-                      <>
-                        <p className="font-display text-lg font-semibold text-ink">
-                          {counts[s.id] ?? 0}
-                        </p>
-                        <p className="text-xs text-muted">scans</p>
-                      </>
-                    ) : (
-                      <p className="text-xs text-muted">🔒 stats</p>
-                    )}
-                  </div>
+                  <p className="mt-1 truncate font-mono text-xs text-muted">
+                    {base}/{s.code}
+                  </p>
                 </div>
-                {s.status === "active" && (
-                  <StandManage
-                    standId={s.id}
-                    subscribed={tracked}
-                    targetUrl={s.target_url}
-                  />
-                )}
-              </li>
-            );
-          })}
+                <div className="text-right">
+                  <p className="font-display text-lg font-semibold text-ink">
+                    {counts[s.id] ?? 0}
+                  </p>
+                  <p className="text-xs text-muted">scans</p>
+                </div>
+              </div>
+              {s.status === "active" && (
+                <StandManage
+                  standId={s.id}
+                  subscribed={isTracked(subs[s.id])}
+                  targetUrl={s.target_url}
+                />
+              )}
+            </li>
+          ))}
         </ul>
       )}
     </div>

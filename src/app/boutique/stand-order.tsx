@@ -164,7 +164,7 @@ export function StandOrder({
       </form>
 
       <p className="text-center text-xs text-muted">
-        Achat unique, sans abonnement obligatoire. Le présentoir fonctionne dès
+        Achat unique, sans frais supplémentaires. Espace Reviu inclus dès
         l&apos;activation. Besoin de plus de {max} présentoirs pour revendre ?{" "}
         <a href="/revendeur" className="font-medium text-brand hover:underline">
           Devenez revendeur

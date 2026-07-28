@@ -17,7 +17,7 @@ export function AnnounceBar() {
         <span aria-hidden className="hidden text-white/40 sm:inline">
           •
         </span>
-        <span className="hidden sm:inline">Sans abonnement obligatoire</span>
+        <span className="hidden sm:inline">Espace Reviu inclus</span>
         <span aria-hidden className="hidden text-white/40 md:inline">
           •
         </span>
