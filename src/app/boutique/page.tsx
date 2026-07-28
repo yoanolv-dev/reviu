@@ -29,7 +29,7 @@ export const metadata: Metadata = buildMetadata({
   title:
     "Présentoir NFC + QR pour avis Google — 29,90 €, espace Reviu inclus · reviu",
   description:
-    "Le présentoir Reviu (NFC + QR code) permet à vos clients d'accéder à votre page d'avis Google en un geste. 29,90 € TTC, achat unique, sans frais supplémentaires. Espace Reviu inclus : statistiques, gestion et modification du lien. Compatible iPhone et Android, aucune application.",
+    "reviu — le présentoir NFC + QR code pour obtenir plus d'avis Google sur votre commerce. Vos clients laissent leur avis en un geste, sans application ni frais récurrents. 29,90 € TTC, achat unique, espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android.",
   path: "/",
   keywords: [
     "présentoir avis Google",
