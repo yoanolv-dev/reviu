@@ -217,50 +217,59 @@ export default function BoutiquePage() {
       <JsonLd schema={schema} />
       <SiteHeader />
       <main className="bg-canvas">
-        {/* 1 — HERO */}
-        <section className="relative isolate overflow-hidden border-b border-line">
+        {/* 1 — HERO — occupe toute la hauteur visible à l'arrivée sur le site.
+            Hauteur = 100svh moins le chrome haut FIXE : bandeau d'annonce
+            (AnnounceBar, h-9 = 36px) + header sticky (h-[68px]) = 104px. On
+            utilise svh (et non vh) pour que le hero ne soit jamais coupé par la
+            barre d'adresse mobile. Le contenu est centré verticalement (Container
+            flex-1 + items-center) pour un rendu aéré à toutes les hauteurs. */}
+        <section className="relative isolate flex min-h-[calc(100svh-104px)] flex-col overflow-hidden border-b border-line">
           <HeroBackground />
-          <Container className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-20">
-            <div className="reveal order-2 flex flex-col items-start lg:order-1">
-              <h1 className="font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-[2.75rem] lg:text-5xl lg:leading-[1.05]">
-                Obtenez plus d&apos;avis Google, directement depuis votre{" "}
-                <span className="text-brand">comptoir</span>.
-              </h1>
-              <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-lg">
-                Vos clients approchent leur téléphone ou scannent le QR code pour
-                accéder instantanément à votre page d&apos;avis Google. Aucun
-                téléchargement et aucun frais récurrent.
-              </p>
-              <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                <a
-                  href="#produits"
-                  className={buttonClass("primary", "lg", "w-full sm:w-auto")}
-                >
-                  <span className="sm:hidden">Commander le présentoir</span>
-                  <span className="hidden sm:inline">Commander — {STAND_PRICE}</span>
-                </a>
-                <a
-                  href="#fonctionnement"
-                  className={buttonClass("secondary", "lg", "w-full sm:w-auto")}
-                >
-                  Voir comment ça fonctionne
-                </a>
+          <Container className="flex w-full flex-1 items-center py-10 sm:py-14 lg:py-20">
+            <div className="grid w-full items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Texte en premier (titre + CTA visibles d'emblée sur mobile) ;
+                  sur lg, il occupe la colonne de gauche, la photo la droite. */}
+              <div className="reveal flex flex-col items-start">
+                <h1 className="font-display text-[2.1rem] font-semibold leading-[1.07] tracking-tight text-ink sm:text-[2.85rem] lg:text-[3.5rem] lg:leading-[1.03]">
+                  Obtenez plus d&apos;avis Google, directement depuis votre{" "}
+                  <span className="text-brand">comptoir</span>.
+                </h1>
+                <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
+                  Vos clients approchent leur téléphone ou scannent le QR code pour
+                  accéder instantanément à votre page d&apos;avis Google. Aucun
+                  téléchargement et aucun frais récurrent.
+                </p>
+                <div className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
+                  <a
+                    href="#produits"
+                    className={buttonClass("primary", "lg", "w-full sm:w-auto")}
+                  >
+                    <span className="sm:hidden">Commander le présentoir</span>
+                    <span className="hidden sm:inline">Commander — {STAND_PRICE}</span>
+                  </a>
+                  <a
+                    href="#fonctionnement"
+                    className={buttonClass("secondary", "lg", "w-full sm:w-auto")}
+                  >
+                    Voir comment ça fonctionne
+                  </a>
+                </div>
+                <p className="mt-6 hidden text-[13px] font-medium text-muted sm:mt-7 sm:block">
+                  Achat unique · Sans frais supplémentaires · Compatible iPhone et
+                  Android
+                </p>
               </div>
-              <p className="mt-5 text-[13px] font-medium text-muted">
-                Achat unique · Sans frais supplémentaires · Compatible iPhone et
-                Android
-              </p>
-            </div>
-            <div className="reveal relative order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-none">
-              <div
-                aria-hidden
-                className="absolute inset-4 -z-10 rounded-[3rem] bg-brand opacity-[0.06] blur-3xl"
-              />
-              <ProductPhoto
-                src={PHOTO.comptoir}
-                alt="Présentoir Reviu NFC et QR code pour avis Google, posé sur le comptoir d'un commerce"
-                className="aspect-[4/3] w-full rounded-[2rem] border border-line shadow-[var(--shadow-lift)]"
-              />
+              <div className="reveal relative mx-auto w-full max-w-sm lg:max-w-none">
+                <div
+                  aria-hidden
+                  className="absolute inset-4 -z-10 rounded-[3rem] bg-brand opacity-[0.06] blur-3xl"
+                />
+                <ProductPhoto
+                  src={PHOTO.comptoir}
+                  alt="Présentoir Reviu NFC et QR code pour avis Google, posé sur le comptoir d'un commerce"
+                  className="mx-auto aspect-[4/3] max-h-[28svh] w-full rounded-[2rem] shadow-[var(--shadow-lift)] sm:max-h-[42svh] lg:max-h-none"
+                />
+              </div>
             </div>
           </Container>
         </section>
