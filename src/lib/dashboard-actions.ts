@@ -104,36 +104,11 @@ export async function claimStandAction(
   return { success: true };
 }
 
-/** Abonnement simulé piloté depuis le dashboard (gardé par la propriété du compte). */
-export async function ownerSetSubscriptionAction(
-  _prev: FormState,
-  formData: FormData,
-): Promise<FormState> {
-  const supabase = await createSupabaseServer();
-  const standId = String(formData.get("stand_id") ?? "");
-  const action = String(formData.get("action") ?? "");
-  if (action !== "subscribe" && action !== "cancel") {
-    return { error: "Action invalide." };
-  }
-  const { error } = await supabase.rpc("owner_set_subscription", {
-    p_stand_id: standId,
-    p_action: action,
-  });
-  if (error) {
-    if (error.message.includes("stand_not_owned")) {
-      return { error: "Présentoir introuvable sur votre compte." };
-    }
-    return { error: "Opération impossible. Réessayez." };
-  }
-  revalidatePath("/dashboard/stands");
-  revalidatePath("/dashboard");
-  return {
-    success: true,
-    info: action === "subscribe" ? "Suivi activé." : "Abonnement résilié.",
-  };
-}
-
-/** Modifie le lien d'un présentoir (réservé aux présentoirs suivis). */
+/**
+ * Modifie le lien de redirection d'un présentoir. Inclus avec la plaque (espace
+ * Reviu, sans abonnement) : le RPC set_stand_target ne vérifie plus que la
+ * propriété du présentoir. L'adresse encodée QR/NFC (`code`) reste immuable.
+ */
 export async function setStandTargetAction(
   _prev: FormState,
   formData: FormData,
@@ -146,14 +121,6 @@ export async function setStandTargetAction(
     p_url: url,
   });
   if (error) {
-    if (error.message.includes("subscription_required")) {
-      // La modification du lien est désormais incluse : ce verrou doit être
-      // retiré côté base (RPC set_stand_target). En attendant, message neutre.
-      return {
-        error:
-          "La mise à jour du lien n'a pas pu être enregistrée pour le moment. Réessayez, ou écrivez-nous à contact@reviu.fr.",
-      };
-    }
     if (error.message.includes("stand_not_owned")) {
       return { error: "Présentoir introuvable sur votre compte." };
     }
