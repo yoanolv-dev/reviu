@@ -451,6 +451,7 @@ export const GUIDES: Guide[] = [
       "repondre-avis-google",
       "presentoir-plaque-nfc-avis-google",
       "avis-google-garage",
+      "avis-google-boutique",
     ],
   },
 
@@ -646,6 +647,7 @@ export const GUIDES: Guide[] = [
       "qr-code-avis-google",
       "presentoir-plaque-nfc-avis-google",
       "avis-google-boulangerie",
+      "avis-google-hotel",
     ],
   },
 
@@ -728,6 +730,7 @@ export const GUIDES: Guide[] = [
       "presentoir-plaque-nfc-avis-google",
       "avis-google-institut-beaute",
       "repondre-avis-google",
+      "avis-google-salle-de-sport",
     ],
   },
 
@@ -974,6 +977,7 @@ export const GUIDES: Guide[] = [
       "presentoir-plaque-nfc-avis-google",
       "avis-google-coiffeur",
       "repondre-avis-google",
+      "avis-google-dentiste",
     ],
   },
 
@@ -1250,6 +1254,335 @@ export const GUIDES: Guide[] = [
       "qr-code-avis-google",
     ],
   },
+
+  {
+    slug: "avis-google-hotel",
+    metaTitle:
+      "Plus d’avis Google pour un hôtel : la méthode qui marche · reviu",
+    h1: "Obtenir plus d’avis Google pour un hôtel",
+    description:
+      "Comment un hôtel récolte plus d’avis Google, en plus des OTA : le bon moment au départ, où placer le QR à l’accueil et en chambre - dans les règles.",
+    excerpt:
+      "Booking et TripAdvisor captent l’essentiel des avis d’hôtel. Pourtant Google pèse de plus en plus. Voici comment y récolter des avis, sans gêner le séjour.",
+    keywords: [
+      "avis google hotel",
+      "avis google hôtel",
+      "avis clients hotel",
+      "qr code avis hotel",
+      "plus d’avis hotel google",
+    ],
+    category: "Par métier",
+    readMinutes: 6,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Pour un hôtel, les avis Booking et TripAdvisor ne suffisent plus : de plus en plus de voyageurs choisissent leur établissement directement depuis Google Maps et la recherche locale. Y récolter des avis, en complément des plateformes, améliore la visibilité et rassure ceux qui comparent en dernière minute. Voici comment le faire sans jamais alourdir le séjour.",
+      },
+      { type: "h2", text: "Le bon moment : le départ, et juste après le séjour" },
+      {
+        type: "p",
+        text: "Le pic de satisfaction, à l’hôtel, se situe au check-out : le client garde en tête une chambre confortable et un accueil soigné. C’est l’instant idéal pour proposer un avis, à la réception, pendant le règlement ou la remise de la note. Un rappel discret en chambre, présent tout le séjour, prépare aussi le terrain.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or à l’hôtel",
+        text: "Proposez l’avis au départ, avec un support déjà posé sur le comptoir de la réception. Un scan, sans allonger le check-out - et le voyageur repart en ayant déjà laissé son avis Google.",
+      },
+      { type: "h2", text: "Où placer le support dans l’hôtel" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir de la réception : l’emplacement clé, au moment du départ.",
+          "En chambre, sur le bureau ou le chevet : un rappel visible pendant tout le séjour.",
+          "À l’espace petit-déjeuner : un moment détendu propice au scan.",
+          "Sur la note ou la fiche de départ : un relais pour scanner en partant.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire, sans forcer" },
+      {
+        type: "p",
+        text: "Un mot sincère de la réception suffit : « Si votre séjour vous a plu, un avis Google nous aide beaucoup - c’est en un scan. » On propose à tous les clients, sans réserver la demande à ceux qu’on croit satisfaits, et sans offrir de nuit ni de réduction en échange : ce sont les règles de Google. Pour la méthode complète, voyez notre guide pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google).",
+      },
+      { type: "h2", text: "Google et les plateformes : jouer sur les deux" },
+      {
+        type: "p",
+        text: "Les avis Google ne remplacent pas Booking ou TripAdvisor : ils s’y ajoutent, sur un canal que vous maîtrisez et qui nourrit directement votre visibilité sur Maps et dans le pack local. Une fiche Google riche en avis récents capte les recherches « hôtel + ville » et les réservations en direct, sans commission d’intermédiaire.",
+      },
+      { type: "h2", text: "Répondre et mesurer" },
+      {
+        type: "p",
+        text: "À l’hôtel plus qu’ailleurs, la façon de [répondre aux avis](/guides/repondre-avis-negatif) - y compris aux critiques - pèse dans la décision. Suivez aussi vos scans et vos clics vers Google pour ajuster l’emplacement des supports. Avec un [présentoir reviu](/#produits) à la réception, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de départ - et votre note Google progresse, séjour après séjour.",
+      },
+    ],
+    faq: [
+      {
+        q: "Quel est le meilleur moment pour demander un avis Google à l’hôtel ?",
+        a: "Au check-out, quand le client règle et repart avec un bon souvenir du séjour. Un support à la réception, scanné en un geste, est bien plus efficace qu’un e-mail envoyé après le départ.",
+      },
+      {
+        q: "Faut-il demander des avis Google alors qu’on est déjà sur Booking ?",
+        a: "Oui : les avis Google s’ajoutent aux plateformes et nourrissent votre visibilité sur Google Maps et dans la recherche locale, ce qui favorise les réservations en direct, sans commission.",
+      },
+      {
+        q: "Peut-on offrir une réduction contre un avis à l’hôtel ?",
+        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On invite tous les clients, sans conditionner ni récompenser l’avis lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "repondre-avis-negatif",
+      "avis-google-restaurant",
+      "presentoir-plaque-nfc-avis-google",
+    ],
+  },
+
+  {
+    slug: "avis-google-boutique",
+    metaTitle:
+      "Plus d’avis Google pour une boutique : la méthode · reviu",
+    h1: "Obtenir plus d’avis Google pour une boutique",
+    description:
+      "La méthode pour récolter plus d’avis Google en boutique : le bon moment à l’encaissement, où poser le support, quoi dire au client - dans les règles.",
+    excerpt:
+      "En commerce de détail, l’avis se joue à l’encaissement. Voici comment transformer un achat réussi en avis Google, sans alourdir le passage en caisse.",
+    keywords: [
+      "avis google boutique",
+      "avis google commerce de détail",
+      "avis clients boutique",
+      "qr code avis boutique",
+      "plus d’avis boutique",
+    ],
+    category: "Par métier",
+    readMinutes: 5,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "En boutique, un client qui repart content de son achat est dans les meilleures dispositions pour laisser un avis - à condition qu’on le lui propose au bon moment et sans effort. Les avis Google pèsent lourd pour un commerce de détail : ils rassurent avant la visite et font venir de nouveaux clients du quartier. Voici comment les récolter, sans ralentir la caisse.",
+      },
+      { type: "h2", text: "Le bon moment : l’encaissement" },
+      {
+        type: "p",
+        text: "Le moment idéal, c’est le passage en caisse : l’achat est concret, le client satisfait et le téléphone souvent déjà en main pour payer. Attendre un e-mail plus tard, c’est laisser retomber l’enthousiasme et l’envie de dire merci.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en boutique",
+        text: "Proposez l’avis à l’encaissement, avec un support déjà posé sur le comptoir. Un scan, et l’avis est laissé avant même que le client ait rangé son sac.",
+      },
+      { type: "h2", text: "Où placer le support en boutique" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir de caisse : le point de contact final, au moment de payer.",
+          "Sur le sac ou le ticket : un rappel qui repart avec le client.",
+          "En vitrine ou près de l’entrée : capte l’attention pendant le passage.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire au moment de payer" },
+      {
+        type: "p",
+        text: "Un mot simple et sincère à l’encaissement : « Si notre boutique vous a plu, un avis Google nous aide beaucoup - c’est juste ici. » On le propose à tous les clients, sans trier selon la note attendue, et sans offrir de remise en échange : ce sont les règles de Google. La méthode générale est détaillée dans notre guide pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google).",
+      },
+      { type: "h2", text: "Fidéliser et faire revenir" },
+      {
+        type: "p",
+        text: "Un avis positif ne fait pas que rassurer les nouveaux clients : il ancre la relation avec celui qui l’écrit. En commerce de détail, où l’on revient volontiers là où l’on a été bien reçu, chaque avis renforce le lien - et un [flux régulier d’avis](/guides/avis-google-commerce-local) améliore votre visibilité locale.",
+      },
+      { type: "h2", text: "Mesurer et ajuster" },
+      {
+        type: "p",
+        text: "Combien de scans par semaine, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver la meilleure place pour le support et le bon mot à la caisse. Avec un [présentoir reviu](/#produits) sur le comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe d’encaissement - et la note de la boutique grimpe, semaine après semaine.",
+      },
+    ],
+    faq: [
+      {
+        q: "Comment demander un avis Google en boutique sans gêner le client ?",
+        a: "À l’encaissement, avec un mot bref et sincère et un support déjà sur le comptoir : le client scanne en un geste. On propose à tous les clients, sans insister ni conditionner à une bonne note.",
+      },
+      {
+        q: "Où placer le QR code dans une boutique ?",
+        a: "Sur le comptoir de caisse en priorité, car c’est là que se termine l’achat. Un rappel sur le sac ou le ticket aide ceux qui préfèrent scanner une fois rentrés.",
+      },
+      {
+        q: "Peut-on offrir une réduction contre un avis Google ?",
+        a: "Non : c’est interdit par Google et peut entraîner la suppression des avis. On fidélise autrement, jamais en échange de l’avis lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "qr-code-avis-google",
+      "avis-google-commerce-local",
+      "presentoir-plaque-nfc-avis-google",
+    ],
+  },
+
+  {
+    slug: "avis-google-dentiste",
+    metaTitle:
+      "Plus d’avis Google pour un cabinet dentaire : la méthode · reviu",
+    h1: "Obtenir plus d’avis Google pour un cabinet dentaire",
+    description:
+      "Comment un cabinet dentaire récolte plus d’avis Google : le bon moment à l’accueil, quoi dire avec tact, où placer le support - dans les règles.",
+    excerpt:
+      "Pour un cabinet dentaire, la réputation en ligne rassure les nouveaux patients. Voici comment récolter des avis Google à l’accueil, avec tact et sans pression.",
+    keywords: [
+      "avis google dentiste",
+      "avis google cabinet dentaire",
+      "avis patients dentiste",
+      "qr code avis cabinet dentaire",
+      "plus d’avis dentiste",
+    ],
+    category: "Par métier",
+    readMinutes: 6,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Un nouveau patient qui cherche un dentiste consulte presque toujours les avis Google avant de prendre rendez-vous. Pour un cabinet, une réputation en ligne soignée fait la différence - à condition de récolter des avis sans jamais mettre la pression, et dans le respect de la relation de soin. Voici comment s’y prendre, avec tact.",
+      },
+      { type: "h2", text: "Le bon moment : à l’accueil, après le rendez-vous" },
+      {
+        type: "p",
+        text: "Le moment juste, c’est le retour à l’accueil après le soin, au moment de régler ou de reprogrammer : le patient est soulagé, la prestation est terminée. C’est là, au comptoir du secrétariat, qu’une invitation discrète trouve naturellement sa place - jamais au fauteuil, ni pendant le soin.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or au cabinet",
+        text: "L’invitation vient de l’accueil, avec un support posé sur le comptoir. On propose, on n’insiste jamais : la relation de soin passe avant tout, l’avis reste un geste libre.",
+      },
+      { type: "h2", text: "Où placer le support au cabinet" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir du secrétariat : au moment de régler ou de reprendre rendez-vous.",
+          "En salle d’attente, avec la documentation : un rappel discret et sans pression.",
+          "À côté du carnet de rendez-vous : au moment de programmer la prochaine visite.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire, avec tact" },
+      {
+        type: "p",
+        text: "Un mot mesuré du secrétariat suffit : « Si vous êtes satisfait de votre suivi, un avis Google aide d’autres patients à nous trouver - c’est en un scan, si vous le souhaitez. » On propose à tous les patients, sans trier et sans jamais conditionner : la même logique que pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) dans tout commerce, avec la retenue propre au soin.",
+      },
+      { type: "h2", text: "Déontologie et confidentialité" },
+      {
+        type: "p",
+        text: "Deux garde-fous s’imposent au cabinet. D’abord, on n’offre aucune contrepartie et l’on ne filtre pas selon la satisfaction supposée : c’est une règle Google, et une exigence déontologique. Ensuite, dans les réponses publiques aux avis, on ne confirme jamais qu’une personne est patiente et l’on ne révèle aucune donnée de santé : notre guide pour [répondre aux avis](/guides/repondre-avis-google) rappelle ces réflexes, essentiels dans un cadre médical.",
+      },
+      { type: "h2", text: "Mesurer et ajuster" },
+      {
+        type: "p",
+        text: "Combien de patients scannent, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à ajuster le support et le mot de l’accueil, sans jamais peser sur la relation. Avec un [présentoir reviu](/#produits) au secrétariat, encodé NFC + QR et modifiable à distance, l’invitation reste discrète et régulière - et la réputation du cabinet se renforce dans le temps.",
+      },
+    ],
+    faq: [
+      {
+        q: "Un cabinet dentaire peut-il demander des avis Google à ses patients ?",
+        a: "Oui, à condition de proposer l’invitation à tous les patients sans pression, sans contrepartie et sans filtrer selon la satisfaction. Le moment adapté est l’accueil, après le rendez-vous, jamais pendant le soin.",
+      },
+      {
+        q: "Comment répondre à un avis en respectant le secret médical ?",
+        a: "Sans jamais confirmer qu’une personne est patiente ni révéler d’information de santé. On remercie, on invite à un échange privé si nécessaire, et l’on reste factuel et courtois dans la réponse publique.",
+      },
+      {
+        q: "Peut-on offrir quelque chose contre un avis au cabinet ?",
+        a: "Non : c’est interdit par Google et contraire à la déontologie. L’avis doit rester un geste libre du patient, jamais récompensé ni conditionné.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "repondre-avis-google",
+      "avis-google-institut-beaute",
+      "presentoir-plaque-nfc-avis-google",
+    ],
+  },
+
+  {
+    slug: "avis-google-salle-de-sport",
+    metaTitle:
+      "Plus d’avis Google pour une salle de sport : la méthode · reviu",
+    h1: "Obtenir plus d’avis Google pour une salle de sport",
+    description:
+      "Comment une salle de sport récolte plus d’avis Google : le bon moment à l’accueil, quoi dire aux adhérents, où placer le support - dans les règles.",
+    excerpt:
+      "Une salle de sport vit de ses adhérents fidèles - une mine d’avis Google. Voici comment les capter à l’accueil, sans forcer, pour attirer de nouveaux membres.",
+    keywords: [
+      "avis google salle de sport",
+      "avis google club de fitness",
+      "avis adhérents salle de sport",
+      "qr code avis salle de sport",
+      "plus d’avis salle de sport",
+    ],
+    category: "Par métier",
+    readMinutes: 5,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Une salle de sport a un atout rare pour les avis Google : des adhérents fidèles qui passent plusieurs fois par semaine. Chaque venue est une occasion, et un membre satisfait de sa progression est un ambassadeur naturel. Pour un futur adhérent qui hésite entre deux clubs, une fiche riche en avis récents fait pencher la balance. Voici comment récolter ces avis, sans forcer.",
+      },
+      { type: "h2", text: "Le bon moment : l’accueil et les moments forts" },
+      {
+        type: "p",
+        text: "Le meilleur moment, c’est juste après un bon entraînement, un cours collectif réussi ou un objectif atteint : la satisfaction est à son sommet. À l’accueil, au passage de la borne ou du comptoir, l’invitation trouve naturellement sa place - à la sortie, quand le membre est content et disponible.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en salle",
+        text: "Misez sur un support visible à l’accueil, que l’adhérent scanne en sortant d’une bonne séance. La régularité des passages fait le reste : celui qui n’a pas encore laissé d’avis finit par le faire.",
+      },
+      { type: "h2", text: "Où placer le support dans la salle" },
+      {
+        type: "ul",
+        items: [
+          "Au comptoir d’accueil, près de la borne de passage : le point de contact de chaque venue.",
+          "À la sortie des cours collectifs : juste après l’effort et la satisfaction.",
+          "Dans l’espace détente ou au bar à jus : un moment calme propice au scan.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire, sans forcer" },
+      {
+        type: "p",
+        text: "Un mot simple de l’équipe ou du coach : « Si tu te sens bien ici, un avis Google nous aide beaucoup à faire connaître la salle - c’est en un scan. » On propose à tous les adhérents, sans trier et sans offrir d’avantage en échange : ce sont les règles de Google. La logique est la même que pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) dans tout établissement.",
+      },
+      { type: "h2", text: "S’appuyer sur les coachs et la communauté" },
+      {
+        type: "p",
+        text: "Dans une salle, le lien avec les coachs et la communauté est fort : c’est un levier précieux. Un coach qui, après un objectif atteint, invite sincèrement à laisser un avis obtient un excellent taux de réponse. À l’inverse d’un e-mail impersonnel, la demande incarnée par une personne de confiance fonctionne - et fait grimper la note.",
+      },
+      { type: "h2", text: "Mesurer et ajuster" },
+      {
+        type: "p",
+        text: "Combien de scans par semaine, après quels créneaux ? Un tableau de bord qui suit les scans et les clics vers Google aide à repérer les meilleurs moments et emplacements. Avec un [présentoir reviu](/#produits) à l’accueil, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de sortie de séance - et la salle attire de nouveaux membres, mois après mois.",
+      },
+    ],
+    faq: [
+      {
+        q: "Quel est le meilleur moment pour demander un avis en salle de sport ?",
+        a: "Juste après une bonne séance ou un objectif atteint, à la sortie, quand l’adhérent est satisfait et disponible. Un support à l’accueil, scanné en un geste, capte ce moment mieux qu’un e-mail.",
+      },
+      {
+        q: "Comment obtenir des avis de mes adhérents fidèles ?",
+        a: "En rendant le support visible en permanence à l’accueil et en laissant les coachs inviter sincèrement après un moment fort. La fréquence des passages fait que chaque membre finit par avoir l’occasion de laisser un avis.",
+      },
+      {
+        q: "Peut-on offrir un mois d’abonnement contre un avis ?",
+        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On propose à tous les adhérents, sans jamais récompenser l’avis lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "avis-google-coiffeur",
+      "augmenter-note-google",
+      "presentoir-plaque-nfc-avis-google",
+    ],
+  },
 ];
 
 export function getGuide(slug: string): Guide | undefined {
@@ -1258,6 +1591,73 @@ export function getGuide(slug: string): Guide | undefined {
 
 export function guideSlugs(): string[] {
   return GUIDES.map((g) => g.slug);
+}
+
+// ── Pages hub par catégorie ──────────────────────────────────────────────────
+// Une page hub regroupe une grappe de guides sous une URL indexable qui capte
+// les requêtes de catégorie (« avis Google par métier ») et renforce le
+// maillage : le hub pointe vers tous ses guides, et chaque guide pointe vers son
+// hub. On ne crée un hub que pour une catégorie assez fournie, avec un vrai
+// contenu éditorial - jamais une page mince ou vide, qui nuirait à l'indexation.
+
+export type CategoryHub = {
+  /** Segment d'URL sous /guides (ex. `par-metier`). */
+  slug: string;
+  /** Catégorie des guides regroupés (doit correspondre à `Guide.category`). */
+  category: string;
+  metaTitle: string;
+  h1: string;
+  description: string;
+  /** Paragraphes d'introduction (contenu unique, pour une page à part entière). */
+  intro: string[];
+  keywords: string[];
+  faq: { q: string; a: string }[];
+};
+
+export const CATEGORY_HUBS: CategoryHub[] = [
+  {
+    slug: "par-metier",
+    category: "Par métier",
+    metaTitle: "Avis Google par métier : nos guides par secteur · reviu",
+    h1: "Avis Google : nos guides par métier",
+    description:
+      "Tous nos guides pour collecter plus d’avis Google, secteur par secteur : restaurant, coiffeur, garage, hôtel, boutique, dentiste et plus - avec la bonne méthode pour chaque métier.",
+    intro: [
+      "Collecter des avis Google ne se joue pas de la même façon selon le métier. Le bon moment, l’endroit où poser le support et les mots à employer changent entre un restaurant, un salon de coiffure, un garage ou un hôtel. C’est pourquoi nous avons décliné notre méthode par secteur : chaque guide part des contraintes réelles du terrain pour vous donner des réflexes directement applicables.",
+      "Le principe reste le même partout - demander au pic de satisfaction, réduire le geste à un scan, proposer à tous les clients dans les règles de Google - mais son application se personnalise. Choisissez votre métier ci-dessous pour la version taillée à votre commerce.",
+    ],
+    keywords: [
+      "avis google par métier",
+      "avis google secteur",
+      "avis google commerce",
+      "collecter avis google métier",
+      "avis clients par activité",
+    ],
+    faq: [
+      {
+        q: "La méthode pour obtenir des avis change-t-elle selon le métier ?",
+        a: "Le principe est universel - demander au bon moment, réduire le geste à un scan, proposer à tous les clients - mais son application diffère : le moment, l’emplacement du support et le discours s’adaptent à chaque secteur. Nos guides par métier détaillent ces réglages.",
+      },
+      {
+        q: "Mon métier n’est pas dans la liste, que faire ?",
+        a: "Partez du guide général pour obtenir plus d’avis Google : il pose la méthode complète, applicable à tout commerce de proximité. Les guides par métier ne sont que des déclinaisons de ces principes.",
+      },
+    ],
+  },
+];
+
+export function getCategoryHub(slug: string): CategoryHub | undefined {
+  return CATEGORY_HUBS.find((h) => h.slug === slug);
+}
+
+/** Slug de la page hub d'une catégorie, s'il en existe une. */
+export function hubSlugForCategory(category: string): string | undefined {
+  return CATEGORY_HUBS.find((h) => h.category === category)?.slug;
+}
+
+/** Guides d'une catégorie donnée, dans l'ordre de la source. */
+export function guidesInCategory(category: string): Guide[] {
+  return GUIDES.filter((g) => g.category === category);
 }
 
 /** Slugifie un titre de section pour les ancres et le sommaire. */

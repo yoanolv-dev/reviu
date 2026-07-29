@@ -10,6 +10,8 @@ import {
   getGuide,
   guideSlugs,
   headingId,
+  hubSlugForCategory,
+  getCategoryHub,
   type Guide,
   type GuideBlock,
 } from "@/lib/guides";
@@ -59,6 +61,11 @@ export default async function GuidePage({ params }: Props) {
     .map((s) => getGuide(s))
     .filter((g): g is Guide => Boolean(g));
 
+  // Hub de catégorie éventuel (ex. « Par métier ») : sert de maillon
+  // intermédiaire dans le fil d'Ariane et de lien depuis l'en-tête.
+  const hubSlug = hubSlugForCategory(guide.category);
+  const hub = hubSlug ? getCategoryHub(hubSlug) : undefined;
+
   const schema = graph(
     articleSchema({
       title: guide.h1,
@@ -73,6 +80,7 @@ export default async function GuidePage({ params }: Props) {
     breadcrumbSchema([
       { name: "Accueil", path: "/" },
       { name: "Guides", path: "/guides" },
+      ...(hub ? [{ name: "Par métier", path: `/guides/${hub.slug}` }] : []),
       { name: guide.h1, path: `/guides/${guide.slug}` },
     ]),
   );
@@ -94,10 +102,27 @@ export default async function GuidePage({ params }: Props) {
               <Link href="/guides" className="hover:text-ink">
                 Guides
               </Link>
+              {hub && (
+                <>
+                  <span className="mx-2 text-line">/</span>
+                  <Link href={`/guides/${hub.slug}`} className="hover:text-ink">
+                    Par métier
+                  </Link>
+                </>
+              )}
             </nav>
-            <span className="mt-6 block font-mono text-xs uppercase tracking-widest text-brand">
-              {guide.category}
-            </span>
+            {hub ? (
+              <Link
+                href={`/guides/${hub.slug}`}
+                className="mt-6 block w-fit font-mono text-xs uppercase tracking-widest text-brand hover:underline"
+              >
+                {guide.category}
+              </Link>
+            ) : (
+              <span className="mt-6 block font-mono text-xs uppercase tracking-widest text-brand">
+                {guide.category}
+              </span>
+            )}
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
               {guide.h1}
             </h1>

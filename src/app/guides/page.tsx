@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { buttonClass } from "@/components/ui/button";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
-import { GUIDES } from "@/lib/guides";
+import { GUIDES, CATEGORY_HUBS } from "@/lib/guides";
 import { APP_BASE } from "@/lib/brand";
 import { buildMetadata, graph, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -80,6 +80,21 @@ export default function GuidesIndexPage() {
         {/* GRILLE */}
         <section>
           <Container className="py-14 sm:py-16">
+            {CATEGORY_HUBS.length > 0 && (
+              <div className="mb-8 flex flex-wrap items-center gap-3">
+                <span className="text-sm text-muted">Parcourir par thème :</span>
+                {CATEGORY_HUBS.map((h) => (
+                  <Link
+                    key={h.slug}
+                    href={`/guides/${h.slug}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium text-ink transition-colors hover:border-brand/40 hover:text-brand"
+                  >
+                    {h.h1}
+                    <span aria-hidden>→</span>
+                  </Link>
+                ))}
+              </div>
+            )}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {GUIDES.map((g, i) => (
                 <Reveal key={g.slug} delay={i * 70} className="h-full">

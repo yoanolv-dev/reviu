@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
-import { GUIDES } from "@/lib/guides";
+import { GUIDES, CATEGORY_HUBS } from "@/lib/guides";
 
 /**
  * Plan du site (sitemap.xml) - ne liste que les pages publiques indexables.
@@ -17,6 +17,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/guides"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/demo"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];
+
+  // Pages hub par catégorie (ex. /guides/par-metier) : listées explicitement
+  // pour être découvertes et indexées comme des pages à part entière.
+  const hubs: MetadataRoute.Sitemap = CATEGORY_HUBS.map((h) => ({
+    url: absoluteUrl(`/guides/${h.slug}`),
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
 
   const guides: MetadataRoute.Sitemap = GUIDES.map((g) => ({
     url: absoluteUrl(`/guides/${g.slug}`),
@@ -39,5 +48,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
-  return [...core, ...guides, ...legal];
+  return [...core, ...hubs, ...guides, ...legal];
 }
