@@ -43,6 +43,8 @@ export type Guide = {
 };
 
 const UPDATED = "2026-07-24";
+// Date de dernière révision des guides « par métier » ajoutés fin juillet 2026.
+const UPDATED_METIERS = "2026-07-29";
 
 export const GUIDES: Guide[] = [
   {
@@ -447,6 +449,7 @@ export const GUIDES: Guide[] = [
       "avoir-plus-avis-google",
       "repondre-avis-google",
       "presentoir-plaque-nfc-avis-google",
+      "avis-google-garage",
     ],
   },
 
@@ -640,6 +643,335 @@ export const GUIDES: Guide[] = [
       "avoir-plus-avis-google",
       "qr-code-avis-google",
       "presentoir-plaque-nfc-avis-google",
+      "avis-google-boulangerie",
+    ],
+  },
+
+  {
+    slug: "avis-google-coiffeur",
+    metaTitle:
+      "Plus d’avis Google pour un salon de coiffure : la méthode · reviu",
+    h1: "Obtenir plus d’avis Google pour un salon de coiffure",
+    description:
+      "La méthode concrète pour récolter plus d’avis Google en salon de coiffure : le bon moment à l’encaissement, quoi dire, où poser le support - dans les règles.",
+    excerpt:
+      "En coiffure, la relation est forte et la satisfaction se voit dans le miroir. Voici comment transformer ce moment en avis Google, sans jamais forcer.",
+    keywords: [
+      "avis google coiffeur",
+      "avis google salon de coiffure",
+      "avis clients coiffeur",
+      "qr code avis coiffeur",
+      "plus d’avis coiffure",
+    ],
+    category: "Par métier",
+    readMinutes: 6,
+    datePublished: "2026-07-26",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Pour un salon de coiffure, les avis Google sont la première vitrine : on choisit rarement un coiffeur au hasard, on regarde d’abord la note et les commentaires. Or la coiffure a un atout que peu de métiers possèdent - la satisfaction est immédiate et visible, dans le miroir, à la fin de la prestation. Il suffit de capter ce moment. Voici comment récolter plus d’avis Google en salon, sans alourdir l’accueil ni forcer la main.",
+      },
+      { type: "h2", text: "Le bon moment : le miroir, puis l’encaissement" },
+      {
+        type: "p",
+        text: "Le pic de satisfaction, c’est la découverte du résultat dans le miroir, quand la cliente ou le client est visiblement content. L’enchaînement naturel vers l’avis se joue ensuite, à la caisse : le geste est calme, le téléphone déjà en main pour payer. Attendre un e-mail le lendemain, c’est laisser l’enthousiasme retomber.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en coiffure",
+        text: "Proposez l’avis à l’encaissement, juste après le « ça vous plaît ? » devant le miroir. Un support déjà posé sur le comptoir, un scan, et c’est fait - sans quitter la caisse.",
+      },
+      { type: "h2", text: "Où placer le support dans le salon" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir d’encaissement : l’emplacement le plus naturel, au moment du paiement.",
+          "À chaque poste de coiffage, près du miroir : un rappel visible pendant toute la prestation.",
+          "Sur le meuble d’accueil, à côté des cartes de rendez-vous : pour l’attente et le départ.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire, sans que ça sonne commercial" },
+      {
+        type: "p",
+        text: "Un mot sincère suffit : « Si la coupe vous plaît, un avis Google nous aide énormément - c’est juste ici, en un scan. » On propose à tout le monde, on ne réserve jamais la demande aux clients qu’on croit satisfaits, et on n’offre aucune remise en échange : ce sont les règles de Google, et c’est aussi ce qui garde vos avis crédibles.",
+      },
+      { type: "h2", text: "Profiter de la clientèle fidèle" },
+      {
+        type: "p",
+        text: "Un salon vit de ses habitués, qui reviennent toutes les quelques semaines. C’est une force pour les avis : même si un client oublie une fois, l’occasion revient. L’idée n’est pas de redemander à chaque passage, mais de rendre le support visible en permanence, pour que celui qui n’a pas encore laissé d’avis le fasse dès qu’il en a envie.",
+      },
+      { type: "h2", text: "Mesurer et ajuster" },
+      {
+        type: "p",
+        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un présentoir reviu encodé NFC + QR au comptoir et modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
+      },
+    ],
+    faq: [
+      {
+        q: "Comment demander un avis Google à un client en coiffure ?",
+        a: "À l’encaissement, juste après avoir montré le résultat au miroir : « si la coupe vous plaît, un avis Google nous aide beaucoup, c’est en un scan ». On propose à tous les clients, sans insister et sans conditionner à une bonne note.",
+      },
+      {
+        q: "Où placer le QR code dans un salon de coiffure ?",
+        a: "Sur le comptoir d’encaissement en priorité, car c’est là que se fait le paiement. Un rappel à chaque poste, près du miroir, renforce l’effet en gardant le support visible pendant toute la prestation.",
+      },
+      {
+        q: "Peut-on offrir une réduction contre un avis ?",
+        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner la suppression des avis. On fidélise autrement, jamais en échange de l’avis lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "presentoir-plaque-nfc-avis-google",
+      "avis-google-institut-beaute",
+      "repondre-avis-google",
+    ],
+  },
+
+  {
+    slug: "avis-google-garage",
+    metaTitle:
+      "Plus d’avis Google pour un garage : la méthode qui marche · reviu",
+    h1: "Obtenir plus d’avis Google pour un garage automobile",
+    description:
+      "Comment un garage récolte plus d’avis Google : le bon moment à la restitution du véhicule, quoi dire pour rassurer, où placer le QR - dans les règles.",
+    excerpt:
+      "En mécanique auto, la confiance décide de tout. Des avis Google nombreux et récents rassurent les nouveaux clients. Voici comment les collecter simplement.",
+    keywords: [
+      "avis google garage",
+      "avis google garagiste",
+      "avis clients garage auto",
+      "qr code avis garage",
+      "plus d’avis garage automobile",
+    ],
+    category: "Par métier",
+    readMinutes: 6,
+    datePublished: "2026-07-27",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Confier sa voiture demande de la confiance, et cette confiance se lit dans les avis Google. Avant de choisir un garage, un automobiliste compare les notes et cherche des commentaires récents sur le sérieux, la transparence des prix et la qualité du travail. Un garage qui collecte régulièrement des avis part avec une longueur d’avance. Voici comment en récolter plus, sans gêner l’atelier ni forcer le client.",
+      },
+      { type: "h2", text: "Le bon moment : la restitution du véhicule" },
+      {
+        type: "p",
+        text: "Le moment le plus fort, c’est la remise des clés : la voiture est réparée, le client est soulagé et satisfait du service. C’est là qu’il faut proposer l’avis, au comptoir, pendant le règlement de la facture - pas par un e-mail envoyé plus tard, souvent ignoré.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or au garage",
+        text: "Proposez l’avis à la restitution, au moment de rendre les clés et de régler. Un support sur le comptoir d’accueil, un scan, et le client repart en ayant déjà donné son avis.",
+      },
+      { type: "h2", text: "Où placer le support à l’accueil" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir d’accueil, là où se règlent les factures : l’emplacement clé.",
+          "Dans l’espace d’attente, avec les magazines : un rappel pendant l’intervention.",
+          "Agrafé ou joint à la facture remise : un relais discret pour ceux qui préfèrent scanner plus tard.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire pour rassurer, pas pour vendre" },
+      {
+        type: "p",
+        text: "Un mot simple et honnête fonctionne mieux qu’un argumentaire : « Si vous avez été satisfait de l’intervention, un avis Google aide beaucoup les automobilistes du coin à nous trouver - c’est en un scan. » On invite tous les clients, sans trier selon la note attendue, et sans jamais offrir de remise en échange : ce sont les règles de Google.",
+      },
+      { type: "h2", text: "Répondre aux avis, un réflexe qui compte double" },
+      {
+        type: "p",
+        text: "Dans un métier où la confiance est tout, la façon dont un garage répond aux avis - y compris aux plus critiques - en dit long aux futurs clients. Une réponse posée, factuelle et courtoise à un avis mitigé rassure souvent plus qu’une série de cinq étoiles muettes. Répondre montre aussi à Google que la fiche est active.",
+      },
+      { type: "h2", text: "Mesurer et progresser" },
+      {
+        type: "p",
+        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un présentoir reviu sur le comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
+      },
+    ],
+    faq: [
+      {
+        q: "Quel est le meilleur moment pour demander un avis Google au garage ?",
+        a: "À la restitution du véhicule, quand le client récupère ses clés et règle la facture : il est satisfait et disponible. On propose l’avis au comptoir, en un scan, plutôt que par un e-mail envoyé plus tard.",
+      },
+      {
+        q: "Comment demander un avis sans paraître insistant ?",
+        a: "Avec un mot honnête et bref : « si vous avez été satisfait, un avis Google nous aide beaucoup ». On propose à tous les clients, on ne conditionne jamais à une bonne note et on n’offre aucune contrepartie.",
+      },
+      {
+        q: "Faut-il répondre aux avis négatifs d’un garage ?",
+        a: "Oui : une réponse calme et factuelle à un avis critique rassure les futurs clients et montre le sérieux du garage. C’est souvent plus convaincant qu’une note parfaite sans aucune réponse.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "qr-code-avis-google",
+      "repondre-avis-google",
+      "avis-google-commerce-local",
+    ],
+  },
+
+  {
+    slug: "avis-google-boulangerie",
+    metaTitle:
+      "Plus d’avis Google pour une boulangerie-pâtisserie · reviu",
+    h1: "Obtenir plus d’avis Google pour une boulangerie",
+    description:
+      "La méthode pour récolter plus d’avis Google en boulangerie malgré le flux rapide : où poser le support au comptoir, quoi dire en un mot - dans les règles.",
+    excerpt:
+      "En boulangerie, le passage est rapide mais quotidien et fidèle. Le défi : capter l’avis sans ralentir la file. Voici comment, avec un support au bon endroit.",
+    keywords: [
+      "avis google boulangerie",
+      "avis google boulangerie patisserie",
+      "avis clients boulangerie",
+      "qr code avis boulangerie",
+      "plus d’avis boulangerie",
+    ],
+    category: "Par métier",
+    readMinutes: 5,
+    datePublished: "2026-07-28",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "La boulangerie a un profil unique pour les avis Google : un flux rapide, mais une clientèle d’habitués qui revient chaque jour. Le passage à la caisse dure quelques secondes, ce qui semble être un frein - mais la fidélité offre mille occasions de récolter un avis. Il suffit d’un support bien placé et d’un mot au bon moment. Voici comment faire, sans jamais ralentir la file.",
+      },
+      { type: "h2", text: "Le défi du passage rapide" },
+      {
+        type: "p",
+        text: "Impossible de tenir un discours à chaque client quand la file s’allonge le matin. La solution n’est pas de demander plus, mais de rendre l’avis possible en autonomie : un support visible que le client scanne quand il le souhaite, sur place ou en repartant. La demande orale se réserve aux moments plus calmes, en journée.",
+      },
+      { type: "h2", text: "Où placer le support au comptoir" },
+      {
+        type: "ul",
+        items: [
+          "Près du terminal de paiement : le point de regard naturel pendant le règlement.",
+          "Sur le comptoir, à hauteur des yeux : visible sans effort dans la file.",
+          "Sur le ticket ou le sac, en complément : un rappel à scanner une fois rentré.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en boulangerie",
+        text: "Misez sur un support autonome et bien visible près de la caisse, plutôt que sur un discours. Le client scanne quand il veut - et vos habitués finissent tous par le faire.",
+      },
+      { type: "h2", text: "Quoi dire, en un mot" },
+      {
+        type: "p",
+        text: "Aux heures calmes, un mot suffit : « Si vous vous régalez, un petit avis Google nous fait très plaisir - c’est juste là. » On s’adresse à tous les clients, sans trier, et on n’offre jamais une viennoiserie ou une remise contre un avis : c’est interdit par Google et ça fragilise votre fiche.",
+      },
+      { type: "h2", text: "Transformer la fidélité en avis" },
+      {
+        type: "p",
+        text: "Un client qui passe chaque matin verra le support des dizaines de fois. C’est tout l’intérêt d’un emplacement permanent : celui qui n’a pas encore laissé d’avis le fera le jour où il en aura envie, sans qu’on ait à le relancer. La régularité du passage remplace la relance.",
+      },
+      { type: "h2", text: "Mesurer ce qui marche" },
+      {
+        type: "p",
+        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un présentoir reviu au comptoir, encodé NFC + QR et modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
+      },
+    ],
+    faq: [
+      {
+        q: "Comment récolter des avis en boulangerie malgré la file d’attente ?",
+        a: "En misant sur un support visible et autonome près de la caisse, que le client scanne quand il le souhaite, plutôt que sur un discours. La demande orale se garde pour les heures calmes.",
+      },
+      {
+        q: "Où placer le QR code dans une boulangerie ?",
+        a: "Près du terminal de paiement et sur le comptoir à hauteur des yeux : ce sont les points de regard pendant le règlement. Un rappel sur le ticket ou le sac aide ceux qui préfèrent scanner en rentrant.",
+      },
+      {
+        q: "Peut-on offrir une viennoiserie contre un avis Google ?",
+        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On remercie la fidélité autrement, jamais l’avis en lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "qr-code-avis-google",
+      "avis-google-restaurant",
+      "avis-google-commerce-local",
+    ],
+  },
+
+  {
+    slug: "avis-google-institut-beaute",
+    metaTitle:
+      "Plus d’avis Google pour un institut de beauté / esthétique · reviu",
+    h1: "Obtenir plus d’avis Google pour un institut de beauté",
+    description:
+      "Comment un institut de beauté récolte plus d’avis Google : le bon moment après le soin, quoi dire à l’encaissement, où poser le support - dans les règles.",
+    excerpt:
+      "Après un soin réussi, la cliente est détendue et satisfaite. C’est le moment idéal pour un avis Google. Voici la méthode, pensée pour l’institut.",
+    keywords: [
+      "avis google institut de beaute",
+      "avis google estheticienne",
+      "avis clients institut beaute",
+      "qr code avis institut",
+      "plus d’avis esthetique",
+    ],
+    category: "Par métier",
+    readMinutes: 5,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "En institut de beauté, on ne choisit pas au hasard à qui l’on confie sa peau et son bien-être : la note Google et les avis rassurent avant la prise de rendez-vous. L’esthétique a un atout précieux - la cliente termine son soin détendue, satisfaite, dans un moment de bien-être. C’est l’instant parfait pour un avis. Voici comment le capter, sans casser l’ambiance apaisée de l’institut.",
+      },
+      { type: "h2", text: "Le bon moment : juste après le soin" },
+      {
+        type: "p",
+        text: "Le pic de satisfaction se situe à la fin du soin, quand la cliente découvre le résultat et se sent bien. L’enchaînement se fait à l’encaissement, dans un moment calme et privilégié. C’est bien plus efficace qu’un e-mail envoyé le lendemain, quand la sensation de bien-être est retombée.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en institut",
+        text: "Proposez l’avis à l’encaissement, dans la continuité du soin, avec un support déjà posé sur le comptoir. Un scan, sans rompre le calme de l’institut.",
+      },
+      { type: "h2", text: "Où placer le support dans l’institut" },
+      {
+        type: "ul",
+        items: [
+          "Sur le comptoir d’accueil et d’encaissement : le point de passage final, au calme.",
+          "Dans l’espace d’attente, près des cartes de soin : un rappel discret avant le rendez-vous.",
+          "À côté du carnet de rendez-vous : au moment de reprogrammer le prochain soin.",
+        ],
+      },
+      { type: "h2", text: "Quoi dire, en douceur" },
+      {
+        type: "p",
+        text: "Un mot simple et bienveillant : « Si vous êtes satisfaite du soin, un avis Google nous aide beaucoup - c’est juste ici, en un scan. » On propose à toutes les clientes, sans trier selon la note qu’on imagine, et sans jamais offrir de réduction en échange : ce sont les règles de Google, et c’est ce qui garde vos avis authentiques.",
+      },
+      { type: "h2", text: "Le lien avec la prise de rendez-vous suivante" },
+      {
+        type: "p",
+        text: "En institut, la fidélité passe par le rendez-vous suivant, souvent fixé sur place. C’est un second moment idéal : la cliente est encore au comptoir, satisfaite et posée. Associer discrètement la demande d’avis à la reprogrammation du prochain soin, sans jamais la conditionner, rend le geste naturel.",
+      },
+      { type: "h2", text: "Mesurer et ajuster" },
+      {
+        type: "p",
+        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un présentoir reviu au comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
+      },
+    ],
+    faq: [
+      {
+        q: "Quel est le meilleur moment pour demander un avis en institut de beauté ?",
+        a: "Juste après le soin, à l’encaissement, quand la cliente découvre le résultat et se sent bien. C’est un moment calme et privilégié, bien plus efficace qu’un e-mail envoyé le lendemain.",
+      },
+      {
+        q: "Comment demander un avis sans casser l’ambiance apaisée du soin ?",
+        a: "Avec un mot doux et sincère, et un support déjà posé sur le comptoir : la cliente scanne en un geste, sans rupture. On propose à toutes, sans insister et sans conditionner à une bonne note.",
+      },
+      {
+        q: "Peut-on offrir une remise sur un prochain soin contre un avis ?",
+        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On fidélise la cliente autrement, jamais en échange de l’avis lui-même.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "presentoir-plaque-nfc-avis-google",
+      "avis-google-coiffeur",
+      "repondre-avis-google",
     ],
   },
 ];
