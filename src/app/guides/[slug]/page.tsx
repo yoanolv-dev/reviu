@@ -24,6 +24,7 @@ import {
   breadcrumbSchema,
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { accentLastWord } from "@/components/ui/accent";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -124,7 +125,7 @@ export default async function GuidePage({ params }: Props) {
               </span>
             )}
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
-              {guide.h1}
+              {accentLastWord(guide.h1)}
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-soft sm:text-lg">
               {guide.excerpt}

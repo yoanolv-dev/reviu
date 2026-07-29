@@ -12,6 +12,7 @@ import {
   faqSchema,
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { accentLastWord } from "@/components/ui/accent";
 import { STAND_PRICE } from "@/lib/brand";
 import { ApplicationForm } from "./application-form";
 
@@ -139,7 +140,7 @@ export default function RevendeurPage() {
               Comment ça marche
             </span>
             <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Trois étapes, une sélection humaine.
+              {accentLastWord("Trois étapes, une sélection humaine.")}
             </h2>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
               {STEPS.map((s) => (
@@ -170,7 +171,7 @@ export default function RevendeurPage() {
                 Conditions de revente
               </span>
               <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Claires, dès le départ.
+                {accentLastWord("Claires, dès le départ.")}
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
                 Le modèle est simple : vous gagnez votre marge à la revente du
@@ -203,7 +204,7 @@ export default function RevendeurPage() {
               Questions fréquentes
             </span>
             <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Ce que les revendeurs nous demandent.
+              {accentLastWord("Ce que les revendeurs nous demandent.")}
             </h2>
             <div className="mt-10 flex max-w-2xl flex-col gap-3">
               {REVENDEUR_FAQ.map((f) => (
@@ -235,7 +236,7 @@ export default function RevendeurPage() {
                   Candidature
                 </span>
                 <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  Postulez en 2 minutes.
+                  {accentLastWord("Postulez en 2 minutes.")}
                 </h2>
                 <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
                   Parlez-nous de vous et de votre projet. On revient vers vous par

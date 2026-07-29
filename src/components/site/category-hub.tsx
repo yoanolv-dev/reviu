@@ -14,6 +14,7 @@ import {
   absoluteUrl,
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { accentLastWord } from "@/components/ui/accent";
 
 /**
  * Vue partagée d'une page hub de catégorie (contenu éditorial unique + grille
@@ -71,7 +72,7 @@ export function CategoryHubView({ hub }: { hub: CategoryHub }) {
               {hub.label}
             </span>
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[3rem] lg:leading-[1.05]">
-              {hub.h1}
+              {accentLastWord(hub.h1)}
             </h1>
             <div className="mt-5 max-w-2xl space-y-4">
               {hub.intro.map((p) => (

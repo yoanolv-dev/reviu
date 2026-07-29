@@ -8,6 +8,7 @@ import { ProductGallery } from "@/components/site/product-gallery";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { buttonClass } from "@/components/ui/button";
+import { accentLastWord } from "@/components/ui/accent";
 import {
   STAND_PRICE,
   SHIPPING,
@@ -597,7 +598,7 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
         {eyebrow}
       </span>
       <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-        {title}
+        {accentLastWord(title)}
       </h2>
     </div>
   );

@@ -7,6 +7,7 @@ import { Stars } from "@/components/ui/stars";
 import { Logo } from "@/components/ui/logo";
 import { ProductPhoto } from "@/components/site/product-photo";
 import { buttonClass } from "@/components/ui/button";
+import { accentLastWord } from "@/components/ui/accent";
 import { qrSvg } from "@/lib/qr";
 import {
   APP_BASE,
@@ -116,7 +117,7 @@ export default async function DemoPage() {
             <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
               Un scan pour simplifier
               <br />
-              chaque avis Google.
+              chaque avis <span className="text-brand">Google</span>.
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
               Un présentoir sur le comptoir, un scan, un avis. reviu enregistre
@@ -238,7 +239,7 @@ export default async function DemoPage() {
             <div>
               <Kicker>Le présentoir</Kicker>
               <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                Un objet, deux technologies, un lien permanent.
+                {accentLastWord("Un objet, deux technologies, un lien permanent.")}
               </h2>
               <p className="mt-4 max-w-md leading-relaxed text-ink-soft">
                 Chaque présentoir embarque un QR imprimé et une puce NFC, tous
@@ -260,7 +261,7 @@ export default async function DemoPage() {
           <Container className="py-16 sm:py-20">
             <Kicker>Le tableau de bord</Kicker>
             <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              Ce qui se passe sur le comptoir, en clair.
+              {accentLastWord("Ce qui se passe sur le comptoir, en clair.")}
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
               Scans, clics vers Google, taux de clic et présentoirs - par
@@ -414,7 +415,7 @@ export default async function DemoPage() {
           <Container className="py-16 sm:py-20">
             <Kicker>Deux expériences</Kicker>
             <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              Direct, ou à votre image.
+              {accentLastWord("Direct, ou à votre image.")}
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
               Le même présentoir, le comportement que vous choisissez -
@@ -546,7 +547,7 @@ export default async function DemoPage() {
         <Container className="py-16 sm:py-20">
           <div className="flex flex-wrap items-center justify-between gap-8 rounded-3xl border border-line bg-canvas px-8 py-12 sm:px-12">
             <h2 className="max-w-[20ch] font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              Transformez chaque passage client en avis Google.
+              {accentLastWord("Transformez chaque passage client en avis Google.")}
             </h2>
             <div className="flex flex-wrap gap-3">
               <a href={BOUTIQUE_URL} className={buttonClass("primary", "lg")}>
