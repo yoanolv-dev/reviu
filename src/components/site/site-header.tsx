@@ -52,16 +52,43 @@ export function SiteHeader() {
 
           {/* Navigation desktop */}
           <nav className="hidden items-center gap-7 lg:flex">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="group relative py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
-              >
-                {item.label}
-                <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-brand transition-transform duration-200 group-hover:scale-x-100" />
-              </a>
-            ))}
+            {NAV.map((item) =>
+              item.children ? (
+                <div key={item.href} className="group relative">
+                  <a
+                    href={item.href}
+                    className="relative inline-flex items-center gap-1 py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink group-focus-within:text-ink"
+                  >
+                    {item.label}
+                    <IconChevron />
+                    <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-brand transition-transform duration-200 group-hover:scale-x-100 group-focus-within:scale-x-100" />
+                  </a>
+                  {/* Sous-menu : visible au survol et au focus clavier */}
+                  <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="min-w-[224px] rounded-2xl border border-line bg-canvas p-2 shadow-[0_1px_0_rgba(10,13,22,0.04),0_18px_40px_-20px_rgba(17,57,201,0.28)]">
+                      {item.children.map((c) => (
+                        <a
+                          key={c.href}
+                          href={c.href}
+                          className="block rounded-xl px-3 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
+                        >
+                          {c.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="group relative py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+                >
+                  {item.label}
+                  <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-brand transition-transform duration-200 group-hover:scale-x-100" />
+                </a>
+              ),
+            )}
           </nav>
 
           {/* Accès : Se connecter + Commander (le bouton principal est identifiable) */}
@@ -100,14 +127,29 @@ export function SiteHeader() {
           <div className="border-t border-line bg-canvas lg:hidden">
             <Container className="flex flex-col py-2">
               {NAV.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className="rounded-xl px-2 py-3 text-[15px] font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
-                >
-                  {item.label}
-                </a>
+                <div key={item.href}>
+                  <a
+                    href={item.href}
+                    onClick={close}
+                    className="block rounded-xl px-2 py-3 text-[15px] font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
+                  >
+                    {item.label}
+                  </a>
+                  {item.children && (
+                    <div className="ml-3 flex flex-col border-l border-line pl-3">
+                      {item.children.map((c) => (
+                        <a
+                          key={c.href}
+                          href={c.href}
+                          onClick={close}
+                          className="rounded-xl px-2 py-2.5 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
+                        >
+                          {c.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
                 <Link
@@ -130,6 +172,25 @@ export function SiteHeader() {
         )}
       </header>
     </>
+  );
+}
+
+function IconChevron() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className="mt-px text-muted transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
   );
 }
 

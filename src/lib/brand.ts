@@ -131,12 +131,26 @@ export const BOUTIQUE_URL =
   process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/boutique`;
 
 /**
- * Navigation courte et orientée conversion. Les trois actions (Commander,
- * Activer, Se connecter) sont gérées séparément dans l'en-tête, pas ici.
+ * Navigation principale, orientée vraies pages (meilleur maillage interne
+ * sitewide pour le SEO). « Guides » ouvre un sous-menu vers les pages hub.
+ * Les actions (Commander, Se connecter) sont gérées séparément dans l'en-tête.
  */
-export const NAV = [
+export type NavItem = {
+  label: string;
+  href: string;
+  children?: readonly { label: string; href: string }[];
+};
+
+export const NAV: readonly NavItem[] = [
   { label: "Le présentoir", href: "/#produits" },
-  { label: "Comment ça marche", href: "/#fonctionnement" },
-  { label: "Questions fréquentes", href: "/#faq" },
-  { label: "Guides", href: "/guides" },
-] as const;
+  {
+    label: "Guides",
+    href: "/guides",
+    children: [
+      { label: "Tous les guides", href: "/guides" },
+      { label: "Par métier", href: "/guides/par-metier" },
+      { label: "Gérer sa réputation", href: "/guides/gerer-sa-reputation" },
+    ],
+  },
+  { label: "Démo", href: "/demo" },
+];
