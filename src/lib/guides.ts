@@ -53,24 +53,43 @@ export const GUIDES: Guide[] = [
       "Comment avoir plus d’avis Google : le guide complet (2026) · reviu",
     h1: "Comment avoir plus d’avis Google : le guide complet",
     description:
-      "Toutes les méthodes qui marchent pour obtenir plus d’avis Google en 2026 : quand demander, comment faciliter le geste, et les erreurs à éviter - dans les règles de Google.",
+      "Le guide complet pour obtenir plus d’avis Google en 2026 : pourquoi ils comptent, quand demander, quoi dire et les erreurs à éviter - dans les règles de Google.",
     excerpt:
       "Plus d’avis Google, mieux notés, plus souvent : voici la méthode complète pour transformer vos clients satisfaits en avis, sans forcer et dans les règles.",
     keywords: [
       "avoir plus d’avis google",
+      "comment avoir des avis google",
       "obtenir des avis google",
       "augmenter ses avis google",
       "demander un avis google",
       "collecter des avis google",
     ],
     category: "Collecter des avis",
-    readMinutes: 8,
+    readMinutes: 13,
     datePublished: "2026-07-24",
-    dateModified: UPDATED,
+    dateModified: UPDATED_METIERS,
     blocks: [
       {
         type: "p",
         text: "Les avis Google sont devenus la première vitrine d’un commerce de proximité. Ils rassurent avant même la première visite, pèsent lourd dans le référencement local, et font souvent la différence entre deux établissements voisins. Pourtant, la plupart des clients satisfaits ne laissent jamais d’avis - non par mauvaise volonté, mais parce que personne ne le leur a demandé au bon moment, et que le parcours est trop long. Ce guide rassemble ce qui fonctionne vraiment pour obtenir plus d’avis Google, durablement et sans enfreindre les règles.",
+      },
+      { type: "h2", text: "Pourquoi les avis Google sont décisifs pour un commerce local" },
+      {
+        type: "p",
+        text: "Avant d’investir du temps dans la collecte, il faut mesurer ce qui est en jeu. Les avis Google ne sont pas un simple compteur d’étoiles : ils agissent, en même temps, sur votre visibilité, sur la décision d’achat et sur la confiance. Concrètement, quatre effets se cumulent :",
+      },
+      {
+        type: "ul",
+        items: [
+          "Référencement local : la note, le nombre d’avis et leur fraîcheur comptent parmi les signaux du « pack local » (les trois fiches affichées sur la carte). Voir notre guide sur les [avis et le référencement local](/guides/avis-google-commerce-local).",
+          "Taux de clic : face à plusieurs établissements, l’œil va d’abord à la note et au volume d’avis. Une belle fiche capte le clic avant même la visite.",
+          "Conversion et confiance : des avis récents et nombreux rassurent, lèvent le doute et déclenchent l’appel, la réservation ou la visite.",
+          "Recherche par IA (GEO) : les assistants (ChatGPT, Perplexity, Gemini, aperçus IA de Google) s’appuient sur les avis pour recommander un commerce. Bien noté et souvent commenté, on a plus de chances d’être cité.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Autrement dit, chaque avis supplémentaire travaille pour vous en continu, 24 h sur 24, sur tous les points de contact où un futur client vous découvre. C’est l’un des rares leviers marketing gratuits, cumulatifs et durables pour un commerce de proximité.",
       },
       { type: "h2", text: "Pourquoi vos clients satisfaits ne laissent pas d’avis" },
       {
@@ -89,6 +108,25 @@ export const GUIDES: Guide[] = [
         type: "p",
         text: "La bonne nouvelle : ces trois freins se lèvent avec une méthode simple. Demander au bon moment, réduire le geste au minimum, et rendre la demande systématique plutôt qu’exceptionnelle.",
       },
+      { type: "h2", text: "Récupérer le lien de votre page d’avis Google" },
+      {
+        type: "p",
+        text: "Avant de collecter, il faut le lien direct qui ouvre la fenêtre de rédaction d’avis - celui que vous placerez derrière un QR code, une puce NFC ou un bouton. Depuis votre fiche d’établissement (Google Business Profile) :",
+      },
+      {
+        type: "ol",
+        items: [
+          "Connectez-vous à votre profil d’établissement Google, avec le compte qui gère la fiche.",
+          "Ouvrez l’option « Demander des avis » (ou « Obtenir plus d’avis »).",
+          "Copiez le lien court proposé : c’est votre lien d’avis, à diffuser tel quel.",
+          "Testez-le sur votre téléphone : il doit ouvrir directement la fenêtre « Noter et décrire votre expérience ».",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Transformez ce lien en geste physique",
+        text: "Un lien seul ne suffit pas : il faut le mettre sous les yeux du client au bon moment. Encodé dans un QR code et une puce NFC sur un support de comptoir, il devient un simple scan. Notre guide dédié explique comment [créer et utiliser un QR code d’avis Google](/guides/qr-code-avis-google).",
+      },
       { type: "h2", text: "Le bon moment pour demander un avis" },
       {
         type: "p",
@@ -101,6 +139,10 @@ export const GUIDES: Guide[] = [
           "[Salon de coiffure](/guides/avis-google-coiffeur), [garage](/guides/avis-google-garage), prestation : à la remise des clés ou au paiement, quand le résultat est visible.",
           "Boutique, [boulangerie](/guides/avis-google-boulangerie) : à l’encaissement, avec un mot simple et un support à portée de main.",
         ],
+      },
+      {
+        type: "p",
+        text: "Le bon moment varie d’un secteur à l’autre : nous avons décliné la méthode métier par métier dans nos [guides par activité](/guides/par-metier), du restaurant au cabinet dentaire.",
       },
       { type: "h2", text: "Réduire le geste au minimum : le levier le plus efficace" },
       {
@@ -116,6 +158,24 @@ export const GUIDES: Guide[] = [
         type: "p",
         text: "Comparé à un lien envoyé par e-mail ou SMS (souvent ignoré ou noyé), le support physique capte le client tant qu’il est présent, motivé et disponible. C’est la différence entre « je le ferai » et « c’est fait ».",
       },
+      { type: "h2", text: "Quoi dire pour demander un avis, sans forcer" },
+      {
+        type: "p",
+        text: "Le support fait la moitié du travail ; le mot de l’équipe fait l’autre. Une phrase courte, sincère et sans pression multiplie les dépôts. L’essentiel : proposer, jamais insister, et s’adresser à tous les clients de la même façon. Quelques formulations qui fonctionnent :",
+      },
+      {
+        type: "ul",
+        items: [
+          "« Si vous avez passé un bon moment, un avis Google nous aide énormément - c’est juste ici, en un scan. »",
+          "« Votre avis compte beaucoup pour un commerce comme le nôtre ; ça prend dix secondes. »",
+          "« On essaie de faire connaître la maison : un petit mot sur Google, si le cœur vous en dit ? »",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Le piège à éviter",
+        text: "Ne conditionnez jamais la demande à la satisfaction (« si vous avez aimé, laissez un avis, sinon parlez-nous-en »). Filtrer ainsi les avis positifs est une pratique interdite par Google. On invite tout le monde, la note appartient au client.",
+      },
       { type: "h2", text: "Les méthodes qui fonctionnent, classées par efficacité" },
       {
         type: "ol",
@@ -125,6 +185,25 @@ export const GUIDES: Guide[] = [
           "Le QR code sur l’addition, le ticket ou le sac : utile en complément, moins immédiat que le comptoir.",
           "L’e-mail / SMS après visite : pertinent pour les prestations avec coordonnées, mais taux de réponse faible et délai qui refroidit l’enthousiasme.",
         ],
+      },
+      { type: "h2", text: "Impliquer et former votre équipe" },
+      {
+        type: "p",
+        text: "La collecte devient régulière quand toute l’équipe s’en empare, pas seulement le gérant. Il ne s’agit pas de forcer, mais de créer un réflexe partagé. Quatre points suffisent :",
+      },
+      {
+        type: "ol",
+        items: [
+          "Une phrase commune, courte, que chacun connaît et adapte à sa manière.",
+          "Un geste unique à montrer : approcher le téléphone du présentoir, ou scanner le QR.",
+          "Le bon déclencheur : le moment du paiement ou du départ, jamais avant.",
+          "Aucune pression : on propose une fois, avec le sourire, et l’on n’insiste pas.",
+        ],
+      },
+      { type: "h2", text: "Répondre aux avis : la seconde moitié du travail" },
+      {
+        type: "p",
+        text: "Collecter ne suffit pas : la façon dont vous [répondez aux avis](/guides/repondre-avis-google) pèse tout autant, aux yeux des clients comme de Google. Une réponse soignée valorise un client satisfait et montre, face à une critique, que vous êtes attentif. Nos guides détaillent comment [répondre à un avis négatif](/guides/repondre-avis-negatif) sans s’enflammer, et quoi faire pour [signaler un faux avis](/guides/supprimer-faux-avis-google). L’ensemble de ce volet est réuni dans le hub [gérer sa réputation](/guides/gerer-sa-reputation).",
       },
       { type: "h2", text: "Les règles de Google à respecter (sous peine de sanction)" },
       {
@@ -143,6 +222,39 @@ export const GUIDES: Guide[] = [
         type: "callout",
         title: "Conformité by design",
         text: "reviu propose le bouton « Avis Google » à tous les clients, sans tri selon la note. Un canal de contact privé est offert en complément - jamais comme un filtre pour éviter les avis négatifs. C’est la façon saine de collecter : plus d’avis, et des avis qui restent.",
+      },
+      {
+        type: "p",
+        text: "Attention, enfin, aux raccourcis qui se retournent contre vous. Acheter des avis ou en faire écrire par ses proches peut sembler tentant pour démarrer, mais Google détecte et sanctionne ces pratiques - et une note gonflée artificiellement finit par coûter plus cher qu’elle ne rapporte. La seule voie durable pour [faire monter sa note](/guides/augmenter-note-google) est le volume d’avis authentiques.",
+      },
+      { type: "h2", text: "Mesurer pour progresser" },
+      {
+        type: "p",
+        text: "Ce qui se mesure s’améliore. Sans chiffres, on ne sait pas quel emplacement ni quel discours fonctionne. Quelques indicateurs simples suffisent à piloter la collecte :",
+      },
+      {
+        type: "ul",
+        items: [
+          "Le nombre de scans par semaine, et leur évolution dans le temps.",
+          "La répartition entre le canal NFC et le QR code, pour savoir ce que préfèrent vos clients.",
+          "Le taux de clic vers Google (combien de scans aboutissent réellement sur la fiche).",
+          "Le nombre et la fraîcheur des nouveaux avis, établissement par établissement.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Un [tableau de bord](/#produits) qui distingue ces canaux transforme la collecte en boucle d’amélioration : on teste un emplacement, on compare, on garde ce qui marche.",
+      },
+      { type: "h2", text: "Les erreurs fréquentes à éviter" },
+      {
+        type: "ul",
+        items: [
+          "Ne demander qu’une fois par an, lors d’une opération ponctuelle, au lieu d’en faire une habitude.",
+          "Compter uniquement sur l’e-mail, alors que le comptoir capte le client au meilleur moment.",
+          "Réserver la demande aux clients qu’on croit contents : c’est du filtrage, interdit par Google.",
+          "Oublier de répondre aux avis, surtout aux négatifs, et laisser la fiche paraître à l’abandon.",
+          "Ne rien mesurer, et donc ne jamais savoir ce qui fait vraiment progresser la note.",
+        ],
       },
       { type: "h2", text: "Mettre en place une routine durable" },
       {
@@ -166,6 +278,22 @@ export const GUIDES: Guide[] = [
       {
         q: "Un QR code ou une puce NFC, est-ce vraiment plus efficace qu’un e-mail ?",
         a: "Dans un commerce physique, oui, très largement : le support capte le client au moment où il est satisfait et disponible, sans délai ni recherche. L’e-mail arrive plus tard, quand l’enthousiasme est retombé, et se perd souvent dans la boîte de réception.",
+      },
+      {
+        q: "Comment obtenir le lien pour laisser un avis Google ?",
+        a: "Depuis votre fiche d’établissement (Google Business Profile), ouvrez « Demander des avis » : Google vous fournit un lien court qui ouvre directement la fenêtre de rédaction. C’est ce lien que vous placez derrière un QR code, une puce NFC ou un bouton.",
+      },
+      {
+        q: "Est-il légal d’offrir une réduction contre un avis Google ?",
+        a: "Non. Offrir une contrepartie (réduction, cadeau, boisson) en échange d’un avis est interdit par Google et peut entraîner la suppression des avis, voire de la fiche. On peut fidéliser un client, jamais rémunérer l’avis lui-même.",
+      },
+      {
+        q: "À quelle fréquence faut-il demander des avis à ses clients ?",
+        a: "En continu, plutôt que par vagues : quelques avis chaque semaine valent mieux qu’un pic ponctuel suivi d’un long silence. La régularité et la fraîcheur rassurent les clients et sont appréciées de Google. Un support permanent sur le comptoir rend cette régularité naturelle.",
+      },
+      {
+        q: "Les avis Google améliorent-ils vraiment le référencement local ?",
+        a: "Oui : la note, le nombre d’avis et leur fraîcheur comptent parmi les signaux qui influencent le classement dans le « pack local » (les fiches affichées sur la carte). Ils ne font pas tout, mais un flux d’avis récents renforce nettement la visibilité locale.",
       },
     ],
     related: [
