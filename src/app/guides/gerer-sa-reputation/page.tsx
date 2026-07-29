@@ -3,10 +3,10 @@ import { getCategoryHub } from "@/lib/guides";
 import { buildMetadata } from "@/lib/seo";
 import { CategoryHubView } from "@/components/site/category-hub";
 
-// Page hub statique : URL propre `/guides/par-metier`, résolue avant la route
-// dynamique voisine `/guides/[slug]`. Contenu et données structurées dans
+// Page hub statique : URL propre `/guides/gerer-sa-reputation`, résolue avant la
+// route dynamique voisine `/guides/[slug]`. Contenu et données structurées dans
 // CategoryHubView ; ici on ne fournit que le hub et ses métadonnées.
-const hub = getCategoryHub("par-metier")!;
+const hub = getCategoryHub("gerer-sa-reputation")!;
 
 export const metadata: Metadata = buildMetadata({
   title: hub.metaTitle,
@@ -15,6 +15,6 @@ export const metadata: Metadata = buildMetadata({
   keywords: hub.keywords,
 });
 
-export default function ParMetierHubPage() {
+export default function GererSaReputationHubPage() {
   return <CategoryHubView hub={hub} />;
 }

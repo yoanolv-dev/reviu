@@ -89,7 +89,7 @@ export default function GuidesIndexPage() {
                     href={`/guides/${h.slug}`}
                     className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium text-ink transition-colors hover:border-brand/40 hover:text-brand"
                   >
-                    {h.h1}
+                    {h.label}
                     <span aria-hidden>→</span>
                   </Link>
                 ))}

@@ -80,7 +80,7 @@ export default async function GuidePage({ params }: Props) {
     breadcrumbSchema([
       { name: "Accueil", path: "/" },
       { name: "Guides", path: "/guides" },
-      ...(hub ? [{ name: "Par métier", path: `/guides/${hub.slug}` }] : []),
+      ...(hub ? [{ name: hub.label, path: `/guides/${hub.slug}` }] : []),
       { name: guide.h1, path: `/guides/${guide.slug}` },
     ]),
   );
@@ -106,7 +106,7 @@ export default async function GuidePage({ params }: Props) {
                 <>
                   <span className="mx-2 text-line">/</span>
                   <Link href={`/guides/${hub.slug}`} className="hover:text-ink">
-                    Par métier
+                    {hub.label}
                   </Link>
                 </>
               )}

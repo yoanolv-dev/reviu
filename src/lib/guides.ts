@@ -1605,6 +1605,8 @@ export type CategoryHub = {
   slug: string;
   /** Catégorie des guides regroupés (doit correspondre à `Guide.category`). */
   category: string;
+  /** Libellé court (fil d'Ariane, puces de navigation). */
+  label: string;
   metaTitle: string;
   h1: string;
   description: string;
@@ -1618,10 +1620,11 @@ export const CATEGORY_HUBS: CategoryHub[] = [
   {
     slug: "par-metier",
     category: "Par métier",
+    label: "Par métier",
     metaTitle: "Avis Google par métier : nos guides par secteur · reviu",
     h1: "Avis Google : nos guides par métier",
     description:
-      "Tous nos guides pour collecter plus d’avis Google, secteur par secteur : restaurant, coiffeur, garage, hôtel, boutique, dentiste et plus - avec la bonne méthode pour chaque métier.",
+      "Nos guides pour collecter plus d’avis Google, métier par métier : restaurant, coiffeur, garage, hôtel, boutique, dentiste - une méthode par secteur.",
     intro: [
       "Collecter des avis Google ne se joue pas de la même façon selon le métier. Le bon moment, l’endroit où poser le support et les mots à employer changent entre un restaurant, un salon de coiffure, un garage ou un hôtel. C’est pourquoi nous avons décliné notre méthode par secteur : chaque guide part des contraintes réelles du terrain pour vous donner des réflexes directement applicables.",
       "Le principe reste le même partout - demander au pic de satisfaction, réduire le geste à un scan, proposer à tous les clients dans les règles de Google - mais son application se personnalise. Choisissez votre métier ci-dessous pour la version taillée à votre commerce.",
@@ -1641,6 +1644,37 @@ export const CATEGORY_HUBS: CategoryHub[] = [
       {
         q: "Mon métier n’est pas dans la liste, que faire ?",
         a: "Partez du guide général pour obtenir plus d’avis Google : il pose la méthode complète, applicable à tout commerce de proximité. Les guides par métier ne sont que des déclinaisons de ces principes.",
+      },
+    ],
+  },
+  {
+    slug: "gerer-sa-reputation",
+    category: "Gérer sa réputation",
+    label: "Gérer sa réputation",
+    metaTitle:
+      "Gérer sa e-réputation sur Google : répondre, noter, corriger · reviu",
+    h1: "Gérer sa réputation sur Google",
+    description:
+      "Nos guides pour gérer votre e-réputation sur Google : répondre aux avis, faire face à un faux avis, faire remonter votre note - avec des méthodes concrètes.",
+    intro: [
+      "Collecter des avis ne suffit pas : encore faut-il en prendre soin. La façon dont vous répondez, dont vous réagissez à un avis injuste et dont vous faites vivre votre note pèse autant, aux yeux de Google et des clients, que le volume d’avis lui-même. Une fiche entretenue inspire confiance ; une fiche laissée à l’abandon inquiète.",
+      "Ces guides couvrent tout le versant « gestion » de votre réputation en ligne : répondre aux avis positifs comme négatifs, désamorcer une critique, signaler un faux avis, et faire remonter durablement votre note moyenne - toujours dans les règles de Google.",
+    ],
+    keywords: [
+      "gérer sa réputation google",
+      "e-réputation commerce",
+      "répondre aux avis google",
+      "augmenter sa note google",
+      "supprimer un faux avis google",
+    ],
+    faq: [
+      {
+        q: "Faut-il répondre à tous les avis Google ?",
+        a: "Idéalement oui : une réponse, même brève, aux avis positifs valorise le client, et une réponse posée aux avis négatifs rassure les futurs clients. C’est aussi un signal d’activité apprécié de Google.",
+      },
+      {
+        q: "Que faire d’un avis manifestement faux ?",
+        a: "On le signale à Google s’il enfreint ses règles (faux, hors sujet, injurieux, conflit d’intérêt), et l’on y répond publiquement avec calme en attendant. Le meilleur bouclier reste un flux régulier de vrais avis, qui dilue l’anomalie.",
       },
     ],
   },
