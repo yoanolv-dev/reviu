@@ -1,11 +1,100 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **28 juillet 2026**. **À lire en premier : la section
-> « 🟦 Reprise - état au 28/07 » ci-dessous fait foi.** Les parties « historiques »
-> plus bas datent d'avant le retrait de l'abonnement payant ; partout où elles
-> présentent l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**,
-> c'est **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste, lui,
-> valable).
+> Dernière mise à jour : **29 juillet 2026**. **À lire en premier : la section
+> « 🟩 Reprise - état au 29/07 » ci-dessous fait foi**, puis « 🟦 état au 28/07 »
+> pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
+> d'avant le retrait de l'abonnement payant ; partout où elles présentent
+> l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**, c'est
+> **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
+
+## 🟩 Reprise - état au 29 juillet 2026 (fait foi)
+
+**Session 100 % SEO/contenu + UI. Tout est sur `main`, déployé (Vercel).** Branche
+de dev de la session : `claude/seo-delivery-time-field-fn9xx2` (fast-forwardée sur
+`main`, donc à parité). **Aucune CI** dans le repo - la vérif de build se fait à la
+main (voir « Vérif »).
+
+### ⚠️ Conventions imposées par le client (à respecter absolument)
+- **AUCUN tiret cadratin `—` ni demi-cadratin `–`** nulle part (code, contenu,
+  commentaires, commits). Utiliser **essentiellement `-`**. Vérifier avant commit :
+  `grep -rl '—' --exclude-dir=node_modules --exclude-dir=.git .` doit être vide.
+- Le client valide chaque étape et aime les **aperçus visuels** (fichiers HTML
+  rendus) avant/après pour les changements de design.
+- **Mise en prod = sur demande explicite** (« mets en prod ») → fast-forward `main`.
+
+### Hub de contenu SEO (le gros du travail) - `src/lib/guides.ts`
+- **17 guides** (contre 6), tous SSG, avec `Article` + `FAQPage` + `BreadcrumbList`
+  (JSON-LD), sommaire, fil d'Ariane. Data + helpers centralisés dans `guides.ts` :
+  `GUIDES`, `CATEGORY_HUBS`, `getGuide`, `guideSlugs`, `getCategoryHub`,
+  `hubSlugForCategory`, `guidesInCategory`, `headingId`.
+- **Cluster « Par métier » (9)** : restaurant, coiffeur, garage, boulangerie,
+  institut-beaute, hotel, boutique, dentiste, salle-de-sport.
+- **Cluster « Gérer sa réputation » (4)** : repondre-avis-google,
+  supprimer-faux-avis-google, repondre-avis-negatif, augmenter-note-google.
+- **Pilier `avoir-plus-avis-google`** enrichi : ~2100 mots, 13 sections H2, 7 FAQ.
+- **2 pages hub indexables** : `/guides/par-metier`, `/guides/gerer-sa-reputation`
+  (routes statiques `src/app/guides/<slug>/page.tsx`, vue partagée
+  `src/components/site/category-hub.tsx`, définies dans `CATEGORY_HUBS`). Ajoutées
+  au sitemap automatiquement. Pour créer un hub : ajouter une entrée `CATEGORY_HUBS`
+  + une route statique fine (wrapper). Ne créer un hub que si la catégorie a assez
+  de guides (>= 3-4) - sinon page mince = risque d'indexation.
+- **Maillage** : `related[]` par guide (validé sans orphelin) + **liens contextuels
+  in-body** via une syntaxe `[libellé](/chemin)` parsée par `richText()` dans
+  `src/app/guides/[slug]/page.tsx`. ⚠️ **JAMAIS de lien dans les réponses FAQ**
+  (elles alimentent le JSON-LD `FAQPage` et doivent rester en texte brut).
+- **Image OG par guide** : route `src/app/guides/[slug]/opengraph-image.tsx`
+  (`next/og`, texte = catégorie + titre). `buildMetadata` accepte un param `image`.
+- **Cover illustrée par article** : `src/components/site/guide-cover.tsx` - SVG
+  généré, **déterministe par slug** (dégradé cobalt par catégorie + étoiles dorées +
+  monogramme). Affichée sur les cartes (index + hubs) et en bannière d'article.
+- **Index `/guides`** : section « Parcourir par thème » (cartes de catégorie) au-
+  dessus de la grille.
+
+### Navigation & UI
+- **Menu « Option B »** (`NAV` dans `src/lib/brand.ts`, type `NavItem` avec
+  `children`) : « Le présentoir » (`/#produits`), **« Guides » avec sous-menu**
+  (Tous les guides, Par métier, Gérer sa réputation), « Démo ». Sous-menu déroulant
+  accessible survol + focus clavier (`src/components/site/site-header.tsx`), version
+  mobile indentée. Ancres redondantes retirées ; texte du menu à 15 px.
+- **Titres accentués** : dernier mot en bleu de marque via
+  `accentLastWord()` (`src/components/ui/accent.tsx`), appliqué aux héros + titres
+  de section des pages vitrine (boutique, revendeur, demo, hubs, h1 des guides).
+  **Exclus** : corps d'articles, FAQ, cartes, titres sur fond sombre, titres techos.
+- **Bandeau** (`announce-bar.tsx`) : « Livraison offerte dès 50 € » sur **tous les
+  formats** ; réassurances secondaires en `lg:` seulement.
+- **Étapes d'activation** (boutique `STEPS`) réécrites (QR imprimé sur le présentoir /
+  code secret + lien fiche Google / installation comptoir).
+- **Module d'achat** (`stand-order.tsx`) : paliers dégressifs en **cartes cliquables**
+  (tranche, prix unitaire, économie/unité) ; **mention revendeur retirée**.
+- **Pages d'activation** (`src/app/r/[code]/activate-flow.tsx`) : logo de marque
+  (`LogoBadge`, nouvel export de `logo.tsx`) à la place de l'étoile ; écran de
+  confirmation avec pastille verte de succès.
+
+### Fiche produit & divers
+- `deliveryTime` ajouté dans `offers.shippingDetails` du `productSchema` (`seo.ts`)
+  - handlingTime 0-1 j, transitTime 2-5 j (aligné sur `delivery_estimate` Stripe).
+- **Page `/revendeur`** enrichie SEO : JSON-LD `BreadcrumbList` + `FAQPage`, section
+  FAQ (5 Q), liens internes vers produit + pilier. Toujours liée depuis le **footer**
+  (pas dans le menu principal - audience B2B distincte).
+
+### Décisions / questions en attente
+- **« Blog » vs « Guides »** : le client a demandé pourquoi pas « blog ». Reco donnée
+  et retenue = **garder « Guides »** (meilleure intention SEO, evergreen ; renommer
+  imposerait des 301 sur `/guides/*`). Rester sur « Guides ».
+- ⚠️ **Incohérence non résolue** : `/revendeur` (page + FAQ) référence encore
+  l'**abonnement 2,99 €/mois** (« reviu garde le récurrent »), ce qui contredit le
+  repositionnement « offre incluse, sans abonnement » du 28/07. Décision produit
+  toujours **en attente** (quel modèle récurrent ?). Ne pas oublier avant refonte.
+
+### Vérif (dépendances installées cette session)
+- `pnpm install` puis **`npx tsc --noEmit`**, **`pnpm build`** (70/70 pages),
+  **`pnpm lint`** : tous verts (seul warning pré-existant : `formatDate` inutilisé
+  dans `admin/stands/stands-admin.tsx`).
+- Mise en prod : `git checkout main && git reset --hard origin/main &&
+  git merge --ff-only <branche> && git push origin main`.
+
+---
+
 
 ## 🟦 Reprise - état au 28 juillet 2026 (fait foi)
 
