@@ -22,8 +22,7 @@ function unitCentsFor(qty: number, tiers: Tier[]): number {
 /**
  * Sélecteur de quantité + achat du présentoir, avec tarif dégressif calculé en
  * direct. La quantité est postée à `startShopCheckout` (le serveur recalcule le
- * prix par palier, source de vérité). Au-delà du plafond public, on oriente
- * vers la page revendeur.
+ * prix par palier, source de vérité).
  */
 export function StandOrder({
   tiers,
@@ -94,30 +93,61 @@ export function StandOrder({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 text-xs text-muted">
-        {tiers.map((t, i) => {
-          const upTo = tiers[i + 1] ? tiers[i + 1].min - 1 : null;
-          const label =
-            upTo && upTo !== t.min
-              ? `${t.min}-${upTo}`
-              : upTo === t.min
-                ? `${t.min}`
-                : `${t.min}+`;
-          const activeTier = unitCentsFor(qty, tiers) === t.unitCents;
-          return (
-            <span
-              key={t.min}
-              className={
-                "rounded-full border px-2.5 py-1 " +
-                (activeTier
-                  ? "border-brand/50 bg-brand-soft text-brand"
-                  : "border-line")
-              }
-            >
-              {label} : {euros(t.unitCents)}
-            </span>
-          );
-        })}
+      <div>
+        <p className="mb-2 text-xs font-medium text-muted">
+          Tarif dégressif{" "}
+          <span className="text-ink-soft">- plus vous en prenez, moins c&apos;est cher</span>
+        </p>
+        <div
+          className="grid gap-2"
+          style={{ gridTemplateColumns: `repeat(${tiers.length}, minmax(0, 1fr))` }}
+        >
+          {tiers.map((t, i) => {
+            const upTo = tiers[i + 1] ? tiers[i + 1].min - 1 : null;
+            const label =
+              upTo && upTo !== t.min
+                ? `${t.min}-${upTo}`
+                : upTo === t.min
+                  ? `${t.min}`
+                  : `${t.min}+`;
+            const activeTier = unitCentsFor(qty, tiers) === t.unitCents;
+            const perUnitSaving = baseUnit - t.unitCents;
+            return (
+              <button
+                type="button"
+                key={t.min}
+                onClick={() => set(t.min)}
+                aria-pressed={activeTier}
+                className={
+                  "flex flex-col items-center rounded-xl border px-2 py-2.5 text-center transition-colors " +
+                  (activeTier
+                    ? "border-brand bg-brand-soft shadow-[var(--shadow-soft)]"
+                    : "border-line bg-canvas hover:border-brand/40")
+                }
+              >
+                <span
+                  className={
+                    "text-[11px] font-medium " +
+                    (activeTier ? "text-brand" : "text-muted")
+                  }
+                >
+                  {label} présentoir{t.min > 1 ? "s" : ""}
+                </span>
+                <span
+                  className={
+                    "mt-0.5 font-display text-[15px] font-semibold " +
+                    (activeTier ? "text-brand" : "text-ink")
+                  }
+                >
+                  {euros(t.unitCents)}
+                </span>
+                <span className="mt-0.5 text-[10px] leading-tight text-muted">
+                  {perUnitSaving > 0 ? `- ${euros(perUnitSaving)} / unité` : "l'unité"}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div
@@ -165,11 +195,7 @@ export function StandOrder({
 
       <p className="text-center text-xs text-muted">
         Achat unique, sans frais supplémentaires. Espace Reviu inclus dès
-        l&apos;activation. Besoin de plus de {max} présentoirs pour revendre ?{" "}
-        <a href="/revendeur" className="font-medium text-brand hover:underline">
-          Devenez revendeur
-        </a>
-        .
+        l&apos;activation.
       </p>
     </div>
   );

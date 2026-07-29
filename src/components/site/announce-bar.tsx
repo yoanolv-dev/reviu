@@ -14,14 +14,14 @@ export function AnnounceBar() {
           <TruckIcon />
           Livraison offerte dès {SHIPPING.freeFromLabel}
         </span>
-        <span aria-hidden className="hidden text-white/40 sm:inline">
+        <span aria-hidden className="hidden text-white/40 lg:inline">
           •
         </span>
-        <span className="hidden sm:inline">Espace Reviu inclus</span>
-        <span aria-hidden className="hidden text-white/40 md:inline">
+        <span className="hidden lg:inline">Espace Reviu inclus</span>
+        <span aria-hidden className="hidden text-white/40 lg:inline">
           •
         </span>
-        <span className="hidden md:inline">Compatible iPhone et Android</span>
+        <span className="hidden lg:inline">Compatible iPhone et Android</span>
       </div>
     </div>
   );

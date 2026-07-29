@@ -57,7 +57,7 @@ export function SiteHeader() {
                 <div key={item.href} className="group relative">
                   <a
                     href={item.href}
-                    className="relative inline-flex items-center gap-1 py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink group-focus-within:text-ink"
+                    className="relative inline-flex items-center gap-1 py-1 text-[15px] font-medium text-ink-soft transition-colors hover:text-ink group-focus-within:text-ink"
                   >
                     {item.label}
                     <IconChevron />
@@ -82,7 +82,7 @@ export function SiteHeader() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="group relative py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+                  className="group relative py-1 text-[15px] font-medium text-ink-soft transition-colors hover:text-ink"
                 >
                   {item.label}
                   <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-brand transition-transform duration-200 group-hover:scale-x-100" />
