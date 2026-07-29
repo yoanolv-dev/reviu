@@ -2,7 +2,7 @@
 
 import { useState, useTransition, type FormEvent } from "react";
 import { activateStand } from "@/lib/activation-actions";
-import { StarMark } from "@/components/ui/logo";
+import { LogoBadge } from "@/components/ui/logo";
 import { Field } from "@/components/ui/field";
 import { APP_BASE, REDIRECT_BASE } from "@/lib/brand";
 
@@ -36,9 +36,7 @@ export function ActivateFlow({ code }: { code: string }) {
   if (step === "config") {
     return (
       <div className={card}>
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand">
-          <StarMark className="h-6 w-6" />
-        </div>
+        <LogoBadge className="mx-auto h-16 w-16 drop-shadow-[0_12px_24px_-12px_var(--color-brand)]" />
         <h1 className="mt-5 text-center font-display text-xl font-semibold text-ink">
           Configurez votre présentoir
         </h1>
@@ -96,8 +94,22 @@ export function ActivateFlow({ code }: { code: string }) {
   const publicUrl = `${REDIRECT_BASE.replace(/^https?:\/\//, "")}/${code}`;
   return (
     <div className={`${card} text-center`}>
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-emerald-600">
-        <StarMark className="h-6 w-6" />
+      <div className="relative mx-auto h-16 w-16">
+        <LogoBadge className="h-16 w-16 drop-shadow-[0_12px_24px_-12px_var(--color-brand)]" />
+        <span className="absolute -bottom-1 -right-1 grid h-6 w-6 place-items-center rounded-full bg-emerald-500 text-white ring-2 ring-surface">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-3.5 w-3.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </span>
       </div>
       <h1 className="mt-5 font-display text-xl font-semibold text-ink">
         Présentoir activé&nbsp;!

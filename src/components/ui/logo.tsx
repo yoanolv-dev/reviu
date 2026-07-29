@@ -44,6 +44,25 @@ export function LogoMark({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Badge logo complet : monogramme « r » cobalt + point doré (l'étoile d'avis
+ * Google). Version « app icon » de la marque, pensée comme visuel d'en-tête
+ * (pages d'activation, écrans de confirmation). Cobalt piloté par le token de
+ * thème pour rester cohérent en clair comme en sombre.
+ */
+export function LogoBadge({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} role="img" aria-label="reviu">
+      <rect x="4" y="4" width="40" height="40" rx="13" fill="var(--color-brand)" />
+      <path
+        d="M18 35V16.5h5.4v3.1c1.2-2.2 3.3-3.4 6.1-3.4.6 0 1.1.05 1.6.15v5.1c-.7-.2-1.4-.3-2.2-.3-3.3 0-5.5 2-5.5 5.6V35H18Z"
+        fill="#fff"
+      />
+      <circle cx="33.5" cy="14.5" r="3.6" fill={REVIEW_GOLD} />
+    </svg>
+  );
+}
+
 export function Logo({
   className,
   mark = true,
