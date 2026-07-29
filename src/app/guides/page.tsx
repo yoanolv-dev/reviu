@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { buttonClass } from "@/components/ui/button";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
+import { GuideCover } from "@/components/site/guide-cover";
 import { GUIDES, CATEGORY_HUBS } from "@/lib/guides";
 import { APP_BASE } from "@/lib/brand";
 import { buildMetadata, graph, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
@@ -81,18 +82,60 @@ export default function GuidesIndexPage() {
         <section>
           <Container className="py-14 sm:py-16">
             {CATEGORY_HUBS.length > 0 && (
-              <div className="mb-8 flex flex-wrap items-center gap-3">
-                <span className="text-sm text-muted">Parcourir par thème :</span>
-                {CATEGORY_HUBS.map((h) => (
-                  <Link
-                    key={h.slug}
-                    href={`/guides/${h.slug}`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium text-ink transition-colors hover:border-brand/40 hover:text-brand"
-                  >
-                    {h.label}
-                    <span aria-hidden>→</span>
-                  </Link>
-                ))}
+              <div className="mb-12">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h2 className="font-display text-lg font-semibold tracking-tight text-ink">
+                    Parcourir par thème
+                  </h2>
+                  <span className="text-sm text-muted">{GUIDES.length} guides</span>
+                </div>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {CATEGORY_HUBS.map((h) => {
+                    const count = GUIDES.filter(
+                      (g) => g.category === h.category,
+                    ).length;
+                    return (
+                      <Link
+                        key={h.slug}
+                        href={`/guides/${h.slug}`}
+                        className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-brand/40"
+                      >
+                        <div>
+                          <p className="font-display text-base font-semibold text-ink group-hover:text-brand">
+                            {h.label}
+                          </p>
+                          <p className="mt-0.5 text-sm text-muted">
+                            {count} guide{count > 1 ? "s" : ""}
+                          </p>
+                        </div>
+                        <span
+                          aria-hidden
+                          className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-soft text-brand transition-transform group-hover:translate-x-0.5"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M5 12h14M13 6l6 6-6 6" />
+                          </svg>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <div className="mt-8 flex items-center gap-3">
+                  <span className="h-px flex-1 bg-line" />
+                  <span className="text-xs font-medium uppercase tracking-widest text-muted">
+                    Tous les guides
+                  </span>
+                  <span className="h-px flex-1 bg-line" />
+                </div>
               </div>
             )}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -100,37 +143,44 @@ export default function GuidesIndexPage() {
                 <Reveal key={g.slug} delay={i * 70} className="h-full">
                 <Link
                   href={`/guides/${g.slug}`}
-                  className="elev elev-hover group flex h-full flex-col rounded-3xl border border-line bg-surface p-6"
+                  className="elev elev-hover group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface"
                 >
-                  <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand">
-                    {g.category}
-                  </span>
-                  <h2 className="mt-4 font-display text-lg font-semibold leading-snug tracking-tight text-ink group-hover:text-brand">
-                    {g.h1}
-                  </h2>
-                  <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
-                    {g.excerpt}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-                    Lire le guide
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      <path d="M5 12h14M13 6l6 6-6 6" />
-                    </svg>
-                  </span>
-                  <span className="mt-3 text-xs text-muted">
-                    {g.readMinutes} min de lecture
-                  </span>
+                  <GuideCover
+                    slug={g.slug}
+                    category={g.category}
+                    className="aspect-[16/9] w-full"
+                  />
+                  <div className="flex flex-1 flex-col p-6">
+                    <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand">
+                      {g.category}
+                    </span>
+                    <h2 className="mt-4 font-display text-lg font-semibold leading-snug tracking-tight text-ink group-hover:text-brand">
+                      {g.h1}
+                    </h2>
+                    <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
+                      {g.excerpt}
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+                      Lire le guide
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden
+                        className="transition-transform group-hover:translate-x-0.5"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </span>
+                    <span className="mt-3 text-xs text-muted">
+                      {g.readMinutes} min de lecture
+                    </span>
+                  </div>
                 </Link>
                 </Reveal>
               ))}

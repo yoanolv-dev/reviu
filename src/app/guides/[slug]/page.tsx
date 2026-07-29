@@ -25,6 +25,7 @@ import {
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { accentLastWord } from "@/components/ui/accent";
+import { GuideCover } from "@/components/site/guide-cover";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -139,8 +140,17 @@ export default async function GuidePage({ params }: Props) {
           </Container>
         </section>
 
+        {/* COVER ILLUSTRÉE */}
+        <Container className="pt-10 sm:pt-12">
+          <GuideCover
+            slug={guide.slug}
+            category={guide.category}
+            className="aspect-[16/5] w-full rounded-3xl border border-line"
+          />
+        </Container>
+
         {/* CORPS + SOMMAIRE */}
-        <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[1fr_260px] lg:gap-16">
+        <Container className="grid gap-12 pb-12 pt-10 sm:pb-16 sm:pt-12 lg:grid-cols-[1fr_260px] lg:gap-16">
           <article className="max-w-2xl">
             {guide.blocks.map((block, i) => (
               <Block key={i} block={block} />

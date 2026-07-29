@@ -15,6 +15,7 @@ import {
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { accentLastWord } from "@/components/ui/accent";
+import { GuideCover } from "@/components/site/guide-cover";
 
 /**
  * Vue partagée d'une page hub de catégorie (contenu éditorial unique + grille
@@ -95,37 +96,44 @@ export function CategoryHubView({ hub }: { hub: CategoryHub }) {
                 <Reveal key={g.slug} delay={i * 60} className="h-full">
                   <Link
                     href={`/guides/${g.slug}`}
-                    className="elev elev-hover group flex h-full flex-col rounded-3xl border border-line bg-surface p-6"
+                    className="elev elev-hover group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface"
                   >
-                    <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand">
-                      {g.category}
-                    </span>
-                    <h2 className="mt-4 font-display text-lg font-semibold leading-snug tracking-tight text-ink group-hover:text-brand">
-                      {g.h1}
-                    </h2>
-                    <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
-                      {g.excerpt}
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-                      Lire le guide
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden
-                        className="transition-transform group-hover:translate-x-0.5"
-                      >
-                        <path d="M5 12h14M13 6l6 6-6 6" />
-                      </svg>
-                    </span>
-                    <span className="mt-3 text-xs text-muted">
-                      {g.readMinutes} min de lecture
-                    </span>
+                    <GuideCover
+                      slug={g.slug}
+                      category={g.category}
+                      className="aspect-[16/9] w-full"
+                    />
+                    <div className="flex flex-1 flex-col p-6">
+                      <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand">
+                        {g.category}
+                      </span>
+                      <h2 className="mt-4 font-display text-lg font-semibold leading-snug tracking-tight text-ink group-hover:text-brand">
+                        {g.h1}
+                      </h2>
+                      <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
+                        {g.excerpt}
+                      </p>
+                      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+                        Lire le guide
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden
+                          className="transition-transform group-hover:translate-x-0.5"
+                        >
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </span>
+                      <span className="mt-3 text-xs text-muted">
+                        {g.readMinutes} min de lecture
+                      </span>
+                    </div>
                   </Link>
                 </Reveal>
               ))}
