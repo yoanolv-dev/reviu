@@ -15,9 +15,10 @@ de dev de la session : `claude/seo-delivery-time-field-fn9xx2` (fast-forwardée 
 main (voir « Vérif »).
 
 ### ⚠️ Conventions imposées par le client (à respecter absolument)
-- **AUCUN tiret cadratin `—` ni demi-cadratin `–`** nulle part (code, contenu,
-  commentaires, commits). Utiliser **essentiellement `-`**. Vérifier avant commit :
-  `grep -rl '—' --exclude-dir=node_modules --exclude-dir=.git .` doit être vide.
+- **AUCUN tiret cadratin (U+2014) ni demi-cadratin (U+2013)** nulle part (code,
+  contenu, commentaires, commits). Utiliser **essentiellement `-`**. Vérifier avant
+  commit : `grep -rln $'\u2014' --exclude-dir=node_modules --exclude-dir=.git .`
+  doit être vide (adapter pour U+2013 au besoin).
 - Le client valide chaque étape et aime les **aperçus visuels** (fichiers HTML
   rendus) avant/après pour les changements de design.
 - **Mise en prod = sur demande explicite** (« mets en prod ») → fast-forward `main`.
