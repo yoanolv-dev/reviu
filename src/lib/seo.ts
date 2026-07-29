@@ -195,6 +195,24 @@ export function productSchema(p: ProductInput) {
           "@type": "DefinedRegion",
           addressCountry: "FR",
         },
+        // Délai de livraison : aligné sur l'estimation affichée au checkout
+        // (2 à 5 jours ouvrés, cf. delivery_estimate dans stripe-actions.ts),
+        // avec un délai de préparation de 0 à 1 jour ouvré.
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 0,
+            maxValue: 1,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 5,
+            unitCode: "DAY",
+          },
+        },
       },
       // Retours : droit de rétractation légal de 14 jours (vente à distance,
       // droit français) ; les frais de retour restent à la charge du client.
