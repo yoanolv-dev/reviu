@@ -1,4 +1,4 @@
--- Reviu — Admin account management (list, edit, disable, delete, assign, transfer).
+-- Reviu - Admin account management (list, edit, disable, delete, assign, transfer).
 -- All SECURITY DEFINER + is_admin() (delete is super_admin only). Account-level
 -- events are recorded in stand_audit with a null stand_id.
 

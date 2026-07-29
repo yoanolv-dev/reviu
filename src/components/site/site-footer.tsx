@@ -92,7 +92,7 @@ export function SiteFooter() {
             {GOOGLE_DISCLAIMER}
           </p>
           <div className="flex flex-col gap-1 text-xs text-muted sm:items-end">
-            <span>© {new Date().getFullYear()} reviu — NEVIFY</span>
+            <span>© {new Date().getFullYear()} reviu - NEVIFY</span>
             <span>Conçu en France 🇫🇷</span>
           </div>
         </div>

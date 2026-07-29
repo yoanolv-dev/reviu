@@ -5,7 +5,7 @@ export const SITE = {
 } as const;
 
 /**
- * Nom commercial et descriptif du produit — à employer partout, sans varier
+ * Nom commercial et descriptif du produit - à employer partout, sans varier
  * (pas de « plaque », « borne », « carte », « support », « hub »… dans le
  * discours commercial). « plaque NFC avis Google » reste réservé au SEO.
  */
@@ -15,11 +15,11 @@ export const PRODUCT = {
 } as const;
 
 /**
- * LEGACY — l'ancien « abonnement de suivi » 2,99 €/mois. Le repositionnement a
+ * LEGACY - l'ancien « abonnement de suivi » 2,99 €/mois. Le repositionnement a
  * INTÉGRÉ ses fonctions (statistiques, gestion, modification du lien) à l'espace
  * Reviu inclus avec la plaque : il n'est plus proposé dans le parcours
  * commerçant. Cette constante n'est conservée que pour les canaux non encore
- * migrés (programme revendeur, formation, e-mails) — à retirer lors de leur
+ * migrés (programme revendeur, formation, e-mails) - à retirer lors de leur
  * refonte. Ne pas réutiliser côté commerçant.
  */
 export const SUBSCRIPTION = {
@@ -69,7 +69,7 @@ export const INCLUDED_SPACE = {
 } as const;
 
 /**
- * Reviu Pro — offre AVANCÉE À VENIR (non disponible, aucun achat pour l'instant).
+ * Reviu Pro - offre AVANCÉE À VENIR (non disponible, aucun achat pour l'instant).
  * Présentée comme optionnelle : la plaque reste complète sans elle. Le CTA se
  * limite à une inscription (liste d'attente), jamais un paiement.
  */

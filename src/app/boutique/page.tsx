@@ -27,9 +27,9 @@ import { StandOrder } from "./stand-order";
 
 export const metadata: Metadata = buildMetadata({
   title:
-    "Présentoir NFC + QR pour avis Google — 29,90 €, espace Reviu inclus · reviu",
+    "Présentoir NFC + QR pour avis Google - 29,90 €, espace Reviu inclus · reviu",
   description:
-    "reviu — le présentoir NFC + QR code pour obtenir plus d'avis Google sur votre commerce. Vos clients laissent leur avis en un geste, sans application ni frais récurrents. 29,90 € TTC, achat unique, espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android.",
+    "reviu - le présentoir NFC + QR code pour obtenir plus d'avis Google sur votre commerce. Vos clients laissent leur avis en un geste, sans application ni frais récurrents. 29,90 € TTC, achat unique, espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android.",
   path: "/",
   keywords: [
     "présentoir avis Google",
@@ -195,7 +195,7 @@ export default function BoutiquePage() {
     ...(stand
       ? [
           productSchema({
-            name: "Présentoir Reviu — NFC + QR code pour avis Google",
+            name: "Présentoir Reviu - NFC + QR code pour avis Google",
             description:
               "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans frais supplémentaires ; espace Reviu inclus (statistiques, gestion, modification du lien).",
             priceCents: stand.priceCents,
@@ -217,7 +217,7 @@ export default function BoutiquePage() {
       <JsonLd schema={schema} />
       <SiteHeader />
       <main className="bg-canvas">
-        {/* 1 — HERO — occupe toute la hauteur visible à l'arrivée sur le site.
+        {/* 1 - HERO - occupe toute la hauteur visible à l'arrivée sur le site.
             Hauteur = 100svh moins le chrome haut FIXE : bandeau d'annonce
             (AnnounceBar, h-9 = 36px) + header sticky (h-[68px]) = 104px. On
             utilise svh (et non vh) pour que le hero ne soit jamais coupé par la
@@ -245,7 +245,7 @@ export default function BoutiquePage() {
                     className={buttonClass("primary", "lg", "w-full sm:w-auto")}
                   >
                     <span className="sm:hidden">Commander le présentoir</span>
-                    <span className="hidden sm:inline">Commander — {STAND_PRICE}</span>
+                    <span className="hidden sm:inline">Commander - {STAND_PRICE}</span>
                   </a>
                   <a
                     href="#fonctionnement"
@@ -274,7 +274,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 2 — COMMENT ÇA MARCHE (fonctionnement + démonstration fusionnés) */}
+        {/* 2 - COMMENT ÇA MARCHE (fonctionnement + démonstration fusionnés) */}
         <section id="fonctionnement" className="scroll-mt-20 border-b border-line">
           <Container className="py-14 sm:py-16">
             <Reveal>
@@ -319,7 +319,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 3 — PRODUIT ET COMMANDE (galerie + fiche + achat) */}
+        {/* 3 - PRODUIT ET COMMANDE (galerie + fiche + achat) */}
         <section id="produits" className="scroll-mt-20 border-b border-line bg-surface">
           <Container className="py-14 sm:py-20">
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
@@ -331,7 +331,7 @@ export default function BoutiquePage() {
               {/* Achat */}
               <div>
                 <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  Présentoir Reviu — NFC + QR
+                  Présentoir Reviu - NFC + QR
                 </h2>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-soft">
                   Le présentoir connecté qui envoie vos clients vers votre page
@@ -409,7 +409,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 4 — POURQUOI ÇA MARCHE (3 bénéfices) */}
+        {/* 4 - POURQUOI ÇA MARCHE (3 bénéfices) */}
         <section className="border-b border-line">
           <Container className="py-14 sm:py-16">
             <Reveal>
@@ -456,7 +456,7 @@ export default function BoutiquePage() {
                   ))}
                 </ul>
               </div>
-              {/* Reviu Pro — à venir, optionnel */}
+              {/* Reviu Pro - à venir, optionnel */}
               <div className="flex flex-col rounded-3xl border border-line bg-canvas p-7">
                 <span className="w-fit rounded-full bg-line-soft px-3 py-1 text-xs font-semibold text-muted">
                   {REVIU_PRO.status}
@@ -489,7 +489,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 5 — MISE EN SITUATION (3 environnements) */}
+        {/* 5 - MISE EN SITUATION (3 environnements) */}
         <section id="pour-qui" className="scroll-mt-20 border-b border-line bg-surface">
           <Container className="py-14 sm:py-16">
             <Reveal>
@@ -520,7 +520,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 6 — RÉASSURANCE + conformité (pas de faux témoignages) */}
+        {/* 6 - RÉASSURANCE + conformité (pas de faux témoignages) */}
         {/* Structure prête à accueillir jusqu'à 3 vrais témoignages clients,
             à ajouter uniquement lorsqu'ils existeront (aucune preuve inventée). */}
         <section className="border-b border-line">
@@ -541,7 +541,7 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 7 — FAQ + CTA FINAL */}
+        {/* 7 - FAQ + CTA FINAL */}
         <section id="faq" className="scroll-mt-20 border-b border-line">
           <Container className="py-14 sm:py-16">
             <Reveal>
@@ -576,7 +576,7 @@ export default function BoutiquePage() {
                 <a href="#produits" className={buttonClass("primary", "lg", "border-transparent")}>
                   <span className="sm:hidden">Commander le présentoir</span>
                   <span className="hidden sm:inline">
-                    Commander mon présentoir — {STAND_PRICE}
+                    Commander mon présentoir - {STAND_PRICE}
                   </span>
                 </a>
               </div>

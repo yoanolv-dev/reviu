@@ -1,4 +1,4 @@
--- Reviu — Correct least-privilege EXECUTE grants.
+-- Reviu - Correct least-privilege EXECUTE grants.
 --
 -- Postgres grants EXECUTE to PUBLIC by default, and PUBLIC includes anon.
 -- Revoking "from anon" alone leaves the PUBLIC grant in place, so anon could
@@ -6,7 +6,7 @@
 -- roles that legitimately call each function.
 --
 -- Critical: feedback_notification_target returns a merchant's email and has no
--- internal guard — it must be reachable ONLY by the service role (server-side).
+-- internal guard - it must be reachable ONLY by the service role (server-side).
 
 -- Internal / service-role only ---------------------------------------------
 revoke all on function public.feedback_notification_target(uuid) from public, anon, authenticated;
@@ -55,4 +55,4 @@ end $$;
 
 -- The public review journey stays anon-callable (guarded internally by design):
 --   resolve_stand, record_scan, submit_feedback, activate_stand,
---   self_set_subscription — left untouched.
+--   self_set_subscription - left untouched.

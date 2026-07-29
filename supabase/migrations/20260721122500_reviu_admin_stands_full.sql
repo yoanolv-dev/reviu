@@ -1,4 +1,4 @@
--- Reviu — Detailed stand listing for the admin console (assignment + status).
+-- Reviu - Detailed stand listing for the admin console (assignment + status).
 create or replace function public.admin_list_stands_full(p_limit integer default 500, p_search text default null)
 returns table(
   id uuid, code text, status text, batch_label text,

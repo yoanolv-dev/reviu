@@ -10,7 +10,7 @@ import { STAND_PRICE } from "@/lib/brand";
 import { ApplicationForm } from "./application-form";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Devenir revendeur reviu — présentoirs d'avis Google",
+  title: "Devenir revendeur reviu - présentoirs d'avis Google",
   description:
     "Revendez les présentoirs reviu près de chez vous : tarif de gros sur candidature, conditions de revente claires et une formation accompagnée sur demande. Postulez en 2 minutes.",
   path: "/revendeur",

@@ -1,4 +1,4 @@
--- Reviu — Admin RPCs for batch lifecycle, stand status, replacement, listings.
+-- Reviu - Admin RPCs for batch lifecycle, stand status, replacement, listings.
 -- All are SECURITY DEFINER and guarded by is_admin(); every sensitive mutation
 -- is recorded in stand_audit.
 

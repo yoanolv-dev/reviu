@@ -1,6 +1,6 @@
--- Reviu — Real, DB-backed admin roles (replaces email-only admin gating).
+-- Reviu - Real, DB-backed admin roles (replaces email-only admin gating).
 --
--- Before: is_admin() matched the caller's email against the app_admins table —
+-- Before: is_admin() matched the caller's email against the app_admins table -
 -- a single fragile condition tied to an email address. Now admin authority is a
 -- proper `role` on profiles, checked server-side. app_admins is kept only as a
 -- break-glass bootstrap so we can never lock ourselves out.

@@ -74,7 +74,7 @@ export async function submitResellerApplication(
 
   const sent = await sendEmail({
     to: ADMIN_NOTIFY_EMAIL,
-    subject: `Candidature revendeur — ${name} (${city})`,
+    subject: `Candidature revendeur - ${name} (${city})`,
     html,
     replyTo: email,
   });

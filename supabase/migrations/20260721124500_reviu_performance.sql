@@ -1,4 +1,4 @@
--- Reviu — Performance: RLS init-plan, FK indexes, aggregate RPCs.
+-- Reviu - Performance: RLS init-plan, FK indexes, aggregate RPCs.
 --
 -- 1) Wrap auth.uid() in (select auth.uid()) so Postgres evaluates it ONCE per
 --    query instead of once per row (Supabase lint 0003_auth_rls_initplan).

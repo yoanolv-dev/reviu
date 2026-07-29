@@ -125,7 +125,7 @@ export default async function DemoPage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a href={BOUTIQUE_URL} className={buttonClass("primary", "lg")}>
-                Commander mon présentoir — {STAND_PRICE}
+                Commander mon présentoir - {STAND_PRICE}
               </a>
               <Link
                 href="/r/demo"
@@ -494,13 +494,13 @@ export default async function DemoPage() {
           </Container>
         </section>
 
-        {/* L'OFFRE — un seul achat principal, sans frais récurrent */}
+        {/* L'OFFRE - un seul achat principal, sans frais récurrent */}
         <section className="border-t border-line bg-surface" id="offre">
           <Container className="py-16 sm:py-20">
             <div className="mx-auto max-w-2xl text-center">
               <Kicker>L&apos;offre</Kicker>
               <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                Présentoir Reviu — {STAND_PRICE} TTC.
+                Présentoir Reviu - {STAND_PRICE} TTC.
               </h2>
               <p className="mt-3 text-ink-soft">
                 Un achat unique, sans frais supplémentaires. Le présentoir
@@ -523,7 +523,7 @@ export default async function DemoPage() {
                 href={BOUTIQUE_URL}
                 className={buttonClass("primary", "lg", "mt-8")}
               >
-                Commander mon présentoir — {STAND_PRICE}
+                Commander mon présentoir - {STAND_PRICE}
               </a>
               <p className="mt-6 text-xs leading-relaxed text-muted">
                 Espace Reviu inclus : statistiques (QR et NFC), gestion et
@@ -550,7 +550,7 @@ export default async function DemoPage() {
             </h2>
             <div className="flex flex-wrap gap-3">
               <a href={BOUTIQUE_URL} className={buttonClass("primary", "lg")}>
-                Commander — {STAND_PRICE}
+                Commander - {STAND_PRICE}
               </a>
               <a
                 href={`${APP_BASE}/signup`}

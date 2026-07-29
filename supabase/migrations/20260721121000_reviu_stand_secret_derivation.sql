@@ -1,4 +1,4 @@
--- Reviu — Activation secret derived from the public code (HMAC), not stored.
+-- Reviu - Activation secret derived from the public code (HMAC), not stored.
 --
 -- The stand carries ONE public identifier (`code`) in its QR/NFC. Activation is
 -- gated by a short secret that is printed discreetly on the stand but NEVER
@@ -10,7 +10,7 @@
 -- secret. Clients cannot call the derivation function (EXECUTE revoked), so the
 -- code being public does not leak the secret.
 
--- 1. Server-only HMAC key (created once, permanent — do NOT rotate: rotating it
+-- 1. Server-only HMAC key (created once, permanent - do NOT rotate: rotating it
 --    would change every already-printed stand's activation secret).
 do $$
 begin
@@ -26,7 +26,7 @@ end $$;
 -- 2. Track which secret scheme a stand uses (null = legacy/no secret).
 alter table public.stands add column if not exists secret_version smallint;
 
--- 3. Derivation function — SECURITY DEFINER, NOT callable by clients.
+-- 3. Derivation function - SECURITY DEFINER, NOT callable by clients.
 create or replace function public.derive_stand_secret(p_code text)
 returns text
 language plpgsql

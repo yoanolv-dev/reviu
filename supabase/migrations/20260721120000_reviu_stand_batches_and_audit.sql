@@ -1,4 +1,4 @@
--- Reviu — Production-grade stand generation: batches, audit trail, lifecycle.
+-- Reviu - Production-grade stand generation: batches, audit trail, lifecycle.
 --
 -- Context: stands carry a permanent PUBLIC identifier (`code`) printed in the
 -- QR code and NFC chip. After a batch is validated/exported to the supplier,

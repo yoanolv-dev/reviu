@@ -1,4 +1,4 @@
--- Reviu — Comportement au scan, par établissement.
+-- Reviu - Comportement au scan, par établissement.
 --
 -- Le lien physique gravé dans les présentoirs (r.reviu.fr/<code>) pointe vers
 -- notre serveur : on peut donc changer ce qui se passe au scan sans jamais

@@ -1,4 +1,4 @@
--- Reviu — Transactional email on a NEW private feedback ("avis/retour" saved in
+-- Reviu - Transactional email on a NEW private feedback ("avis/retour" saved in
 -- Reviu). NOTE: this only covers feedback recorded inside Reviu (the `feedback`
 -- table, from /r/[code]/feedback). Google reviews are never seen by Reviu (the
 -- stand only redirects to Google), so they cannot and must not be detected here.
@@ -22,7 +22,7 @@ begin
   return v_id;
 end; $$;
 
--- Notification target — merchant email + context. SERVICE ROLE ONLY (revoked
+-- Notification target - merchant email + context. SERVICE ROLE ONLY (revoked
 -- from anon/authenticated) so a public feedback submitter can never read a
 -- merchant's email address.
 create or replace function public.feedback_notification_target(p_feedback uuid)

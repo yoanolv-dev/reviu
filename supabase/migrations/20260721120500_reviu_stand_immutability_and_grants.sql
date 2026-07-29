@@ -1,4 +1,4 @@
--- Reviu — Immutability & least-privilege for the public identifier.
+-- Reviu - Immutability & least-privilege for the public identifier.
 --
 -- Problem found in audit: the `authenticated` (and `anon`) roles held
 -- INSERT/UPDATE/DELETE on public.stands. The RLS policy `stands by owner` is

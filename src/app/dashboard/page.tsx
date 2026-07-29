@@ -28,7 +28,7 @@ export default async function DashboardHome() {
         <BuyStandButton className="shrink-0" />
       </div>
 
-      {/* Statistiques — incluses avec votre plaque, sans frais supplémentaires */}
+      {/* Statistiques - incluses avec votre plaque, sans frais supplémentaires */}
       <div>
         <div className="grid gap-4 sm:grid-cols-3">
           <StatCard label="Scans" value={stats.views} className="reveal-1" />
@@ -77,7 +77,7 @@ export default async function DashboardHome() {
         </div>
       </section>
 
-      {/* Reviu Pro — bientôt disponible : carte discrète, ne bloque rien. */}
+      {/* Reviu Pro - bientôt disponible : carte discrète, ne bloque rien. */}
       <section className="rounded-3xl border border-line bg-surface p-6">
         <div className="flex flex-wrap items-center gap-2.5">
           <h2 className="font-display text-base font-semibold text-ink">
@@ -89,7 +89,7 @@ export default async function DashboardHome() {
         </div>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Connexion à Google Business Profile, centralisation des avis, réponses
-          et alertes, assistance IA et analyses avancées. En option, bientôt —
+          et alertes, assistance IA et analyses avancées. En option, bientôt -
           vos fonctionnalités actuelles restent inchangées.
         </p>
         <a

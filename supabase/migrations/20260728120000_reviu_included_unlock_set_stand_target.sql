@@ -5,8 +5,8 @@
 --
 -- Garde-fous conservés :
 --  - vérification de propriété du présentoir (un compte ne modifie que ses
---    présentoirs) — INCHANGÉE ;
---  - l'adresse encodée QR/NFC du présentoir (`code`) reste immuable — non
+--    présentoirs) - INCHANGÉE ;
+--  - l'adresse encodée QR/NFC du présentoir (`code`) reste immuable - non
 --    touchée ici, seul `target_url` (la destination) est modifiable.
 -- (Appliquée en production le 28/07/2026.)
 create or replace function public.set_stand_target(p_stand_id uuid, p_url text)

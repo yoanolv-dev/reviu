@@ -24,7 +24,7 @@ export function StandManage({
 
   return (
     <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4">
-      {/* Modification du lien — incluse avec la plaque, sans frais supplémentaires.
+      {/* Modification du lien - incluse avec la plaque, sans frais supplémentaires.
           L'adresse encodée QR/NFC du présentoir, elle, ne change jamais. */}
       <form action={tgtAction} className="flex flex-col gap-2">
         <label className="text-xs font-medium text-ink-soft">

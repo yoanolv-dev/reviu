@@ -1,13 +1,13 @@
-# reviu — note de reprise
+# reviu - note de reprise
 
 > Dernière mise à jour : **28 juillet 2026**. **À lire en premier : la section
-> « 🟦 Reprise — état au 28/07 » ci-dessous fait foi.** Les parties « historiques »
+> « 🟦 Reprise - état au 28/07 » ci-dessous fait foi.** Les parties « historiques »
 > plus bas datent d'avant le retrait de l'abonnement payant ; partout où elles
 > présentent l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**,
-> c'est **OBSOLÈTE** (le détail technique — présentoirs, Stripe, RLS — reste, lui,
+> c'est **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste, lui,
 > valable).
 
-## 🟦 Reprise — état au 28 juillet 2026 (fait foi)
+## 🟦 Reprise - état au 28 juillet 2026 (fait foi)
 
 ### ⚠️ Le point qui a changé : plus d'abonnement payant
 - Le présentoir est un **achat unique 29,90 €**. L'**espace Reviu est INCLUS,
@@ -33,7 +33,7 @@
   **à forcer côté Vercel** : `www.reviu.fr` → *Redirect to* `reviu.fr`.
 - **`www` et `reviu.fr` = le MÊME site** (même code/contenu), pas deux versions.
 - **Rendu** : Next.js 16 (App Router + Turbopack). **Toutes les pages publiques sont
-  SSG/statiques** — HTML complet (titres, H1/H2, liens, JSON-LD) **sans JS client**.
+  SSG/statiques** - HTML complet (titres, H1/H2, liens, JSON-LD) **sans JS client**.
   → **NE PAS migrer** vers Astro/autre.
 
 ### Livré cette session (tout est sur `main`, déployé)
@@ -44,7 +44,7 @@
 - **Hero pleine hauteur** sur `/boutique` : `min-h-[calc(100svh-104px)]` (104px =
   bandeau 36 + header 68), `svh`, contenu centré, mobile texte-d'abord.
 - **Description SEO** de l'accueil renforcée (mène par la marque + le produit).
-- **Footer refondu épuré** (typo + blanc + air, sans bandeau/pastilles/icônes) —
+- **Footer refondu épuré** (typo + blanc + air, sans bandeau/pastilles/icônes) -
   `src/components/site/site-footer.tsx`.
 
 ### Chantiers ouverts (un AUDIT SEO complet a été produit en artefact)
@@ -52,14 +52,14 @@
   (`src/proxy.ts`) ; ajouter `/revendeur` au `sitemap.ts` ; côté Search Console :
   « Valider la correction » + demander l'indexation de `/` et `/guides` + ajouter
   une propriété **Domaine**.
-- **P1** : **images crawlables** — `ProductPhoto`/`ProductGallery` utilisent des
+- **P1** : **images crawlables** - `ProductPhoto`/`ProductGallery` utilisent des
   `background-image` CSS (0 `<img>`) → non indexables par Google Images + risque
   LCP ; passer en `<img>`/`next/image` (alt, dimensions, `priority` sur le hero).
   Fichiers : `src/components/site/product-photo.tsx`, `product-gallery.tsx`,
   `src/app/boutique/page.tsx`. Intégrer « présentoir/plaque NFC avis Google » dans
   le H1/H2 de l'accueil. Créer des **pages sectorielles** (restaurant, coiffeur,
   hôtel, garage…).
-- **P2** : **pages locales programmatiques** (Nîmes, Occitanie, villes) — c'est LE
+- **P2** : **pages locales programmatiques** (Nîmes, Occitanie, villes) - c'est LE
   levier pour l'objectif « top SERP local » ; `aggregateRating` sur Product (avec
   de VRAIS avis uniquement) ; schémas affinés.
 - **⚠️ Décision produit en attente** : le contenu **revendeur & formation**
@@ -68,7 +68,7 @@
   → incohérent avec l'offre incluse. À trancher AVANT réécriture : quel modèle
   récurrent pour reviu maintenant (aucun ? Reviu Pro plus tard ?).
 - **SANS OBJET** : le « digest hebdomadaire » mentionné dans l'historique visait
-  l'abonnement 2,99 € qui n'existe plus — à ne pas construire en l'état.
+  l'abonnement 2,99 € qui n'existe plus - à ne pas construire en l'état.
 
 ### Repères dev & vérification
 - Build/dev exigent les variables `NEXT_PUBLIC_*` (placeholders OK en local).
@@ -90,15 +90,15 @@
 
 ## État : EN PRODUCTION ✅
 
-- **`app.reviu.fr`** — application SaaS (Next.js 16 / App Router sur Vercel).
-- **`r.reviu.fr`** — redirection NFC/QR (même app Next, host réécrit par `src/proxy.ts`).
-- **`reviu.fr`** — **site vitrine public servi par la même app** (landing + pages légales).
-  ⚠️ **Domaine pas encore branché sur Vercel** — voir « Actions manuelles ».
+- **`app.reviu.fr`** - application SaaS (Next.js 16 / App Router sur Vercel).
+- **`r.reviu.fr`** - redirection NFC/QR (même app Next, host réécrit par `src/proxy.ts`).
+- **`reviu.fr`** - **site vitrine public servi par la même app** (landing + pages légales).
+  ⚠️ **Domaine pas encore branché sur Vercel** - voir « Actions manuelles ».
 - **Données + Auth → Supabase** (projet ref `sudspaqmgqwhyabflyzi`, région eu-central-1).
 
 Branche par défaut = **`main`** ; Vercel redéploie à chaque push. Développement sur branche +
 PR vers `main`. **Code et base synchronisés** (migrations dans `supabase/migrations/`, mais
-certaines fonctions/tables vivent directement dans la base — voir « Base de données »).
+certaines fonctions/tables vivent directement dans la base - voir « Base de données »).
 
 ## Mises à jour récentes (à connaître pour la reprise)
 
@@ -111,7 +111,7 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
   - **Packs & formation retirés du shop public** (toujours vendables aux
     revendeurs validés ; `getProduct` les connaît encore pour la CGV).
   - Nouvelle section **Abonnement** présentée comme une offre de **services**
-    (réputation/alertes, récap hebdo, accompagnement humain) — `SUBSCRIPTION`
+    (réputation/alertes, récap hebdo, accompagnement humain) - `SUBSCRIPTION`
     enrichi dans `brand.ts`.
   - **Livraison** : offerte dès **50 €**, sinon **3,90 €** de port
     (`FREE_SHIPPING_THRESHOLD_CENTS`, `SHIPPING_FEE_CENTS`, `shippingFeeCents`
@@ -119,7 +119,7 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
     du header.
   - Nouvelle page **`/revendeur`** : conditions de revente + **formulaire de
     candidature envoyé par e-mail** au propriétaire (`submitResellerApplication`
-    dans `src/lib/reseller-application-actions.ts` — à ne pas confondre avec
+    dans `src/lib/reseller-application-actions.ts` - à ne pas confondre avec
     `reseller-actions.ts`, l'admin des revendeurs validés). La formation devient
     **accompagnée sur demande** (écran verrouillé `/formation` → `/revendeur`).
   - **Reste à faire (Phase 2 abonnement, choisi mais non développé)** : **digest
@@ -133,7 +133,7 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
 - **Responsive** : `SiteHeader` est un composant client avec **menu déroulant mobile**
   (hamburger) à la place de la CTA ; hero ajusté (tailles fluides, photo capée/centrée mobile).
   `ProductPhoto` = `background-image` CSS sur dégradé de marque (repli fiable, sans JS ; plus
-  jamais d'image cassée). **Photos à déposer** dans `public/products/` (voir son README) — de
+  jamais d'image cassée). **Photos à déposer** dans `public/products/` (voir son README) - de
   préférence en **WebP compressé** (~1000 px, < 120 Ko) pour le LCP.
 - **Perf** : parcours de scan non bloquant (écritures via `after()`, redirection immédiate ; le
   mode « direct » va droit vers Google sans passer par `/go`). Dashboard : `getCurrentUser`
@@ -151,8 +151,8 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
 
 ## Site vitrine public (nouveau)
 
-- **`/home`** — landing. Positionnement **« avis public ou retour privé, au choix du client »**.
-- **`/demo`** — page démo produit (QR réel généré au build, maquettes dashboard/parcours, tarifs à
+- **`/home`** - landing. Positionnement **« avis public ou retour privé, au choix du client »**.
+- **`/demo`** - page démo produit (QR réel généré au build, maquettes dashboard/parcours, tarifs à
   2 offres : Essentiel 2,99 € dispo / Pro « bientôt »). Bande de commerces = **exemples illustratifs**
   à remplacer par de vrais clients.
 - **Pages légales** (route group `src/app/(legal)/`, layout avec header/footer) :
@@ -160,7 +160,7 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
 - `/vitrine` **redirige** désormais vers `/home` (ancienne landing supprimée).
 - En-tête/pied partagés : `src/components/site/{site-header,site-footer}.tsx`.
 
-### Conformité Google (fait — ne pas réintroduire)
+### Conformité Google (fait - ne pas réintroduire)
 - **Aucun review gating** : le bouton « Avis Google » est proposé à **tous** les clients ; le retour
   privé est présenté comme un **canal de contact complémentaire**, jamais comme un filtre.
 - **Pas de promesses invérifiables** : aucun témoignage/stat fictif ; un clic ≠ un avis publié.
@@ -174,19 +174,19 @@ certaines fonctions/tables vivent directement dans la base — voir « Base de d
 - Design tokens dans `src/app/globals.css` : cobalt `--color-brand`, accent doré `--color-accent`,
   ombres, micro-animations (`.reveal`, `.pop`, `.elev` ; respect de `prefers-reduced-motion`).
 
-## Système de présentoirs (production-ready) — NE PAS CASSER
+## Système de présentoirs (production-ready) - NE PAS CASSER
 
 - `code` = **identifiant public permanent** (QR + NFC), immuable (trigger), non supprimable après
   validation/export. Écritures directes révoquées → tout passe par des RPC `SECURITY DEFINER`.
-- **Secret d'activation** = HMAC-SHA256 d'une clé **Vault** (`stand_activation_key`, permanente —
+- **Secret d'activation** = HMAC-SHA256 d'une clé **Vault** (`stand_activation_key`, permanente -
   **ne jamais régénérer**). Jamais stocké, reproductible pour l'export.
 - **Lots** (`stand_batches`) : `draft → validated → exported` (verrouillage définitif).
-- **Export fournisseur** `.xlsx` par lot (`/admin/export?batch=<id>`, avec secret) — verrouille le lot.
+- **Export fournisseur** `.xlsx` par lot (`/admin/export?batch=<id>`, avec secret) - verrouille le lot.
   Export global `/admin/export` = **sans** secret.
 - ⚠️ **100 présentoirs commandés** : leurs codes/URL/secrets sont **physiques et figés**. Toute
   évolution doit rester compatible (le comportement est côté serveur, jamais dans l'URL gravée).
 
-## Comportement au scan (nouveau — `establishments.scan_mode`)
+## Comportement au scan (nouveau - `establishments.scan_mode`)
 
 Réglable par établissement dans le dashboard (Établissement) :
 - **`direct`** (défaut) : le scan enregistre la vue puis **redirige immédiatement** vers l'avis Google
@@ -196,14 +196,14 @@ Réglable par établissement dans le dashboard (Établissement) :
 Migration `supabase/migrations/20260723120000_reviu_establishment_scan_mode.sql` (appliquée en prod).
 `resolve_stand` renvoie désormais `scan_mode`. Logique dans `src/app/r/[code]/page.tsx`.
 
-## Abonnement Stripe — RÉEL (code fait, config à finir)
+## Abonnement Stripe - RÉEL (code fait, config à finir)
 
-Remplace l'ancienne simulation. **La table `subscriptions` avait déjà les colonnes Stripe** — aucune
+Remplace l'ancienne simulation. **La table `subscriptions` avait déjà les colonnes Stripe** - aucune
 migration nécessaire.
-- `src/lib/stripe.ts` — client Stripe serveur + helpers.
-- `src/lib/stripe-actions.ts` — `startCheckoutAction` (dashboard), `openBillingPortalAction`
+- `src/lib/stripe.ts` - client Stripe serveur + helpers.
+- `src/lib/stripe-actions.ts` - `startCheckoutAction` (dashboard), `openBillingPortalAction`
   (gérer/résilier), `startSelfCheckout` (parcours scan, gardé par le secret d'activation).
-- `src/app/api/stripe/webhook/route.ts` — **source de vérité** : met à jour `subscriptions` via le
+- `src/app/api/stripe/webhook/route.ts` - **source de vérité** : met à jour `subscriptions` via le
   service role après vérification de signature (`checkout.session.completed`,
   `customer.subscription.created/updated/deleted`).
 - Entitlement = `status in ('active','trialing')` → `isTracked()`.
@@ -219,12 +219,12 @@ abonnement **2,99 €/mois** par présentoir. Les boutons « Commander » pointe
 Vraie boutique servie par la même app, sur `reviu.fr/boutique` (routes non réécrites par
 `proxy.ts`, servies telles quelles). Remplace toute idée de site Shopify externe.
 
-- **Catalogue** — source de vérité unique des prix : `src/lib/shop.ts` (`CATALOG`, montants en
+- **Catalogue** - source de vérité unique des prix : `src/lib/shop.ts` (`CATALOG`, montants en
   centimes, surchargeables par `SHOP_PRICE_*`). 4 produits : `stand` (29,90 €), `formation`
   (49 €, numérique), `pack10` (199 €) et `pack20` (349 €) = formation + 10/20 présentoirs.
 - **Pages** : `/boutique` (vitrine + cartes produit), `/boutique/merci` (confirmation, vérifie
   la session Stripe côté serveur), `/formation` (espace formation protégé).
-- **Checkout** : `startShopCheckout` (`src/lib/stripe-actions.ts`) — Stripe Checkout
+- **Checkout** : `startShopCheckout` (`src/lib/stripe-actions.ts`) - Stripe Checkout
   `mode: 'payment'`, `price_data` en ligne (aucun produit Stripe à créer), collecte d'adresse
   pour le physique, `invoice_creation`, `allow_promotion_codes`. Bouton client : `buy-button.tsx`.
 - **Webhook** (`api/stripe/webhook`) : le cas `checkout.session.completed` branche sur `mode`.
@@ -246,12 +246,12 @@ Vraie boutique servie par la même app, sur `reviu.fr/boutique` (routes non ré�
 **Modèle retenu : « marge physique ».** Le revendeur achète les présentoirs en
 pack remisé et les revend : sa rémunération = la **marge à la revente**, encaissée
 une fois. **reviu garde 100 % du récurrent** (abonnement 2,99 €/mois), vendu en
-direct au commerçant — notamment par e-mail. Pas de commission récurrente.
+direct au commerçant - notamment par e-mail. Pas de commission récurrente.
 
 - **Attribution** : `stands.reseller_id` (nullable) relie un présentoir à un
   `resellers`. Écritures via RPC `SECURITY DEFINER` (comme les stands).
 - **Espace revendeur** `/dashboard/revendeur` (lien de nav affiché si `getIsReseller()`)
-  — **informatif** : présentoirs attribués / déployés / commerçants abonnés + code
+  - **informatif** : présentoirs attribués / déployés / commerçants abonnés + code
   revendeur. Aucune notion d'argent. RPC `reseller_overview`, `reseller_stands`.
 - **Admin** `/admin/resellers` : créer un revendeur (à partir de l'e-mail d'un
   compte existant) et lui attribuer des présentoirs (par codes ou par lot).
@@ -289,7 +289,7 @@ NEXT_PUBLIC_SITE_URL=https://reviu.fr               # site vitrine (canonical)
 SUPABASE_SERVICE_ROLE_KEY=...       # webhook Stripe, notifs e-mail, dérivation secret
 RESEND_API_KEY=...                  # envoi e-mails (Resend, domaine reviu.fr vérifié)
 REVIU_EMAIL_FROM=reviu <avis@reviu.fr>
-STRIPE_SECRET_KEY=sk_live_...       # ⚠️ jamais dans le code — Vercel uniquement
+STRIPE_SECRET_KEY=sk_live_...       # ⚠️ jamais dans le code - Vercel uniquement
 STRIPE_PRICE_ID=price_...           # tarif récurrent 2,99 €/mois
 STRIPE_WEBHOOK_SECRET=whsec_...     # créé à l'ajout du endpoint webhook
 # REVIU_SHOP_SECRET=...             # signe les accès formation (défaut : SERVICE_ROLE_KEY)
@@ -315,7 +315,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...     # créé à l'ajout du endpoint webhook
    `/reset-password`).
 6. **Boutique** : déposer les **photos produit** dans `public/products/` (voir son README) ;
    ajuster les prix si besoin dans `src/lib/shop.ts`. Le **contenu de la formation** est désormais
-   rédigé (`src/app/formation/page.tsx`, `MODULES`) — relire/affiner le discours au besoin. La
+   rédigé (`src/app/formation/page.tsx`, `MODULES`) - relire/affiner le discours au besoin. La
    boutique fonctionne dès que Stripe est configuré (§2).
 7. **Clé Vault** `stand_activation_key` : déjà créée, **ne jamais supprimer/régénérer**.
 
@@ -330,7 +330,7 @@ Plusieurs objets vivent **directement dans la base** (pas dans les migrations du
 ## Reste à faire / limites
 
 - **Intégration GBP** (lire/répondre aux avis + stats de fiche) : à développer après l'accès API Google.
-- **Offre Pro** : présentée « bientôt » sur `/demo` (alertes, réponses IA, GBP, multi-établissements) —
+- **Offre Pro** : présentée « bientôt » sur `/demo` (alertes, réponses IA, GBP, multi-établissements) -
   pas encore de 2ᵉ prix Stripe ni de fonctionnalités.
 - **Quick wins possibles** (sans dépendre de Google) : alertes nouveaux avis, réponses IA, digest hebdo.
 - **Avis Google** non détectés (aucune intégration GBP) ; seuls les retours privés `feedback` sont gérés.

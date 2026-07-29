@@ -11,7 +11,7 @@
 
 ---
 
-## 1. Magic Link — Subject : `Votre lien de connexion à reviu`
+## 1. Magic Link - Subject : `Votre lien de connexion à reviu`
 
 ```html
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Votre lien de connexion sécurisé à reviu.</div>
@@ -41,7 +41,7 @@
 
 ---
 
-## 2. Confirm signup — Subject : `Confirmez votre inscription à reviu`
+## 2. Confirm signup - Subject : `Confirmez votre inscription à reviu`
 
 ```html
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Confirmez votre adresse pour activer votre compte reviu.</div>
@@ -71,7 +71,7 @@
 
 ---
 
-## 3. Reset Password — Subject : `Réinitialisez votre mot de passe reviu`
+## 3. Reset Password - Subject : `Réinitialisez votre mot de passe reviu`
 
 ```html
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Choisissez un nouveau mot de passe pour votre compte reviu.</div>
@@ -101,7 +101,7 @@
 
 ---
 
-## 4. Change Email Address — Subject : `Confirmez votre nouvelle adresse e-mail`
+## 4. Change Email Address - Subject : `Confirmez votre nouvelle adresse e-mail`
 
 ```html
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Confirmez le changement d'adresse e-mail de votre compte reviu.</div>
