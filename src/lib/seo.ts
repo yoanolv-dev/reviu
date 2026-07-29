@@ -36,6 +36,11 @@ type BuildMeta = {
   /** Dates ISO pour les articles (og:article). */
   publishedTime?: string;
   modifiedTime?: string;
+  /**
+   * Chemin d'une image OG spécifique à la page (ex. l'image générée par guide).
+   * Par défaut, l'image de marque servie par la route `/opengraph-image`.
+   */
+  image?: string;
 };
 
 /**
@@ -53,12 +58,15 @@ export function buildMetadata({
   index = true,
   publishedTime,
   modifiedTime,
+  image,
 }: BuildMeta): Metadata {
   const url = absoluteUrl(path);
-  // Image OG de marque servie par la route `opengraph-image`. On la référence
-  // explicitement : dès qu'une page définit son propre bloc `openGraph`, Next
-  // n'injecte plus automatiquement l'image issue de la convention de fichier.
-  const ogImage = absoluteUrl("/opengraph-image");
+  // Image OG servie par une route `opengraph-image` (convention de fichier).
+  // Par défaut celle de la racine (marque) ; une page peut fournir la sienne
+  // (ex. image générée par guide) via `image`. On la référence explicitement :
+  // dès qu'une page définit son propre bloc `openGraph`, Next n'injecte plus
+  // automatiquement l'image issue de la convention de fichier.
+  const ogImage = absoluteUrl(image ?? "/opengraph-image");
   return {
     title,
     description,

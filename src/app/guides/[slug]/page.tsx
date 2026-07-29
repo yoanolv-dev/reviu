@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     type: "article",
     publishedTime: g.datePublished,
     modifiedTime: g.dateModified ?? g.datePublished,
+    image: `/guides/${g.slug}/opengraph-image`,
   });
 }
 
@@ -66,6 +67,7 @@ export default async function GuidePage({ params }: Props) {
       datePublished: guide.datePublished,
       dateModified: guide.dateModified,
       keywords: guide.keywords,
+      image: `/guides/${guide.slug}/opengraph-image`,
     }),
     faqSchema(guide.faq),
     breadcrumbSchema([
@@ -234,6 +236,46 @@ export default async function GuidePage({ params }: Props) {
   );
 }
 
+// Liens contextuels dans le corps : une syntaxe légère `[libellé](/chemin)`
+// dans le texte source des guides est convertie en vrais liens. C'est le signal
+// de maillage interne le plus fort pour Google, avec des ancres porteuses de
+// sens. Le contenu des guides est statique et maîtrisé (pas d'entrée externe),
+// le rendu est donc sûr. On ne l'applique qu'au corps, jamais aux réponses FAQ
+// (qui alimentent le JSON-LD et doivent rester en texte brut).
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+function richText(text: string): React.ReactNode {
+  if (!text.includes("](")) return text;
+  const parts: React.ReactNode[] = [];
+  let last = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  LINK_RE.lastIndex = 0;
+  while ((m = LINK_RE.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index));
+    const label = m[1];
+    const href = m[2];
+    const cls =
+      "font-medium text-brand underline decoration-brand/30 underline-offset-2 transition-colors hover:decoration-brand";
+    if (href.startsWith("http")) {
+      parts.push(
+        <a key={key++} href={href} className={cls} target="_blank" rel="noopener noreferrer">
+          {label}
+        </a>,
+      );
+    } else {
+      parts.push(
+        <Link key={key++} href={href} className={cls}>
+          {label}
+        </Link>,
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return parts;
+}
+
 // ── Rendu d'un bloc de contenu ───────────────────────────────────────────────
 function Block({ block }: { block: GuideBlock }) {
   switch (block.type) {
@@ -255,7 +297,7 @@ function Block({ block }: { block: GuideBlock }) {
     case "p":
       return (
         <p className="mt-4 text-[15px] leading-relaxed text-ink-soft sm:text-base">
-          {block.text}
+          {richText(block.text)}
         </p>
       );
     case "ul":
@@ -264,7 +306,7 @@ function Block({ block }: { block: GuideBlock }) {
           {block.items.map((it) => (
             <li key={it} className="flex items-start gap-3 text-[15px] leading-relaxed text-ink-soft sm:text-base">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
-              {it}
+              {richText(it)}
             </li>
           ))}
         </ul>
@@ -277,7 +319,7 @@ function Block({ block }: { block: GuideBlock }) {
               <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-soft text-xs font-semibold text-brand">
                 {i + 1}
               </span>
-              {it}
+              {richText(it)}
             </li>
           ))}
         </ol>
@@ -289,7 +331,7 @@ function Block({ block }: { block: GuideBlock }) {
             {block.title}
           </p>
           <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-            {block.text}
+            {richText(block.text)}
           </p>
         </div>
       );

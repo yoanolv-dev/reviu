@@ -97,15 +97,15 @@ export const GUIDES: Guide[] = [
       {
         type: "ul",
         items: [
-          "Restaurant, café : au moment de l’addition, quand le client est encore attablé et détendu.",
-          "Salon, garage, prestation : à la remise des clés ou au paiement, quand le résultat est visible.",
-          "Boutique : à l’encaissement, avec un mot simple et un support à portée de main.",
+          "[Restaurant, café](/guides/avis-google-restaurant) : au moment de l’addition, quand le client est encore attablé et détendu.",
+          "[Salon de coiffure](/guides/avis-google-coiffeur), [garage](/guides/avis-google-garage), prestation : à la remise des clés ou au paiement, quand le résultat est visible.",
+          "Boutique, [boulangerie](/guides/avis-google-boulangerie) : à l’encaissement, avec un mot simple et un support à portée de main.",
         ],
       },
       { type: "h2", text: "Réduire le geste au minimum : le levier le plus efficace" },
       {
         type: "p",
-        text: "Chaque étape supprimée entre l’envie et l’avis publié augmente le taux de dépôt. L’idéal : un seul geste. C’est exactement le rôle d’un présentoir posé sur le comptoir, muni d’une puce NFC et d’un QR code. Le client approche son téléphone ou scanne, et la page d’avis Google de l’établissement s’ouvre directement - pas de recherche, pas de saisie.",
+        text: "Chaque étape supprimée entre l’envie et l’avis publié augmente le taux de dépôt. L’idéal : un seul geste. C’est exactement le rôle d’un [présentoir posé sur le comptoir, muni d’une puce NFC et d’un QR code](/guides/presentoir-plaque-nfc-avis-google). Le client approche son téléphone ou scanne, et la page d’avis Google de l’établissement s’ouvre directement - pas de recherche, pas de saisie.",
       },
       {
         type: "callout",
@@ -147,11 +147,11 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mettre en place une routine durable" },
       {
         type: "p",
-        text: "Obtenir des avis n’est pas une opération ponctuelle, c’est une habitude. Les établissements qui progressent le plus sont ceux qui ont intégré la demande dans leur service quotidien : le support est visible en permanence, l’équipe sait quoi dire, et l’on suit les résultats pour ajuster. Un tableau de bord (scans, clics vers Google, canal NFC ou QR) transforme cette routine en boucle d’amélioration.",
+        text: "Obtenir des avis n’est pas une opération ponctuelle, c’est une habitude. Les établissements qui progressent le plus sont ceux qui ont intégré la demande dans leur service quotidien : le support est visible en permanence, l’équipe sait quoi dire, et l’on suit les résultats pour ajuster. Un [tableau de bord](/#produits) (scans, clics vers Google, canal NFC ou QR) transforme cette routine en boucle d’amélioration.",
       },
       {
         type: "p",
-        text: "En combinant bon moment, geste unique et régularité, un commerce passe de quelques avis par an à un flux régulier - celui qui fait grimper la note, le classement local, et la confiance des nouveaux clients.",
+        text: "En combinant bon moment, geste unique et régularité, un commerce passe de quelques avis par an à un flux régulier - celui qui fait grimper la note, le [classement local](/guides/avis-google-commerce-local), et la confiance des nouveaux clients.",
       },
     ],
     faq: [
@@ -172,6 +172,7 @@ export const GUIDES: Guide[] = [
       "presentoir-plaque-nfc-avis-google",
       "qr-code-avis-google",
       "avis-google-commerce-local",
+      "augmenter-note-google",
     ],
   },
 
@@ -247,7 +248,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Combien ça coûte ?" },
       {
         type: "p",
-        text: "Un présentoir reviu est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment. Reviu Pro (connexion Google Business Profile, assistance IA, analyses avancées) arrivera plus tard, en option.",
+        text: "Un [présentoir reviu](/#produits) est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment. Reviu Pro (connexion Google Business Profile, assistance IA, analyses avancées) arrivera plus tard, en option.",
       },
     ],
     faq: [
@@ -334,7 +335,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Aller plus loin : mesurer et ajuster" },
       {
         type: "p",
-        text: "Un QR statique ne dit rien de son efficacité. Une solution comme reviu compte les scans, distingue le canal NFC du QR, et suit les clics vers Google - établissement par établissement. Vous savez ce qui fonctionne, à quel emplacement, et vous ajustez. Le QR n’est plus un pari, c’est un canal piloté.",
+        text: "Un QR statique ne dit rien de son efficacité. Une solution comme [reviu](/#produits) compte les scans, distingue le canal NFC du QR, et suit les clics vers Google - établissement par établissement. Vous savez ce qui fonctionne, à quel emplacement, et vous ajustez. Le QR n’est plus un pari, c’est un canal piloté.",
       },
     ],
     faq: [
@@ -420,9 +421,9 @@ export const GUIDES: Guide[] = [
       {
         type: "ol",
         items: [
-          "Rendez la demande d’avis systématique, au moment du paiement.",
-          "Réduisez le geste au minimum avec un support NFC + QR sur le comptoir.",
-          "Répondez aux avis, positifs comme négatifs, pour montrer que vous êtes attentif.",
+          "Rendez la [demande d’avis](/guides/avoir-plus-avis-google) systématique, au moment du paiement.",
+          "Réduisez le geste au minimum avec un [support NFC + QR sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
+          "[Répondez aux avis](/guides/repondre-avis-google), positifs comme négatifs, pour montrer que vous êtes attentif.",
           "Suivez vos chiffres (scans, clics vers Google) pour ajuster ce qui marche.",
         ],
       },
@@ -476,7 +477,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Collecter des avis, c’est la moitié du travail. Y répondre, c’est l’autre moitié - et c’est visible de tous vos futurs clients. Une réponse soignée valorise un client satisfait, transforme une critique en preuve de sérieux, et envoie à Google un signal d’activité. Voici comment répondre efficacement, avec des modèles à adapter.",
+        text: "[Collecter des avis](/guides/avoir-plus-avis-google), c’est la moitié du travail. Y répondre, c’est l’autre moitié - et c’est visible de tous vos futurs clients. Une réponse soignée valorise un client satisfait, transforme une critique en preuve de sérieux, et envoie à Google un signal d’activité. Voici comment répondre efficacement, avec des modèles à adapter.",
       },
       { type: "h2", text: "Pourquoi répondre change tout" },
       {
@@ -501,7 +502,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Répondre à un avis négatif" },
       {
         type: "p",
-        text: "C’est là que se joue votre réputation. La règle d’or : ne jamais répondre à chaud. Remerciez pour le retour, reconnaissez le ressenti sans vous justifier à l’excès, et proposez de poursuivre en privé. Vous parlez autant au client mécontent qu’aux centaines de personnes qui liront l’échange.",
+        text: "C’est là que se joue votre réputation. La règle d’or : ne jamais répondre à chaud. Remerciez pour le retour, reconnaissez le ressenti sans vous justifier à l’excès, et proposez de poursuivre en privé. Vous parlez autant au client mécontent qu’aux centaines de personnes qui liront l’échange. Pour aller plus loin, suivez notre méthode dédiée pour [répondre à un avis négatif](/guides/repondre-avis-negatif) ; et si l’avis est manifestement faux, apprenez à [le signaler pour suppression](/guides/supprimer-faux-avis-google).",
       },
       {
         type: "ol",
@@ -549,9 +550,10 @@ export const GUIDES: Guide[] = [
       },
     ],
     related: [
+      "repondre-avis-negatif",
+      "supprimer-faux-avis-google",
       "avis-google-commerce-local",
       "avoir-plus-avis-google",
-      "avis-google-restaurant",
     ],
   },
 
@@ -622,7 +624,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Avec un présentoir reviu sur chaque table ou au comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
+        text: "Avec un [présentoir reviu](/#produits) sur chaque table ou au comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
       },
     ],
     faq: [
@@ -670,7 +672,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Pour un salon de coiffure, les avis Google sont la première vitrine : on choisit rarement un coiffeur au hasard, on regarde d’abord la note et les commentaires. Or la coiffure a un atout que peu de métiers possèdent - la satisfaction est immédiate et visible, dans le miroir, à la fin de la prestation. Il suffit de capter ce moment. Voici comment récolter plus d’avis Google en salon, sans alourdir l’accueil ni forcer la main.",
+        text: "Pour un salon de coiffure, les avis Google sont la première vitrine : on choisit rarement un coiffeur au hasard, on regarde d’abord la note et les commentaires. Or la coiffure a un atout que peu de métiers possèdent - la satisfaction est immédiate et visible, dans le miroir, à la fin de la prestation. Il suffit de capter ce moment. Voici comment [récolter plus d’avis Google](/guides/avoir-plus-avis-google) en salon, sans alourdir l’accueil ni forcer la main.",
       },
       { type: "h2", text: "Le bon moment : le miroir, puis l’encaissement" },
       {
@@ -704,7 +706,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un présentoir reviu encodé NFC + QR au comptoir et modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
+        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un [présentoir reviu](/#produits) encodé NFC + QR au comptoir et modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
       },
     ],
     faq: [
@@ -752,7 +754,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "Confier sa voiture demande de la confiance, et cette confiance se lit dans les avis Google. Avant de choisir un garage, un automobiliste compare les notes et cherche des commentaires récents sur le sérieux, la transparence des prix et la qualité du travail. Un garage qui collecte régulièrement des avis part avec une longueur d’avance. Voici comment en récolter plus, sans gêner l’atelier ni forcer le client.",
+        text: "Confier sa voiture demande de la confiance, et cette confiance se lit dans les avis Google. Avant de choisir un garage, un automobiliste compare les notes et cherche des commentaires récents sur le sérieux, la transparence des prix et la qualité du travail. Un garage qui [collecte régulièrement des avis](/guides/avoir-plus-avis-google) part avec une longueur d’avance. Voici comment en récolter plus, sans gêner l’atelier ni forcer le client.",
       },
       { type: "h2", text: "Le bon moment : la restitution du véhicule" },
       {
@@ -781,12 +783,12 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Répondre aux avis, un réflexe qui compte double" },
       {
         type: "p",
-        text: "Dans un métier où la confiance est tout, la façon dont un garage répond aux avis - y compris aux plus critiques - en dit long aux futurs clients. Une réponse posée, factuelle et courtoise à un avis mitigé rassure souvent plus qu’une série de cinq étoiles muettes. Répondre montre aussi à Google que la fiche est active.",
+        text: "Dans un métier où la confiance est tout, la façon dont un garage [répond aux avis](/guides/repondre-avis-google) - y compris aux plus critiques - en dit long aux futurs clients. Une réponse posée, factuelle et courtoise à un avis mitigé rassure souvent plus qu’une série de cinq étoiles muettes. Répondre montre aussi à Google que la fiche est active.",
       },
       { type: "h2", text: "Mesurer et progresser" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un présentoir reviu sur le comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
+        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) sur le comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
       },
     ],
     faq: [
@@ -834,7 +836,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "La boulangerie a un profil unique pour les avis Google : un flux rapide, mais une clientèle d’habitués qui revient chaque jour. Le passage à la caisse dure quelques secondes, ce qui semble être un frein - mais la fidélité offre mille occasions de récolter un avis. Il suffit d’un support bien placé et d’un mot au bon moment. Voici comment faire, sans jamais ralentir la file.",
+        text: "La boulangerie a un profil unique pour les avis Google : un flux rapide, mais une clientèle d’habitués qui revient chaque jour. Le passage à la caisse dure quelques secondes, ce qui semble être un frein - mais la fidélité offre mille occasions de [récolter un avis](/guides/avoir-plus-avis-google). Il suffit d’un support bien placé et d’un mot au bon moment. Voici comment faire, sans jamais ralentir la file.",
       },
       { type: "h2", text: "Le défi du passage rapide" },
       {
@@ -868,7 +870,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer ce qui marche" },
       {
         type: "p",
-        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un présentoir reviu au comptoir, encodé NFC + QR et modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
+        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un [présentoir reviu](/#produits) au comptoir, encodé NFC + QR et modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
       },
     ],
     faq: [
@@ -916,7 +918,7 @@ export const GUIDES: Guide[] = [
     blocks: [
       {
         type: "p",
-        text: "En institut de beauté, on ne choisit pas au hasard à qui l’on confie sa peau et son bien-être : la note Google et les avis rassurent avant la prise de rendez-vous. L’esthétique a un atout précieux - la cliente termine son soin détendue, satisfaite, dans un moment de bien-être. C’est l’instant parfait pour un avis. Voici comment le capter, sans casser l’ambiance apaisée de l’institut.",
+        text: "En institut de beauté, on ne choisit pas au hasard à qui l’on confie sa peau et son bien-être : la note Google et les avis rassurent avant la prise de rendez-vous. L’esthétique a un atout précieux - la cliente termine son soin détendue, satisfaite, dans un moment de bien-être. C’est l’instant parfait pour [un avis](/guides/avoir-plus-avis-google). Voici comment le capter, sans casser l’ambiance apaisée de l’institut.",
       },
       { type: "h2", text: "Le bon moment : juste après le soin" },
       {
@@ -950,7 +952,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un présentoir reviu au comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
+        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
       },
     ],
     faq: [
@@ -972,6 +974,280 @@ export const GUIDES: Guide[] = [
       "presentoir-plaque-nfc-avis-google",
       "avis-google-coiffeur",
       "repondre-avis-google",
+    ],
+  },
+
+  {
+    slug: "supprimer-faux-avis-google",
+    metaTitle:
+      "Supprimer un faux avis Google : la marche à suivre · reviu",
+    h1: "Supprimer un faux avis Google : signaler et réagir",
+    description:
+      "Que faire face à un faux avis Google : comment le signaler, quand répondre, et comment reprendre la main en le noyant sous de vrais avis - dans les règles.",
+    excerpt:
+      "Un faux avis, un concurrent malveillant, un client jamais venu : voici comment signaler, répondre, et surtout reprendre la main sur votre note.",
+    keywords: [
+      "supprimer un faux avis google",
+      "signaler un avis google",
+      "faux avis google",
+      "supprimer avis google",
+      "avis google diffamatoire",
+    ],
+    category: "Gérer sa réputation",
+    readMinutes: 7,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Un faux avis fait mal : il salit une réputation bâtie avec soin et peut faire fuir des clients en un instant. Bonne nouvelle - Google dispose de règles claires et d’une procédure pour signaler les avis qui les enfreignent. Encore faut-il savoir lesquels sont concernés, comment les signaler efficacement, et quoi faire en attendant. Voici la marche à suivre, sans y laisser ses nerfs.",
+      },
+      { type: "h2", text: "Un avis peut-il vraiment être supprimé ?" },
+      {
+        type: "p",
+        text: "Il faut le dire d’emblée : Google ne supprime pas un avis parce qu’il est négatif ou qu’il déplaît. Un client mécontent mais réel a le droit de s’exprimer. Ce que Google retire, ce sont les avis qui violent ses règles - faux, hors sujet, injurieux, ou déposés dans un conflit d’intérêt. La distinction est capitale : viser la suppression d’un avis légitime est une perte de temps ; mieux vaut alors y [répondre](/guides/repondre-avis-negatif).",
+      },
+      { type: "h2", text: "Reconnaître un avis qui enfreint les règles" },
+      {
+        type: "ul",
+        items: [
+          "Faux avis : d’une personne qui n’a jamais été cliente, ou d’un concurrent.",
+          "Hors sujet : sans rapport avec votre établissement ou votre activité.",
+          "Contenu interdit : insultes, propos haineux, diffamation, données personnelles.",
+          "Spam et doublons : même avis répété, contenu promotionnel, liens.",
+          "Conflit d’intérêt : avis d’un ancien employé, d’un concurrent, ou auto-avis.",
+        ],
+      },
+      { type: "h2", text: "Signaler l’avis à Google, étape par étape" },
+      {
+        type: "ol",
+        items: [
+          "Ouvrez votre fiche établissement et repérez l’avis concerné.",
+          "Cliquez sur les trois points à côté de l’avis, puis sur « Signaler l’avis ».",
+          "Choisissez le motif qui correspond le mieux (faux, hors sujet, contenu inapproprié…).",
+          "Patientez : la modération prend souvent quelques jours, parfois plus.",
+          "Sans réponse, relancez via l’assistance Google My Business en joignant vos éléments.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Gardez des preuves",
+        text: "Capturez l’avis, sa date, et tout élément montrant qu’il est faux ou abusif (aucune trace de la personne dans vos réservations, propos d’un concurrent identifiable…). Un signalement étayé aboutit bien plus souvent.",
+      },
+      { type: "h2", text: "Répondre en attendant, sans envenimer" },
+      {
+        type: "p",
+        text: "La suppression n’est jamais garantie ni immédiate. En attendant, une réponse publique calme et factuelle protège votre image auprès de ceux qui liront l’avis : « Nous ne retrouvons aucune trace de votre passage ; contactez-nous pour en discuter. » On ne s’emporte pas, on ne dévoile aucune donnée. Notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) détaille la méthode.",
+      },
+      { type: "h2", text: "La meilleure défense : une majorité de vrais avis" },
+      {
+        type: "p",
+        text: "Un faux avis pèse lourd sur une fiche qui en compte peu, et disparaît presque dans une fiche qui en collecte régulièrement. Le meilleur bouclier n’est donc pas la bataille de signalements, mais un flux constant d’avis authentiques : ils diluent l’anomalie et rétablissent la vérité. C’est tout l’enjeu d’[obtenir plus d’avis Google](/guides/avoir-plus-avis-google) en continu, avec un [présentoir sur le comptoir](/#produits) qui capte chaque client satisfait.",
+      },
+      {
+        type: "p",
+        text: "Signaler ce qui doit l’être, répondre avec sang-froid, et collecter sans relâche : ce trio remet votre note à sa vraie place, et prive les faux avis de leur pouvoir de nuisance.",
+      },
+    ],
+    faq: [
+      {
+        q: "Google supprime-t-il un avis simplement parce qu’il est négatif ?",
+        a: "Non. Un avis négatif d’un vrai client reste en ligne, c’est son droit. Google ne retire que les avis qui enfreignent ses règles : faux, hors sujet, injurieux, spam ou en conflit d’intérêt.",
+      },
+      {
+        q: "Combien de temps prend la suppression d’un faux avis ?",
+        a: "Il n’y a pas de délai garanti : la modération prend souvent quelques jours, parfois davantage. Un signalement documenté, au besoin relancé auprès de l’assistance, augmente les chances d’aboutir.",
+      },
+      {
+        q: "Que faire si Google refuse de supprimer l’avis ?",
+        a: "Répondez-y publiquement, avec calme et sans dévoiler de données personnelles, puis concentrez-vous sur la collecte de vrais avis : le volume dilue l’anomalie et rétablit une note fidèle à la réalité.",
+      },
+    ],
+    related: [
+      "repondre-avis-negatif",
+      "repondre-avis-google",
+      "avoir-plus-avis-google",
+      "augmenter-note-google",
+    ],
+  },
+
+  {
+    slug: "repondre-avis-negatif",
+    metaTitle:
+      "Répondre à un avis Google négatif : méthode et exemple · reviu",
+    h1: "Répondre à un avis Google négatif sans s’enflammer",
+    description:
+      "La méthode pour répondre à un avis Google négatif : garder son calme, désamorcer, proposer une solution - avec un modèle de réponse prêt à adapter.",
+    excerpt:
+      "Un avis négatif bien géré rassure plus qu’il n’inquiète. Voici comment répondre, étape par étape, pour transformer une critique en preuve de sérieux.",
+    keywords: [
+      "répondre à un avis négatif",
+      "avis google négatif",
+      "répondre avis 1 étoile",
+      "gérer un mauvais avis google",
+      "réponse avis négatif exemple",
+    ],
+    category: "Gérer sa réputation",
+    readMinutes: 6,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Un avis négatif n’est pas une catastrophe : c’est un test public de votre professionnalisme. Les futurs clients lisent moins la critique que votre façon d’y répondre. Une réponse posée, humaine et orientée solution peut transformer un mauvais moment en démonstration de sérieux - et parfois faire revenir le client déçu. Voici comment s’y prendre.",
+      },
+      { type: "h2", text: "Pourquoi répondre change tout" },
+      {
+        type: "p",
+        text: "Un avis négatif sans réponse laisse la critique seule à l’écran. Une réponse, elle, montre que vous écoutez, que vous prenez au sérieux, et que le problème décrit est l’exception, pas la règle. Elle s’adresse d’ailleurs moins à l’auteur qu’aux dizaines de personnes qui liront l’échange avant de choisir. Répondre signale aussi à Google une fiche vivante et entretenue.",
+      },
+      { type: "h2", text: "Les réflexes à éviter absolument" },
+      {
+        type: "ul",
+        items: [
+          "Répondre à chaud : la colère se lit et vous dessert. On laisse retomber avant d’écrire.",
+          "Nier en bloc ou traiter le client de menteur : ruineux pour l’image, même si vous avez raison.",
+          "Se justifier longuement : une tartine défensive donne du poids à la critique.",
+          "Dévoiler des détails privés : jamais de données personnelles ou de montant dans une réponse publique.",
+        ],
+      },
+      { type: "h2", text: "La structure d’une bonne réponse" },
+      {
+        type: "ol",
+        items: [
+          "Remerciez pour le retour, sans ironie : « Merci d’avoir pris le temps de nous écrire. »",
+          "Montrez de l’empathie : « Nous sommes sincèrement désolés que votre expérience n’ait pas été à la hauteur. »",
+          "Répondez au point précis, brièvement et sans vous justifier à l’excès.",
+          "Proposez de poursuivre en privé : un e-mail ou un téléphone pour trouver une solution.",
+          "Signez avec un prénom : une réponse incarnée vaut mieux qu’un message anonyme.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Le délai compte",
+        text: "Répondez sous 24 à 48 heures : assez vite pour montrer que vous suivez, assez posément pour ne pas écrire sous le coup de l’émotion. Une réponse tardive donne l’impression d’une fiche laissée à l’abandon.",
+      },
+      { type: "h2", text: "Un modèle à adapter" },
+      {
+        type: "p",
+        text: "« Bonjour [prénom], merci d’avoir partagé votre ressenti, et navré que votre visite n’ait pas été à la hauteur de nos standards. Ce que vous décrivez ne nous ressemble pas et nous aimerions comprendre ce qui s’est passé. Pouvez-vous nous contacter à [e-mail] ? Nous ferons le nécessaire. Bien à vous, [prénom]. » À personnaliser à chaque fois : une réponse copiée-collée se repère et sonne faux.",
+      },
+      { type: "h2", text: "Et si l’avis est faux ou abusif ?" },
+      {
+        type: "p",
+        text: "Tous les avis négatifs ne se valent pas. Si celui-ci est manifestement faux, injurieux ou déposé par un concurrent, la réponse ne suffit pas : il faut aussi le signaler. Voyez notre guide dédié pour [supprimer un faux avis Google](/guides/supprimer-faux-avis-google). Pour la posture générale sur l’ensemble de vos avis, le guide [répondre aux avis Google](/guides/repondre-avis-google) complète celui-ci.",
+      },
+      {
+        type: "p",
+        text: "Enfin, la meilleure réponse à quelques mauvaises notes reste une majorité de bonnes : en [collectant des avis en continu](/guides/avoir-plus-avis-google), la critique isolée pèse de moins en moins lourd dans votre moyenne.",
+      },
+    ],
+    faq: [
+      {
+        q: "Faut-il répondre à tous les avis négatifs ?",
+        a: "Oui, dès qu’ils sont visibles et argumentés. Une réponse calme et orientée solution rassure les futurs clients et montre le sérieux de l’établissement, bien plus qu’un silence.",
+      },
+      {
+        q: "En combien de temps répondre à un avis négatif ?",
+        a: "Idéalement sous 24 à 48 heures : assez vite pour montrer que vous suivez votre fiche, mais après avoir laissé retomber l’émotion pour écrire une réponse posée.",
+      },
+      {
+        q: "Peut-on demander à un client de retirer son avis négatif ?",
+        a: "On peut, avec tact, l’inviter à revenir vers vous pour résoudre le problème - mais jamais faire pression ni monnayer le retrait. Souvent, un client satisfait de la solution modifie son avis de lui-même.",
+      },
+    ],
+    related: [
+      "repondre-avis-google",
+      "supprimer-faux-avis-google",
+      "avoir-plus-avis-google",
+      "avis-google-commerce-local",
+    ],
+  },
+
+  {
+    slug: "augmenter-note-google",
+    metaTitle:
+      "Augmenter sa note Google : faire remonter sa moyenne · reviu",
+    h1: "Comment augmenter sa note moyenne sur Google",
+    description:
+      "Comment faire remonter sa note Google durablement : le poids des avis récents, le volume qui dilue les mauvaises notes, la régularité - dans les règles.",
+    excerpt:
+      "Une étoile de plus change tout pour un commerce. Voici comment faire monter votre note Google, sans jamais tricher, en jouant sur le volume et la fraîcheur.",
+    keywords: [
+      "augmenter sa note google",
+      "améliorer sa note google",
+      "note google avis",
+      "remonter sa note google",
+      "note moyenne google",
+    ],
+    category: "Gérer sa réputation",
+    readMinutes: 6,
+    datePublished: "2026-07-29",
+    dateModified: UPDATED_METIERS,
+    blocks: [
+      {
+        type: "p",
+        text: "Passer de 4,1 à 4,6 étoiles n’a l’air de rien, et pourtant cela change tout : au-dessus d’un certain seuil, un commerce apparaît mieux, est cliqué plus souvent et inspire davantage confiance. La bonne nouvelle, c’est qu’on fait remonter une note sans jamais tricher - en comprenant comment elle se forme et en agissant sur les bons leviers.",
+      },
+      { type: "h2", text: "Comment se forme votre note Google" },
+      {
+        type: "p",
+        text: "La note affichée est la moyenne de tous vos avis. Deux réalités en découlent. D’abord, une mauvaise note isolée pèse énormément quand vous avez peu d’avis, et presque plus quand vous en avez beaucoup. Ensuite, Google et les internautes accordent plus d’importance aux avis récents : une fiche vivante rassure davantage qu’une moyenne figée il y a deux ans.",
+      },
+      { type: "h2", text: "Le volume dilue les mauvaises notes" },
+      {
+        type: "p",
+        text: "Imaginons une fiche avec cinq avis et une note à une étoile parmi eux : la moyenne s’effondre. La même étoile isolée, noyée dans des dizaines d’avis positifs, ne bouge presque plus l’aiguille. On ne « supprime » donc pas une mauvaise note - on la rend insignifiante en collectant, à côté, tous les avis positifs qui n’attendaient qu’une occasion d’exister.",
+      },
+      { type: "h2", text: "La fraîcheur pèse autant que la moyenne" },
+      {
+        type: "p",
+        text: "Un flux d’avis récents envoie un signal fort : l’établissement est actif, fréquenté, apprécié maintenant. À moyenne égale, une fiche alimentée chaque semaine inspire plus confiance qu’une fiche endormie. Viser la régularité vaut mieux que d’espérer une vague d’avis ponctuelle.",
+      },
+      { type: "h2", text: "Le vrai levier : plus de vrais avis, en continu" },
+      {
+        type: "ol",
+        items: [
+          "Demandez au pic de satisfaction, quand le client est content et disponible.",
+          "Réduisez le geste à un scan, avec un [support NFC + QR sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
+          "Systématisez : la demande fait partie du service, pour tous les clients.",
+          "Mesurez les scans et les clics vers Google pour ajuster emplacement et discours.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Ce qui ne marche pas (et se retourne contre vous)",
+        text: "Acheter des avis, en faire rédiger par l’équipe, ou ne solliciter que les clients contents : Google sanctionne ces pratiques, jusqu’à la suppression des avis ou de la fiche. Une note gonflée artificiellement finit toujours par coûter plus cher qu’elle ne rapporte.",
+      },
+      { type: "h2", text: "Traiter les mauvaises notes déjà en ligne" },
+      {
+        type: "p",
+        text: "En parallèle de la collecte, occupez-vous des avis négatifs existants : une réponse soignée limite leur impact et montre votre sérieux. Notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) donne la méthode et un modèle ; et si un avis est faux, apprenez à [le signaler](/guides/supprimer-faux-avis-google).",
+      },
+      {
+        type: "p",
+        text: "Volume, fraîcheur et bonnes réponses : c’est ce trio, pas un tour de passe-passe, qui fait durablement grimper une note. Avec un [présentoir reviu](/#produits) qui rend la collecte automatique, l’étoile de plus finit par arriver - et elle reste.",
+      },
+    ],
+    faq: [
+      {
+        q: "Comment augmenter sa note Google rapidement ?",
+        a: "En collectant beaucoup de vrais avis positifs sur une courte période : ils font remonter la moyenne et diluent les mauvaises notes. Le plus efficace est de demander au bon moment, avec un support qui réduit le geste à un scan.",
+      },
+      {
+        q: "Une mauvaise note peut-elle disparaître ?",
+        a: "Un avis légitime ne se supprime pas, mais son poids devient négligeable à mesure que vous accumulez des avis positifs. Seuls les avis qui enfreignent les règles de Google peuvent être signalés puis retirés.",
+      },
+      {
+        q: "Acheter des avis pour monter sa note, est-ce risqué ?",
+        a: "Oui, très : les faux avis sont interdits par Google et peuvent entraîner la suppression de tous vos avis, voire de votre fiche. La seule méthode durable est de collecter de vrais avis auprès de vrais clients.",
+      },
+    ],
+    related: [
+      "avoir-plus-avis-google",
+      "repondre-avis-negatif",
+      "supprimer-faux-avis-google",
+      "qr-code-avis-google",
     ],
   },
 ];
