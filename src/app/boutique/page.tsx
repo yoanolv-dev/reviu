@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { preconnect } from "react-dom";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
@@ -191,6 +192,10 @@ const FAQ: { q: string; a: string }[] = [
 ];
 
 export default function BoutiquePage() {
+  // Préchauffe la connexion au SDK Stripe : à l'étape de paiement, le formulaire
+  // embarqué se charge plus vite (connexion TLS déjà ouverte).
+  preconnect("https://js.stripe.com");
+
   const stand = getProduct("stand");
   const schema = graph(
     ...(stand

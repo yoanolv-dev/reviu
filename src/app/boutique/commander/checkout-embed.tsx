@@ -1,14 +1,15 @@
 "use client";
 
-import { useCallback } from "react";
+import Link from "next/link";
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 
-// La clé publique Stripe est exposée côté client (elle est publique par nature).
-// `loadStripe` est appelé au niveau module pour ne charger le SDK qu'une fois.
+// La clé publique Stripe est exposée côté client (publique par nature).
+// `loadStripe` au niveau module = le SDK n'est chargé qu'une seule fois, et sa
+// requête part dès l'hydratation (connexion préchauffée via les preconnect).
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise: Promise<Stripe | null> | null = publishableKey
   ? loadStripe(publishableKey)
@@ -16,39 +17,32 @@ const stripePromise: Promise<Stripe | null> | null = publishableKey
 
 /**
  * Monte le formulaire de paiement Stripe DIRECTEMENT dans la page (iframe
- * sécurisé par Stripe), sans redirection. Le `client_secret` est récupéré depuis
- * notre endpoint `/api/stripe/checkout-session`, qui recalcule le prix serveur.
- * Après paiement, Stripe redirige vers la `return_url` (page merci).
+ * sécurisé par Stripe). Le `client_secret` est créé CÔTÉ SERVEUR et passé en
+ * prop : aucun aller-retour client supplémentaire, le formulaire s'affiche plus
+ * vite. Après paiement, Stripe redirige vers la `return_url` (page merci).
  */
-export function CheckoutEmbed({
-  product,
-  quantity,
-}: {
-  product: string;
-  quantity: number;
-}) {
-  const fetchClientSecret = useCallback(async () => {
-    const res = await fetch("/api/stripe/checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product, quantity }),
-    });
-    if (!res.ok) throw new Error("Impossible de démarrer le paiement.");
-    const data = (await res.json()) as { client_secret?: string };
-    if (!data.client_secret) throw new Error("Réponse de paiement invalide.");
-    return data.client_secret;
-  }, [product, quantity]);
-
-  if (!stripePromise) {
+export function CheckoutEmbed({ clientSecret }: { clientSecret: string | null }) {
+  if (!stripePromise || !clientSecret) {
     return (
-      <p className="text-sm text-red-600">
-        Le paiement n&apos;est pas disponible pour le moment.
-      </p>
+      <div className="rounded-2xl border border-line bg-surface p-6 text-center">
+        <p className="text-sm font-medium text-ink">
+          Le paiement n&apos;est pas disponible pour le moment.
+        </p>
+        <p className="mt-1 text-sm text-muted">
+          Merci de réessayer dans un instant.
+        </p>
+        <Link
+          href="/boutique"
+          className="mt-4 inline-flex text-sm font-medium text-brand hover:underline"
+        >
+          Retour à la boutique
+        </Link>
+      </div>
     );
   }
 
   return (
-    <EmbeddedCheckoutProvider stripe={stripePromise} options={{ fetchClientSecret }}>
+    <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
       <EmbeddedCheckout />
     </EmbeddedCheckoutProvider>
   );
