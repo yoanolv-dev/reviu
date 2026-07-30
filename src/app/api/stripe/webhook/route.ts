@@ -37,6 +37,27 @@ export async function POST(req: Request) {
   const admin = createSupabaseAdmin();
   if (!admin) return new Response("Service indisponible", { status: 500 });
 
+  // Idempotence : Stripe peut redelivrer un meme evenement (retries reseau,
+  // rejeu manuel). On revendique `event.id` ; s'il est deja enregistre, on
+  // acquitte sans rejouer (evite les e-mails de commande en double). Si la garde
+  // est indisponible (table absente en attendant la migration), on continue
+  // quand meme pour ne jamais bloquer un paiement legitime : au pire on perd la
+  // deduplication.
+  let claimed = false;
+  {
+    const { error } = await admin
+      .from("stripe_events")
+      .insert({ event_id: event.id, type: event.type });
+    if (error) {
+      if (error.code === "23505") {
+        return new Response("ok (deja traite)", { status: 200 });
+      }
+      console.error("[stripe] garde d'idempotence indisponible", error);
+    } else {
+      claimed = true;
+    }
+  }
+
   async function sync(standId: string, subscription: Stripe.Subscription) {
     await admin!.from("subscriptions").upsert(
       {
@@ -67,7 +88,23 @@ export async function POST(req: Request) {
           break;
         }
         // Boutique (achat unique) : commande présentoir / formation / pack.
-        if (session.mode === "payment" && session.metadata?.shop_product) {
+        // On ne traite que si le paiement est réellement encaissé (`paid`). Les
+        // moyens de paiement différés (virement, prélèvement…) restent `unpaid`
+        // ici et sont confirmés plus tard par `async_payment_succeeded`.
+        if (
+          session.mode === "payment" &&
+          session.payment_status === "paid" &&
+          session.metadata?.shop_product
+        ) {
+          await handleShopOrder(stripe, session);
+        }
+        break;
+      }
+      case "checkout.session.async_payment_succeeded": {
+        // Paiement différé finalement encaissé : la commande boutique peut être
+        // traitée (l'idempotence évite un doublon si `completed` l'a déjà fait).
+        const session = event.data.object as Stripe.Checkout.Session;
+        if (session.metadata?.shop_product) {
           await handleShopOrder(stripe, session);
         }
         break;
@@ -91,8 +128,13 @@ export async function POST(req: Request) {
       default:
         break;
     }
-  } catch {
-    // 500 → Stripe réessaiera l'événement automatiquement.
+  } catch (err) {
+    // Le traitement a échoué : on libère la revendication d'idempotence pour que
+    // le rejeu automatique de Stripe (500 ci-dessous) puisse le reprocesser.
+    console.error("[stripe] traitement événement échoué", err);
+    if (claimed) {
+      await admin.from("stripe_events").delete().eq("event_id", event.id);
+    }
     return new Response("Erreur de traitement", { status: 500 });
   }
 

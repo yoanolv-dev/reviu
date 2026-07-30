@@ -1,5 +1,6 @@
 "use server";
 
+import type Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { getStripe, STRIPE_PRICE_ID } from "./stripe";
 import { createSupabaseServer } from "./supabase/server";
@@ -58,7 +59,7 @@ export async function startCheckoutAction(
     data: { user },
   } = await supabase.auth.getUser();
 
-  const session = await stripe.checkout.sessions.create({
+  const params: Stripe.Checkout.SessionCreateParams = {
     mode: "subscription",
     line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
     ...(sub?.stripe_customer_id
@@ -70,7 +71,17 @@ export async function startCheckoutAction(
     allow_promotion_codes: true,
     success_url: `${APP_BASE}/dashboard/stands?sub=success`,
     cancel_url: `${APP_BASE}/dashboard/stands?sub=cancel`,
-  });
+  };
+
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.create(params);
+  } catch (err) {
+    console.error("[dashboard] création session d'abonnement échouée", err);
+    return {
+      error: "Le paiement n'a pas pu démarrer. Merci de réessayer dans un instant.",
+    };
+  }
 
   if (!session.url) return { error: "Impossible de démarrer le paiement." };
   redirect(session.url);
@@ -95,10 +106,16 @@ export async function openBillingPortalAction(
     return { error: "Aucun abonnement Stripe pour ce présentoir." };
   }
 
-  const session = await stripe.billingPortal.sessions.create({
-    customer: sub.stripe_customer_id,
-    return_url: `${APP_BASE}/dashboard/stands`,
-  });
+  let session: Stripe.BillingPortal.Session;
+  try {
+    session = await stripe.billingPortal.sessions.create({
+      customer: sub.stripe_customer_id,
+      return_url: `${APP_BASE}/dashboard/stands`,
+    });
+  } catch (err) {
+    console.error("[dashboard] ouverture du portail de facturation échouée", err);
+    return { error: "La gestion n'est pas disponible pour le moment." };
+  }
   redirect(session.url);
 }
 
@@ -137,7 +154,7 @@ export async function startShopCheckout(
 
   const ship = requiresShipping(product);
 
-  const session = await stripe.checkout.sessions.create({
+  const params: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
     line_items: [
       {
@@ -194,7 +211,17 @@ export async function startShopCheckout(
     },
     success_url: `${SITE_URL}/boutique/merci?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${SITE_URL}/boutique?checkout=cancel`,
-  });
+  };
+
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.create(params);
+  } catch (err) {
+    console.error("[shop] création session Checkout échouée", err);
+    return {
+      error: "Le paiement n'a pas pu démarrer. Merci de réessayer dans un instant.",
+    };
+  }
 
   if (!session.url) return { error: "Impossible de démarrer le paiement." };
   redirect(session.url);
@@ -240,7 +267,7 @@ export async function startSelfCheckout(input: {
     .eq("stand_id", stand.id)
     .maybeSingle<{ stripe_customer_id: string | null }>();
 
-  const session = await stripe.checkout.sessions.create({
+  const params: Stripe.Checkout.SessionCreateParams = {
     mode: "subscription",
     line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
     ...(sub?.stripe_customer_id ? { customer: sub.stripe_customer_id } : {}),
@@ -250,7 +277,15 @@ export async function startSelfCheckout(input: {
     allow_promotion_codes: true,
     success_url: `${APP_BASE}/login?sub=success`,
     cancel_url: `${APP_BASE}/login?sub=cancel`,
-  });
+  };
+
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.create(params);
+  } catch (err) {
+    console.error("[scan] création session d'abonnement échouée", err);
+    return { ok: false, error: "Le paiement n'a pas pu démarrer. Merci de réessayer." };
+  }
 
   if (!session.url) return { ok: false, error: "Impossible de démarrer le paiement." };
   return { ok: true, url: session.url };
