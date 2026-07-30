@@ -18,9 +18,16 @@ puis Preview si besoin). Ne jamais les mettre dans le code.
 | Variable | Obligatoire | Role | Exemple |
 |---|---|---|---|
 | `STRIPE_SECRET_KEY` | Oui | Cle secrete serveur (checkout, webhook, page merci). | `sk_test_...` puis `sk_live_...` |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Oui | Cle publique cote client, pour le paiement embarque (Embedded Checkout, monte sur `/boutique/commander`). | `pk_test_...` puis `pk_live_...` |
 | `STRIPE_WEBHOOK_SECRET` | Oui | Verifie la signature des evenements webhook. | `whsec_...` |
 | `STRIPE_PRICE_ID` | Non | Uniquement si tu vends l'abonnement 2,99 EUR/mois (LEGACY). Inutile pour le presentoir. | `price_...` |
 | `REVIU_SHOP_SECRET` | Non | Signe les acces formation. Par defaut reutilise `SUPABASE_SERVICE_ROLE_KEY`. | chaine aleatoire |
+
+> Le paiement du presentoir est en **Embedded Checkout** : le formulaire Stripe
+> est monte directement sur `reviu.fr/boutique/commander` (pas de redirection
+> vers checkout.stripe.com). Il faut donc la **cle publique** en plus de la cle
+> secrete. La cle publique et la cle secrete doivent etre du **meme mode** (test
+> avec test, live avec live).
 
 Apres toute modification de variable : **Redeploy** le projet (les variables ne sont
 lues qu'au build/boot).
@@ -32,10 +39,11 @@ lues qu'au build/boot).
 Garde le bouton **Mode test** active (en haut a droite du dashboard Stripe) pour
 tout valider sans argent reel.
 
-### a. Cle secrete
+### a. Cles API (secrete + publique)
 1. [dashboard.stripe.com](https://dashboard.stripe.com) -> **Developpeurs -> Cles API**.
-2. Copie la **Cle secrete** (`sk_test_...`).
-3. Colle-la dans Vercel sous `STRIPE_SECRET_KEY`.
+2. Copie la **Cle secrete** (`sk_test_...`) -> Vercel sous `STRIPE_SECRET_KEY`.
+3. Copie la **Cle publique** (`pk_test_...`) -> Vercel sous
+   `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (necessaire au paiement embarque).
 
 ### b. Webhook
 1. **Developpeurs -> Webhooks -> Ajouter un endpoint**.
@@ -122,9 +130,10 @@ evenements arriver dans le terminal.
 ## Recapitulatif minimal (vente du presentoir)
 
 - [ ] `STRIPE_SECRET_KEY` (test) dans Vercel
+- [ ] `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (test) dans Vercel
 - [ ] Webhook cree avec `checkout.session.completed` (+ `async_payment_succeeded`)
 - [ ] `STRIPE_WEBHOOK_SECRET` dans Vercel
 - [ ] Migration `stripe_events` appliquee en base
 - [ ] Redeploy
-- [ ] Achat test avec `4242 4242 4242 4242` -> page merci + webhook 200
-- [ ] Bascule en cles LIVE + redeploy
+- [ ] Achat test avec `4242 4242 4242 4242` -> paiement sur /boutique/commander -> page merci + webhook 200
+- [ ] Bascule en cles LIVE (secrete + publique) + redeploy

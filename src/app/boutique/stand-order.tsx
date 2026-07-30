@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
-import { startShopCheckout } from "@/lib/stripe-actions";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import { buttonClass } from "@/components/ui/button";
 
 type Tier = { min: number; unitCents: number };
@@ -21,8 +21,9 @@ function unitCentsFor(qty: number, tiers: Tier[]): number {
 
 /**
  * Sélecteur de quantité + achat du présentoir, avec tarif dégressif calculé en
- * direct. La quantité est postée à `startShopCheckout` (le serveur recalcule le
- * prix par palier, source de vérité).
+ * direct. « Commander » mène à l'étape de paiement dédiée `/boutique/commander`
+ * (Embedded Checkout) ; le serveur y recalcule le prix par palier (source de
+ * vérité).
  */
 export function StandOrder({
   tiers,
@@ -36,7 +37,6 @@ export function StandOrder({
   freeFromLabel: string;
 }) {
   const [qty, setQty] = useState(1);
-  const [state, action, pending] = useActionState(startShopCheckout, null);
 
   const unit = useMemo(() => unitCentsFor(qty, tiers), [qty, tiers]);
   const total = unit * qty;
@@ -178,20 +178,12 @@ export function StandOrder({
         </span>
       </div>
 
-      <form action={action} className="flex flex-col gap-2">
-        <input type="hidden" name="product" value="stand" />
-        <input type="hidden" name="quantity" value={qty} />
-        <button
-          type="submit"
-          disabled={pending}
-          className={buttonClass("gradient", "lg", "w-full")}
-        >
-          {pending ? "Redirection…" : "Commander"}
-        </button>
-        {state?.error && (
-          <p className="text-center text-xs text-red-600">{state.error}</p>
-        )}
-      </form>
+      <Link
+        href={`/boutique/commander?product=stand&quantity=${qty}`}
+        className={buttonClass("gradient", "lg", "w-full")}
+      >
+        Commander
+      </Link>
 
       <p className="text-center text-xs text-muted">
         Achat unique, sans frais supplémentaires. Espace Reviu inclus dès

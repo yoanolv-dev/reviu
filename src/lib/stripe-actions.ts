@@ -6,14 +6,7 @@ import { getStripe, STRIPE_PRICE_ID } from "./stripe";
 import { createSupabaseServer } from "./supabase/server";
 import { createSupabaseAdmin } from "./supabase/admin";
 import { APP_BASE, SITE_URL } from "./brand";
-import {
-  getProduct,
-  requiresShipping,
-  SHIPPING_COUNTRIES,
-  clampStandQty,
-  standUnitCents,
-  shippingFeeCents,
-} from "./shop";
+import { buildShopSessionParams } from "./stripe-checkout";
 import type { FormState } from "./form";
 
 /**
@@ -135,80 +128,16 @@ export async function startShopCheckout(
   if (!stripe) {
     return { error: "Le paiement n'est pas disponible pour le moment." };
   }
-  const product = getProduct(String(formData.get("product") ?? ""));
-  if (!product) return { error: "Produit introuvable." };
-
-  // Le présentoir applique un tarif dégressif : la quantité est bornée et le
-  // prix unitaire est recalculé par palier (on maîtrise le montant, donc pas
-  // d'`adjustable_quantity` côté Stripe qui casserait la remise). Les autres
-  // produits gardent leur prix fixe.
-  const isStand = product.id === "stand";
-  const qtyRaw = Number(formData.get("quantity") ?? 1);
-  const quantity = isStand
-    ? clampStandQty(qtyRaw)
-    : product.adjustableQuantity && Number.isFinite(qtyRaw)
-      ? Math.min(Math.max(Math.trunc(qtyRaw), 1), 50)
-      : 1;
-  const unitAmount = isStand ? standUnitCents(quantity) : product.priceCents;
-  const useAdjustable = product.adjustableQuantity && !isStand;
-
-  const ship = requiresShipping(product);
+  // Construction commune (prix recalculé serveur, livraison, métadonnées),
+  // partagée avec l'endpoint Embedded Checkout.
+  const built = buildShopSessionParams(
+    String(formData.get("product") ?? ""),
+    Number(formData.get("quantity") ?? 1),
+  );
+  if (!built.ok) return { error: built.error };
 
   const params: Stripe.Checkout.SessionCreateParams = {
-    mode: "payment",
-    line_items: [
-      {
-        quantity,
-        ...(useAdjustable
-          ? { adjustable_quantity: { enabled: true, minimum: 1, maximum: 50 } }
-          : {}),
-        price_data: {
-          currency: "eur",
-          unit_amount: unitAmount,
-          product_data: {
-            name: product.name,
-            description: product.tagline,
-          },
-        },
-      },
-    ],
-    customer_creation: "always",
-    billing_address_collection: "auto",
-    invoice_creation: { enabled: true },
-    allow_promotion_codes: true,
-    ...(ship
-      ? {
-          shipping_address_collection: {
-            allowed_countries: [...SHIPPING_COUNTRIES],
-          },
-          // Livraison offerte au-delà du seuil, sinon frais forfaitaires.
-          shipping_options: [
-            {
-              shipping_rate_data: {
-                type: "fixed_amount" as const,
-                fixed_amount: {
-                  amount: shippingFeeCents(unitAmount * quantity),
-                  currency: "eur",
-                },
-                display_name:
-                  shippingFeeCents(unitAmount * quantity) === 0
-                    ? "Livraison offerte"
-                    : "Livraison",
-                delivery_estimate: {
-                  minimum: { unit: "business_day" as const, value: 2 },
-                  maximum: { unit: "business_day" as const, value: 5 },
-                },
-              },
-            },
-          ],
-        }
-      : {}),
-    metadata: {
-      shop_product: product.id,
-      product_name: product.name,
-      grants_formation: product.grantsFormation ? "1" : "0",
-      stands_included: String(product.standsIncluded),
-    },
+    ...built.params,
     success_url: `${SITE_URL}/boutique/merci?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${SITE_URL}/boutique?checkout=cancel`,
   };
