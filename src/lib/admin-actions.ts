@@ -35,6 +35,10 @@ const ERR: Record<string, string> = {
   stand_replaced: "Ce présentoir a déjà été remplacé.",
   establishment_not_found: "Établissement introuvable.",
   invalid_status: "Statut invalide.",
+  stand_not_resettable:
+    "Ce présentoir ne peut pas être réinitialisé dans son état actuel.",
+  stand_has_subscription:
+    "Abonnement actif : réinitialisation bloquée par sécurité.",
 };
 
 function mapErr(message: string | undefined): string {
@@ -122,6 +126,25 @@ export async function replaceStandAction(
   if (error) return { error: mapErr(error.message) };
   revalidatePath("/admin/stands");
   return { success: true, info: `Présentoir remplacé par ${String(data)}.` };
+}
+
+/**
+ * Réinitialise un présentoir : défait l'activation (rattachement, lien Google,
+ * stats) et le remet à « vierge », prêt à être réattribué à un nouveau
+ * commerçant. Le code gravé (QR / NFC) et le secret sont conservés. Réservé aux
+ * administrateurs ; la garde admin est appliquée dans la fonction SQL.
+ */
+export async function resetStandAction(
+  _prev: AdminActionState,
+  formData: FormData,
+): Promise<AdminActionState> {
+  const standId = String(formData.get("stand_id") ?? "");
+  if (!standId) return { error: ERR.stand_not_found };
+  const supabase = await createSupabaseServer();
+  const { error } = await supabase.rpc("admin_reset_stand", { p_stand: standId });
+  if (error) return { error: mapErr(error.message) };
+  revalidatePath("/admin/stands");
+  return { success: true, info: "Présentoir réinitialisé - prêt à réattribuer." };
 }
 
 // --- Comptes clients --------------------------------------------------------
