@@ -6,9 +6,9 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
-import { ProductGallery } from "@/components/site/product-gallery";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
+import { TestimonialsSection } from "@/components/site/testimonials-section";
 import { buttonClass } from "@/components/ui/button";
 import { accentLastWord } from "@/components/ui/accent";
 import { Stars } from "@/components/ui/stars";
@@ -27,7 +27,6 @@ import {
   IconQr,
   IconShield,
   IconSmartphone,
-  IconStar,
   IconTruck,
 } from "@/components/ui/icons";
 import {
@@ -39,17 +38,17 @@ import {
   CONTACT_PHONE,
   QR_TOOL_PATH,
 } from "@/lib/brand";
-import { getProduct, STAND_TIERS, STAND_QTY_MAX } from "@/lib/shop";
-import { buildMetadata, graph, productSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
+import { STAND_TIERS, STAND_QTY_MAX, formatEuros } from "@/lib/shop";
+import { PHOTO, PRODUCT_PATH } from "@/lib/photos";
+import { TESTIMONIALS } from "@/lib/testimonials";
+import { buildMetadata, graph, faqSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
-import { StandOrder } from "./stand-order";
 import { ScanDemo } from "./scan-demo";
 import { StickyBuyBar } from "./sticky-buy-bar";
-import { TestimonialsSection } from "@/components/site/testimonials-section";
-import { TESTIMONIALS } from "@/lib/testimonials";
+import { QuickOrder } from "./quick-order";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Présentoir avis Google NFC + QR code - 29,90 € | reviu",
+  title: "reviu : le présentoir NFC + QR code pour plus d'avis Google",
   description:
     "Le présentoir NFC + QR code qui ouvre votre page d'avis Google en un geste. 29,90 €, sans abonnement, livraison offerte, satisfait ou remboursé 30 jours.",
   path: "/",
@@ -57,73 +56,23 @@ export const metadata: Metadata = buildMetadata({
     "présentoir avis Google",
     "plaque NFC avis Google",
     "QR code avis Google",
-    "présentoir NFC avis Google",
     "obtenir plus d'avis Google",
     "support avis Google",
-    "carte NFC avis Google",
     "présentoir avis clients",
   ],
 });
 
-const PHOTO = {
-  comptoir: "/products/presentoir-comptoir.webp",
-  front: "/products/presentoir.webp",
-  angle: "/products/presentoir-angle.webp",
-  etape1: "/products/etape-1.webp",
-  etape2: "/products/etape-2.webp",
-  etape3: "/products/etape-3.webp",
-} as const;
-
-const GALLERY = [
-  { src: PHOTO.front, alt: "Présentoir Reviu NFC et QR code pour avis Google, vue de face" },
-  { src: PHOTO.etape3, alt: "Cliente laissant un avis Google depuis son téléphone devant le présentoir Reviu" },
-  { src: PHOTO.etape1, alt: "Smartphone scannant le QR code du présentoir Reviu pour avis Google" },
-  { src: PHOTO.angle, alt: "Présentoir Reviu, vue de trois quarts montrant le QR code et la zone NFC" },
-];
-
-// Mise en route du présentoir APRÈS réception (côté commerçant).
-const SETUP = [
-  {
-    n: "1",
-    title: "Scannez le QR code",
-    body: "À réception, scannez le QR code imprimé sur le présentoir.",
-    img: PHOTO.etape1,
-    alt: "Smartphone scannant le QR code imprimé sur le présentoir Reviu",
-  },
-  {
-    n: "2",
-    title: "Reliez votre fiche Google",
-    body: "Entrez le code secret situé à côté du QR code, puis collez le lien de votre fiche Google.",
-    img: PHOTO.etape2,
-    alt: "Écran d'activation du présentoir Reviu dans l'espace client",
-  },
-  {
-    n: "3",
-    title: "Posez-le au comptoir",
-    body: "C'est prêt. Invitez simplement vos clients à partager leur expérience.",
-    img: PHOTO.etape3,
-    alt: "Présentoir Reviu posé sur le comptoir, prêt à recueillir des avis Google",
-  },
-];
-
-const BENEFITS = [
-  "Ouvre votre page d'avis Google en un geste",
-  "Aucune application à télécharger",
-  "Compatible iPhone et Android",
-  "Espace Reviu inclus, sans abonnement",
-];
-
-// Bandeau « métiers » : chaque pastille mène au guide du métier (maillage SEO).
-const METIERS = [
-  { label: "Restaurants", href: "/guides/avis-google-restaurant" },
-  { label: "Coiffeurs", href: "/guides/avis-google-coiffeur" },
-  { label: "Garages", href: "/guides/avis-google-garage" },
-  { label: "Boulangeries", href: "/guides/avis-google-boulangerie" },
-  { label: "Instituts de beauté", href: "/guides/avis-google-institut-beaute" },
-  { label: "Hôtels", href: "/guides/avis-google-hotel" },
-  { label: "Boutiques", href: "/guides/avis-google-boutique" },
-  { label: "Dentistes", href: "/guides/avis-google-dentiste" },
-  { label: "Salles de sport", href: "/guides/avis-google-salle-de-sport" },
+// Phrase « métiers » : chaque métier mène à son guide (maillage SEO).
+const METIERS: { pre: string; label: string; href: string }[] = [
+  { pre: "d'un", label: "restaurant", href: "/guides/avis-google-restaurant" },
+  { pre: "d'un", label: "salon de coiffure", href: "/guides/avis-google-coiffeur" },
+  { pre: "d'un", label: "garage", href: "/guides/avis-google-garage" },
+  { pre: "d'une", label: "boulangerie", href: "/guides/avis-google-boulangerie" },
+  { pre: "d'un", label: "institut de beauté", href: "/guides/avis-google-institut-beaute" },
+  { pre: "d'un", label: "hôtel", href: "/guides/avis-google-hotel" },
+  { pre: "d'une", label: "boutique", href: "/guides/avis-google-boutique" },
+  { pre: "d'un", label: "cabinet dentaire", href: "/guides/avis-google-dentiste" },
+  { pre: "d'une", label: "salle de sport", href: "/guides/avis-google-salle-de-sport" },
 ];
 
 type Cell = boolean | "partial" | string;
@@ -132,54 +81,9 @@ const COMPARISON: { label: string; oral: Cell; qr: Cell; reviu: Cell }[] = [
   { label: "Un simple contact suffit (NFC)", oral: false, qr: false, reviu: true },
   { label: "Visible en permanence au comptoir", oral: false, qr: "partial", reviu: true },
   { label: "Lien modifiable sans rien réimprimer", oral: false, qr: false, reviu: true },
-  { label: "Statistiques de scans (QR et NFC)", oral: false, qr: false, reviu: true },
+  { label: "Statistiques de scans (QR code et NFC)", oral: false, qr: false, reviu: true },
   { label: "Coût", oral: "Gratuit", qr: "Gratuit", reviu: "29,90 € une fois" },
 ];
-
-const PLACES = [
-  {
-    t: "Restaurants et cafés",
-    d: "Près de l'encaissement, au moment où le repas vient de se terminer.",
-    img: PHOTO.comptoir,
-    alt: "Présentoir Reviu sur le comptoir d'un restaurant",
-    href: "/guides/avis-google-restaurant",
-  },
-  {
-    t: "Salons et instituts",
-    d: "À l'accueil, pour prolonger la relation juste après la prestation.",
-    img: PHOTO.etape3,
-    alt: "Présentoir Reviu à l'accueil d'un salon ou institut de beauté",
-    href: "/guides/avis-google-coiffeur",
-  },
-  {
-    t: "Garages automobiles",
-    d: "À la remise des clés, quand la satisfaction du client est au plus haut.",
-    img: PHOTO.etape1,
-    alt: "Présentoir Reviu au comptoir d'un garage automobile",
-    href: "/guides/avis-google-garage",
-  },
-];
-
-// ── Accordéons de la fiche produit ───────────────────────────────────────────
-// Caractéristiques physiques exactes à compléter par un humain : une chaîne
-// vide masque proprement la ligne, jamais d'info inventée.
-const SPEC_DIMENSIONS = ""; // TODO: dimensions réelles, ex. « 100 × 75 mm »
-const SPEC_EPAISSEUR = ""; //  TODO: épaisseur réelle, ex. « 8 mm »
-const SPEC_MATERIAU = ""; //   TODO: matériau réel, ex. « PVC rigide, finition mate »
-const SPEC_POIDS = ""; //      TODO: poids réel, ex. « 120 g »
-
-const SPECS: { label: string; value: string }[] = [
-  { label: "Technologies", value: "Puce NFC + QR code, déjà encodés" },
-  { label: "Emplacement du QR code", value: "En façade du présentoir" },
-  { label: "Emplacement de la puce NFC", value: "Intégrée au présentoir, zone de contact indiquée" },
-  { label: "Code secret d'activation", value: "Imprimé à côté du QR code, sur le présentoir" },
-  { label: "Dimensions", value: SPEC_DIMENSIONS },
-  { label: "Épaisseur", value: SPEC_EPAISSEUR },
-  { label: "Matériau", value: SPEC_MATERIAU },
-  { label: "Poids", value: SPEC_POIDS },
-  { label: "Stabilité", value: "À poser (autoportant), sans fixation ni perçage" },
-  { label: "Surfaces métalliques", value: "Préférez une surface non métallique, ou utilisez le QR code" },
-].filter((s) => s.value !== "");
 
 const FAQ: { q: string; a: string }[] = [
   {
@@ -199,14 +103,6 @@ const FAQ: { q: string; a: string }[] = [
     a: "Oui. Le QR code fonctionne sur tous les smartphones. La lecture NFC est prise en charge sans application par les iPhone récents (XS et plus) et la grande majorité des Android équipés du NFC.",
   },
   {
-    q: "Comment relier le présentoir à ma fiche Google ?",
-    a: "Après réception, scannez le présentoir (ou rendez-vous sur la page d'activation), saisissez le code secret imprimé à côté du QR code, puis collez le lien de votre fiche Google. Le présentoir est opérationnel aussitôt.",
-  },
-  {
-    q: "Puis-je modifier mon lien ?",
-    a: "Oui, à tout moment depuis votre espace Reviu inclus, sans frais supplémentaires. Vous mettez à jour la destination de votre présentoir (par exemple si l'adresse de votre fiche Google change) ; le présentoir, lui, garde toujours la même adresse : rien à réimprimer.",
-  },
-  {
     q: "Quels sont les délais et les frais de livraison ?",
     a: `La livraison est offerte dès le premier présentoir, en France métropolitaine, sous ${SHIPPING.delay}. Paiement sécurisé par carte via Stripe, facture transmise automatiquement.`,
   },
@@ -217,62 +113,34 @@ const FAQ: { q: string; a: string }[] = [
 ];
 
 export default function BoutiquePage() {
-  // Préchauffe la connexion au SDK Stripe : à l'étape de paiement, le formulaire
-  // embarqué se charge plus vite (connexion TLS déjà ouverte).
+  // Préchauffe la connexion au SDK Stripe pour l'étape de paiement.
   preconnect("https://js.stripe.com");
-
-  const stand = getProduct("stand");
-  const schema = graph(
-    ...(stand
-      ? [
-          productSchema({
-            name: "Présentoir Reviu - NFC + QR code pour avis Google",
-            description:
-              "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans abonnement, livraison offerte et satisfait ou remboursé 30 jours ; espace Reviu inclus (statistiques, gestion, modification du lien).",
-            priceCents: stand.priceCents,
-            path: "/",
-            image: PHOTO.front,
-            sku: stand.id,
-          }),
-        ]
-      : []),
-    faqSchema(FAQ),
-    breadcrumbSchema([
-      { name: "Accueil", path: "/" },
-      { name: "Le présentoir", path: "/#produits" },
-    ]),
-  );
+  const schema = graph(faqSchema(FAQ));
+  const tierNote = STAND_TIERS.slice(1)
+    .map((t) => `${formatEuros(t.unitCents)} dès ${t.min}`)
+    .join(", ");
 
   return (
     <>
       <JsonLd schema={schema} />
       <SiteHeader />
       <main className="bg-canvas">
-        {/* 1 - HERO. Sur desktop, il occupe la hauteur visible (100svh moins le
-            bandeau 36px et le header 68px). Sur mobile, texte et CTA d'abord. */}
+        {/* HERO : hauteur visible sur desktop (100svh - bandeau 36px - header 68px). */}
         <section
           id="hero"
           className="relative isolate overflow-hidden lg:flex lg:min-h-[calc(100svh-104px)] lg:flex-col"
         >
           <HeroBackground />
-          <Container className="grid w-full flex-1 items-center gap-10 pb-12 pt-8 sm:pb-16 sm:pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
+          <Container className="grid w-full flex-1 items-center gap-10 pb-12 pt-10 sm:pb-16 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
             <div className="reveal flex flex-col items-start">
-              <h1 className="font-display font-semibold tracking-tight text-ink">
-                <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 py-1 pl-1 pr-3.5 text-[13px] font-medium tracking-normal text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-brand px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
-                    <IconNfc size={12} /> NFC + QR
-                  </span>
-                  Présentoir avis Google
-                </span>
-                <span className="mt-5 block text-[2.15rem] leading-[1.06] sm:text-[2.9rem] lg:text-[3.5rem] lg:leading-[1.03]">
-                  Obtenez plus d&apos;avis Google, directement depuis votre{" "}
-                  <span className="text-brand">comptoir</span>.
-                </span>
+              <h1 className="font-display text-[2.15rem] font-semibold leading-[1.06] tracking-tight text-ink sm:text-[2.9rem] lg:text-[3.5rem] lg:leading-[1.03]">
+                Obtenez plus d&apos;avis Google, directement depuis votre{" "}
+                <span className="text-brand">comptoir</span>.
               </h1>
               <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
-                Vos clients approchent leur téléphone ou scannent le QR
-                code&nbsp;: votre page d&apos;avis Google s&apos;ouvre instantanément. Sans
-                application, sans abonnement.
+                Le présentoir NFC + QR code reviu : vos clients approchent leur
+                téléphone ou scannent, et votre page d&apos;avis Google
+                s&apos;ouvre instantanément. Sans application, sans abonnement.
               </p>
               <div className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row">
                 <a
@@ -280,10 +148,7 @@ export default function BoutiquePage() {
                   className={buttonClass("primary", "lg", "group h-14 w-full px-7 text-base sm:w-auto")}
                 >
                   Commander - {STAND_PRICE}
-                  <IconArrowRight
-                    size={18}
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
+                  <IconArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
                 </a>
                 <a
                   href="#fonctionnement"
@@ -306,40 +171,33 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 2 - MÉTIERS : bandeau défilant, chaque pastille mène à son guide. */}
-        <section aria-label="Pensé pour les commerces de proximité" className="border-y border-line bg-surface">
-          <div className="mx-auto flex max-w-6xl items-center gap-6 py-4 lg:px-8">
-            <p className="hidden shrink-0 text-[13px] font-semibold text-muted lg:block">
-              Pensé pour
+        {/* MÉTIERS : une phrase éditoriale, chaque métier mène à son guide. */}
+        <section aria-label="Pour tous les commerces de proximité" className="border-y border-line bg-surface">
+          <Container className="py-14 sm:py-20">
+            <p className="mx-auto max-w-4xl text-center font-display text-[1.45rem] font-medium leading-[1.45] tracking-tight text-muted sm:text-[1.9rem] lg:text-[2.15rem]">
+              Au comptoir{" "}
+              {METIERS.map((m, i) => (
+                <span key={m.href}>
+                  {m.pre}{" "}
+                  <Link
+                    href={m.href}
+                    className="whitespace-nowrap text-ink underline decoration-brand/30 decoration-2 underline-offset-[6px] transition-colors hover:text-brand hover:decoration-brand"
+                  >
+                    {m.label}
+                  </Link>
+                  {i < METIERS.length - 2 ? ", " : i === METIERS.length - 2 ? " ou " : ""}
+                </span>
+              ))}
+              &nbsp;: <span className="text-ink">vos clients satisfaits deviennent des avis Google.</span>
             </p>
-            <div className="marquee fade-x min-w-0 flex-1">
-              <div className="marquee-track">
-                {[...METIERS, ...METIERS].map((m, i) => {
-                  const dup = i >= METIERS.length;
-                  return (
-                    <Link
-                      key={`${m.href}-${i}`}
-                      href={m.href}
-                      aria-hidden={dup || undefined}
-                      tabIndex={dup ? -1 : undefined}
-                      className="mx-1.5 inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-canvas px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-brand/40 hover:text-brand"
-                    >
-                      <IconStar size={13} className="text-accent" />
-                      {m.label}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          </Container>
         </section>
 
-        {/* 3 - PARCOURS CLIENT (démo animée) */}
+        {/* PARCOURS CLIENT (démo animée) */}
         <section id="fonctionnement" className="scroll-mt-20">
           <Container className="py-16 sm:py-24">
             <Reveal>
               <SectionHead
-                eyebrow="Comment ça marche"
                 title="Un geste, et votre page d'avis s'ouvre."
                 intro="Le présentoir supprime tout ce qui fait renoncer un client satisfait : chercher votre fiche, trouver le bouton, remettre à plus tard."
               />
@@ -347,158 +205,92 @@ export default function BoutiquePage() {
             <div className="mt-12 sm:mt-14">
               <ScanDemo />
             </div>
-            <div className="mt-10 text-center">
-              <Link
-                href="/r/demo"
-                prefetch={false}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
-              >
-                Essayer la page de démonstration
-                <IconArrowRight size={15} />
-              </Link>
-            </div>
           </Container>
         </section>
 
         {/* TÉMOIGNAGES (affichés dès le premier vrai témoignage) */}
         <TestimonialsSection items={TESTIMONIALS} />
 
-        {/* 4 - PRODUIT ET COMMANDE (galerie + fiche + achat) */}
-        <section id="produits" className="scroll-mt-16 border-y border-line bg-surface">
-          <Container className="py-14 sm:py-20">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
-              <div className="lg:sticky lg:top-24 lg:self-start">
-                <ProductGallery images={GALLERY} />
-              </div>
-
+        {/* COMMANDE EXPRESS : le détail vit sur la fiche produit. */}
+        <section id="produits" className="scroll-mt-20 border-y border-line bg-surface">
+          <Container className="py-16 sm:py-20">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-12">
+              <Link href={PRODUCT_PATH} className="group block" aria-label="Voir la fiche du présentoir">
+                <ProductPhoto
+                  src={PHOTO.front}
+                  alt="Présentoir Reviu NFC et QR code pour avis Google"
+                  sizes="(min-width: 768px) 420px, 90vw"
+                  className="mx-auto aspect-square w-full max-w-[220px] rounded-[2rem] sm:max-w-[420px]"
+                  imgClassName="transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </Link>
               <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand">
-                    <IconTruck size={14} /> Livraison offerte
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-ink">
-                    <IconShield size={14} className="text-star" /> {GUARANTEE.label}
-                  </span>
-                </div>
-                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  Présentoir avis Google Reviu
-                  <span className="block text-brand">NFC + QR code</span>
+                <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                  {accentLastWord("Commandez votre présentoir.")}
                 </h2>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                  Le présentoir connecté qui envoie vos clients vers votre page
-                  d&apos;avis Google, en un geste. Déjà encodé, prêt à poser.
+                  NFC + QR code déjà encodés, prêt à poser. Espace Reviu inclus,
+                  sans abonnement.
                 </p>
-                <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
-                  {BENEFITS.map((b) => (
-                    <li key={b} className="flex items-start gap-2.5 text-sm text-ink">
-                      <Check />
-                      {b}
-                    </li>
-                  ))}
+                <p className="mt-6 flex items-baseline gap-2">
+                  <span className="font-display text-5xl font-semibold tracking-tight text-ink">
+                    {STAND_PRICE}
+                  </span>
+                  <span className="text-sm text-muted">TTC l&apos;unité</span>
+                </p>
+                <p className="mt-1 text-sm text-ink-soft">
+                  Puis {tierNote}. Livraison offerte.
+                </p>
+                <div className="mt-6">
+                  <QuickOrder tiers={STAND_TIERS.map((t) => ({ ...t }))} max={STAND_QTY_MAX} />
+                </div>
+                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[13px] font-medium text-ink-soft">
+                  <Reassure icon={<IconShield size={15} />}>{GUARANTEE.label}</Reassure>
+                  <Reassure icon={<IconLock size={15} />}>Paiement sécurisé</Reassure>
                 </ul>
-
-                <div className="mt-7 rounded-[1.75rem] border border-line bg-canvas p-5 shadow-[var(--shadow-soft)] sm:p-6">
-                  <StandOrder
-                    tiers={STAND_TIERS.map((t) => ({ ...t }))}
-                    max={STAND_QTY_MAX}
-                    guaranteeLabel={GUARANTEE.label}
-                  />
-                </div>
-
-                <div className="mt-6 divide-y divide-line overflow-hidden rounded-2xl border border-line">
-                  <Accordion title="Caractéristiques" defaultOpen>
-                    <dl className="grid gap-x-4 gap-y-2.5 sm:grid-cols-[10rem_1fr]">
-                      {SPECS.map((s) => (
-                        <div key={s.label} className="sm:contents">
-                          <dt className="text-sm text-muted">{s.label}</dt>
-                          <dd className="mb-2 text-sm font-medium text-ink sm:mb-0">
-                            {s.value}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </Accordion>
-                  <Accordion title="Activation">
-                    <ol className="ml-4 list-decimal space-y-1.5 text-sm leading-relaxed text-ink-soft marker:text-muted">
-                      <li>Vous recevez votre présentoir.</li>
-                      <li>Vous scannez le QR code ou ouvrez la page d&apos;activation.</li>
-                      <li>Vous saisissez le code secret imprimé à côté du QR code.</li>
-                      <li>Vous collez le lien de votre fiche Google.</li>
-                      <li>Le présentoir devient opérationnel.</li>
-                    </ol>
-                    <p className="mt-3 text-sm leading-relaxed text-muted">
-                      Le code secret est un mécanisme de sécurité : il garantit que
-                      vous seul pouvez relier ce présentoir à votre établissement.
-                    </p>
-                  </Accordion>
-                  <Accordion title="Compatibilité">
-                    <ul className="space-y-1.5 text-sm leading-relaxed text-ink-soft">
-                      <li>iPhone : QR code sur tous les modèles ; NFC sans application dès l&apos;iPhone XS.</li>
-                      <li>Android : QR code sur tous les modèles ; NFC sur la grande majorité des appareils équipés.</li>
-                      <li>Aucune application à télécharger, ni pour vous ni pour vos clients.</li>
-                    </ul>
-                  </Accordion>
-                  <Accordion title="Livraison, retours et garantie">
-                    <ul className="space-y-1.5 text-sm leading-relaxed text-ink-soft">
-                      <li>Livraison offerte en France métropolitaine, sous {SHIPPING.delay}.</li>
-                      <li>{GUARANTEE.detail}</li>
-                      <li>Droit de rétractation légal de 14 jours.</li>
-                      <li>Garantie légale de conformité (2 ans).</li>
-                      <li>Entretien : chiffon doux, sans produit abrasif.</li>
-                    </ul>
-                  </Accordion>
-                </div>
+                <Link
+                  href={PRODUCT_PATH}
+                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
+                >
+                  Caractéristiques, activation et compatibilité
+                  <IconArrowRight size={15} />
+                </Link>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* 5 - POURQUOI UN PRÉSENTOIR (comparatif honnête) */}
+        {/* POURQUOI UN PRÉSENTOIR (comparatif honnête) */}
         <section className="border-b border-line">
           <Container className="py-16 sm:py-24">
             <Reveal>
-              <SectionHead
-                eyebrow="Pourquoi un présentoir"
-                title="Plus simple qu'une demande à l'oral, plus complet qu'un QR imprimé."
-              />
+              <SectionHead title="Plus simple qu'une demande à l'oral, plus complet qu'un QR code imprimé." />
             </Reveal>
             <Reveal className="mx-auto mt-12 max-w-4xl">
               <div className="overflow-hidden rounded-3xl border border-line bg-surface shadow-[var(--shadow-soft)]">
                 <table className="w-full table-fixed border-collapse text-left">
                   <caption className="sr-only">
-                    Comparatif : demander un avis à l&apos;oral, QR code imprimé et
-                    présentoir Reviu
+                    Comparatif : demander un avis à l&apos;oral, QR code imprimé et présentoir Reviu
                   </caption>
                   <thead>
-                    <tr className="border-b border-line text-[12px] font-semibold uppercase tracking-wide text-muted sm:text-xs">
-                      <th scope="col" className="w-[44%] px-4 py-4 sm:w-1/2 sm:px-6">
+                    <tr className="border-b border-line text-[12px] font-semibold text-muted sm:text-[13px]">
+                      <th scope="col" className="w-[42%] px-4 py-4 sm:w-1/2 sm:px-6">
                         <span className="sr-only">Critère</span>
                       </th>
                       <th scope="col" className="px-1 py-4 text-center">À l&apos;oral</th>
-                      <th scope="col" className="px-1 py-4 text-center">QR imprimé</th>
-                      <th scope="col" className="bg-brand-soft px-1 py-4 text-center text-brand">
-                        Reviu
-                      </th>
+                      <th scope="col" className="px-1 py-4 text-center">QR code imprimé</th>
+                      <th scope="col" className="bg-brand-soft px-1 py-4 text-center text-brand">Reviu</th>
                     </tr>
                   </thead>
                   <tbody>
                     {COMPARISON.map((row) => (
                       <tr key={row.label} className="border-b border-line last:border-0">
-                        <th
-                          scope="row"
-                          className="px-4 py-3.5 text-[13.5px] font-medium leading-snug text-ink sm:px-6 sm:text-[15px]"
-                        >
+                        <th scope="row" className="px-4 py-3.5 text-[13.5px] font-medium leading-snug text-ink sm:px-6 sm:text-[15px]">
                           {row.label}
                         </th>
-                        <td className="px-1 py-3.5 text-center">
-                          <CompareCell value={row.oral} />
-                        </td>
-                        <td className="px-1 py-3.5 text-center">
-                          <CompareCell value={row.qr} />
-                        </td>
-                        <td className="bg-brand-soft/60 px-1 py-3.5 text-center">
-                          <CompareCell value={row.reviu} strong />
-                        </td>
+                        <td className="px-1 py-3.5 text-center"><CompareCell value={row.oral} /></td>
+                        <td className="px-1 py-3.5 text-center"><CompareCell value={row.qr} /></td>
+                        <td className="bg-brand-soft/60 px-1 py-3.5 text-center"><CompareCell value={row.reviu} strong /></td>
                       </tr>
                     ))}
                   </tbody>
@@ -513,22 +305,13 @@ export default function BoutiquePage() {
               </p>
             </Reveal>
 
-            {/* Argument de rentabilité (raisonnement, pas une promesse chiffrée) */}
             <Reveal className="mx-auto mt-10 max-w-4xl">
-              <div className="relative isolate flex flex-col items-start gap-6 overflow-hidden rounded-3xl bg-ink p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
-                <div className="max-w-xl">
-                  <p className="text-sm font-semibold text-white/70">
-                    Le calcul est vite fait
-                  </p>
-                  <p className="mt-2 font-display text-xl font-semibold leading-snug sm:text-2xl">
-                    {STAND_PRICE}, une seule fois. Un seul nouveau client qui vous
-                    choisit grâce à vos avis, et le présentoir est rentabilisé.
-                  </p>
-                </div>
-                <a
-                  href="#produits"
-                  className={buttonClass("primary", "lg", "shrink-0 border-transparent")}
-                >
+              <div className="flex flex-col items-start gap-6 rounded-3xl bg-ink p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
+                <p className="max-w-xl font-display text-xl font-semibold leading-snug sm:text-2xl">
+                  {STAND_PRICE}, une seule fois. Un seul nouveau client qui vous
+                  choisit grâce à vos avis, et le présentoir est rentabilisé.
+                </p>
+                <a href="#produits" className={buttonClass("primary", "lg", "shrink-0 border-transparent")}>
                   Commander
                 </a>
               </div>
@@ -536,21 +319,17 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 6 - ESPACE REVIU INCLUS + MISE EN ROUTE */}
+        {/* ESPACE REVIU INCLUS */}
         <section className="border-b border-line bg-surface">
           <Container className="py-16 sm:py-24">
             <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-2 lg:gap-16">
               <Reveal>
-                <span className="text-sm font-semibold text-brand">
-                  Inclus, sans abonnement
-                </span>
-                <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                   {accentLastWord("Votre présentoir, piloté depuis votre espace.")}
                 </h2>
                 <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft sm:text-base">
                   {INCLUDED_SPACE.title}&nbsp;: tout ce qu&apos;il faut pour suivre et
-                  gérer vos présentoirs, sans frais supplémentaires, dès
-                  l&apos;activation.
+                  gérer vos présentoirs, sans abonnement, dès l&apos;activation.
                 </p>
                 <ul className="mt-6 grid gap-3">
                   {INCLUDED_SPACE.features.map((f) => (
@@ -565,57 +344,20 @@ export default function BoutiquePage() {
                 <DashboardMock />
               </Reveal>
             </div>
-
-            <div className="mt-20 sm:mt-24">
-              <Reveal>
-                <SectionHead
-                  eyebrow="Mise en route"
-                  title="Prêt en 2 minutes, sans technicien."
-                />
-              </Reveal>
-              <div className="mt-10 grid gap-6 sm:grid-cols-3">
-                {SETUP.map((s, i) => (
-                  <Reveal key={s.n} delay={i * 80}>
-                    <div className="group flex h-full flex-col">
-                      <div className="relative">
-                        <ProductPhoto
-                          src={s.img}
-                          alt={s.alt}
-                          className="aspect-[4/3] w-full rounded-2xl"
-                          imgClassName="transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
-                        <span className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-xl bg-surface font-mono text-sm font-semibold text-brand shadow-[var(--shadow-soft)]">
-                          {s.n}
-                        </span>
-                      </div>
-                      <h3 className="mt-4 font-display text-[17px] font-semibold leading-snug text-ink">
-                        {s.title}
-                      </h3>
-                      <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
-                        {s.body}
-                      </p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
           </Container>
         </section>
 
-        {/* 7 - GARANTIE (bloc de couleur de marque, levier anti-hésitation) */}
+        {/* GARANTIE */}
         <section className="relative isolate overflow-hidden bg-brand text-white">
           <div aria-hidden className="absolute inset-0 -z-10 opacity-30 hero-grid" />
           <Container className="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <Reveal>
-              <span className="inline-grid h-14 w-14 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/25">
-                <IconShield size={28} />
-              </span>
-              <h2 className="mt-6 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+              <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
                 Essayez-le 30 jours. Satisfait ou remboursé.
               </h2>
               <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/85 sm:text-base">
-                {GUARANTEE.detail} Vous le testez en conditions réelles, à
-                votre comptoir, sans engagement.
+                {GUARANTEE.detail} Vous le testez en conditions réelles, à votre
+                comptoir, sans engagement.
               </p>
             </Reveal>
             <Reveal delay={100}>
@@ -625,10 +367,7 @@ export default function BoutiquePage() {
                   { icon: <IconLock size={20} />, t: "Sans abonnement", d: "Un achat unique, l'espace Reviu est inclus." },
                   { icon: <IconFlag size={20} />, t: "Entreprise française", d: "Un support humain, qui répond vraiment." },
                 ].map((it) => (
-                  <li
-                    key={it.t}
-                    className="flex items-start gap-4 rounded-2xl bg-white/10 p-4 ring-1 ring-white/15 backdrop-blur"
-                  >
+                  <li key={it.t} className="flex items-start gap-4 rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-brand">
                       {it.icon}
                     </span>
@@ -643,78 +382,22 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 8 - OÙ L'INSTALLER (chaque carte mène au guide du métier) */}
-        <section id="pour-qui" className="scroll-mt-20 border-b border-line">
-          <Container className="py-16 sm:py-24">
-            <Reveal>
-              <SectionHead eyebrow="Où l'installer" title="Au comptoir, au bon moment." />
-            </Reveal>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {PLACES.map((p, i) => (
-                <Reveal key={p.t} delay={i * 80}>
-                  <Link
-                    href={p.href}
-                    className="group block h-full overflow-hidden rounded-3xl border border-line bg-surface transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
-                  >
-                    <ProductPhoto
-                      src={p.img}
-                      alt={p.alt}
-                      framed={false}
-                      className="aspect-[4/3] w-full"
-                      imgClassName="transition-transform duration-500 group-hover:scale-[1.04]"
-                    />
-                    <div className="p-5">
-                      <h3 className="font-display text-[17px] font-semibold text-ink">
-                        {p.t}
-                      </h3>
-                      <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                        {p.d}
-                      </p>
-                      <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand">
-                        Lire le guide
-                        <IconArrowRight
-                          size={15}
-                          className="transition-transform group-hover:translate-x-0.5"
-                        />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-            <p className="mx-auto mt-10 max-w-2xl rounded-2xl border border-line bg-surface px-5 py-4 text-center text-[13px] leading-relaxed text-ink-soft">
-              Une collecte d&apos;avis conforme aux règles Google : tous vos clients
-              peuvent accéder à votre page d&apos;avis, sans filtrage selon leur
-              satisfaction.
-            </p>
-          </Container>
-        </section>
-
-        {/* 9 - FAQ */}
+        {/* FAQ */}
         <section id="faq" className="scroll-mt-20 border-b border-line">
           <Container className="grid gap-10 py-16 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <Reveal>
-              <span className="text-sm font-semibold text-brand">
-                Questions fréquentes
-              </span>
-              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Tout ce qu'il faut savoir.")}
               </h2>
               <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">
-                Une autre question ? Écrivez-nous, on répond vite.
+                Une autre question ? Écrivez-nous ou appelez-nous, on répond vite.
               </p>
               <div className="mt-6 flex flex-col items-start gap-2.5">
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
-                >
+                <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline">
                   <IconMail size={17} /> {CONTACT_EMAIL}
                 </a>
                 {CONTACT_PHONE && (
-                  <a
-                    href={CONTACT_PHONE.href}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
-                  >
+                  <a href={CONTACT_PHONE.href} className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline">
                     <IconPhone size={17} /> {CONTACT_PHONE.display}
                   </a>
                 )}
@@ -739,10 +422,10 @@ export default function BoutiquePage() {
           </Container>
         </section>
 
-        {/* 10 - CTA FINAL */}
+        {/* CTA FINAL */}
         <section>
           <Container className="py-16 sm:py-20">
-            <div className="relative isolate grid items-center gap-8 overflow-hidden rounded-[2.5rem] bg-ink px-6 py-12 sm:px-12 sm:py-14 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="grid items-center gap-8 rounded-[2.5rem] bg-ink px-6 py-12 sm:px-12 sm:py-14 lg:grid-cols-[1.2fr_0.8fr]">
               <div className="text-center lg:text-left">
                 <Stars size={18} className="justify-center lg:justify-start" />
                 <h2 className="mx-auto mt-4 max-w-xl font-display text-2xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:mx-0">
@@ -777,11 +460,7 @@ export default function BoutiquePage() {
         </section>
       </main>
       <SiteFooter />
-      <StickyBuyBar
-        price={STAND_PRICE}
-        note={SHIPPING.label}
-        image={PHOTO.front}
-      />
+      <StickyBuyBar price={STAND_PRICE} note={SHIPPING.label} image={PHOTO.front} />
     </>
   );
 }
@@ -891,21 +570,10 @@ function DashboardMock() {
 }
 
 // ── Petits composants ────────────────────────────────────────────────────────
-function SectionHead({
-  eyebrow,
-  title,
-  intro,
-}: {
-  eyebrow: string;
-  title: string;
-  intro?: string;
-}) {
+function SectionHead({ title, intro }: { title: string; intro?: string }) {
   return (
     <div className="text-center">
-      <span className="text-sm font-semibold text-brand">
-        {eyebrow}
-      </span>
-      <h2 className="mx-auto mt-2 max-w-3xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h2 className="mx-auto max-w-3xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {accentLastWord(title)}
       </h2>
       {intro && (
@@ -961,26 +629,6 @@ function CompareCell({ value, strong = false }: { value: Cell; strong?: boolean 
     >
       {value}
     </span>
-  );
-}
-
-function Accordion({
-  title,
-  children,
-  defaultOpen = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  defaultOpen?: boolean;
-}) {
-  return (
-    <details open={defaultOpen} className="group bg-surface">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-ink">
-        {title}
-        <span className="text-brand transition-transform group-open:rotate-45">+</span>
-      </summary>
-      <div className="px-5 pb-5">{children}</div>
-    </details>
   );
 }
 

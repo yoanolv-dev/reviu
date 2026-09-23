@@ -145,9 +145,11 @@ export type NavItem = {
 };
 
 export const QR_TOOL_PATH = "/outils/qr-code-avis-google";
+/** Fiche produit détaillée du présentoir. */
+export const PRODUCT_PATH = "/presentoir-avis-google";
 
 export const NAV: readonly NavItem[] = [
-  { label: "Le présentoir", href: "/#produits" },
+  { label: "Le présentoir", href: PRODUCT_PATH },
   { label: "Comment ça marche", href: "/#fonctionnement" },
   {
     label: "Ressources",

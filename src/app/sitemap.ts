@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
 import { GUIDES, CATEGORY_HUBS } from "@/lib/guides";
-import { QR_TOOL_PATH } from "@/lib/brand";
+import { PRODUCT_PATH, QR_TOOL_PATH } from "@/lib/brand";
 
 /**
  * Plan du site (sitemap.xml) - ne liste que les pages publiques indexables.
@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const core: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl(PRODUCT_PATH), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl(QR_TOOL_PATH), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/guides"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/demo"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },

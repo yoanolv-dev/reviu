@@ -22,10 +22,23 @@ export type LinkCheck =
   | { ok: true; url: string; google: boolean }
   | { ok: false; error: string };
 
-/** Normalise et vérifie le lien saisi (ajoute https:// si besoin). */
+/** Identifiant de fiche Google (Place ID), ex. « ChIJN1t_tDeuEmsRUsoyG83frY4 ». */
+const PLACE_ID = /^ChIJ[\w-]{10,}$/;
+
+/**
+ * Normalise et vérifie le lien saisi (ajoute https:// si besoin). Un Place ID
+ * seul est converti en lien direct de rédaction d'avis Google.
+ */
 export function checkLink(raw: string): LinkCheck {
   const v = raw.trim();
   if (!v) return { ok: false, error: "Collez le lien de votre page d'avis Google." };
+  if (PLACE_ID.test(v)) {
+    return {
+      ok: true,
+      url: `https://search.google.com/local/writereview?placeid=${v}`,
+      google: true,
+    };
+  }
   const withScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(v) ? v : `https://${v}`;
   let u: URL;
   try {
@@ -84,21 +97,43 @@ function fit(text: string, base: number, soft: number, hard: number): number {
   return base;
 }
 
-export const POSTER = { width: 1000, height: 1414 } as const;
+export type PosterFormat = "affiche" | "carre";
 
-/**
- * Affiche A6 / A5 (ratio A) : bandeau cobalt avec étoiles et titre, QR code
- * centré, nom de l'établissement et consigne de scan.
- */
-export function posterSvg({
-  url,
-  title,
-  name,
-}: {
+/** Couleurs proposées pour le bandeau de l'affiche (le QR reste toujours noir). */
+export const POSTER_COLORS = [
+  { id: "cobalt", label: "Bleu", value: "#1b4dff", soft: "#dbe3ff" },
+  { id: "encre", label: "Noir", value: "#0a0d16", soft: "#d9dbe1" },
+  { id: "vert", label: "Vert", value: "#0f7b5f", soft: "#d3ece4" },
+  { id: "bordeaux", label: "Bordeaux", value: "#9f1d35", soft: "#f3d9de" },
+] as const;
+
+export type PosterInput = {
   url: string;
   title: string;
   name: string;
-}): string {
+  color?: string;
+  soft?: string;
+  format?: PosterFormat;
+};
+
+export const POSTER = { width: 1000, height: 1414 } as const;
+
+/** Affiche (A6 / A5) ou carré (autocollant, carte), selon `format`. */
+export function posterSvg(input: PosterInput): string {
+  return input.format === "carre" ? squareSvg(input) : portraitSvg(input);
+}
+
+/**
+ * Affiche A6 / A5 (ratio A) : bandeau coloré avec étoiles et titre, QR code
+ * centré, nom de l'établissement et consigne de scan.
+ */
+function portraitSvg({
+  url,
+  title,
+  name,
+  color = BRAND,
+  soft = "#dbe3ff",
+}: PosterInput): string {
   const { width: W, height: H } = POSTER;
   const t = (title.trim() || "Votre avis compte !").slice(0, 40);
   const nm = name.trim().slice(0, 40);
@@ -116,8 +151,8 @@ export function posterSvg({
 <defs><clipPath id="reviu-poster-card"><rect width="${W}" height="${H}" rx="56"/></clipPath></defs>
 <g clip-path="url(#reviu-poster-card)">
 <rect width="${W}" height="${H}" fill="#ffffff"/>
-<path d="M0 0H${W}V394C${W * 0.78} 472 ${W * 0.58} 338 ${W * 0.38} 390S${W * 0.1} 468 0 426Z" fill="#dbe3ff"/>
-<path d="M0 0H${W}V372C${W * 0.78} 450 ${W * 0.58} 316 ${W * 0.38} 368S${W * 0.1} 446 0 404Z" fill="${BRAND}"/>
+<path d="M0 0H${W}V394C${W * 0.78} 472 ${W * 0.58} 338 ${W * 0.38} 390S${W * 0.1} 468 0 426Z" fill="${soft}"/>
+<path d="M0 0H${W}V372C${W * 0.78} 450 ${W * 0.58} 316 ${W * 0.38} 368S${W * 0.1} 446 0 404Z" fill="${color}"/>
 ${stars}
 <text x="${W / 2}" y="268" text-anchor="middle" font-family="${FONT}" font-size="${fit(t, 66, 20, 28)}" font-weight="700" fill="#ffffff">${esc(t)}</text>
 <text x="${W / 2}" y="328" text-anchor="middle" font-family="${FONT}" font-size="34" fill="#ffffff" fill-opacity="0.88">Laissez-nous un avis sur Google</text>
@@ -125,10 +160,45 @@ ${stars}
 <path d="${qrPath(url, qrX, qrY, qrSize)}" fill="${INK}" shape-rendering="crispEdges"/>
 <text x="${W / 2}" y="1138" text-anchor="middle" font-family="${FONT}" font-size="38" font-weight="700" fill="${INK}">Scannez avec l'appareil photo</text>
 <text x="${W / 2}" y="1186" text-anchor="middle" font-family="${FONT}" font-size="30" fill="${MUTED}">de votre téléphone</text>
-${nm ? `<text x="${W / 2}" y="1274" text-anchor="middle" font-family="${FONT}" font-size="${fit(nm, 44, 24, 32)}" font-weight="700" fill="${BRAND}">${esc(nm)}</text>` : ""}
+${nm ? `<text x="${W / 2}" y="1274" text-anchor="middle" font-family="${FONT}" font-size="${fit(nm, 44, 24, 32)}" font-weight="700" fill="${color}">${esc(nm)}</text>` : ""}
 <text x="${W / 2}" y="1360" text-anchor="middle" font-family="${FONT}" font-size="22" fill="${MUTED}">QR code créé gratuitement sur reviu.fr</text>
 </g>
 <rect x="2" y="2" width="${W - 4}" height="${H - 4}" rx="54" fill="none" stroke="#e6e8ef" stroke-width="4"/>
+</svg>`;
+}
+
+/** Format carré (autocollant, carte de table) : bandeau haut, QR, nom. */
+function squareSvg({
+  url,
+  title,
+  name,
+  color = BRAND,
+}: PosterInput): string {
+  const S = 1000;
+  const t = (title.trim() || "Votre avis compte !").slice(0, 40);
+  const nm = name.trim().slice(0, 40);
+  const qrSize = 470;
+  const qrX = (S - qrSize) / 2;
+  const qrY = 290;
+  const stars = [0, 1, 2, 3, 4]
+    .map((i) => {
+      const x = S / 2 - 2.5 * 58 + i * 58 + 4;
+      return `<path d="${STAR}" transform="translate(${x} 58) scale(2.1)" fill="${GOLD}"/>`;
+    })
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}">
+<defs><clipPath id="reviu-square-card"><rect width="${S}" height="${S}" rx="64"/></clipPath></defs>
+<g clip-path="url(#reviu-square-card)">
+<rect width="${S}" height="${S}" fill="#ffffff"/>
+<rect width="${S}" height="236" fill="${color}"/>
+${stars}
+<text x="${S / 2}" y="180" text-anchor="middle" font-family="${FONT}" font-size="${fit(t, 58, 20, 28)}" font-weight="700" fill="#ffffff">${esc(t)}</text>
+<path d="${qrPath(url, qrX, qrY, qrSize)}" fill="${INK}" shape-rendering="crispEdges"/>
+<text x="${S / 2}" y="${nm ? 848 : 868}" text-anchor="middle" font-family="${FONT}" font-size="32" font-weight="700" fill="${INK}">Scannez pour laisser un avis Google</text>
+${nm ? `<text x="${S / 2}" y="910" text-anchor="middle" font-family="${FONT}" font-size="${fit(nm, 38, 26, 34)}" font-weight="700" fill="${color}">${esc(nm)}</text>` : ""}
+<text x="${S / 2}" y="962" text-anchor="middle" font-family="${FONT}" font-size="20" fill="${MUTED}">QR code créé gratuitement sur reviu.fr</text>
+</g>
+<rect x="2" y="2" width="${S - 4}" height="${S - 4}" rx="62" fill="none" stroke="#e6e8ef" stroke-width="4"/>
 </svg>`;
 }
 

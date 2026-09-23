@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/ui/logo";
-import { Aurora } from "@/components/site/aurora";
+import { LogoBadge } from "@/components/ui/logo";
 import { SITE_URL } from "@/lib/brand";
 
 export function AuthShell({
@@ -15,11 +14,18 @@ export function AuthShell({
   footer?: React.ReactNode;
 }) {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-canvas px-5 py-10">
-      <Aurora variant="soft" />
+    <main className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden bg-canvas px-5 py-10">
+      <div aria-hidden className="hero-grid absolute inset-0 -z-10 opacity-70" />
       <div className="w-full max-w-sm">
-        <Link href="/" className="mb-8 flex justify-center">
-          <Logo />
+        <Link
+          href="/"
+          aria-label="reviu - accueil"
+          className="mb-8 flex flex-col items-center gap-3"
+        >
+          <LogoBadge className="h-16 w-16 drop-shadow-[0_12px_24px_rgba(27,77,255,0.25)]" />
+          <span className="font-display text-3xl font-semibold tracking-tight text-ink">
+            reviu
+          </span>
         </Link>
         <div className="rounded-3xl border border-line bg-surface p-6 shadow-[var(--shadow-soft)] sm:p-8">
           <h1 className="font-display text-xl font-semibold text-ink">{title}</h1>

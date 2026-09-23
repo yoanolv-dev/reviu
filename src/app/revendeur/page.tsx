@@ -148,11 +148,7 @@ export default function RevendeurPage() {
           <HeroBackground />
           <Container className="grid items-center gap-12 py-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-24">
             <div className="reveal">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1 text-xs font-medium text-ink-soft shadow-[var(--shadow-soft)] backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                Programme revendeur · sur sélection
-              </span>
-              <h1 className="mt-5 font-display text-[2.1rem] font-semibold leading-[1.07] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="font-display text-[2.1rem] font-semibold leading-[1.07] tracking-tight text-ink sm:text-5xl lg:text-[3.4rem]">
                 Devenez revendeur reviu{" "}
                 <span className="text-brand">près de chez vous</span>.
               </h1>
@@ -215,10 +211,7 @@ export default function RevendeurPage() {
                 className="aspect-[4/5] w-full rounded-[2rem] shadow-[var(--shadow-lift)] ring-1 ring-white/60"
               />
               <div className="float absolute -left-3 bottom-8 max-w-[240px] rounded-2xl border border-white/70 bg-white/90 p-4 shadow-[var(--shadow-lift)] backdrop-blur sm:-left-8">
-                <p className="text-xs font-semibold text-brand">
-                  Ce que vous proposez
-                </p>
-                <p className="mt-1.5 font-display text-[17px] font-semibold leading-snug text-ink">
+                <p className="font-display text-[17px] font-semibold leading-snug text-ink">
                   Un présentoir à {STAND_PRICE}, sans abonnement
                 </p>
                 <p className="mt-1 text-xs text-muted">
@@ -233,9 +226,7 @@ export default function RevendeurPage() {
         <section className="border-b border-line bg-surface">
           <Container className="py-16 sm:py-24">
             <Reveal>
-              <SectionHead
-                eyebrow="Qui recherchons-nous"
-                title="Des partenaires déjà au contact des commerçants."
+              <SectionHead title="Des partenaires déjà au contact des commerçants."
               />
             </Reveal>
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -258,10 +249,7 @@ export default function RevendeurPage() {
         <section className="border-b border-line">
           <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             <Reveal>
-              <span className="text-sm font-semibold text-brand">
-                Pourquoi reviu
-              </span>
-              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Un produit facile à recommander.")}
               </h2>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-base">
@@ -308,10 +296,7 @@ export default function RevendeurPage() {
           <Container className="py-16 sm:py-24">
             <Reveal>
               <div className="text-center">
-                <span className="text-sm font-semibold text-white/70">
-                  Comment ça se passe
-                </span>
-                <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
                   Trois étapes, une sélection humaine.
                 </h2>
               </div>
@@ -336,10 +321,7 @@ export default function RevendeurPage() {
         <section id="candidature" className="scroll-mt-24">
           <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
-              <span className="text-sm font-semibold text-brand">
-                Candidature
-              </span>
-              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Parlons de votre projet.")}
               </h2>
               <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft">
@@ -410,13 +392,10 @@ export default function RevendeurPage() {
   );
 }
 
-function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
+function SectionHead({ title }: { title: string }) {
   return (
     <div className="text-center">
-      <span className="text-sm font-semibold text-brand">
-        {eyebrow}
-      </span>
-      <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {accentLastWord(title)}
       </h2>
     </div>

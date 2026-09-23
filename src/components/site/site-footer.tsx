@@ -6,6 +6,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
   GOOGLE_DISCLAIMER,
+  PRODUCT_PATH,
   QR_TOOL_PATH,
   SITE,
 } from "@/lib/brand";
@@ -14,9 +15,9 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
   {
     title: "Produit",
     links: [
-      { label: "Le présentoir", href: "/#produits" },
+      { label: "Le présentoir", href: PRODUCT_PATH },
+      { label: "Commander", href: "/#produits" },
       { label: "Comment ça marche", href: "/#fonctionnement" },
-      { label: "Pour qui ?", href: "/#pour-qui" },
       { label: "Démo", href: "/demo" },
       { label: "Questions fréquentes", href: "/#faq" },
     ],

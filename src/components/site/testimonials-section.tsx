@@ -46,10 +46,9 @@ export function TestimonialsSection({ items }: { items: Testimonial[] }) {
         {/* Mobile : titre, pile, citation. Desktop : pile à gauche sur deux rangées. */}
         <div className="grid grid-cols-[minmax(0,1fr)] gap-x-20 gap-y-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-y-0">
           <div className="lg:col-start-2 lg:row-start-1 lg:self-end">
-            <p className="text-sm font-semibold text-white/60">Ils l&apos;ont installé</p>
             <h2
               id="temoignages-titre"
-              className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+              className="font-display text-3xl font-semibold tracking-tight sm:text-4xl"
             >
               Au comptoir de nos clients.
             </h2>

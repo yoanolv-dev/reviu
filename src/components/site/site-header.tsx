@@ -95,14 +95,17 @@ export function SiteHeader() {
             : "border-transparent bg-canvas",
         )}
       >
-        <Container className="flex h-[68px] items-center justify-between gap-4">
-          <Link href="/" aria-label="reviu - accueil" className="shrink-0">
+        {/* Desktop : grille 3 colonnes égales sur les côtés, la navigation est
+            donc réellement centrée quelle que soit la largeur du logo ou des
+            actions. Mobile : logo + actions. */}
+        <div className="mx-auto flex h-[68px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-2 lg:px-8">
+          <Link href="/" aria-label="reviu - accueil" className="shrink-0 justify-self-start">
             <Logo />
           </Link>
 
           {/* Navigation desktop */}
           <nav aria-label="Navigation principale" className="hidden lg:block">
-            <ul className="flex items-center gap-0.5 rounded-full border border-line/80 bg-surface/70 p-1 shadow-[0_1px_2px_rgba(10,13,22,0.03)]">
+            <ul className="flex items-center gap-0.5">
               {NAV.map((item) => (
                 <li key={item.href} className="relative">
                   {item.children ? (
@@ -112,9 +115,9 @@ export function SiteHeader() {
                       href={item.href}
                       aria-current={isActive(pathname, item) ? "page" : undefined}
                       className={cn(
-                        "block whitespace-nowrap rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
+                        "block whitespace-nowrap rounded-full px-3 py-2 text-[15px] font-medium transition-colors",
                         isActive(pathname, item)
-                          ? "bg-canvas text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
+                          ? "text-brand"
                           : "text-ink-soft hover:bg-line-soft hover:text-ink",
                       )}
                     >
@@ -127,32 +130,19 @@ export function SiteHeader() {
           </nav>
 
           {/* Actions desktop */}
-          <div className="hidden items-center gap-1.5 lg:flex">
-            {CONTACT_PHONE && (
-              <a
-                href={CONTACT_PHONE.href}
-                aria-label={`Appeler le ${CONTACT_PHONE.display}`}
-                title={CONTACT_PHONE.display}
-                className="grid h-10 w-10 place-items-center rounded-full text-brand transition-colors hover:bg-line-soft"
-              >
-                <IconPhone size={17} />
-              </a>
-            )}
+          <div className="hidden items-center gap-1.5 justify-self-end lg:flex">
             <a
               href={`${APP_BASE}/login`}
               className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
             >
               <IconUser size={16} />
-              <span className="sr-only xl:not-sr-only">Se connecter</span>
+              <span className="sr-only xl:not-sr-only xl:whitespace-nowrap">Connexion</span>
             </a>
             <Link
               href="/#produits"
-              className={buttonClass("primary", "md", "group ml-1 whitespace-nowrap pl-5 pr-1.5")}
+              className={buttonClass("primary", "md", "ml-1 whitespace-nowrap px-5")}
             >
               Commander
-              <span className="rounded-full bg-white/15 px-2.5 py-1 text-[13px] font-semibold tabular-nums transition-colors group-hover:bg-white/20">
-                {STAND_PRICE}
-              </span>
             </Link>
           </div>
 
@@ -172,7 +162,7 @@ export function SiteHeader() {
               <IconMenu />
             </button>
           </div>
-        </Container>
+        </div>
       </header>
 
       {open && <MobileMenu pathname={pathname} onClose={close} />}
@@ -228,10 +218,12 @@ function MegaMenu({ item, active }: { item: NavItem; active: boolean }) {
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
-          open || active
-            ? "bg-canvas text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
-            : "text-ink-soft hover:bg-line-soft hover:text-ink",
+          "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[15px] font-medium transition-colors",
+          active
+            ? "text-brand"
+            : open
+              ? "bg-line-soft text-ink"
+              : "text-ink-soft hover:bg-line-soft hover:text-ink",
         )}
       >
         {item.label}

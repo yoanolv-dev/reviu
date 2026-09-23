@@ -9,6 +9,26 @@
 
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
 
+### Mise à jour du 23/09 (soir) - retours client
+- **Aucun sur-titre** au-dessus des titres (demande explicite du client) : ne
+  pas en réintroduire (ni pastille, ni texte mono en majuscules).
+- **Accueil allégé** : phrase éditoriale des métiers (liens vers les guides) à
+  la place du bandeau défilant ; commande express `#produits`
+  (`boutique/quick-order.tsx`) ; lien `/r/demo` retiré.
+- **Fiche produit** `/presentoir-avis-google` (`PRODUCT_PATH`) : galerie,
+  paliers, caractéristiques, mise en route, lieux, FAQ, schéma Product (déplacé
+  depuis l'accueil). Menu « Le présentoir » pointe dessus.
+- **Header** : grille 3 colonnes (nav réellement centrée, logo aligné sur le
+  contenu) ; téléphone déplacé dans le bandeau bleu (desktop) et le menu mobile.
+- **Outil QR** : Place ID accepté, formats affiche / carré, 4 couleurs, envoi du
+  lien par SMS / WhatsApp / e-mail, contenu SEO (étapes, trouver le lien,
+  tailles d'impression, phrases, comparatif, 9 FAQ), JSON-LD WebApplication +
+  HowTo + FAQPage, image OG dédiée, lien depuis chaque guide.
+- **Guides** : index compact (articles visibles dès l'arrivée, filtres par
+  thème, carte outil). **Connexion** : grand logo, fond sans halo.
+
+
+
 Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t76ab7`
 (fusionnée sur `main` le 23/09). Plan commercial détaillé :
 `docs/PLAN-VENTES.md`.

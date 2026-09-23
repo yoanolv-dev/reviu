@@ -48,16 +48,6 @@ function Check() {
   );
 }
 
-/* Exemples de commerces (illustratifs) - à remplacer par de vrais clients. */
-const CLIENTS: { name: string; icon: React.ReactNode }[] = [
-  { name: "Le Comptoir de Camille", icon: <path d="M4 8h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Zm13 1h2a2 2 0 0 1 0 4h-2" /> },
-  { name: "Studio Épure", icon: <><circle cx="12" cy="12" r="8" /><path d="M12 4v8l5 3" /></> },
-  { name: "Garage Central", icon: <path d="M14.7 6.3a4 4 0 0 0-5 5L4 17l3 3 5.7-5.7a4 4 0 0 0 5-5l-2.6 2.6-2.1-2.1 2.7-2.5Z" /> },
-  { name: "Boulangerie Marlow", icon: <><path d="M6 20V9a6 6 0 0 1 12 0v11" /><path d="M6 13h12M12 7v13" /></> },
-  { name: "Hôtel Rivage", icon: <><path d="M3 20V7l9-4 9 4v13" /><path d="M9 20v-6h6v6" /></> },
-  { name: "Salon Nour", icon: <><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M20 4 8.5 15.5M20 20 8.5 8.5" /></> },
-];
-
 /* Cadre de téléphone réutilisable. */
 function Phone({
   children,
@@ -83,14 +73,6 @@ function Phone({
   );
 }
 
-function Kicker({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="font-mono text-xs font-semibold uppercase tracking-wide text-brand">
-      {children}
-    </span>
-  );
-}
-
 export default async function DemoPage() {
   const qr = await qrSvg("demo");
   const schema = graph(
@@ -108,8 +90,7 @@ export default async function DemoPage() {
         {/* HERO */}
         <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <Kicker>Démo produit · NFC + QR</Kicker>
-            <h1 className="mt-3 font-display text-4xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
+            <h1 className="font-display text-4xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
               Un scan pour simplifier
               <br />
               chaque avis <span className="text-brand">Google</span>.
@@ -170,43 +151,6 @@ export default async function DemoPage() {
           </div>
         </Container>
 
-        {/* BANDE CLIENTS */}
-        <section className="border-y border-line bg-surface">
-          <Container className="py-9">
-            <p className="text-center font-mono text-[11px] uppercase tracking-wider text-muted">
-              Pensé pour les commerces de proximité
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-9 gap-y-5">
-              {CLIENTS.map((c) => (
-                <span
-                  key={c.name}
-                  className="flex items-center gap-2 text-muted transition-colors hover:text-ink-soft"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden
-                  >
-                    {c.icon}
-                  </svg>
-                  <span className="font-display text-[15px] font-semibold tracking-tight">
-                    {c.name}
-                  </span>
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-xs text-muted">
-              Commerces illustratifs - vos futurs clients ici.
-            </p>
-          </Container>
-        </section>
-
         {/* PRÉSENTOIR */}
         <section className="border-t border-line">
           <Container className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[0.9fr_1.1fr]">
@@ -232,8 +176,7 @@ export default async function DemoPage() {
               <div className="mx-auto h-3.5 w-[70%] rounded-b-[30px] bg-gradient-to-b from-line to-transparent" />
             </div>
             <div>
-              <Kicker>Le présentoir</Kicker>
-              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 {accentLastWord("Un objet, deux technologies, un lien permanent.")}
               </h2>
               <p className="mt-4 max-w-md leading-relaxed text-ink-soft">
@@ -254,8 +197,7 @@ export default async function DemoPage() {
         {/* DASHBOARD */}
         <section className="border-t border-line bg-surface" id="dashboard">
           <Container className="py-16 sm:py-20">
-            <Kicker>Le tableau de bord</Kicker>
-            <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            <h2 className="max-w-2xl font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               {accentLastWord("Ce qui se passe sur le comptoir, en clair.")}
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
@@ -408,8 +350,7 @@ export default async function DemoPage() {
         {/* DEUX MODES */}
         <section className="border-t border-line">
           <Container className="py-16 sm:py-20">
-            <Kicker>Deux expériences</Kicker>
-            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               {accentLastWord("Direct, ou à votre image.")}
             </h2>
             <p className="mt-3 max-w-xl text-ink-soft">
@@ -438,10 +379,7 @@ export default async function DemoPage() {
                   </div>
                 </Phone>
                 <div className="mt-6">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-                    Défaut
-                  </span>
-                  <h3 className="mt-1 font-display text-lg font-semibold tracking-tight text-ink">
+                  <h3 className="font-display text-lg font-semibold tracking-tight text-ink">
                     Accès direct Google
                   </h3>
                   <p className="mx-auto mt-1.5 max-w-[34ch] text-[15px] text-ink-soft">
@@ -474,10 +412,7 @@ export default async function DemoPage() {
                   </p>
                 </Phone>
                 <div className="mt-6">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-                    Personnalisé
-                  </span>
-                  <h3 className="mt-1 font-display text-lg font-semibold tracking-tight text-ink">
+                  <h3 className="font-display text-lg font-semibold tracking-tight text-ink">
                     Page reviu
                   </h3>
                   <p className="mx-auto mt-1.5 max-w-[34ch] text-[15px] text-ink-soft">
@@ -494,8 +429,7 @@ export default async function DemoPage() {
         <section className="border-t border-line bg-surface" id="offre">
           <Container className="py-16 sm:py-20">
             <div className="mx-auto max-w-2xl text-center">
-              <Kicker>L&apos;offre</Kicker>
-              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 Présentoir Reviu - {STAND_PRICE} TTC.
               </h2>
               <p className="mt-3 text-ink-soft">

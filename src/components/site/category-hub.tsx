@@ -69,10 +69,7 @@ export function CategoryHubView({ hub }: { hub: CategoryHub }) {
               <span className="mx-2 text-line">/</span>
               <span className="text-ink-soft">{hub.label}</span>
             </nav>
-            <span className="mt-6 block font-mono text-xs uppercase tracking-widest text-brand">
-              {hub.label}
-            </span>
-            <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[3rem] lg:leading-[1.05]">
+            <h1 className="mt-6 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[3rem] lg:leading-[1.05]">
               {accentLastWord(hub.h1)}
             </h1>
             <div className="mt-5 max-w-2xl space-y-4">

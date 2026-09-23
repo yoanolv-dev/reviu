@@ -15,7 +15,7 @@ import {
   type Guide,
   type GuideBlock,
 } from "@/lib/guides";
-import { APP_BASE } from "@/lib/brand";
+import { APP_BASE, QR_TOOL_PATH } from "@/lib/brand";
 import {
   buildMetadata,
   graph,
@@ -113,19 +113,7 @@ export default async function GuidePage({ params }: Props) {
                 </>
               )}
             </nav>
-            {hub ? (
-              <Link
-                href={`/guides/${hub.slug}`}
-                className="mt-6 block w-fit font-mono text-xs uppercase tracking-widest text-brand hover:underline"
-              >
-                {guide.category}
-              </Link>
-            ) : (
-              <span className="mt-6 block font-mono text-xs uppercase tracking-widest text-brand">
-                {guide.category}
-              </span>
-            )}
-            <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
+            <h1 className="mt-6 max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]">
               {accentLastWord(guide.h1)}
             </h1>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-soft sm:text-lg">
@@ -242,7 +230,7 @@ export default async function GuidePage({ params }: Props) {
           {toc.length > 0 && (
             <aside className="hidden lg:block">
               <div className="sticky top-24">
-                <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                <p className="text-sm font-semibold text-ink">
                   Sur cette page
                 </p>
                 <nav className="mt-4 flex flex-col gap-2.5 border-l border-line">
@@ -262,6 +250,17 @@ export default async function GuidePage({ params }: Props) {
                     Questions fréquentes
                   </a>
                 </nav>
+                <Link
+                  href={QR_TOOL_PATH}
+                  className="mt-8 block rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-brand/40"
+                >
+                  <span className="block text-sm font-semibold text-ink">
+                    Générateur de QR code avis Google
+                  </span>
+                  <span className="mt-1 block text-xs leading-relaxed text-muted">
+                    Gratuit : votre QR code et une affiche prête à imprimer.
+                  </span>
+                </Link>
               </div>
             </aside>
           )}
