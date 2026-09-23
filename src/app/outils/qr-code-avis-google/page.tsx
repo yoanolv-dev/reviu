@@ -195,19 +195,19 @@ export default function QrToolPage() {
         {/* HERO + OUTIL : tout tient dans le premier écran sur ordinateur. */}
         <section className="relative isolate overflow-hidden border-b border-line">
           <HeroBackground />
-          <Container className="pb-12 pt-6 sm:pt-8">
-            <div className="flex flex-col gap-1.5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-              <h1 className="font-display text-[1.75rem] font-semibold leading-tight tracking-tight text-ink sm:text-[2.1rem] lg:text-[1.9rem] xl:text-[2.1rem]">
+          <Container className="pb-10 pt-6 sm:pb-12 sm:pt-8">
+            <div className="flex flex-col gap-1.5 max-lg:text-center lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+              <h1 className="mx-auto max-w-[16ch] font-display text-[1.65rem] font-semibold leading-tight tracking-tight text-ink sm:max-w-none sm:text-[2.1rem] lg:mx-0 lg:text-[1.9rem] xl:text-[2.1rem]">
                 Générateur de QR code avis Google <span className="text-brand">gratuit</span>
               </h1>
-              <p className="text-[15px] text-ink-soft lg:hidden xl:block xl:pb-1.5">
+              <p className="text-[15px] text-ink-soft max-xl:hidden xl:pb-1.5">
                 QR code et affiche prêts à imprimer, sans inscription.
               </p>
             </div>
             <div className="mt-5 sm:mt-6">
               <QrTool />
             </div>
-            <div className="mt-5 flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-5 flex flex-col gap-4 text-sm max-lg:hidden sm:flex-row sm:items-center sm:justify-between">
               <p className="flex items-center gap-2 text-muted">
                 <IconShield size={16} className="shrink-0 text-brand" />
                 Votre lien reste dans votre navigateur : rien n&apos;est envoyé à nos serveurs.

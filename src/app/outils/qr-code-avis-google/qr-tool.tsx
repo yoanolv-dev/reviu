@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { buttonClass } from "@/components/ui/button";
 import {
   IconCheck,
+  IconChevronDown as IconChevron,
   IconDownload,
   IconLink,
   IconMail,
@@ -203,14 +204,14 @@ export function QrTool() {
           partage. Desktop : réglages à gauche, aperçu à droite sur 3 rangées. */}
       <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_320px] lg:grid-rows-[auto_auto_1fr] xl:grid-cols-[minmax(0,1fr)_380px]">
         {/* 1. Le lien */}
-        <div className="p-5 pb-4 sm:p-7 sm:pb-4 lg:col-start-1 lg:row-start-1 xl:p-8 xl:pb-4">
-          <label htmlFor="qr-link" className="text-[15px] font-semibold text-ink">
+        <div className="p-4 max-lg:text-center sm:p-7 sm:pb-4 lg:col-start-1 lg:row-start-1 xl:p-8 xl:pb-4">
+          <label htmlFor="qr-link" className="text-[15px] font-semibold text-ink max-lg:sr-only">
             Collez le lien de votre page d&apos;avis Google
           </label>
-          <div className="relative mt-3">
+          <div className="relative lg:mt-3">
             <IconLink
               size={20}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted max-lg:hidden"
             />
             <input
               ref={inputRef}
@@ -219,13 +220,13 @@ export function QrTool() {
               inputMode="url"
               autoComplete="off"
               spellCheck={false}
-              placeholder="https://g.page/r/.../review"
+              placeholder="Votre lien d'avis Google"
               value={link}
               onChange={(e) => setLink(e.target.value)}
               onBlur={() => setTouched(true)}
               aria-invalid={showError || undefined}
               aria-describedby="qr-link-help"
-              className={cn(field, "h-14 pl-12 pr-24 text-base", url && "border-brand/50 pr-12")}
+              className={cn(field, "h-14 pr-24 text-base max-lg:pl-4 lg:pl-12", url && "border-brand/50 pr-12")}
             />
             {url ? (
               <span className="pointer-events-none absolute right-3.5 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full bg-brand text-white">
@@ -243,7 +244,7 @@ export function QrTool() {
               )
             )}
           </div>
-          <p id="qr-link-help" className="mt-2 text-[13px] text-muted">
+          <p id="qr-link-help" className="mt-2.5 text-[13px] text-muted">
             {showError && !check.ok ? (
               <span className="font-medium text-red-600">{check.error}</span>
             ) : check.ok && !check.google ? (
@@ -251,11 +252,16 @@ export function QrTool() {
                 Ce lien ne ressemble pas à un lien Google : vérifiez qu&apos;il
                 ouvre bien votre page d&apos;avis.
               </span>
+            ) : poster ? (
+              <span className="lg:hidden" />
             ) : (
               <>
-                Fiche Google, bouton « Demander des avis ». Place ID accepté.{" "}
+                <span className="max-lg:hidden">
+                  Fiche Google, bouton « Demander des avis ». Place ID accepté.{" "}
+                </span>
                 <a href="#trouver-le-lien" className="font-medium text-brand hover:underline">
-                  Où le trouver ?
+                  <span className="lg:hidden">Où trouver mon lien ?</span>
+                  <span className="max-lg:hidden">Où le trouver ?</span>
                 </a>
               </>
             )}
@@ -267,7 +273,7 @@ export function QrTool() {
           className={cn(
             "flex flex-col items-center justify-center border-line bg-canvas p-5 sm:p-7 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:flex lg:border-l xl:p-8",
             // Sur mobile, l'aperçu n'apparaît qu'une fois le lien valide.
-            poster ? "border-y lg:border-y-0" : "max-lg:hidden",
+            poster ? "max-lg:border-t max-lg:px-4 max-lg:pb-5 max-lg:pt-6" : "max-lg:hidden",
           )}
         >
           <div className={cn("relative w-full", format === "carre" ? "max-w-[250px]" : "max-w-[220px] lg:max-w-[236px]")}>
@@ -298,7 +304,12 @@ export function QrTool() {
               className={buttonClass("primary", "lg", "h-14 w-full text-base lg:h-12 lg:text-[15px]")}
             >
               <IconDownload size={18} />
-              {busy === "poster" ? "Préparation…" : "Télécharger (PNG)"}
+              {busy === "poster" ? "Préparation…" : (
+                <>
+                  <span className="lg:hidden">Télécharger</span>
+                  <span className="max-lg:hidden">Télécharger (PNG)</span>
+                </>
+              )}
             </button>
             {canShare && url && (
               <button
@@ -307,10 +318,10 @@ export function QrTool() {
                 className={buttonClass("secondary", "lg", "mt-2.5 h-14 w-full text-base lg:hidden")}
               >
                 <IconMessage size={18} className="text-brand" />
-                Envoyer le lien à un client
+                Envoyer à un client
               </button>
             )}
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 text-[13px]">
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 text-[13px] max-lg:hidden">
               <DlLink onClick={printPoster} disabled={!poster} icon={<IconPrinter size={14} />}>
                 Imprimer
               </DlLink>
@@ -331,37 +342,43 @@ export function QrTool() {
         </div>
 
         {/* 3. Personnalisation (repliée sur mobile) */}
-        <div className="px-5 sm:px-7 lg:col-start-1 lg:row-start-2 xl:px-8">
+        <div
+          className={cn(
+            "px-4 sm:px-7 lg:col-start-1 lg:row-start-2 xl:px-8",
+            !poster && "max-lg:hidden",
+          )}
+        >
           <button
             type="button"
             onClick={() => setCustOpen((v) => !v)}
             aria-expanded={custOpen}
-            className="flex w-full items-center justify-between border-t border-line py-4 text-[15px] font-semibold text-ink lg:hidden"
+            className="mx-auto flex items-center gap-1.5 py-4 text-sm font-semibold text-brand lg:hidden"
           >
-            Personnaliser l&apos;affiche
-            <span className={cn("text-xl text-brand transition-transform", custOpen && "rotate-45")}>+</span>
+            Personnaliser
+            <IconChevron className={cn("transition-transform", custOpen && "rotate-180")} />
           </button>
           <div
             className={cn(
-              "grid grid-cols-2 gap-x-6 gap-y-4 pb-5 lg:mt-2 lg:border-t lg:border-line lg:pt-5",
+              "grid grid-cols-2 gap-x-6 gap-y-5 pb-5 max-lg:justify-items-center max-lg:text-center lg:mt-2 lg:border-t lg:border-line lg:pt-5",
               !custOpen && "max-lg:hidden",
             )}
           >
-            <div className="col-span-2">
+            <div className="col-span-2 w-full">
               <label htmlFor="qr-name" className={labelCls}>
-                Nom affiché <span className="font-normal text-muted">(facultatif)</span>
+                Nom affiché <span className="font-normal text-muted max-lg:hidden">(facultatif)</span>
               </label>
               <input
                 id="qr-name"
                 maxLength={40}
                 placeholder="Ex. Boulangerie du Marché"
+              enterKeyHint="done"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className={cn(field, "mt-2 h-11 py-2")}
               />
             </div>
-            <fieldset>
-              <legend className={labelCls}>Format</legend>
+            <fieldset className="max-sm:col-span-2">
+              <legend className={cn(labelCls, "max-lg:mx-auto")}>Format</legend>
               <div className="mt-2 inline-flex rounded-xl bg-canvas p-1 ring-1 ring-line">
                 {FORMATS.map((f) => (
                   <button
@@ -382,8 +399,8 @@ export function QrTool() {
                 ))}
               </div>
             </fieldset>
-            <fieldset>
-              <legend className={labelCls}>Couleur</legend>
+            <fieldset className="max-sm:col-span-2">
+              <legend className={cn(labelCls, "max-lg:mx-auto")}>Couleur</legend>
               <div className="mt-2 flex h-[38px] items-center gap-2.5">
                 {POSTER_COLORS.map((c) => (
                   <button
@@ -402,9 +419,9 @@ export function QrTool() {
                 ))}
               </div>
             </fieldset>
-            <fieldset className="col-span-2">
-              <legend className={labelCls}>Titre</legend>
-              <div className="mt-2 flex flex-wrap gap-2">
+            <fieldset className="col-span-2 w-full">
+              <legend className={cn(labelCls, "max-lg:mx-auto")}>Titre</legend>
+              <div className="mt-2 flex flex-wrap gap-2 max-lg:justify-center">
                 {TITLES.map((t) => (
                   <button
                     key={t}
@@ -433,7 +450,7 @@ export function QrTool() {
             (canShare || !url) && "max-lg:hidden",
           )}
         >
-          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-3 border-t border-line pt-5">
+          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-3 border-t border-line pt-5 max-lg:justify-center">
             <span className="text-[13px] font-semibold text-ink">Envoyer à un client</span>
             {shareRow}
           </div>
