@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/container";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
-import { SHIPPING } from "@/lib/brand";
+import { GUARANTEE } from "@/lib/brand";
 import {
   getProduct,
   clampStandQty,
@@ -15,7 +15,6 @@ import {
   requiresShipping,
   shippingFeeCents,
   formatEuros,
-  FREE_SHIPPING_THRESHOLD_CENTS,
 } from "@/lib/shop";
 import { CheckoutSection } from "./checkout-section";
 
@@ -30,8 +29,8 @@ const PHOTO = "/products/presentoir.webp";
 // Réassurances affichées près du récapitulatif (confiance + qualité perçue).
 const TRUST = [
   "Paiement sécurisé par Stripe",
-  "Livraison en 2 à 5 jours ouvrés",
-  "Retour sous 14 jours",
+  "Livraison offerte, en 2 à 5 jours ouvrés",
+  GUARANTEE.label,
   "Garantie légale de conformité (2 ans)",
 ] as const;
 
@@ -48,7 +47,7 @@ export default async function CommanderPage({
 
   const product = getProduct(productId);
   // Produit inconnu : retour à la boutique plutôt qu'une page vide.
-  if (!product) redirect("/boutique");
+  if (!product) redirect("/#produits");
 
   const isStand = product.id === "stand";
   const qty = isStand ? clampStandQty(Number(quantity ?? 1)) : 1;
@@ -56,7 +55,6 @@ export default async function CommanderPage({
   const subtotal = unit * qty;
   const shipping = requiresShipping(product) ? shippingFeeCents(subtotal) : 0;
   const total = subtotal + shipping;
-  const freeShipGap = Math.max(FREE_SHIPPING_THRESHOLD_CENTS - subtotal, 0);
 
   return (
     <>
@@ -64,10 +62,10 @@ export default async function CommanderPage({
       <main className="bg-canvas">
         <Container className="py-8 sm:py-12">
           <Link
-            href="/boutique"
+            href="/#produits"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-brand transition-opacity hover:opacity-70"
           >
-            <span aria-hidden>←</span> Retour à la boutique
+            <span aria-hidden>←</span> Retour au présentoir
           </Link>
 
           <div className="mt-4 max-w-xl">
@@ -131,13 +129,6 @@ export default async function CommanderPage({
                       {formatEuros(total)}
                     </span>
                   </div>
-
-                  {shipping !== 0 && freeShipGap > 0 && (
-                    <p className="mt-3 text-xs leading-relaxed text-muted">
-                      Plus que {formatEuros(freeShipGap)} pour la livraison
-                      offerte (dès {SHIPPING.freeFromLabel}).
-                    </p>
-                  )}
 
                   <ul className="mt-5 space-y-2 border-t border-line pt-4">
                     {TRUST.map((t) => (

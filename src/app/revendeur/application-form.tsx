@@ -5,7 +5,16 @@ import { submitResellerApplication } from "@/lib/reseller-application-actions";
 import { buttonClass } from "@/components/ui/button";
 
 const field =
-  "w-full rounded-xl border border-line bg-canvas px-4 py-2.5 text-[15px] text-ink outline-none transition-colors focus:border-brand";
+  "w-full rounded-xl border border-line bg-canvas px-4 py-3 text-[15px] text-ink outline-none transition-[border-color,box-shadow] focus:border-brand focus:shadow-[0_0_0_4px_var(--color-brand-soft)]";
+
+/** Profils proposés (repris tels quels dans l'e-mail de candidature). */
+const PROFILES = [
+  "Commercial terrain / agent indépendant",
+  "Agence web ou marketing",
+  "Prestataire des commerçants",
+  "Réseau ou association de commerçants",
+  "Autre",
+];
 const label = "text-sm font-medium text-ink";
 
 /** Formulaire de candidature revendeur : poste vers l'action serveur qui
@@ -26,8 +35,8 @@ export function ApplicationForm() {
           Candidature envoyée
         </h3>
         <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-          Merci ! Nous étudions les candidatures au cas par cas et revenons vers
-          vous rapidement par e-mail.
+          Merci ! Nous étudions chaque candidature au cas par cas et revenons
+          vers vous rapidement.
         </p>
       </div>
     );
@@ -77,6 +86,21 @@ export function ApplicationForm() {
         </div>
       </div>
       <div className="flex flex-col gap-1.5">
+        <label htmlFor="profile" className={label}>
+          Votre profil
+        </label>
+        <select id="profile" name="profile" defaultValue="" className={field}>
+          <option value="" disabled>
+            Choisissez votre profil
+          </option>
+          {PROFILES.map((p) => (
+            <option key={p} value={p}>
+              {p}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex flex-col gap-1.5">
         <label htmlFor="message" className={label}>
           Votre projet <span className="text-muted">(facultatif)</span>
         </label>
@@ -84,7 +108,7 @@ export function ApplicationForm() {
           id="message"
           name="message"
           rows={4}
-          placeholder="Votre expérience, le nombre de présentoirs visé, votre réseau local…"
+          placeholder="Votre activité, les commerces que vous rencontrez, votre zone…"
           className={field + " resize-y"}
         />
       </div>

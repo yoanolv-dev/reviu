@@ -376,7 +376,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Combien ça coûte ?" },
       {
         type: "p",
-        text: "Un [présentoir reviu](/#produits) est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment. Reviu Pro (connexion Google Business Profile, assistance IA, analyses avancées) arrivera plus tard, en option.",
+        text: "Un [présentoir reviu](/#produits) est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment.",
       },
     ],
     faq: [
@@ -390,7 +390,7 @@ export const GUIDES: Guide[] = [
       },
       {
         q: "Y a-t-il des frais récurrents ?",
-        a: "Non. Le présentoir s’achète une fois et votre espace Reviu est inclus, sans frais supplémentaires : statistiques de scans, gestion et modification du lien à tout moment. Reviu Pro (fonctions avancées comme la connexion Google Business Profile) sera proposé plus tard, en option.",
+        a: "Non. Le présentoir s’achète une fois et votre espace Reviu est inclus, sans frais supplémentaires : statistiques de scans, gestion et modification du lien à tout moment.",
       },
     ],
     related: ["avoir-plus-avis-google", "qr-code-avis-google", "avis-google-restaurant"],
@@ -430,6 +430,10 @@ export const GUIDES: Guide[] = [
           "Google vous fournit un lien court dédié aux avis (souvent de la forme g.page/… ou un lien de rédaction d’avis).",
           "C’est ce lien qui doit se cacher derrière votre QR code.",
         ],
+      },
+      {
+        type: "p",
+        text: "Une fois le lien en main, notre [générateur de QR code avis Google gratuit](/outils/qr-code-avis-google) crée en quelques secondes le QR code (PNG ou SVG) et une affiche prête à imprimer.",
       },
       { type: "h2", text: "QR statique ou QR dynamique : ne vous trompez pas" },
       {

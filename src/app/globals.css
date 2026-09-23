@@ -58,6 +58,9 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
+    /* Filet de sécurité : aucun défilement horizontal parasite sur mobile.
+       « clip » (et non « hidden ») préserve le header sticky. */
+    overflow-x: clip;
     background-color: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -232,10 +235,66 @@
   50% { transform: translateY(-10px) rotate(var(--tw-rotate, 0)); }
 }
 
+
+/* ── Bandeau d'annonce : rotation verticale des messages (mobile) ────────── */
+.announce-track { animation: reviu-ticker 12s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes reviu-ticker {
+  0%, 28% { transform: translateY(0); }
+  33%, 61% { transform: translateY(-2.25rem); }
+  66%, 94% { transform: translateY(-4.5rem); }
+  100% { transform: translateY(-6.75rem); }
+}
+
+/* ── Menu mobile plein écran : entrée du panneau puis des liens ──────────── */
+.menu-sheet { animation: reviu-sheet 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes reviu-sheet {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu-item { animation: reviu-reveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── Pulsation NFC : ondes concentriques qui évoquent le « tap » ─────────── */
+.nfc-wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: reviu-wave 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.nfc-wave-2 { animation-delay: 0.8s; }
+.nfc-wave-3 { animation-delay: 1.6s; }
+@keyframes reviu-wave {
+  0% { opacity: 0.55; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+/* ── Barre d'achat collante (mobile) : glisse depuis le bas ──────────────── */
+.buy-bar {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+.buy-bar[data-visible="false"] { transform: translateY(110%); opacity: 0; pointer-events: none; }
+.buy-bar[data-visible="true"] { transform: none; opacity: 1; }
+
+/* ── Démo du parcours client : étape active mise en avant ────────────────── */
+.step-progress { animation: reviu-progress var(--step-ms, 2800ms) linear both; transform-origin: left; }
+@keyframes reviu-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.screen-in { animation: reviu-screen 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes reviu-screen {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .pop { animation: none !important; }
   .elev-hover:hover { transform: none; }
-  .aurora-blob, .marquee-track, .shimmer, .float, .float-slow { animation: none !important; }
+  .aurora-blob, .marquee-track, .shimmer, .float, .float-slow,
+  .announce-track, .nfc-wave, .menu-sheet, .menu-item, .screen-in { animation: none !important; }
+  .nfc-wave { opacity: 0 !important; }
   .reveal-up { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

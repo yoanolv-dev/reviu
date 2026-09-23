@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
-import { APP_BASE, CONTACT_EMAIL, GOOGLE_DISCLAIMER, SITE } from "@/lib/brand";
+import {
+  APP_BASE,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  GOOGLE_DISCLAIMER,
+  QR_TOOL_PATH,
+  SITE,
+} from "@/lib/brand";
 
 const COLS: { title: string; links: { label: string; href: string; ext?: boolean }[] }[] = [
   {
@@ -12,13 +19,22 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
       { label: "Pour qui ?", href: "/#pour-qui" },
       { label: "Démo", href: "/demo" },
       { label: "Questions fréquentes", href: "/#faq" },
-      { label: "Guides", href: "/guides" },
+    ],
+  },
+  {
+    title: "Ressources",
+    links: [
+      { label: "Générateur de QR code avis", href: QR_TOOL_PATH },
+      { label: "Tous les guides", href: "/guides" },
+      { label: "Guides par métier", href: "/guides/par-metier" },
+      { label: "Gérer sa réputation", href: "/guides/gerer-sa-reputation" },
+      { label: "Avoir plus d'avis Google", href: "/guides/avoir-plus-avis-google" },
     ],
   },
   {
     title: "Reviu",
     links: [
-      { label: "Revendeur", href: "/revendeur" },
+      { label: "Devenir revendeur", href: "/revendeur" },
       { label: "Contact", href: `mailto:${CONTACT_EMAIL}`, ext: true },
       { label: "Connexion", href: `${APP_BASE}/login`, ext: true },
     ],
@@ -40,19 +56,29 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
       <Container className="py-16 sm:py-20">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-11 lg:grid-cols-[1.5fr_repeat(3,1fr)] lg:gap-x-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-11 sm:grid-cols-4 lg:grid-cols-[1.4fr_repeat(4,1fr)] lg:gap-x-10">
           {/* Marque */}
-          <div className="col-span-2 max-w-xs lg:col-span-1">
+          <div className="col-span-2 max-w-xs sm:col-span-4 lg:col-span-1">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-muted">
               {SITE.tagline}
             </p>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-5 inline-block text-sm font-medium text-ink-soft underline-offset-4 transition-colors hover:text-brand hover:underline"
-            >
-              {CONTACT_EMAIL}
-            </a>
+            <div className="mt-5 flex flex-col items-start gap-1.5">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-sm font-medium text-ink-soft underline-offset-4 transition-colors hover:text-brand hover:underline"
+              >
+                {CONTACT_EMAIL}
+              </a>
+              {CONTACT_PHONE && (
+                <a
+                  href={CONTACT_PHONE.href}
+                  className="text-sm font-medium text-ink-soft underline-offset-4 transition-colors hover:text-brand hover:underline"
+                >
+                  {CONTACT_PHONE.display}
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Colonnes de liens */}

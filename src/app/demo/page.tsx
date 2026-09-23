@@ -9,12 +9,7 @@ import { ProductPhoto } from "@/components/site/product-photo";
 import { buttonClass } from "@/components/ui/button";
 import { accentLastWord } from "@/components/ui/accent";
 import { qrSvg } from "@/lib/qr";
-import {
-  APP_BASE,
-  CONTACT_EMAIL,
-  STAND_PRICE,
-  BOUTIQUE_URL,
-} from "@/lib/brand";
+import { APP_BASE, STAND_PRICE, BOUTIQUE_URL, GUARANTEE } from "@/lib/brand";
 import { buildMetadata, graph, breadcrumbSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 
@@ -528,16 +523,8 @@ export default async function DemoPage() {
               </a>
               <p className="mt-6 text-xs leading-relaxed text-muted">
                 Espace Reviu inclus : statistiques (QR et NFC), gestion et
-                modification du lien, sans frais supplémentaires. Reviu Pro
-                (connexion Google Business Profile, IA…) arrivera bientôt en
-                option.{" "}
-                <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=Reviu%20Pro%20-%20me%20prevenir%20au%20lancement`}
-                  className="font-medium text-brand hover:underline"
-                >
-                  Me prévenir au lancement
-                </a>
-                .
+                modification du lien, sans frais supplémentaires. Livraison
+                offerte, {GUARANTEE.label.toLowerCase()}.
               </p>
             </div>
           </Container>

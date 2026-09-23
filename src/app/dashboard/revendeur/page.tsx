@@ -24,18 +24,17 @@ export default async function ResellerPage() {
       </div>
 
       {/* KPIs - impact, sans notion de commission */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         <StatCard label="Présentoirs attribués" value={overview.total_stands} />
         <StatCard label="Déployés (activés)" value={overview.deployed_stands} />
-        <StatCard label="Commerçants abonnés" value={overview.active_subs} />
       </div>
 
       {/* Rappel du modèle + code revendeur */}
       <div className="grid gap-4 rounded-2xl border border-line bg-surface p-6 sm:grid-cols-[1fr_auto] sm:items-center">
         <p className="text-[15px] leading-relaxed text-ink-soft">
           Votre gain, c&apos;est votre <strong className="font-medium text-ink">marge à la
-          revente</strong> du présentoir (acheté remisé en pack). Le suivi reviu
-          (abonnement) est ensuite proposé au commerçant par reviu - vous n&apos;avez
+          revente</strong> du présentoir (acheté remisé en pack). L&apos;espace
+          Reviu est inclus pour le commerçant, sans abonnement : vous n&apos;avez
           rien à gérer de ce côté. Ce tableau vous montre simplement l&apos;impact de
           votre activité.
         </p>
@@ -120,7 +119,7 @@ function NotReseller() {
       </p>
       <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
         <a
-          href={`${SITE_URL}/boutique#produits`}
+          href={`${SITE_URL}/#produits`}
           className="inline-flex h-11 items-center justify-center rounded-full bg-brand px-6 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
         >
           Voir les packs revendeurs

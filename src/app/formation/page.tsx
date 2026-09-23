@@ -163,7 +163,7 @@ export default async function FormationPage({
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
-                href="/boutique#produits"
+                href="/#produits"
                 className="inline-flex h-11 items-center justify-center rounded-full bg-brand px-6 text-[15px] font-medium text-white transition-colors hover:bg-brand-strong"
               >
                 Commander des présentoirs

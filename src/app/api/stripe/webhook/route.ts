@@ -277,9 +277,9 @@ function customerOrderHtml(o: {
         : ""
     }
     <p style="margin-top:20px">
-      <a href="${SITE_URL}/boutique"
+      <a href="${SITE_URL}/"
          style="color:#1b4dff;text-decoration:none;font-weight:500">
-        Retour à la boutique
+        Retour sur reviu.fr
       </a>
     </p>
   </div>`;

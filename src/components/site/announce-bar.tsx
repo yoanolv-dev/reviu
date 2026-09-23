@@ -1,48 +1,48 @@
-import { SHIPPING } from "@/lib/brand";
+import type { ReactNode } from "react";
+import { GUARANTEE, SHIPPING } from "@/lib/brand";
+import { IconShield, IconSmartphone, IconTruck } from "@/components/ui/icons";
+
+const MESSAGES: { icon: ReactNode; text: string }[] = [
+  { icon: <IconTruck size={15} />, text: `${SHIPPING.label} dès 1 présentoir` },
+  { icon: <IconShield size={15} />, text: GUARANTEE.label },
+  { icon: <IconSmartphone size={15} />, text: "Sans abonnement · iPhone et Android" },
+];
 
 /**
  * Bandeau d'annonce au-dessus du header (réassurance commerciale).
  * Non-sticky : il défile hors de l'écran, le header reste épinglé.
- * Message principal : livraison offerte dès un seuil ; les réassurances
- * complémentaires sont masquées sur mobile pour rester lisibles.
+ * Desktop : les trois messages côte à côte. Mobile / tablette : un message à la
+ * fois, en rotation verticale douce (CSS pur, figée si mouvement réduit).
  */
 export function AnnounceBar() {
   return (
     <div className="bg-brand text-white">
-      <div className="mx-auto flex h-9 max-w-6xl items-center justify-center gap-3 px-5 text-center text-[13px] font-medium sm:gap-5">
-        <span className="inline-flex items-center gap-1.5">
-          <TruckIcon />
-          Livraison offerte dès {SHIPPING.freeFromLabel}
-        </span>
-        <span aria-hidden className="hidden text-white/40 lg:inline">
-          •
-        </span>
-        <span className="hidden lg:inline">Espace Reviu inclus</span>
-        <span aria-hidden className="hidden text-white/40 lg:inline">
-          •
-        </span>
-        <span className="hidden lg:inline">Compatible iPhone et Android</span>
+      <div className="mx-auto h-9 max-w-6xl px-5 text-[13px] font-medium">
+        {/* Desktop */}
+        <ul className="hidden h-full items-center justify-center gap-8 lg:flex">
+          {MESSAGES.map((m) => (
+            <li key={m.text} className="inline-flex items-center gap-1.5">
+              <span className="text-white/85">{m.icon}</span>
+              {m.text}
+            </li>
+          ))}
+        </ul>
+        {/* Mobile / tablette : rotation */}
+        <div className="announce-ticker h-full overflow-hidden lg:hidden">
+          <ul className="announce-track">
+            {[...MESSAGES, MESSAGES[0]].map((m, i) => (
+              <li
+                key={i}
+                aria-hidden={i > 0 ? true : undefined}
+                className="flex h-9 items-center justify-center gap-1.5 text-center"
+              >
+                <span className="text-white/85">{m.icon}</span>
+                {m.text}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
-  );
-}
-
-function TruckIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7" />
-      <circle cx="5.5" cy="18.5" r="1.8" />
-      <circle cx="17.5" cy="18.5" r="1.8" />
-    </svg>
   );
 }

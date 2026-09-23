@@ -56,10 +56,10 @@ export function PaymentForm({ clientSecret }: { clientSecret: string | null }) {
           Merci de réessayer dans un instant.
         </p>
         <Link
-          href="/boutique"
+          href="/"
           className="mt-4 inline-flex text-sm font-medium text-brand hover:underline"
         >
-          Retour à la boutique
+          Retour à l&apos;accueil
         </Link>
       </div>
     );

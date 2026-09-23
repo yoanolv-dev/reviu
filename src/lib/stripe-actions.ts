@@ -139,7 +139,7 @@ export async function startShopCheckout(
   const params: Stripe.Checkout.SessionCreateParams = {
     ...built.params,
     success_url: `${SITE_URL}/boutique/merci?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/boutique?checkout=cancel`,
+    cancel_url: `${SITE_URL}/?checkout=cancel#produits`,
   };
 
   let session: Stripe.Checkout.Session;

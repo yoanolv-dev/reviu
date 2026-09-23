@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { SITE_URL, SITE, CONTACT_EMAIL, STAND_PRICE } from "@/lib/brand";
+import {
+  SITE_URL,
+  SITE,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  GUARANTEE,
+  STAND_PRICE,
+} from "@/lib/brand";
 
 /**
  * Boîte à outils SEO / GEO du site vitrine.
@@ -21,7 +28,7 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Description « maison » réutilisée par défaut (Organization, OG…). */
-export const BRAND_DESCRIPTION = `reviu équipe les commerces de proximité d'un présentoir NFC et QR code pour accéder à leur page d'avis Google en un geste. Achat unique à ${STAND_PRICE}, sans frais supplémentaires, avec l'espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android, aucune application.`;
+export const BRAND_DESCRIPTION = `reviu équipe les commerces de proximité d'un présentoir NFC et QR code pour accéder à leur page d'avis Google en un geste. Achat unique à ${STAND_PRICE}, sans abonnement, livraison offerte et satisfait ou remboursé ${GUARANTEE.days} jours, avec l'espace Reviu inclus (statistiques, gestion, modification du lien). Compatible iPhone et Android, aucune application.`;
 
 type BuildMeta = {
   /** Titre complet de la page (déjà « brandé », ex. « … · reviu »). */
@@ -119,6 +126,7 @@ export function organizationSchema() {
     },
     image: absoluteUrl("/logo.svg"),
     email: CONTACT_EMAIL,
+    ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE.href.slice(4) } : {}),
     slogan: SITE.tagline,
     description: BRAND_DESCRIPTION,
     areaServed: { "@type": "Country", name: "France" },
@@ -126,6 +134,7 @@ export function organizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       email: CONTACT_EMAIL,
+      ...(CONTACT_PHONE ? { telephone: CONTACT_PHONE.href.slice(4) } : {}),
       contactType: "customer support",
       areaServed: "FR",
       availableLanguage: ["French"],
@@ -190,8 +199,8 @@ export function productSchema(p: ProductInput) {
       itemCondition: "https://schema.org/NewCondition",
       areaServed: { "@type": "Country", name: "France" },
       seller: { "@id": ORG_ID },
-      // Livraison : le checkout ne facture aucun frais de port → livraison
-      // gratuite en France métropolitaine (véridique, cf. stripe-actions.ts).
+      // Livraison offerte dès le premier présentoir (cf. `shippingFeeCents`,
+      // toujours 0, et `stripe-checkout.ts`).
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingRate: {
@@ -222,13 +231,13 @@ export function productSchema(p: ProductInput) {
           },
         },
       },
-      // Retours : droit de rétractation légal de 14 jours (vente à distance,
-      // droit français) ; les frais de retour restent à la charge du client.
+      // Retours : garantie « satisfait ou remboursé » 30 jours (au-delà des 14
+      // jours légaux, cf. GUARANTEE et CGV) ; frais de retour à la charge du client.
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         applicableCountry: "FR",
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 14,
+        merchantReturnDays: GUARANTEE.days,
         returnMethod: "https://schema.org/ReturnByMail",
         returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
       },

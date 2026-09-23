@@ -33,6 +33,7 @@ export async function submitResellerApplication(
   const email = String(formData.get("email") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim();
   const city = String(formData.get("city") ?? "").trim();
+  const profile = String(formData.get("profile") ?? "").trim().slice(0, 80);
   const message = String(formData.get("message") ?? "").trim();
   // Champ piège anti-spam : rempli = robot.
   const honey = String(formData.get("company") ?? "").trim();
@@ -47,6 +48,7 @@ export async function submitResellerApplication(
     ["E-mail", email],
     ["Téléphone", phone || "-"],
     ["Ville / secteur", city],
+    ["Profil", profile || "-"],
     ["Message", message || "-"],
   ];
   const html = `

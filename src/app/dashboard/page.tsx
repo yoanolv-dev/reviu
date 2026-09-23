@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getMyContext, getStats, getFeedback } from "@/lib/dashboard";
-import { REVIU_PRO, CONTACT_EMAIL } from "@/lib/brand";
 import { StatCard, FeedbackItem } from "@/components/dashboard/ui";
 import { BuyStandButton } from "@/components/dashboard/buy-cta";
 
@@ -77,28 +76,6 @@ export default async function DashboardHome() {
         </div>
       </section>
 
-      {/* Reviu Pro - bientôt disponible : carte discrète, ne bloque rien. */}
-      <section className="rounded-3xl border border-line bg-surface p-6">
-        <div className="flex flex-wrap items-center gap-2.5">
-          <h2 className="font-display text-base font-semibold text-ink">
-            {REVIU_PRO.name}
-          </h2>
-          <span className="rounded-full bg-line-soft px-2.5 py-0.5 text-xs font-medium text-muted">
-            {REVIU_PRO.status}
-          </span>
-        </div>
-        <p className="mt-2 max-w-2xl text-sm text-muted">
-          Connexion à Google Business Profile, centralisation des avis, réponses
-          et alertes, assistance IA et analyses avancées. En option, bientôt -
-          vos fonctionnalités actuelles restent inchangées.
-        </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(REVIU_PRO.waitlistSubject)}`}
-          className="mt-4 inline-flex h-10 items-center justify-center rounded-full border border-line bg-canvas px-5 text-sm font-medium text-ink transition-colors hover:border-brand/40"
-        >
-          {REVIU_PRO.cta}
-        </a>
-      </section>
     </div>
   );
 }

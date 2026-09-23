@@ -1,11 +1,44 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **29 juillet 2026**. **À lire en premier : la section
-> « 🟩 Reprise - état au 29/07 » ci-dessous fait foi**, puis « 🟦 état au 28/07 »
+> Dernière mise à jour : **23 septembre 2026**. **À lire en premier : la section
+> « 🟪 Reprise - état au 23/09 » ci-dessous fait foi**, puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
 > l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**, c'est
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
+
+## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
+
+Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t76ab7`
+(non fusionnée sur `main` : mise en prod sur demande). Plan commercial détaillé :
+`docs/PLAN-VENTES.md`.
+
+- **Offre** : livraison **offerte dès 1 présentoir** (`FREE_SHIPPING_THRESHOLD_CENTS = 0`
+  dans `shop.ts`, libellés `SHIPPING` dans `brand.ts`) + garantie **satisfait ou
+  remboursé 30 jours** (`GUARANTEE` dans `brand.ts`, CGV §5, `merchantReturnDays`
+  du schéma Product). Frais de retour à la charge du client.
+- **Reviu Pro supprimé** partout (constante `REVIU_PRO` retirée, accueil,
+  dashboard, démo, CGU/CGV, guides). `SUBSCRIPTION` (legacy inutilisé) retiré.
+- **Header** (`site-header.tsx`) : nav en pilule, méga-menu « Ressources »
+  (`NAV[].children` + `featured`), lien Revendeur, CTA avec prix, menu mobile
+  plein écran. Bandeau `announce-bar.tsx` : rotation des messages sur mobile.
+- **Téléphone** : `PHONE_NUMBER` / `PHONE_HAS_WHATSAPP` dans `brand.ts` (ou
+  `NEXT_PUBLIC_CONTACT_PHONE`). **Vide pour l'instant** : tout est masqué tant
+  qu'il n'est pas renseigné.
+- **Accueil** (`boutique/page.tsx`) : hero vivant, `scan-demo.tsx` (parcours
+  client animé), comparatif, bloc garantie, `sticky-buy-bar.tsx` (mobile).
+- **Outil gratuit** `/outils/qr-code-avis-google` (`qr-tool.tsx` +
+  `src/lib/qr-poster.ts`, génération 100 % navigateur). Chemin : `QR_TOOL_PATH`.
+- **Revendeur** : programme **sur sélection / contact** (décision client : pas
+  de grille de gros publique pour l'instant). Champ « profil » ajouté au
+  formulaire et à l'e-mail de candidature.
+- **SEO technique** : `www.reviu.fr` → 301 → `reviu.fr` et `/boutique` → 301 →
+  `/` dans `src/proxy.ts` (⚠️ ne jamais configurer reviu.fr → www côté Vercel :
+  boucle) ; sitemap (+ `/revendeur`, outil) ; photos en `next/image` (prop
+  `preload` en Next 16, pas `priority`) ; vérification Search Console / Bing via
+  `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` / `NEXT_PUBLIC_BING_SITE_VERIFICATION`.
+- **Reste** : `formation/page.tsx` parle encore de l'abonnement 2,99 € (page
+  privée) ; caractéristiques physiques `SPEC_*` à compléter.
 
 ## 🟩 Reprise - état au 29 juillet 2026 (fait foi)
 

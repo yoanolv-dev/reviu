@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
  * Galerie produit e-commerce : une grande image + une bande de vignettes
- * cliquables. Les visuels sont posés en `background-image` (cohérent avec
- * ProductPhoto, sans requête next/image supplémentaire) et chaque vignette est
- * un vrai bouton accessible (aria-pressed, aria-label descriptif).
+ * cliquables. Images `next/image` (vrais `<img>` indexables, formats modernes)
+ * et vignettes en vrais boutons accessibles (aria-pressed, aria-label).
  */
 export function ProductGallery({
   images,
@@ -20,12 +20,16 @@ export function ProductGallery({
 
   return (
     <div className="flex flex-col gap-3">
-      <div
-        role="img"
-        aria-label={main.alt}
-        className="aspect-square w-full rounded-[1.5rem] border border-line bg-surface bg-cover bg-center shadow-[var(--shadow-soft)]"
-        style={{ backgroundImage: `url("${main.src}")` }}
-      />
+      <div className="relative aspect-square w-full overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[var(--shadow-soft)]">
+        <Image
+          key={main.src}
+          src={main.src}
+          alt={main.alt}
+          fill
+          sizes="(min-width: 1024px) 540px, 100vw"
+          className="screen-in object-cover"
+        />
+      </div>
       {images.length > 1 && (
         <div className="grid grid-cols-4 gap-2.5 sm:gap-3">
           {images.map((img, i) => (
@@ -36,13 +40,20 @@ export function ProductGallery({
               aria-label={`Voir : ${img.alt}`}
               aria-pressed={i === active}
               className={cn(
-                "aspect-square rounded-xl border bg-cover bg-center outline-none transition focus-visible:ring-2 focus-visible:ring-brand",
+                "relative aspect-square overflow-hidden rounded-xl border outline-none transition focus-visible:ring-2 focus-visible:ring-brand",
                 i === active
                   ? "border-brand ring-2 ring-brand/30"
-                  : "border-line hover:border-brand/40",
+                  : "border-line opacity-80 hover:border-brand/40 hover:opacity-100",
               )}
-              style={{ backgroundImage: `url("${img.src}")` }}
-            />
+            >
+              <Image
+                src={img.src}
+                alt=""
+                fill
+                sizes="130px"
+                className="object-cover"
+              />
+            </button>
           ))}
         </div>
       )}

@@ -34,18 +34,13 @@ export default function CGU() {
         votre compte relève de votre responsabilité.
       </P>
 
-      <H2>3. Espace inclus, paiement et Reviu Pro</H2>
+      <H2>3. Espace inclus et paiement</H2>
       <UL>
         <li>
           L&apos;achat d&apos;un présentoir (paiement unique, traité par Stripe)
           inclut l&apos;espace Reviu, sans frais supplémentaires : statistiques
           de scans, gestion des présentoirs et modification du lien de
           redirection.
-        </li>
-        <li>
-          <strong>Reviu Pro</strong> (fonctionnalités avancées) est à venir. Son
-          tarif et ses conditions seront communiqués lors de son lancement ; sa
-          souscription sera facultative.
         </li>
         <li>
           Les abonnements souscrits avant cette évolution restent résiliables à

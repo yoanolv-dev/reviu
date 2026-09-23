@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P, UL } from "@/components/site/legal";
-import { CONTACT_EMAIL, SITE_URL, STAND_PRICE } from "@/lib/brand";
+import { CONTACT_EMAIL, GUARANTEE, SITE_URL, STAND_PRICE } from "@/lib/brand";
 import { formatEuros, getProduct } from "@/lib/shop";
 
 const FORMATION_PRICE = formatEuros(getProduct("formation")!.priceCents);
@@ -10,7 +10,7 @@ const PACK20_PRICE = formatEuros(getProduct("pack20")!.priceCents);
 export const metadata: Metadata = {
   title: "Conditions générales de vente - reviu",
   description:
-    "Conditions générales de vente des présentoirs reviu : prix, livraison, rétractation, garanties. Espace Reviu inclus, sans frais supplémentaires.",
+    "Conditions générales de vente des présentoirs reviu : prix, livraison offerte, rétractation, satisfait ou remboursé 30 jours, garanties. Espace Reviu inclus.",
   alternates: { canonical: `${SITE_URL}/cgv` },
 };
 
@@ -18,7 +18,7 @@ export default function CGV() {
   return (
     <LegalPage
       title="Conditions générales de vente"
-      updated="27 juillet 2026"
+      updated="23 septembre 2026"
     >
       <P>
         Les présentes conditions régissent la vente des présentoirs reviu et des
@@ -46,10 +46,7 @@ export default function CGV() {
         Prix en euros. TVA non applicable, article 293 B du CGI. L&apos;achat
         d&apos;un présentoir donne accès, sans frais supplémentaires, à
         l&apos;espace Reviu inclus (activation, statistiques de scans, gestion
-        des présentoirs et modification du lien de redirection).{" "}
-        <strong>Reviu Pro</strong>, offre de fonctionnalités avancées, sera
-        proposée ultérieurement ; ses conditions et son tarif seront communiqués
-        lors de son lancement.
+        des présentoirs et modification du lien de redirection).
       </P>
 
       <H2>2. Commande et paiement</H2>
@@ -64,7 +61,9 @@ export default function CGV() {
         <li>Zone : France métropolitaine.</li>
         <li>Délai indicatif : 3 à 5 jours ouvrés après confirmation.</li>
         <li>
-          Frais de livraison indiqués avant la validation de la commande.
+          Livraison offerte sur toutes les commandes de présentoirs, dès le
+          premier présentoir. Le montant total est indiqué avant la validation
+          de la commande.
         </li>
       </UL>
       <P>
@@ -98,23 +97,36 @@ export default function CGV() {
 
       <H2>5. Garanties</H2>
       <P>
-        Les présentoirs bénéficient de la garantie légale de conformité (2 ans,
-        art. L217-3 et s. du Code de la consommation) et de la garantie contre
-        les vices cachés (art. 1641 et s. du Code civil).
+        <strong>Garantie commerciale « {GUARANTEE.label} ».</strong> En plus
+        du droit de rétractation, vous disposez de{" "}
+        <strong>{GUARANTEE.days} jours</strong> à compter de la réception pour
+        essayer le présentoir. S&apos;il ne vous convient pas, quelle
+        qu&apos;en soit la raison, contactez-nous à{" "}
+        <a className="text-brand hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
+        </a>{" "}
+        puis retournez-le complet et en bon état : le prix du présentoir vous
+        est remboursé sous 14 jours après réception du retour, par le moyen de
+        paiement utilisé lors de la commande. Les frais de retour restent à
+        votre charge. Cette garantie s&apos;applique aux présentoirs achetés à
+        l&apos;unité sur reviu.fr ; elle ne s&apos;applique pas au contenu
+        numérique (formation).
+      </P>
+      <P>
+        Les présentoirs bénéficient en outre de la garantie légale de
+        conformité (2 ans, art. L217-3 et s. du Code de la consommation) et de
+        la garantie contre les vices cachés (art. 1641 et s. du Code civil).
       </P>
 
-      <H2>6. Espace Reviu inclus et Reviu Pro</H2>
+      <H2>6. Espace Reviu inclus</H2>
       <P>
         L&apos;achat d&apos;un présentoir inclut l&apos;espace Reviu, sans frais
         supplémentaires ni paiement récurrent : statistiques de scans (QR et NFC
         distingués), gestion des présentoirs et modification du lien de
         redirection à tout moment. L&apos;adresse encodée du présentoir
-        (QR&nbsp;/&nbsp;NFC) reste, elle, immuable. <strong>Reviu Pro</strong>
-        {" "}(fonctionnalités avancées à venir) fera l&apos;objet de conditions
-        spécifiques communiquées lors de son lancement ; sa souscription sera
-        facultative et sans incidence sur les fonctions incluses. Les
-        abonnements souscrits avant cette évolution restent résiliables à tout
-        moment depuis l&apos;espace client.
+        (QR&nbsp;/&nbsp;NFC) reste, elle, immuable. Les abonnements souscrits
+        avant cette évolution restent résiliables à tout moment depuis
+        l&apos;espace client.
       </P>
 
       <H2>7. Réclamations et médiation</H2>

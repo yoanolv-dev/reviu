@@ -11,8 +11,9 @@ import { SITE_URL } from "./brand";
  * le montant réellement facturé par Stripe est construit à partir d'ici
  * (`price_data` en ligne), donc pas de produit Stripe à créer à la main.
  *
- * Les abonnements de suivi (2,99 €/mois par présentoir) restent gérés à part,
- * dans le dashboard et le parcours de scan (`stripe-actions.ts`).
+ * Aucun abonnement : le présentoir est un achat unique, l'espace Reviu est
+ * inclus. (Les anciens abonnements de suivi restent gérés à part, en legacy,
+ * dans `stripe-actions.ts`.)
  */
 
 /** Type de produit → conditionne livraison, TVA, et accès formation. */
@@ -76,7 +77,7 @@ export const CATALOG: ShopProduct[] = [
     features: [
       "Sourcing & production des présentoirs",
       "Argumentaire, tarifs et prospection locale",
-      "Déploiement avec reviu : abonnements récurrents, pas de vente one-shot",
+      "Déploiement avec reviu : activation, espace inclus, suivi des clients",
       "Accès en ligne immédiat, à vie",
     ],
     badge: "100 % en ligne",
@@ -94,7 +95,7 @@ export const CATALOG: ShopProduct[] = [
       "10 présentoirs NFC + QR livrés",
       "Formation complète incluse",
       "≈ 19,90 €/présentoir - marge à la revente à 29,90 €",
-      "Chaque présentoir placé = un abonnement 2,99 €/mois",
+      "Espace Reviu inclus pour chaque commerçant équipé",
     ],
     badge: "Le plus vendu",
     perUnitLabel: "≈ 19,90 € / présentoir",
@@ -112,7 +113,7 @@ export const CATALOG: ShopProduct[] = [
       "20 présentoirs NFC + QR livrés",
       "Formation complète incluse",
       "≈ 17,45 €/présentoir - meilleure marge du catalogue",
-      "Idéal pour bâtir un portefeuille d'abonnements récurrents",
+      "Idéal pour équiper tout un secteur de commerçants",
     ],
     badge: "Meilleure marge",
     perUnitLabel: "≈ 17,45 € / présentoir",
@@ -159,9 +160,12 @@ export function standTotalCents(qty: number): number {
   return standUnitCents(q) * q;
 }
 
-// ── Livraison : offerte à partir d'un seuil, sinon frais forfaitaires ────────
+// ── Livraison : offerte dès le premier présentoir ───────────────────────────
+// Seuil à 0 = livraison toujours offerte (Stripe reçoit « Livraison offerte »).
+// Pour réintroduire des frais sous un seuil, remonter ce montant (et adapter
+// les libellés `SHIPPING` de `brand.ts`).
 /** Seuil (centimes) à partir duquel la livraison est offerte. */
-export const FREE_SHIPPING_THRESHOLD_CENTS = 5000;
+export const FREE_SHIPPING_THRESHOLD_CENTS = 0;
 /** Frais de port forfaitaires (centimes) en dessous du seuil. */
 export const SHIPPING_FEE_CENTS = 390;
 

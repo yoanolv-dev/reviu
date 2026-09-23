@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { buttonClass } from "@/components/ui/button";
+import { IconArrowRight, IconLock, IconShield, IconTruck } from "@/components/ui/icons";
 
 type Tier = { min: number; unitCents: number };
 
@@ -28,13 +29,12 @@ function unitCentsFor(qty: number, tiers: Tier[]): number {
 export function StandOrder({
   tiers,
   max,
-  freeShipThresholdCents,
-  freeFromLabel,
+  guaranteeLabel,
 }: {
   tiers: Tier[];
   max: number;
-  freeShipThresholdCents: number;
-  freeFromLabel: string;
+  /** Libellé court de la garantie, ex. « Satisfait ou remboursé 30 jours ». */
+  guaranteeLabel: string;
 }) {
   const [qty, setQty] = useState(1);
 
@@ -42,8 +42,6 @@ export function StandOrder({
   const total = unit * qty;
   const baseUnit = tiers[0]?.unitCents ?? 0;
   const saving = (baseUnit - unit) * qty;
-  const freeShip = total >= freeShipThresholdCents;
-  const toFreeShip = freeShipThresholdCents - total;
 
   const set = (v: number) => setQty(Math.min(Math.max(v, 1), max));
 
@@ -150,28 +148,12 @@ export function StandOrder({
         </div>
       </div>
 
-      <div
-        className={
-          "flex items-center gap-2 rounded-xl border px-3 py-2 text-xs " +
-          (freeShip
-            ? "border-brand/40 bg-brand-soft text-brand"
-            : "border-line text-muted")
-        }
-      >
-        {freeShip ? (
-          <span className="font-medium">✓ Livraison offerte sur cette commande</span>
-        ) : (
-          <span>
-            Plus que{" "}
-            <span className="font-medium text-ink">{euros(toFreeShip)}</span>{" "}
-            pour la livraison offerte (dès {freeFromLabel}).
-          </span>
-        )}
-      </div>
-
       <div className="flex items-center justify-between border-t border-line pt-4">
         <span className="text-sm text-muted">
           Total {qty > 1 ? `(${qty} présentoirs)` : ""}
+          <span className="mt-0.5 block text-xs font-medium text-brand">
+            Livraison offerte
+          </span>
         </span>
         <span className="font-display text-2xl font-semibold text-ink">
           {euros(total)}
@@ -180,14 +162,32 @@ export function StandOrder({
 
       <Link
         href={`/boutique/commander?product=stand&quantity=${qty}`}
-        className={buttonClass("gradient", "lg", "w-full")}
+        className={buttonClass("gradient", "lg", "group h-14 w-full text-base")}
       >
-        Commander
+        Commander {qty > 1 ? `${qty} présentoirs` : "mon présentoir"}
+        <IconArrowRight
+          size={18}
+          className="transition-transform group-hover:translate-x-0.5"
+        />
       </Link>
 
+      <ul className="grid grid-cols-1 gap-2 text-xs font-medium text-ink-soft sm:grid-cols-3">
+        <li className="flex items-center gap-1.5 sm:justify-center">
+          <IconTruck size={15} className="shrink-0 text-brand" />
+          Livraison offerte
+        </li>
+        <li className="flex items-center gap-1.5 sm:justify-center">
+          <IconShield size={15} className="shrink-0 text-brand" />
+          {guaranteeLabel}
+        </li>
+        <li className="flex items-center gap-1.5 sm:justify-center">
+          <IconLock size={15} className="shrink-0 text-brand" />
+          Paiement sécurisé
+        </li>
+      </ul>
+
       <p className="text-center text-xs text-muted">
-        Achat unique, sans frais supplémentaires. Espace Reviu inclus dès
-        l&apos;activation.
+        Achat unique, sans abonnement. Espace Reviu inclus dès l&apos;activation.
       </p>
     </div>
   );

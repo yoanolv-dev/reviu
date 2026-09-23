@@ -14,44 +14,33 @@ export const PRODUCT = {
   descriptive: "Présentoir NFC et QR code pour avis Google",
 } as const;
 
-/**
- * LEGACY - l'ancien « abonnement de suivi » 2,99 €/mois. Le repositionnement a
- * INTÉGRÉ ses fonctions (statistiques, gestion, modification du lien) à l'espace
- * Reviu inclus avec la plaque : il n'est plus proposé dans le parcours
- * commerçant. Cette constante n'est conservée que pour les canaux non encore
- * migrés (programme revendeur, formation, e-mails) - à retirer lors de leur
- * refonte. Ne pas réutiliser côté commerçant.
- */
-export const SUBSCRIPTION = {
-  priceLabel: "2,99 €",
-  period: "mois",
-  /** Accroche courte de l'offre de services (espace client, e-mails). */
-  pitch:
-    "Après activation, un espace de pilotage facultatif vous aide à suivre vos statistiques, recueillir des retours privés et gérer vos présentoirs.",
-  perks: [
-    "Retours privés : un client peut aussi vous contacter en direct",
-    "Alerte e-mail à chaque nouveau retour privé, pour réagir tout de suite",
-    "Récap hebdomadaire par e-mail : scans, clics et progression de votre présentoir",
-    "Statistiques détaillées de scan et de clics dans votre tableau de bord",
-    "Modification du lien du présentoir à distance, à volonté",
-    "Accompagnement humain : réglage, conseils et suivi, pas un simple logiciel",
-  ],
-} as const;
-
 /** Prix du présentoir physique (achat unique via la boutique). */
 export const STAND_PRICE = "29,90 €";
 
 /**
- * Réassurances clés affichées sous le hero et dans le bandeau produit.
- * Cœur du positionnement : achat unique, sans frais supplémentaires,
- * compatible partout, installation rapide.
+ * Réassurances clés affichées sous le hero, près du bouton d'achat et dans le
+ * bandeau. Cœur du positionnement : achat unique, livraison offerte, garantie
+ * satisfait ou remboursé, compatible partout.
  */
 export const REASSURANCE = [
-  "Achat unique",
-  "Sans frais supplémentaires",
-  "Activation rapide",
-  "Compatible iPhone et Android",
+  "Livraison offerte",
+  "Satisfait ou remboursé 30 jours",
+  "Sans abonnement",
+  "iPhone et Android",
 ] as const;
+
+/**
+ * Garantie commerciale « satisfait ou remboursé » (en plus du droit de
+ * rétractation légal de 14 jours). Reprise dans la FAQ, les CGV et le schéma
+ * Product (`hasMerchantReturnPolicy`) : garder ces textes cohérents.
+ */
+export const GUARANTEE = {
+  days: 30,
+  label: "Satisfait ou remboursé 30 jours",
+  short: "Satisfait ou remboursé",
+  detail:
+    "Essayez le présentoir pendant 30 jours. S'il ne vous convient pas, renvoyez-le : on vous rembourse le prix du présentoir, sans justification.",
+} as const;
 
 /**
  * Espace Reviu INCLUS avec la plaque (aucun frais récurrent). Regroupe ce que
@@ -69,36 +58,13 @@ export const INCLUDED_SPACE = {
 } as const;
 
 /**
- * Reviu Pro - offre AVANCÉE À VENIR (non disponible, aucun achat pour l'instant).
- * Présentée comme optionnelle : la plaque reste complète sans elle. Le CTA se
- * limite à une inscription (liste d'attente), jamais un paiement.
- */
-export const REVIU_PRO = {
-  name: "Reviu Pro",
-  status: "Bientôt disponible",
-  intro:
-    "Votre plaque et votre espace Reviu vous suffisent au quotidien. Pour aller plus loin, Reviu Pro arrivera bientôt, en option.",
-  features: [
-    "Connexion à Google Business Profile",
-    "Centralisation de tous vos avis Google",
-    "Réponses aux avis directement depuis Reviu",
-    "Alertes à chaque nouvel avis",
-    "Assistance IA pour préparer vos réponses",
-    "Analyses et rapports avancés",
-  ],
-  cta: "Me prévenir au lancement",
-  /** Sujet de l'e-mail de mise en relation (liste d'attente). */
-  waitlistSubject: "Reviu Pro - me prevenir au lancement",
-} as const;
-
-/**
- * Libellés de livraison (affichage). La logique chiffrée (seuil, frais) reste
- * dans `src/lib/shop.ts` : `FREE_SHIPPING_THRESHOLD_CENTS`, `SHIPPING_FEE_CENTS`.
- * Ces deux constantes doivent rester cohérentes avec les libellés ci-dessous.
+ * Libellés de livraison (affichage). La livraison est OFFERTE dès le premier
+ * présentoir : la logique chiffrée reste dans `src/lib/shop.ts`
+ * (`shippingFeeCents`, toujours 0) et doit rester cohérente avec ces libellés.
  */
 export const SHIPPING = {
-  freeFromLabel: "50 €",
-  feeLabel: "3,90 €",
+  label: "Livraison offerte",
+  delay: "3 à 5 jours ouvrés",
 } as const;
 
 /** Mention d'indépendance vis-à-vis de Google (footer, mentions légales, page GBP). */
@@ -118,39 +84,102 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://reviu.fr";
 /** Adresse de contact affichée sur le site et les pages légales. */
 export const CONTACT_EMAIL = "contact@reviu.fr";
 
+/**
+ * Téléphone de contact affiché sur le site (header, footer, pages clés), au
+ * format international sans espaces, ex. "+33612345678". Vide = masqué partout.
+ * Surchargeable par `NEXT_PUBLIC_CONTACT_PHONE`. `PHONE_HAS_WHATSAPP` ajoute un
+ * lien WhatsApp vers le même numéro.
+ */
+const PHONE_NUMBER = "";
+const PHONE_HAS_WHATSAPP = false;
+
+const PHONE_E164 = process.env.NEXT_PUBLIC_CONTACT_PHONE || PHONE_NUMBER;
+
+/** Formate "+33612345678" en "06 12 34 56 78" (repli : valeur brute). */
+function formatFrPhone(e164: string): string {
+  const m = e164.replace(/\s+/g, "").match(/^\+33(\d{9})$/);
+  if (!m) return e164;
+  return ("0" + m[1]).replace(/(\d{2})(?=\d)/g, "$1 ");
+}
+
+export const CONTACT_PHONE = PHONE_E164
+  ? {
+      display: formatFrPhone(PHONE_E164),
+      href: `tel:${PHONE_E164.replace(/\s+/g, "")}`,
+      whatsapp: PHONE_HAS_WHATSAPP
+        ? `https://wa.me/${PHONE_E164.replace(/[^\d]/g, "")}`
+        : null,
+    }
+  : null;
+
 /** Adresse recevant les notifications internes (nouvelles inscriptions…). */
 export const ADMIN_NOTIFY_EMAIL = "yoan.oliveira30@gmail.com";
 
 /**
- * Boutique interne (vente des présentoirs, formation et packs revendeurs).
- * Sert de destination aux boutons « Commander » du site et du dashboard.
- * Surchargeable par variable d'environnement, mais par défaut = `/boutique`
- * sur le site vitrine.
+ * Fiche produit + module d'achat (section `#produits` de l'accueil). Sert de
+ * destination aux boutons « Commander » du site et du dashboard. `/boutique`
+ * redirige (301) vers la racine sur le domaine vitrine : on pointe donc
+ * directement la racine pour éviter un saut de redirection.
  */
 export const BOUTIQUE_URL =
-  process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/boutique`;
+  process.env.NEXT_PUBLIC_BOUTIQUE_URL ?? `${SITE_URL}/#produits`;
 
 /**
  * Navigation principale, orientée vraies pages (meilleur maillage interne
- * sitewide pour le SEO). « Guides » ouvre un sous-menu vers les pages hub.
- * Les actions (Commander, Se connecter) sont gérées séparément dans l'en-tête.
+ * sitewide pour le SEO). « Ressources » ouvre un méga-menu (guides, outil
+ * gratuit, démo). Les actions (Commander, Se connecter) sont gérées à part.
  */
+export type NavChild = {
+  label: string;
+  href: string;
+  /** Sous-titre court affiché dans le méga-menu desktop. */
+  desc?: string;
+};
+
 export type NavItem = {
   label: string;
   href: string;
-  children?: readonly { label: string; href: string }[];
+  children?: readonly NavChild[];
+  /** Mise en avant (carte) dans le méga-menu desktop. */
+  featured?: NavChild & { badge: string };
 };
+
+export const QR_TOOL_PATH = "/outils/qr-code-avis-google";
 
 export const NAV: readonly NavItem[] = [
   { label: "Le présentoir", href: "/#produits" },
+  { label: "Comment ça marche", href: "/#fonctionnement" },
   {
-    label: "Guides",
+    label: "Ressources",
     href: "/guides",
     children: [
-      { label: "Tous les guides", href: "/guides" },
-      { label: "Par métier", href: "/guides/par-metier" },
-      { label: "Gérer sa réputation", href: "/guides/gerer-sa-reputation" },
+      {
+        label: "Tous les guides",
+        href: "/guides",
+        desc: "Méthodes concrètes pour collecter plus d'avis",
+      },
+      {
+        label: "Guides par métier",
+        href: "/guides/par-metier",
+        desc: "Restaurant, coiffeur, garage, hôtel…",
+      },
+      {
+        label: "Gérer sa réputation",
+        href: "/guides/gerer-sa-reputation",
+        desc: "Répondre aux avis, avis négatifs, note Google",
+      },
+      {
+        label: "Démo du présentoir",
+        href: "/demo",
+        desc: "Le parcours client et l'espace Reviu en images",
+      },
     ],
+    featured: {
+      label: "Générateur de QR code avis Google",
+      href: QR_TOOL_PATH,
+      desc: "Créez gratuitement le QR code de votre page d'avis, prêt à imprimer.",
+      badge: "Gratuit",
+    },
   },
-  { label: "Démo", href: "/demo" },
+  { label: "Revendeur", href: "/revendeur" },
 ];

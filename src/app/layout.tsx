@@ -35,7 +35,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "reviu - Présentoir NFC + QR pour plus d'avis Google",
+    default: "reviu - Présentoir avis Google NFC + QR code",
     template: "%s",
   },
   description: BRAND_DESCRIPTION,
@@ -87,6 +87,16 @@ export const metadata: Metadata = {
     },
   },
   formatDetection: { telephone: false },
+  // Codes de vérification Search Console / Bing Webmaster Tools, renseignés
+  // par variables d'environnement (Vercel) : aucune balise si absents.
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
+      : {}),
+  },
 };
 
 export default function RootLayout({

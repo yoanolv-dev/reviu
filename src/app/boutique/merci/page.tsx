@@ -116,10 +116,10 @@ export default async function MerciPage({
                     Créer / activer mon compte
                   </a>
                   <Link
-                    href="/boutique"
+                    href="/"
                     className="inline-flex h-11 items-center justify-center rounded-full border border-line bg-canvas px-6 text-sm font-medium text-ink transition-colors hover:border-brand/40"
                   >
-                    Retour à la boutique
+                    Retour à l&apos;accueil
                   </Link>
                 </div>
               </>
@@ -130,14 +130,14 @@ export default async function MerciPage({
                 </h1>
                 <p className="mt-3 text-[15px] text-ink-soft">
                   Si vous venez de payer, votre confirmation arrive par e-mail
-                  dans quelques instants. Sinon, retournez à la boutique pour
+                  dans quelques instants. Sinon, retournez sur le site pour
                   finaliser votre commande.
                 </p>
                 <Link
-                  href="/boutique"
+                  href="/"
                   className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-brand px-6 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
                 >
-                  Retour à la boutique
+                  Retour à l&apos;accueil
                 </Link>
               </>
             )}
