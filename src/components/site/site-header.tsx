@@ -112,7 +112,7 @@ export function SiteHeader() {
                       href={item.href}
                       aria-current={isActive(pathname, item) ? "page" : undefined}
                       className={cn(
-                        "block rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
+                        "block whitespace-nowrap rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
                         isActive(pathname, item)
                           ? "bg-canvas text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
                           : "text-ink-soft hover:bg-line-soft hover:text-ink",
@@ -131,22 +131,23 @@ export function SiteHeader() {
             {CONTACT_PHONE && (
               <a
                 href={CONTACT_PHONE.href}
-                className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink xl:inline-flex"
+                aria-label={`Appeler le ${CONTACT_PHONE.display}`}
+                title={CONTACT_PHONE.display}
+                className="grid h-10 w-10 place-items-center rounded-full text-brand transition-colors hover:bg-line-soft"
               >
-                <IconPhone size={16} className="text-brand" />
-                {CONTACT_PHONE.display}
+                <IconPhone size={17} />
               </a>
             )}
             <a
               href={`${APP_BASE}/login`}
-              className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
+              className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-line-soft hover:text-ink"
             >
               <IconUser size={16} />
-              Se connecter
+              <span className="sr-only xl:not-sr-only">Se connecter</span>
             </a>
             <Link
               href="/#produits"
-              className={buttonClass("primary", "md", "group ml-1 pl-5 pr-1.5")}
+              className={buttonClass("primary", "md", "group ml-1 whitespace-nowrap pl-5 pr-1.5")}
             >
               Commander
               <span className="rounded-full bg-white/15 px-2.5 py-1 text-[13px] font-semibold tabular-nums transition-colors group-hover:bg-white/20">
@@ -227,7 +228,7 @@ function MegaMenu({ item, active }: { item: NavItem; active: boolean }) {
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "inline-flex items-center gap-1 rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
+          "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors",
           open || active
             ? "bg-canvas text-ink shadow-[inset_0_0_0_1px_var(--color-line)]"
             : "text-ink-soft hover:bg-line-soft hover:text-ink",
@@ -283,10 +284,6 @@ function MegaMenu({ item, active }: { item: NavItem; active: boolean }) {
               onClick={() => setOpen(false)}
               className="group/feat relative flex flex-col overflow-hidden rounded-[1.25rem] bg-ink p-5 text-white"
             >
-              <span
-                aria-hidden
-                className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand opacity-60 blur-3xl"
-              />
               <span className="relative flex items-center justify-between">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-white ring-1 ring-white/15">
                   <IconQr size={22} />
@@ -358,7 +355,7 @@ function MobileMenu({
             >
               {item.children ? (
                 <>
-                  <p className="px-1 pb-1 pt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
+                  <p className="px-1 pb-1 pt-3 text-[13px] font-semibold text-muted">
                     {item.label}
                   </p>
                   {item.featured && (

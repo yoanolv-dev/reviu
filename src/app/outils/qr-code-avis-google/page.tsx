@@ -139,10 +139,10 @@ export default function QrToolPage() {
         <section id="trouver-le-lien" className="scroll-mt-24 border-b border-line bg-surface">
           <Container className="grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <span className="font-mono text-xs uppercase tracking-widest text-brand">
+              <span className="text-sm font-semibold text-brand">
                 Étape préalable
               </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Trouver le lien de votre page d'avis Google.")}
               </h2>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft">
@@ -184,10 +184,10 @@ export default function QrToolPage() {
               />
             </Reveal>
             <Reveal className="order-1 lg:order-2">
-              <span className="font-mono text-xs uppercase tracking-widest text-brand">
+              <span className="text-sm font-semibold text-brand">
                 Bonnes pratiques
               </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Où placer votre QR code avis Google.")}
               </h2>
               <ul className="mt-6 grid gap-3">
@@ -223,7 +223,7 @@ export default function QrToolPage() {
                   className="absolute -bottom-24 -left-24 -z-10 h-80 w-80 rounded-full bg-brand opacity-50 blur-3xl"
                 />
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-white/60">
+                  <span className="text-sm font-semibold text-white/70">
                     Passez au niveau supérieur
                   </span>
                   <h2 className="mt-3 max-w-xl font-display text-2xl font-semibold leading-tight sm:text-4xl">

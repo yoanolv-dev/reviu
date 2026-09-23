@@ -90,7 +90,7 @@ export const CONTACT_EMAIL = "contact@reviu.fr";
  * Surchargeable par `NEXT_PUBLIC_CONTACT_PHONE`. `PHONE_HAS_WHATSAPP` ajoute un
  * lien WhatsApp vers le même numéro.
  */
-const PHONE_NUMBER = "";
+const PHONE_NUMBER = "+33781983042";
 const PHONE_HAS_WHATSAPP = false;
 
 const PHONE_E164 = process.env.NEXT_PUBLIC_CONTACT_PHONE || PHONE_NUMBER;

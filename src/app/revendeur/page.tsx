@@ -215,7 +215,7 @@ export default function RevendeurPage() {
                 className="aspect-[4/5] w-full rounded-[2rem] shadow-[var(--shadow-lift)] ring-1 ring-white/60"
               />
               <div className="float absolute -left-3 bottom-8 max-w-[240px] rounded-2xl border border-white/70 bg-white/90 p-4 shadow-[var(--shadow-lift)] backdrop-blur sm:-left-8">
-                <p className="font-mono text-[11px] uppercase tracking-widest text-brand">
+                <p className="text-xs font-semibold text-brand">
                   Ce que vous proposez
                 </p>
                 <p className="mt-1.5 font-display text-[17px] font-semibold leading-snug text-ink">
@@ -258,10 +258,10 @@ export default function RevendeurPage() {
         <section className="border-b border-line">
           <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             <Reveal>
-              <span className="font-mono text-xs uppercase tracking-widest text-brand">
+              <span className="text-sm font-semibold text-brand">
                 Pourquoi reviu
               </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Un produit facile à recommander.")}
               </h2>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-soft sm:text-base">
@@ -308,10 +308,10 @@ export default function RevendeurPage() {
           <Container className="py-16 sm:py-24">
             <Reveal>
               <div className="text-center">
-                <span className="font-mono text-xs uppercase tracking-widest text-white/60">
+                <span className="text-sm font-semibold text-white/70">
                   Comment ça se passe
                 </span>
-                <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
                   Trois étapes, une sélection humaine.
                 </h2>
               </div>
@@ -336,10 +336,10 @@ export default function RevendeurPage() {
         <section id="candidature" className="scroll-mt-24">
           <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
-              <span className="font-mono text-xs uppercase tracking-widest text-brand">
+              <span className="text-sm font-semibold text-brand">
                 Candidature
               </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Parlons de votre projet.")}
               </h2>
               <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft">
@@ -413,10 +413,10 @@ export default function RevendeurPage() {
 function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="text-center">
-      <span className="font-mono text-xs uppercase tracking-widest text-brand">
+      <span className="text-sm font-semibold text-brand">
         {eyebrow}
       </span>
-      <h2 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {accentLastWord(title)}
       </h2>
     </div>

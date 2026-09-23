@@ -45,6 +45,8 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { StandOrder } from "./stand-order";
 import { ScanDemo } from "./scan-demo";
 import { StickyBuyBar } from "./sticky-buy-bar";
+import { TestimonialsSection } from "@/components/site/testimonials-section";
+import { TESTIMONIALS } from "@/lib/testimonials";
 
 export const metadata: Metadata = buildMetadata({
   title: "Présentoir avis Google NFC + QR code - 29,90 € | reviu",
@@ -291,13 +293,12 @@ export default function BoutiquePage() {
                   Voir comment ça marche
                 </a>
               </div>
-              <ul className="mt-7 grid w-full grid-cols-2 gap-x-4 gap-y-2.5 text-[13.5px] font-medium text-ink-soft sm:flex sm:flex-wrap sm:gap-x-5">
+              <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2.5 text-[13.5px] font-medium text-ink-soft">
                 <Reassure icon={<IconTruck size={16} />}>Livraison offerte</Reassure>
                 <Reassure icon={<IconShield size={16} />}>
                   Satisfait ou remboursé<span className="hidden sm:inline">&nbsp;30&nbsp;j</span>
                 </Reassure>
-                <Reassure icon={<IconLink size={16} />}>Lien modifiable</Reassure>
-                <Reassure icon={<IconSmartphone size={16} />}>iPhone et Android</Reassure>
+                <Reassure icon={<IconSmartphone size={16} />}>Sans abonnement</Reassure>
               </ul>
             </div>
 
@@ -308,7 +309,7 @@ export default function BoutiquePage() {
         {/* 2 - MÉTIERS : bandeau défilant, chaque pastille mène à son guide. */}
         <section aria-label="Pensé pour les commerces de proximité" className="border-y border-line bg-surface">
           <div className="mx-auto flex max-w-6xl items-center gap-6 py-4 lg:px-8">
-            <p className="hidden shrink-0 font-mono text-[11px] uppercase tracking-widest text-muted lg:block">
+            <p className="hidden shrink-0 text-[13px] font-semibold text-muted lg:block">
               Pensé pour
             </p>
             <div className="marquee fade-x min-w-0 flex-1">
@@ -358,6 +359,9 @@ export default function BoutiquePage() {
             </div>
           </Container>
         </section>
+
+        {/* TÉMOIGNAGES (affichés dès le premier vrai témoignage) */}
+        <TestimonialsSection items={TESTIMONIALS} />
 
         {/* 4 - PRODUIT ET COMMANDE (galerie + fiche + achat) */}
         <section id="produits" className="scroll-mt-16 border-y border-line bg-surface">
@@ -512,12 +516,8 @@ export default function BoutiquePage() {
             {/* Argument de rentabilité (raisonnement, pas une promesse chiffrée) */}
             <Reveal className="mx-auto mt-10 max-w-4xl">
               <div className="relative isolate flex flex-col items-start gap-6 overflow-hidden rounded-3xl bg-ink p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
-                <span
-                  aria-hidden
-                  className="absolute -right-16 -top-20 -z-10 h-64 w-64 rounded-full bg-brand opacity-50 blur-3xl"
-                />
                 <div className="max-w-xl">
-                  <p className="font-mono text-xs uppercase tracking-widest text-white/60">
+                  <p className="text-sm font-semibold text-white/70">
                     Le calcul est vite fait
                   </p>
                   <p className="mt-2 font-display text-xl font-semibold leading-snug sm:text-2xl">
@@ -541,10 +541,10 @@ export default function BoutiquePage() {
           <Container className="py-16 sm:py-24">
             <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-2 lg:gap-16">
               <Reveal>
-                <span className="font-mono text-xs uppercase tracking-widest text-brand">
+                <span className="text-sm font-semibold text-brand">
                   Inclus, sans abonnement
                 </span>
-                <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                   {accentLastWord("Votre présentoir, piloté depuis votre espace.")}
                 </h2>
                 <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft sm:text-base">
@@ -605,10 +605,6 @@ export default function BoutiquePage() {
         {/* 7 - GARANTIE (bloc de couleur de marque, levier anti-hésitation) */}
         <section className="relative isolate overflow-hidden bg-brand text-white">
           <div aria-hidden className="absolute inset-0 -z-10 opacity-30 hero-grid" />
-          <span
-            aria-hidden
-            className="absolute -left-24 -top-24 -z-10 h-80 w-80 rounded-full bg-white opacity-10 blur-3xl"
-          />
           <Container className="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <Reveal>
               <span className="inline-grid h-14 w-14 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/25">
@@ -698,10 +694,10 @@ export default function BoutiquePage() {
         <section id="faq" className="scroll-mt-20 border-b border-line">
           <Container className="grid gap-10 py-16 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <Reveal>
-              <span className="font-mono text-xs uppercase tracking-widest text-brand">
+              <span className="text-sm font-semibold text-brand">
                 Questions fréquentes
               </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {accentLastWord("Tout ce qu'il faut savoir.")}
               </h2>
               <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">
@@ -747,10 +743,6 @@ export default function BoutiquePage() {
         <section>
           <Container className="py-16 sm:py-20">
             <div className="relative isolate grid items-center gap-8 overflow-hidden rounded-[2.5rem] bg-ink px-6 py-12 sm:px-12 sm:py-14 lg:grid-cols-[1.2fr_0.8fr]">
-              <span
-                aria-hidden
-                className="absolute -bottom-24 -right-24 -z-10 h-80 w-80 rounded-full bg-brand opacity-50 blur-3xl"
-              />
               <div className="text-center lg:text-left">
                 <Stars size={18} className="justify-center lg:justify-start" />
                 <h2 className="mx-auto mt-4 max-w-xl font-display text-2xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:mx-0">
@@ -826,15 +818,6 @@ function HeroVisual() {
           </span>
           <span className="block text-xs text-muted">en un seul geste</span>
         </span>
-      </div>
-
-      {/* Carte : étoiles */}
-      <div className="float-slow absolute -right-2 bottom-16 rounded-2xl border border-white/70 bg-white/90 p-3 shadow-[var(--shadow-lift)] backdrop-blur sm:-right-8 sm:bottom-20 sm:p-4">
-        <Stars size={16} className="shimmer" />
-        <span className="mt-1.5 block text-[13px] font-semibold text-ink">
-          Sans application
-        </span>
-        <span className="block text-xs text-muted">iPhone et Android</span>
       </div>
 
       {/* Pastille prix */}
@@ -919,10 +902,10 @@ function SectionHead({
 }) {
   return (
     <div className="text-center">
-      <span className="font-mono text-xs uppercase tracking-widest text-brand">
+      <span className="text-sm font-semibold text-brand">
         {eyebrow}
       </span>
-      <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h2 className="mx-auto mt-2 max-w-3xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {accentLastWord(title)}
       </h2>
       {intro && (

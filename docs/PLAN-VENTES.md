@@ -59,10 +59,9 @@
 
 ## 3. À compléter dans le code dès que possible
 
-- **Téléphone** : renseigner `PHONE_NUMBER` (et `PHONE_HAS_WHATSAPP`) dans
-  `src/lib/brand.ts`, ou `NEXT_PUBLIC_CONTACT_PHONE` dans Vercel. Il apparaît
-  alors dans le header, le menu mobile, la FAQ, la page revendeur, le footer et
-  le schéma Organization.
+- **Témoignages** : ajouter chaque vrai témoignage dans
+  `src/lib/testimonials.ts` + photo dans `public/temoignages/` ; la section
+  apparaît automatiquement sur l'accueil.
 - **Caractéristiques physiques** (dimensions, épaisseur, matériau, poids) :
   constantes `SPEC_*` de `src/app/boutique/page.tsx`.
 - **Contenu formation** (`src/app/formation/page.tsx`) : parle encore de

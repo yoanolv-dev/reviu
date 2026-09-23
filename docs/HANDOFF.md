@@ -10,7 +10,7 @@
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
 
 Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t76ab7`
-(non fusionnée sur `main` : mise en prod sur demande). Plan commercial détaillé :
+(fusionnée sur `main` le 23/09). Plan commercial détaillé :
 `docs/PLAN-VENTES.md`.
 
 - **Offre** : livraison **offerte dès 1 présentoir** (`FREE_SHIPPING_THRESHOLD_CENTS = 0`
@@ -22,9 +22,17 @@ Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t7
 - **Header** (`site-header.tsx`) : nav en pilule, méga-menu « Ressources »
   (`NAV[].children` + `featured`), lien Revendeur, CTA avec prix, menu mobile
   plein écran. Bandeau `announce-bar.tsx` : rotation des messages sur mobile.
-- **Téléphone** : `PHONE_NUMBER` / `PHONE_HAS_WHATSAPP` dans `brand.ts` (ou
-  `NEXT_PUBLIC_CONTACT_PHONE`). **Vide pour l'instant** : tout est masqué tant
-  qu'il n'est pas renseigné.
+- **Téléphone** : `PHONE_NUMBER = "+33781983042"` (07 81 98 30 42) dans
+  `brand.ts`, `PHONE_HAS_WHATSAPP` à passer à `true` si le numéro est sur
+  WhatsApp. Affiché : header (icône), menu mobile, FAQ, revendeur, footer, JSON-LD.
+- **Témoignages** : bloc prêt (`testimonials-section.tsx`, style « photos
+  tirées », inclinées). Données dans `src/lib/testimonials.ts` (liste vide =
+  section masquée), photos dans `public/temoignages/` (4/5, voir README).
+  Uniquement de vrais clients. Pas de schéma Review (avis sur son propre produit
+  non éligibles aux résultats enrichis).
+- **Style « moins IA »** : sur-titres en police normale (plus de mono
+  majuscule), halos flous retirés des blocs sombres, hero allégé.
+- **Mis en prod le 23/09** (fast-forward de `main`).
 - **Accueil** (`boutique/page.tsx`) : hero vivant, `scan-demo.tsx` (parcours
   client animé), comparatif, bloc garantie, `sticky-buy-bar.tsx` (mobile).
 - **Outil gratuit** `/outils/qr-code-avis-google` (`qr-tool.tsx` +
@@ -37,8 +45,9 @@ Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t7
   boucle) ; sitemap (+ `/revendeur`, outil) ; photos en `next/image` (prop
   `preload` en Next 16, pas `priority`) ; vérification Search Console / Bing via
   `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` / `NEXT_PUBLIC_BING_SITE_VERIFICATION`.
-- **Reste** : `formation/page.tsx` parle encore de l'abonnement 2,99 € (page
-  privée) ; caractéristiques physiques `SPEC_*` à compléter.
+- **Reste** : caractéristiques physiques `SPEC_*` à compléter ; insérer les
+  témoignages dès réception. `formation/page.tsx` (abonnement 2,99 €) : mis de
+  côté à la demande du client.
 
 ## 🟩 Reprise - état au 29 juillet 2026 (fait foi)
 

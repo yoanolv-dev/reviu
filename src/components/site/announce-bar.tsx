@@ -5,7 +5,7 @@ import { IconShield, IconSmartphone, IconTruck } from "@/components/ui/icons";
 const MESSAGES: { icon: ReactNode; text: string }[] = [
   { icon: <IconTruck size={15} />, text: `${SHIPPING.label} dès 1 présentoir` },
   { icon: <IconShield size={15} />, text: GUARANTEE.label },
-  { icon: <IconSmartphone size={15} />, text: "Sans abonnement · iPhone et Android" },
+  { icon: <IconSmartphone size={15} />, text: "Sans abonnement, compatible iPhone et Android" },
 ];
 
 /**
