@@ -56,6 +56,18 @@ export function QrTool() {
   const [busy, setBusy] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [custOpen, setCustOpen] = useState(false);
+  const [canShare, setCanShare] = useState(false);
+  const [canPaste, setCanPaste] = useState(false);
+
+  // Capacités du navigateur (partage natif sur mobile, lecture du presse-papiers).
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      setCanShare(typeof navigator.share === "function" && window.matchMedia("(max-width: 1023px)").matches);
+      setCanPaste(typeof navigator.clipboard?.readText === "function");
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, []);
 
   // Sur ordinateur, le curseur est déjà dans le champ : il n'y a qu'à coller.
   useEffect(() => {
@@ -129,6 +141,27 @@ export function QrTool() {
   };
 
   const message = url ? shareMessage(url, name) : "";
+
+  const pasteLink = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        setLink(text.trim());
+        setTouched(true);
+      }
+    } catch {
+      inputRef.current?.focus();
+    }
+  };
+
+  const nativeShare = async () => {
+    if (!url) return;
+    try {
+      await navigator.share({ text: message });
+    } catch {
+      /* partage annulé */
+    }
+  };
   const showError = touched && !check.ok && link.trim() !== "";
   // Tant qu'aucun lien n'est saisi, on montre un exemple estompé du rendu.
   const preview =
@@ -142,12 +175,35 @@ export function QrTool() {
       soft: color.soft,
     });
 
+  const shareRow = (
+    <div className="flex flex-wrap gap-1.5">
+      <ShareBtn disabled={!url} onClick={copyLink} label="Copier le lien">
+        {copied ? <IconCheck size={16} /> : <IconLink size={16} />}
+        <span>{copied ? "Copié" : "Copier"}</span>
+      </ShareBtn>
+      <ShareBtn disabled={!url} href={url ? `sms:?&body=${encodeURIComponent(message)}` : undefined} label="Envoyer par SMS">
+        <IconMessage size={16} /> <span>SMS</span>
+      </ShareBtn>
+      <ShareBtn disabled={!url} href={url ? `https://wa.me/?text=${encodeURIComponent(message)}` : undefined} label="Envoyer par WhatsApp">
+        <IconWhatsapp size={16} /> <span>WhatsApp</span>
+      </ShareBtn>
+      <ShareBtn
+        disabled={!url}
+        href={url ? `mailto:?subject=${encodeURIComponent("Votre avis nous intéresse")}&body=${encodeURIComponent(message)}` : undefined}
+        label="Envoyer par e-mail"
+      >
+        <IconMail size={16} /> <span>E-mail</span>
+      </ShareBtn>
+    </div>
+  );
+
   return (
     <div className="overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[var(--shadow-lift)]">
-      <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_380px]">
-        {/* Réglages */}
-        <div className="flex flex-col p-5 sm:p-7 xl:p-8">
-          {/* 1. Le lien : l'action principale, mise en avant */}
+      {/* Mobile : lien, aperçu + télécharger, personnalisation (repliée),
+          partage. Desktop : réglages à gauche, aperçu à droite sur 3 rangées. */}
+      <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_320px] lg:grid-rows-[auto_auto_1fr] xl:grid-cols-[minmax(0,1fr)_380px]">
+        {/* 1. Le lien */}
+        <div className="p-5 pb-4 sm:p-7 sm:pb-4 lg:col-start-1 lg:row-start-1 xl:p-8 xl:pb-4">
           <label htmlFor="qr-link" className="text-[15px] font-semibold text-ink">
             Collez le lien de votre page d&apos;avis Google
           </label>
@@ -169,16 +225,22 @@ export function QrTool() {
               onBlur={() => setTouched(true)}
               aria-invalid={showError || undefined}
               aria-describedby="qr-link-help"
-              className={cn(
-                field,
-                "h-14 pl-12 pr-12 text-base",
-                url && "border-brand/50",
-              )}
+              className={cn(field, "h-14 pl-12 pr-24 text-base", url && "border-brand/50 pr-12")}
             />
-            {url && (
+            {url ? (
               <span className="pointer-events-none absolute right-3.5 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full bg-brand text-white">
                 <IconCheck size={14} strokeWidth={2.6} />
               </span>
+            ) : (
+              canPaste && (
+                <button
+                  type="button"
+                  onClick={pasteLink}
+                  className="absolute right-2 top-1/2 h-10 -translate-y-1/2 rounded-lg bg-ink px-4 text-sm font-semibold text-white transition-colors hover:bg-ink-soft"
+                >
+                  Coller
+                </button>
+              )
             )}
           </div>
           <p id="qr-link-help" className="mt-2 text-[13px] text-muted">
@@ -198,22 +260,93 @@ export function QrTool() {
               </>
             )}
           </p>
+        </div>
 
-          {/* Mobile : téléchargement direct dès que le lien est valide. */}
-          {poster && (
+        {/* 2. Aperçu + téléchargement */}
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center border-line bg-canvas p-5 sm:p-7 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:flex lg:border-l xl:p-8",
+            // Sur mobile, l'aperçu n'apparaît qu'une fois le lien valide.
+            poster ? "border-y lg:border-y-0" : "max-lg:hidden",
+          )}
+        >
+          <div className={cn("relative w-full", format === "carre" ? "max-w-[250px]" : "max-w-[220px] lg:max-w-[236px]")}>
+            <div
+              key={`${format}-${Boolean(poster)}`}
+              className={cn(
+                "screen-in drop-shadow-[0_18px_30px_rgba(17,57,201,0.16)] [&>svg]:h-auto [&>svg]:w-full",
+                !poster && "opacity-35 grayscale",
+              )}
+              aria-hidden={!poster}
+              // Contenu généré localement ; les textes saisis sont échappés.
+              dangerouslySetInnerHTML={{ __html: preview }}
+            />
+            {!poster && (
+              <span className="absolute inset-0 grid place-items-center">
+                <span className="rounded-full bg-ink px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg">
+                  Aperçu
+                </span>
+              </span>
+            )}
+          </div>
+
+          <div className="mt-6 w-full max-w-sm">
             <button
               type="button"
               onClick={downloadPoster}
-              disabled={busy !== null}
-              className={buttonClass("primary", "lg", "mt-4 w-full lg:hidden")}
+              disabled={!poster || busy !== null}
+              className={buttonClass("primary", "lg", "h-14 w-full text-base lg:h-12 lg:text-[15px]")}
             >
               <IconDownload size={18} />
-              {busy === "poster" ? "Préparation…" : "Télécharger l'affiche"}
+              {busy === "poster" ? "Préparation…" : "Télécharger (PNG)"}
             </button>
-          )}
+            {canShare && url && (
+              <button
+                type="button"
+                onClick={nativeShare}
+                className={buttonClass("secondary", "lg", "mt-2.5 h-14 w-full text-base lg:hidden")}
+              >
+                <IconMessage size={18} className="text-brand" />
+                Envoyer le lien à un client
+              </button>
+            )}
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 text-[13px]">
+              <DlLink onClick={printPoster} disabled={!poster} icon={<IconPrinter size={14} />}>
+                Imprimer
+              </DlLink>
+              <DlLink onClick={downloadPosterSvg} disabled={!poster || busy !== null}>
+                SVG
+              </DlLink>
+              <span className="inline-flex items-center gap-1.5 text-muted">
+                QR seul
+                <DlLink onClick={downloadQrPng} disabled={!url || busy !== null} icon={null}>
+                  PNG
+                </DlLink>
+                <DlLink onClick={downloadQrSvg} disabled={!url || busy !== null} icon={null}>
+                  SVG
+                </DlLink>
+              </span>
+            </div>
+          </div>
+        </div>
 
-          {/* 2. Personnalisation, compacte */}
-          <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-5">
+        {/* 3. Personnalisation (repliée sur mobile) */}
+        <div className="px-5 sm:px-7 lg:col-start-1 lg:row-start-2 xl:px-8">
+          <button
+            type="button"
+            onClick={() => setCustOpen((v) => !v)}
+            aria-expanded={custOpen}
+            className="flex w-full items-center justify-between border-t border-line py-4 text-[15px] font-semibold text-ink lg:hidden"
+          >
+            Personnaliser l&apos;affiche
+            <span className={cn("text-xl text-brand transition-transform", custOpen && "rotate-45")}>+</span>
+          </button>
+          <div
+            className={cn(
+              "grid grid-cols-2 gap-x-6 gap-y-4 pb-5 lg:mt-2 lg:border-t lg:border-line lg:pt-5",
+              !custOpen && "max-lg:hidden",
+            )}
+          >
             <div className="col-span-2">
               <label htmlFor="qr-name" className={labelCls}>
                 Nom affiché <span className="font-normal text-muted">(facultatif)</span>
@@ -291,84 +424,18 @@ export function QrTool() {
               </div>
             </fieldset>
           </div>
-
-          {/* 3. Partager le lien (secondaire) */}
-          <div className="min-h-6 flex-1" />
-          <div className="border-t border-line pt-5">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-              <span className="text-[13px] font-semibold text-ink">Envoyer à un client</span>
-              <div className="flex flex-wrap gap-1.5">
-                <ShareBtn disabled={!url} onClick={copyLink} label="Copier le lien">
-                  {copied ? <IconCheck size={16} /> : <IconLink size={16} />}
-                  <span>{copied ? "Copié" : "Copier"}</span>
-                </ShareBtn>
-                <ShareBtn disabled={!url} href={url ? `sms:?&body=${encodeURIComponent(message)}` : undefined} label="Envoyer par SMS">
-                  <IconMessage size={16} /> <span>SMS</span>
-                </ShareBtn>
-                <ShareBtn disabled={!url} href={url ? `https://wa.me/?text=${encodeURIComponent(message)}` : undefined} label="Envoyer par WhatsApp">
-                  <IconWhatsapp size={16} /> <span>WhatsApp</span>
-                </ShareBtn>
-                <ShareBtn
-                  disabled={!url}
-                  href={url ? `mailto:?subject=${encodeURIComponent("Votre avis nous intéresse")}&body=${encodeURIComponent(message)}` : undefined}
-                  label="Envoyer par e-mail"
-                >
-                  <IconMail size={16} /> <span>E-mail</span>
-                </ShareBtn>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Aperçu + téléchargement, toujours visibles côte à côte */}
-        <div className="flex flex-col items-center justify-center border-t border-line bg-canvas p-5 sm:p-7 lg:border-l lg:border-t-0 xl:p-8">
-          <div className={cn("relative w-full", format === "carre" ? "max-w-[250px]" : "max-w-[236px]")}>
-            <div
-              key={`${format}-${Boolean(poster)}`}
-              className={cn(
-                "screen-in drop-shadow-[0_18px_30px_rgba(17,57,201,0.16)] transition-opacity [&>svg]:h-auto [&>svg]:w-full",
-                !poster && "opacity-35 grayscale",
-              )}
-              aria-hidden={!poster}
-              // Contenu généré localement ; les textes saisis sont échappés.
-              dangerouslySetInnerHTML={{ __html: preview }}
-            />
-            {!poster && (
-              <span className="absolute inset-0 grid place-items-center">
-                <span className="rounded-full bg-ink px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg">
-                  Aperçu
-                </span>
-              </span>
-            )}
-          </div>
-
-          <div className="mt-6 w-full">
-            <button
-              type="button"
-              onClick={downloadPoster}
-              disabled={!poster || busy !== null}
-              className={buttonClass("primary", "lg", "w-full")}
-            >
-              <IconDownload size={18} />
-              {busy === "poster" ? "Préparation…" : "Télécharger (PNG)"}
-            </button>
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1 text-[13px]">
-              <DlLink onClick={printPoster} disabled={!poster} icon={<IconPrinter size={14} />}>
-                Imprimer
-              </DlLink>
-              <DlLink onClick={downloadPosterSvg} disabled={!poster || busy !== null}>
-                SVG
-              </DlLink>
-              <span className="inline-flex items-center gap-1.5 text-muted">
-                QR seul
-                <DlLink onClick={downloadQrPng} disabled={!url || busy !== null} icon={null}>
-                  PNG
-                </DlLink>
-                <DlLink onClick={downloadQrSvg} disabled={!url || busy !== null} icon={null}>
-                  SVG
-                </DlLink>
-              </span>
-            </div>
+        {/* 4. Envoyer à un client (desktop, ou mobile sans partage natif) */}
+        <div
+          className={cn(
+            "px-5 pb-5 sm:px-7 sm:pb-7 lg:col-start-1 lg:row-start-3 lg:flex lg:items-end xl:px-8 xl:pb-8",
+            (canShare || !url) && "max-lg:hidden",
+          )}
+        >
+          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-3 border-t border-line pt-5">
+            <span className="text-[13px] font-semibold text-ink">Envoyer à un client</span>
+            {shareRow}
           </div>
         </div>
       </div>

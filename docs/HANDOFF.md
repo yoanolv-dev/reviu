@@ -27,7 +27,10 @@
 - **Outil QR, UI « un seul écran »** : un panneau unique (réglages à gauche,
   aperçu + « Télécharger » à droite) qui tient sans défiler dès 1024×768 ;
   champ lien focalisé d'office sur ordinateur ; aperçu d'exemple estompé avant
-  saisie ; bouton de téléchargement direct sous le champ sur mobile.
+  saisie. **Mobile** : bouton « Coller » (presse-papiers), aperçu + « Télécharger »
+  qui n'apparaissent qu'une fois le lien valide, personnalisation repliée,
+  « Envoyer le lien à un client » via le partage natif du téléphone
+  (`navigator.share`), boutons SMS/WhatsApp/e-mail en repli.
 - **Guides** : index compact (articles visibles dès l'arrivée, filtres par
   thème, carte outil). **Connexion** : grand logo, fond sans halo.
 
