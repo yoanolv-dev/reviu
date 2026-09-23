@@ -289,11 +289,19 @@
 }
 
 
+
+/* ── Témoignages : les tirages sont « distribués » sur la pile ───────────── */
+.deal-in { animation: reviu-deal 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+@keyframes reviu-deal {
+  from { opacity: 0; transform: translate(-40px, -90px) rotate(-22deg) scale(1.06); }
+  to { opacity: 1; transform: var(--deal-to); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .pop { animation: none !important; }
   .elev-hover:hover { transform: none; }
   .aurora-blob, .marquee-track, .shimmer, .float, .float-slow,
-  .announce-track, .nfc-wave, .menu-sheet, .menu-item, .screen-in { animation: none !important; }
+  .announce-track, .nfc-wave, .menu-sheet, .menu-item, .screen-in, .deal-in { animation: none !important; }
   .nfc-wave { opacity: 0 !important; }
   .reveal-up { opacity: 1 !important; transform: none !important; }
   *, *::before, *::after {

@@ -25,9 +25,11 @@ Session **refonte UI/UX + conversion + SEO**. Branche : `claude/lucid-hypatia-t7
 - **Téléphone** : `PHONE_NUMBER = "+33781983042"` (07 81 98 30 42) dans
   `brand.ts`, `PHONE_HAS_WHATSAPP` à passer à `true` si le numéro est sur
   WhatsApp. Affiché : header (icône), menu mobile, FAQ, revendeur, footer, JSON-LD.
-- **Témoignages** : bloc prêt (`testimonials-section.tsx`, style « photos
-  tirées », inclinées). Données dans `src/lib/testimonials.ts` (liste vide =
-  section masquée), photos dans `public/temoignages/` (4/5, voir README).
+- **Témoignages** : bloc prêt (`testimonials-section.tsx`) : fond sombre,
+  chaque témoignage = une pile de tirages (1 à 4 photos, champ `photos`) que
+  l'on feuillette au clic ; les autres commerçants apparaissent en mini-piles.
+  Données dans `src/lib/testimonials.ts` (liste vide = section masquée),
+  photos dans `public/temoignages/` (4/5, voir README).
   Uniquement de vrais clients. Pas de schéma Review (avis sur son propre produit
   non éligibles aux résultats enrichis).
 - **Style « moins IA »** : sur-titres en police normale (plus de mono

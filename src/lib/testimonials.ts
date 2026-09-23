@@ -1,12 +1,16 @@
 /**
  * Témoignages de commerçants équipés d'un présentoir reviu.
  *
- * ⚠️ UNIQUEMENT de vrais clients, avec leur accord (nom, photo, citation).
+ * ⚠️ UNIQUEMENT de vrais clients, avec leur accord (nom, photos, citation).
  * Aucun témoignage inventé ni reformulé au point d'en changer le sens.
  *
  * Tant que la liste est vide, la section n'est pas affichée. Pour ajouter un
- * témoignage : déposer la photo dans `public/temoignages/` (voir son README)
+ * témoignage : déposer les photos dans `public/temoignages/` (voir son README)
  * puis ajouter un objet ci-dessous. L'ordre de la liste = l'ordre d'affichage.
+ *
+ * Chaque témoignage a 1 à 4 photos : elles forment une pile de tirages que le
+ * visiteur feuillette (la première est sur le dessus). Idéal : le présentoir
+ * au comptoir, l'établissement, l'équipe.
  *
  * Exemple :
  * {
@@ -15,11 +19,14 @@
  *   role: "Gérante",
  *   business: "Boulangerie Martin",
  *   city: "Nîmes",
- *   photo: "/temoignages/boulangerie-martin.webp",
- *   photoAlt: "Présentoir reviu posé près de la caisse de la Boulangerie Martin",
- *   guide: "/guides/avis-google-boulangerie",
+ *   photos: [
+ *     { src: "/temoignages/boulangerie-martin-1.webp", alt: "Présentoir reviu près de la caisse de la Boulangerie Martin" },
+ *     { src: "/temoignages/boulangerie-martin-2.webp", alt: "Vitrine de la Boulangerie Martin à Nîmes" },
+ *   ],
  * },
  */
+export type TestimonialPhoto = { src: string; alt: string };
+
 export type Testimonial = {
   /** Citation exacte du commerçant (1 à 3 phrases). */
   quote: string;
@@ -30,11 +37,8 @@ export type Testimonial = {
   /** Nom de l'établissement. */
   business: string;
   city: string;
-  /** Photo du présentoir installé, cadrage vertical 4/5. */
-  photo: string;
-  photoAlt: string;
-  /** Guide métier associé (facultatif), ex. `/guides/avis-google-restaurant`. */
-  guide?: string;
+  /** 1 à 4 photos, cadrage vertical 4/5 ; la première est sur le dessus. */
+  photos: TestimonialPhoto[];
 };
 
 export const TESTIMONIALS: Testimonial[] = [];
