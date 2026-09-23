@@ -24,6 +24,10 @@
   lien par SMS / WhatsApp / e-mail, contenu SEO (étapes, trouver le lien,
   tailles d'impression, phrases, comparatif, 9 FAQ), JSON-LD WebApplication +
   HowTo + FAQPage, image OG dédiée, lien depuis chaque guide.
+- **Outil QR, UI « un seul écran »** : un panneau unique (réglages à gauche,
+  aperçu + « Télécharger » à droite) qui tient sans défiler dès 1024×768 ;
+  champ lien focalisé d'office sur ordinateur ; aperçu d'exemple estompé avant
+  saisie ; bouton de téléchargement direct sous le champ sur mobile.
 - **Guides** : index compact (articles visibles dès l'arrivée, filtres par
   thème, carte outil). **Connexion** : grand logo, fond sans halo.
 

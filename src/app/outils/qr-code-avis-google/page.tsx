@@ -192,27 +192,33 @@ export default function QrToolPage() {
       <JsonLd schema={schema} />
       <SiteHeader />
       <main className="bg-canvas">
-        {/* HERO + OUTIL */}
+        {/* HERO + OUTIL : tout tient dans le premier écran sur ordinateur. */}
         <section className="relative isolate overflow-hidden border-b border-line">
           <HeroBackground />
-          <Container className="py-8 sm:py-12">
-            <nav aria-label="Fil d'Ariane" className="text-sm text-muted">
-              <Link href="/" className="hover:text-ink">Accueil</Link>
-              <span className="mx-2">/</span>
-              <span className="text-ink-soft">Générateur de QR code avis Google</span>
-            </nav>
-            <div className="mt-5 max-w-3xl">
-              <h1 className="font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl">
+          <Container className="pb-12 pt-6 sm:pt-8">
+            <div className="flex flex-col gap-1.5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+              <h1 className="font-display text-[1.75rem] font-semibold leading-tight tracking-tight text-ink sm:text-[2.1rem] lg:text-[1.9rem] xl:text-[2.1rem]">
                 Générateur de QR code avis Google <span className="text-brand">gratuit</span>
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">
-                Collez le lien de votre page d&apos;avis : votre QR code et une
-                affiche prête à imprimer sont créés en quelques secondes. Sans
-                inscription, sans filigrane sur le QR code.
+              <p className="text-[15px] text-ink-soft lg:hidden xl:block xl:pb-1.5">
+                QR code et affiche prêts à imprimer, sans inscription.
               </p>
             </div>
-            <div className="mt-8">
-              <QrTool standPrice={STAND_PRICE} shippingLabel={SHIPPING.label} productPath={PRODUCT_PATH} />
+            <div className="mt-5 sm:mt-6">
+              <QrTool />
+            </div>
+            <div className="mt-5 flex flex-col gap-4 text-sm sm:flex-row sm:items-center sm:justify-between">
+              <p className="flex items-center gap-2 text-muted">
+                <IconShield size={16} className="shrink-0 text-brand" />
+                Votre lien reste dans votre navigateur : rien n&apos;est envoyé à nos serveurs.
+              </p>
+              <Link
+                href={PRODUCT_PATH}
+                className="group inline-flex items-center gap-1.5 font-semibold text-brand"
+              >
+                Plus simple encore : le présentoir NFC à {STAND_PRICE}
+                <IconArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
           </Container>
         </section>
