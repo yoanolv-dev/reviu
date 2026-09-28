@@ -9,6 +9,7 @@ import { ProductPhoto } from "@/components/site/product-photo";
 import { HeroBackground } from "@/components/site/hero-background";
 import { Reveal } from "@/components/site/reveal";
 import { TestimonialsSection } from "@/components/site/testimonials-section";
+import { InstallationsSection } from "@/components/site/installations-section";
 import { buttonClass } from "@/components/ui/button";
 import { accentLastWord } from "@/components/ui/accent";
 import { Stars } from "@/components/ui/stars";
@@ -41,6 +42,7 @@ import {
 import { STAND_TIERS, STAND_QTY_MAX, formatEuros } from "@/lib/shop";
 import { PHOTO, PRODUCT_PATH } from "@/lib/photos";
 import { TESTIMONIALS } from "@/lib/testimonials";
+import { INSTALLATIONS } from "@/lib/installations";
 import { buildMetadata, graph, faqSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ScanDemo } from "./scan-demo";
@@ -207,6 +209,9 @@ export default function BoutiquePage() {
             </div>
           </Container>
         </section>
+
+        {/* PHOTOS DE CLIENTS (affichées dès la première photo) */}
+        <InstallationsSection items={INSTALLATIONS} className="border-t border-line bg-surface" />
 
         {/* TÉMOIGNAGES (affichés dès le premier vrai témoignage) */}
         <TestimonialsSection items={TESTIMONIALS} />

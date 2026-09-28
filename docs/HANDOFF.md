@@ -22,6 +22,13 @@
 - Pages cookies / confidentialité : décrivent automatiquement les outils actifs.
 - Mode d'emploi, réglages Google et plan de la première campagne :
   **`docs/ADS-TRACKING.md`**.
+- **Photos de clients** : section « Déjà sur le comptoir de nos clients »
+  (`installations-section.tsx`) sur l'accueil et la fiche produit, alimentée
+  par `src/lib/installations.ts` (liste vide = masquée). Préparer chaque photo
+  avec `node scripts/prepare-photo.mjs` (4/5, amélioration, **floutage du QR
+  code et du code imprimé**), fichiers dans `public/installations/`. Légende =
+  métier ou emplacement, jamais de citation inventée (les citations vont dans
+  `testimonials.ts`).
 
 ### Mise à jour du 28/09 - vocabulaire produit (décision client)
 - Le produit s'appelle **« Présentoir Reviu »** : plus jamais « présentoir NFC + QR »

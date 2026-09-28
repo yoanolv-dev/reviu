@@ -7,11 +7,13 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { ProductPhoto } from "@/components/site/product-photo";
 import { ProductGallery } from "@/components/site/product-gallery";
 import { Reveal } from "@/components/site/reveal";
+import { InstallationsSection } from "@/components/site/installations-section";
 import { accentLastWord } from "@/components/ui/accent";
 import { IconArrowRight, IconCheck } from "@/components/ui/icons";
 import { GUARANTEE, QR_TOOL_PATH, SHIPPING } from "@/lib/brand";
 import { getProduct, STAND_TIERS, STAND_QTY_MAX } from "@/lib/shop";
 import { PHOTO, PRODUCT_PATH } from "@/lib/photos";
+import { INSTALLATIONS } from "@/lib/installations";
 import {
   buildMetadata,
   graph,
@@ -259,6 +261,9 @@ export default function ProductPage() {
             </div>
           </Container>
         </section>
+
+        {/* Photos de clients (affichées dès la première photo) */}
+        <InstallationsSection items={INSTALLATIONS} className="border-b border-line" />
 
         {/* Mise en route */}
         <section className="border-b border-line">
