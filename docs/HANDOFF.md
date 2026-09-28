@@ -1,6 +1,6 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **23 septembre 2026**. **À lire en premier : la section
+> Dernière mise à jour : **28 septembre 2026**. **À lire en premier : la section
 > « 🟪 Reprise - état au 23/09 » ci-dessous fait foi**, puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
@@ -8,6 +8,20 @@
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
 
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
+
+### Mise à jour du 28/09 - publicité et mesure des ventes
+- **Google Analytics 4 + Google Ads + bandeau cookies CNIL** (mode basique :
+  rien n'est chargé avant le choix), conversion « Achat » avec montant sur
+  `/boutique/merci`, `begin_checkout` sur `/boutique/commander`, `qr_download`
+  sur l'outil. **Inactif tant que les variables `NEXT_PUBLIC_GA_MEASUREMENT_ID`,
+  `NEXT_PUBLIC_GOOGLE_ADS_ID`, `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` ne sont
+  pas dans Vercel.**
+- **Provenance de chaque vente** (utm, gclid, site d'origine) dans les
+  métadonnées Stripe et dans l'e-mail interne de commande.
+- **Flux Google Shopping** : `https://reviu.fr/google-shopping.xml`.
+- Pages cookies / confidentialité : décrivent automatiquement les outils actifs.
+- Mode d'emploi, réglages Google et plan de la première campagne :
+  **`docs/ADS-TRACKING.md`**.
 
 ### Mise à jour du 28/09 - vocabulaire produit (décision client)
 - Le produit s'appelle **« Présentoir Reviu »** : plus jamais « présentoir NFC + QR »

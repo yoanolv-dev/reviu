@@ -10,6 +10,8 @@ import {
   QR_TOOL_PATH,
   SITE,
 } from "@/lib/brand";
+import { TRACKING_ENABLED } from "@/lib/tracking-config";
+import { CookieConsent, ManageCookiesButton } from "./cookie-consent";
 
 const COLS: { title: string; links: { label: string; href: string; ext?: boolean }[] }[] = [
   {
@@ -53,6 +55,12 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
   },
 ];
 
+/**
+ * Pied de page du site public. Il porte aussi le bandeau de consentement aux
+ * cookies (positionné en fixe) : présent sur toutes les pages vitrine et elles
+ * seules (ni l'app, ni les parcours de scan `/r/…`), uniquement si un outil de
+ * mesure est configuré.
+ */
 export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
@@ -108,6 +116,11 @@ export function SiteFooter() {
                     )}
                   </li>
                 ))}
+                {col.title === "Légal" && TRACKING_ENABLED && (
+                  <li>
+                    <ManageCookiesButton className="text-sm text-ink-soft transition-colors hover:text-ink" />
+                  </li>
+                )}
               </ul>
             </nav>
           ))}
@@ -124,6 +137,7 @@ export function SiteFooter() {
           </div>
         </div>
       </Container>
+      {TRACKING_ENABLED && <CookieConsent />}
     </footer>
   );
 }

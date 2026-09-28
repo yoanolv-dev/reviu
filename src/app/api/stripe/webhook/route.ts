@@ -167,6 +167,7 @@ async function handleShopOrder(
     const email = full.customer_details?.email ?? null;
     const grantsFormation = full.metadata?.grants_formation === "1";
     const standsIncluded = Number(full.metadata?.stands_included ?? 0);
+    const source = orderSource(full.metadata);
 
     const shipping =
       ((full as unknown as { collected_information?: { shipping_details?: ShippingDetails } })
@@ -185,6 +186,7 @@ async function handleShopOrder(
         email,
         standsIncluded,
         shipping,
+        source,
       }),
     }).catch(() => false);
 
@@ -220,6 +222,33 @@ function formatAddress(shipping: ShippingDetails): string {
   return parts.join("<br>");
 }
 
+/**
+ * Provenance de la commande, lisible en un coup d'œil dans l'e-mail interne
+ * (renseignée seulement si le client a accepté les cookies, cf.
+ * `src/lib/attribution.ts`). Ex. « google / cpc / presentoir-search ».
+ */
+function orderSource(metadata: Stripe.Metadata | null | undefined): string {
+  if (!metadata) return "Inconnue";
+  const campaign = [metadata.utm_source, metadata.utm_medium, metadata.utm_campaign]
+    .filter(Boolean)
+    .join(" / ");
+  const parts = [
+    campaign,
+    metadata.utm_term ? `mot-clé « ${metadata.utm_term} »` : "",
+    metadata.gclid || metadata.gbraid || metadata.wbraid ? "clic Google Ads" : "",
+    !campaign && metadata.referrer ? `depuis ${metadata.referrer}` : "",
+  ].filter(Boolean);
+  return parts.length ? parts.join(", ") : "Directe ou inconnue";
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function adminOrderHtml(o: {
   productName: string;
   quantity: number;
@@ -227,6 +256,7 @@ function adminOrderHtml(o: {
   email: string | null;
   standsIncluded: number;
   shipping: ShippingDetails;
+  source: string;
 }): string {
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:auto;color:#0a0d16">
@@ -235,6 +265,7 @@ function adminOrderHtml(o: {
       <p style="margin:0 0 4px"><strong>${o.productName}</strong> × ${o.quantity}</p>
       <p style="margin:0;color:#6b7382">Montant : ${o.amount}</p>
       <p style="margin:8px 0 0;color:#6b7382">Client : ${o.email ?? "-"}</p>
+      <p style="margin:4px 0 0;color:#6b7382">Provenance : ${escapeHtml(o.source)}</p>
       ${
         o.standsIncluded > 0
           ? `<p style="margin:12px 0 4px"><strong>Livraison</strong></p>

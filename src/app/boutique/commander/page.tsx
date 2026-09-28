@@ -16,6 +16,7 @@ import {
   shippingFeeCents,
   formatEuros,
 } from "@/lib/shop";
+import { BeginCheckoutEvent } from "@/components/site/ecommerce-events";
 import { CheckoutSection } from "./checkout-section";
 
 export const metadata: Metadata = {
@@ -60,6 +61,13 @@ export default async function CommanderPage({
     <>
       <SiteHeader />
       <main className="bg-canvas">
+        <BeginCheckoutEvent
+          itemId={product.id}
+          itemName={product.name}
+          quantity={qty}
+          unitPrice={unit / 100}
+          value={total / 100}
+        />
         <Container className="py-8 sm:py-12">
           <Link
             href="/#produits"

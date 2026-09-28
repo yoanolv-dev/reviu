@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { buildShopSessionParams } from "@/lib/stripe-checkout";
+import { readAttribution } from "@/lib/attribution";
 import { SITE_URL } from "@/lib/brand";
 import { PaymentForm } from "./payment-form";
 
@@ -18,7 +19,7 @@ export async function CheckoutSection({
   quantity: number;
 }) {
   const stripe = getStripe();
-  const built = buildShopSessionParams(product, quantity);
+  const built = buildShopSessionParams(product, quantity, await readAttribution());
 
   let clientSecret: string | null = null;
   if (stripe && built.ok) {

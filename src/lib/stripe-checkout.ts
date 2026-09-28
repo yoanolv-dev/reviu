@@ -8,6 +8,7 @@ import {
   shippingFeeCents,
   type ShopProduct,
 } from "./shop";
+import type { Attribution } from "./tracking-config";
 
 /**
  * Construction des paramètres d'une session Stripe Checkout pour la boutique
@@ -21,6 +22,10 @@ import {
  * Le montant est TOUJOURS recalculé ici à partir du catalogue (`price_data` en
  * ligne) : le client ne peut pas fixer le prix. La quantité reçue est bornée et,
  * pour le présentoir, le prix unitaire est recalculé par palier dégressif.
+ *
+ * `attribution` (provenance de la visite, cf. `src/lib/attribution.ts`) est
+ * recopiée dans les métadonnées de la session ET du paiement : la source de
+ * chaque vente (campagne Google Ads, site d'origine…) se lit dans Stripe.
  */
 export type ShopSessionBuild =
   | {
@@ -35,6 +40,7 @@ export type ShopSessionBuild =
 export function buildShopSessionParams(
   productId: string,
   quantityRaw: number,
+  attribution: Attribution = {},
 ): ShopSessionBuild {
   const product = getProduct(productId);
   if (!product) return { ok: false, error: "Produit introuvable." };
@@ -52,6 +58,13 @@ export function buildShopSessionParams(
   const unitAmount = isStand ? standUnitCents(quantity) : product.priceCents;
   const useAdjustable = product.adjustableQuantity && !isStand;
   const ship = requiresShipping(product);
+  const metadata: Record<string, string> = {
+    shop_product: product.id,
+    product_name: product.name,
+    grants_formation: product.grantsFormation ? "1" : "0",
+    stands_included: String(product.standsIncluded),
+    ...attribution,
+  };
 
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
@@ -102,12 +115,9 @@ export function buildShopSessionParams(
           ],
         }
       : {}),
-    metadata: {
-      shop_product: product.id,
-      product_name: product.name,
-      grants_formation: product.grantsFormation ? "1" : "0",
-      stands_included: String(product.standsIncluded),
-    },
+    metadata,
+    // Copie sur le paiement : visible directement dans la liste des paiements.
+    payment_intent_data: { metadata },
   };
 
   return { ok: true, product, quantity, params };

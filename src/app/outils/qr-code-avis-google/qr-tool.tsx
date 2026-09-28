@@ -22,6 +22,7 @@ import {
   type PosterFormat,
 } from "@/lib/qr-poster";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/tracking";
 
 const field =
   "w-full rounded-xl border border-line bg-surface px-4 py-3 text-[15px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-muted/70 focus:border-brand focus:shadow-[0_0_0_4px_var(--color-brand-soft)]";
@@ -89,10 +90,13 @@ export function QrTool() {
   );
   const fileBase = format === "carre" ? "qr-avis-google-carre" : "affiche-avis-google";
 
+  // Chaque téléchargement est mesuré (avec consentement) : audience
+  // « utilisateurs de l'outil » pour le reciblage publicitaire du présentoir.
   const run = async (key: string, job: () => Promise<void> | void) => {
     setBusy(key);
     try {
       await job();
+      trackEvent("qr_download", { file: key });
     } finally {
       setBusy(null);
     }

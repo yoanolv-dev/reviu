@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LegalPage, H2, P, UL } from "@/components/site/legal";
 import { CONTACT_EMAIL, SITE_URL } from "@/lib/brand";
+import { TRACKING_ENABLED } from "@/lib/tracking-config";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité - reviu",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Confidentialite() {
   return (
-    <LegalPage title="Politique de confidentialité" updated="23 juillet 2026">
+    <LegalPage title="Politique de confidentialité" updated="28 septembre 2026">
       <P>
         La présente politique décrit comment reviu (« nous ») collecte, utilise
         et protège les données personnelles des commerçants utilisateurs et de
@@ -87,6 +88,17 @@ export default function Confidentialite() {
         </li>
         <li>Gérer la facturation (obligation légale, contrat).</li>
         <li>Envoyer des notifications liées au service (intérêt légitime).</li>
+        {TRACKING_ENABLED && (
+          <li>
+            Mesurer l&apos;audience du site et l&apos;efficacité de nos
+            publicités, et relier une commande à la campagne qui l&apos;a
+            générée (consentement, voir la{" "}
+            <a className="text-brand hover:underline" href="/cookies">
+              politique de cookies
+            </a>
+            ).
+          </li>
+        )}
       </UL>
 
       <H2>Sous-traitants</H2>
@@ -109,6 +121,12 @@ export default function Confidentialite() {
           <strong>Google</strong> - API Business Profile (si vous activez cette
           fonctionnalité).
         </li>
+        {TRACKING_ENABLED && (
+          <li>
+            <strong>Google</strong> - Google Analytics et Google Ads, mesure
+            d&apos;audience et publicité (uniquement avec votre consentement).
+          </li>
+        )}
       </UL>
 
       <H2>Durée de conservation</H2>
@@ -119,6 +137,8 @@ export default function Confidentialite() {
         obligations légales (jusqu&apos;à 10 ans). Les données d&apos;usage des
         présentoirs (scans, clics) sont conservées 24 mois à des fins
         statistiques.
+        {TRACKING_ENABLED &&
+          " Les données de mesure d'audience sont conservées au maximum 14 mois dans Google Analytics ; la provenance associée à une commande est conservée avec celle-ci."}
       </P>
 
       <H2>Données Google : accès, conservation et suppression</H2>

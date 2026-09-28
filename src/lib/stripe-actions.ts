@@ -7,6 +7,7 @@ import { createSupabaseServer } from "./supabase/server";
 import { createSupabaseAdmin } from "./supabase/admin";
 import { APP_BASE, SITE_URL } from "./brand";
 import { buildShopSessionParams } from "./stripe-checkout";
+import { readAttribution } from "./attribution";
 import type { FormState } from "./form";
 
 /**
@@ -133,6 +134,7 @@ export async function startShopCheckout(
   const built = buildShopSessionParams(
     String(formData.get("product") ?? ""),
     Number(formData.get("quantity") ?? 1),
+    await readAttribution(),
   );
   if (!built.ok) return { error: built.error };
 

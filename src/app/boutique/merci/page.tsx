@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { getStripe } from "@/lib/stripe";
 import { formationAccessUrl, formatEuros } from "@/lib/shop";
 import { APP_BASE } from "@/lib/brand";
+import { PurchaseEvent } from "@/components/site/ecommerce-events";
 
 export const metadata: Metadata = {
   title: "Merci pour votre commande - reviu",
@@ -25,17 +26,26 @@ export default async function MerciPage({
   let productName: string | null = null;
   let grantsFormation = false;
   let physical = false;
+  let productId = "stand";
+  let quantity = 1;
+  let unitAmount: number | null = null;
 
   const stripe = getStripe();
   if (stripe && sessionId) {
     try {
-      const session = await stripe.checkout.sessions.retrieve(sessionId);
+      const session = await stripe.checkout.sessions.retrieve(sessionId, {
+        expand: ["line_items"],
+      });
       paid = session.payment_status === "paid";
       email = session.customer_details?.email ?? null;
       amount = session.amount_total ?? null;
       productName = session.metadata?.product_name ?? null;
       grantsFormation = session.metadata?.grants_formation === "1";
       physical = Number(session.metadata?.stands_included ?? 0) > 0;
+      productId = session.metadata?.shop_product ?? productId;
+      const line = session.line_items?.data?.[0];
+      quantity = line?.quantity ?? 1;
+      unitAmount = line?.price?.unit_amount ?? null;
     } catch {
       // session introuvable / clé absente : on affiche un message neutre.
     }
@@ -49,6 +59,16 @@ export default async function MerciPage({
           <div className="w-full max-w-lg rounded-3xl border border-line bg-surface p-8 text-center shadow-[var(--shadow-soft)] sm:p-10">
             {paid ? (
               <>
+                {sessionId && amount != null && (
+                  <PurchaseEvent
+                    transactionId={sessionId}
+                    itemId={productId}
+                    itemName={productName ?? "Commande reviu"}
+                    quantity={quantity}
+                    unitPrice={(unitAmount ?? Math.round(amount / quantity)) / 100}
+                    value={amount / 100}
+                  />
+                )}
                 <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-white">
                   <svg
                     viewBox="0 0 24 24"
