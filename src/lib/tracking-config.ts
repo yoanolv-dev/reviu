@@ -5,7 +5,9 @@
  * Tout est piloté par variables d'environnement PUBLIQUES (injectées au build,
  * donc redéployer après modification) :
  * - `NEXT_PUBLIC_GA_MEASUREMENT_ID`          Google Analytics 4, ex. « G-ABC123 » ;
- * - `NEXT_PUBLIC_GOOGLE_ADS_ID`              Google Ads, ex. « AW-123456789 » ;
+ * - `NEXT_PUBLIC_GOOGLE_ADS_ID`              Google Ads, ex. « AW-123456789 »
+ *   (facultatif : Analytics, associé à Google Ads, lui transmet déjà les
+ *   achats et les audiences) ;
  * - `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`  libellé d'une conversion Google Ads
  *   native. À laisser VIDE tant que les achats sont importés d'Analytics
  *   (événement `purchase`), sinon chaque vente compte double.
@@ -34,6 +36,15 @@ export const GOOGLE_ADS_PURCHASE_LABEL = publicId(
 
 /** Au moins un outil configuré : le bandeau de consentement est nécessaire. */
 export const TRACKING_ENABLED = Boolean(GA_MEASUREMENT_ID || GOOGLE_ADS_ID);
+
+/**
+ * Mesure publicitaire Google Ads active : par la balise Google Ads (`AW-…`)
+ * et/ou par Analytics, associé à Google Ads (événement `purchase` importé comme
+ * conversion, audiences partagées pour le reciblage). Dans les deux cas,
+ * l'accord « Publicité » est demandé : c'est lui qui autorise Google à relier
+ * une vente au clic sur l'annonce (consentements `ad_*`).
+ */
+export const ADS_MEASUREMENT_ENABLED = TRACKING_ENABLED;
 
 /**
  * Durée de validité d'un choix (accepter comme refuser) : 6 mois, durée

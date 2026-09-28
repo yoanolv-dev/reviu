@@ -13,11 +13,11 @@
 - **Google Analytics 4 + Google Ads + bandeau cookies CNIL** (mode basique :
   rien n'est chargé avant le choix), conversion « Achat » avec montant sur
   `/boutique/merci`, `begin_checkout` sur `/boutique/commander`, `qr_download`
-  sur l'outil. **Inactif tant que les variables `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-  (`G-NJK6DK30ZJ`) et `NEXT_PUBLIC_GOOGLE_ADS_ID` (`AW-…`) ne sont pas dans
-  Vercel.** Conversion Google Ads = événement GA4 `purchase` importé (choix du
-  28/09) : `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL` reste VIDE (sinon double
-  comptage).
+  sur l'outil. **Inactif tant que `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+  (`G-NJK6DK30ZJ`) n'est pas dans Vercel.** Conversion Google Ads = événement
+  GA4 `purchase` importé (choix du 28/09) : `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`
+  reste VIDE (sinon double comptage) et `NEXT_PUBLIC_GOOGLE_ADS_ID` est
+  facultatif (l'accord « Publicité » est demandé dès qu'Analytics est actif).
 - **Provenance de chaque vente** (utm, gclid, site d'origine) dans les
   métadonnées Stripe et dans l'e-mail interne de commande.
 - **Flux Google Shopping** : `https://reviu.fr/google-shopping.xml`.

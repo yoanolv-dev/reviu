@@ -45,12 +45,14 @@ Google Ads, associé à Analytics, propose directement les événements GA4.
 2. Réglages : valeur = celle de l'événement Analytics (le site envoie le
    montant TTC de chaque commande), comptabilisation **Toutes**, action
    **principale**.
-3. Relever l'**ID Google Ads `AW-…`** (barre de recherche Google Ads →
-   « Balise Google » → ID commençant par `AW-`). Il active la catégorie
-   « Publicité » du bandeau cookies : sans ce consentement, Google ne peut pas
-   relier une vente au clic sur l'annonce pour les visiteurs européens. Il sert
-   aussi au reciblage. Attention : le numéro `123-456-7890` en haut à droite
-   est le numéro client, pas l'ID `AW-…`.
+3. **ID Google Ads `AW-…` : facultatif.** Analytics, associé à Google Ads,
+   transmet déjà les achats et les audiences ; le bandeau demande l'accord
+   « Publicité » dès qu'Analytics est actif (`ADS_MEASUREMENT_ENABLED`), et cet
+   accord est transmis à Google (consentements `ad_*`). L'ID `AW-…` n'ajoute
+   que la balise Google Ads elle-même (listes de reciblage propres à Ads). Si
+   besoin : tagmanager.google.com → onglet « Balises Google », ou Google Ads →
+   Outils → Gestionnaire de données → Balise Google. Le numéro `123-456-7890`
+   en haut à droite de Google Ads est le numéro client, pas l'ID `AW-…`.
 4. **Pas de libellé de conversion** (`NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`
    vide) : avec l'import GA4, une balise de conversion Google Ads en plus
    compterait chaque vente deux fois. Le libellé ne sert que si l'on remplace
@@ -64,7 +66,8 @@ Settings → Environment Variables, puis **redéployer** (variables injectées a
 
 ```
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-NJK6DK30ZJ
-NEXT_PUBLIC_GOOGLE_ADS_ID=AW-123456789
+# facultatif :
+# NEXT_PUBLIC_GOOGLE_ADS_ID=AW-123456789
 ```
 
 ### Vérifier

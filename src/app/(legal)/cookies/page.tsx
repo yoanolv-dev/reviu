@@ -4,8 +4,8 @@ import { SITE_URL } from "@/lib/brand";
 import {
   ATTRIBUTION_COOKIE,
   ATTRIBUTION_MAX_AGE_DAYS,
+  ADS_MEASUREMENT_ENABLED,
   GA_MEASUREMENT_ID,
-  GOOGLE_ADS_ID,
   TRACKING_ENABLED,
 } from "@/lib/tracking-config";
 
@@ -70,7 +70,7 @@ export default function Cookies() {
                 <code>_ga</code> et <code>_ga_*</code>, durée maximale 13 mois.
               </li>
             )}
-            {GOOGLE_ADS_ID && (
+            {ADS_MEASUREMENT_ENABLED && (
               <li>
                 <strong>Publicité (Google Ads)</strong> : mesure des commandes
                 issues de nos annonces et affichage d&apos;annonces reviu sur

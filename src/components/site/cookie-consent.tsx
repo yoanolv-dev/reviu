@@ -4,7 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { buttonClass } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID } from "@/lib/tracking-config";
+import { ADS_MEASUREMENT_ENABLED, GA_MEASUREMENT_ID } from "@/lib/tracking-config";
 import {
   getConsent,
   initTracking,
@@ -34,7 +34,7 @@ const CATEGORIES: {
   },
   {
     key: "ads",
-    enabled: GOOGLE_ADS_ID !== null,
+    enabled: ADS_MEASUREMENT_ENABLED,
     title: "Publicité",
     body: "Google Ads : mesurer les commandes issues de nos annonces et vous montrer des annonces reviu sur d'autres sites.",
   },
