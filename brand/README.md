@@ -14,6 +14,8 @@ et gabarits réseaux sociaux. La version de référence, éditable, est dans Can
 | [Reviu - Bannière LinkedIn](https://www.canva.com/d/dN1FKNO8QDgC8Wo) | 1584 × 396 px (zone de gauche laissée libre pour la photo de profil) |
 | [Reviu - 5 posts Instagram](https://www.canva.com/d/y9Z1JJiWOW7zHD5) | 1080 × 1350 px : produit, fonctionnement, comparatif, offre, métiers |
 | [Reviu - 5 stories Instagram](https://www.canva.com/d/nTV5_ccB66Iflad) | 1080 × 1920 px : accroche, démo, sondage, offre, outil QR gratuit |
+| [Reviu - Stories à la une](https://www.canva.com/d/U1240e3F9Nkr8nV) | 7 stories 1080 × 1920 px, une par à la une |
+| [Reviu - Couvertures à la une](https://www.canva.com/d/yV1YBti0noFvayJ) | 7 couvertures 1080 × 1080 px (fond cobalt, pictogramme blanc) |
 
 ## L'essentiel
 
@@ -46,6 +48,26 @@ Sans n'y est pas reconnue à l'import). Titres en ExtraBold, interlettrage -3 %.
 **Signature des titres** : le dernier mot passe en cobalt, le point final est
 doré. Sur fond cobalt ou sombre, titre en blanc et seul le point reste doré.
 Pas de sur-titre, pas de tiret long.
+
+## Réseaux sociaux
+
+Fichiers prêts à publier dans `reseaux/` : photo de profil (1080 px, lisible
+une fois rognée en cercle), icône, logo couleur et logo pour fond coloré.
+
+**Stories à la une Instagram** (`reseaux/a-la-une/`), dans cet ordre, du
+premier contact à l'achat :
+
+| # | Titre | Rôle | Lien à ajouter (sticker) |
+|---|---|---|---|
+| 1 | Démo | Comprendre le produit en 10 secondes | reviu.fr/presentoir-avis-google |
+| 2 | Offre | Prix, ce qui est inclus, garanties | reviu.fr/#produits |
+| 3 | FAQ | Lever les objections | reviu.fr |
+| 4 | Métiers | Se reconnaître : le bon moment par activité | reviu.fr/guides/par-metier |
+| 5 | Conseils | Apporter de la valeur, crédibilité | reviu.fr/guides |
+| 6 | QR gratuit | Porte d'entrée gratuite | reviu.fr/outils/qr-code-avis-google |
+| 7 | Clients | Preuve sociale (modèle, à publier avec de vrais témoignages uniquement) | |
+
+Dès les premiers témoignages réels, remonter « Clients » en 3e position.
 
 ## Fichiers
 
