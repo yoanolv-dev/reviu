@@ -6,7 +6,9 @@
  * donc redéployer après modification) :
  * - `NEXT_PUBLIC_GA_MEASUREMENT_ID`          Google Analytics 4, ex. « G-ABC123 » ;
  * - `NEXT_PUBLIC_GOOGLE_ADS_ID`              Google Ads, ex. « AW-123456789 » ;
- * - `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`  libellé de la conversion « Achat ».
+ * - `NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`  libellé d'une conversion Google Ads
+ *   native. À laisser VIDE tant que les achats sont importés d'Analytics
+ *   (événement `purchase`), sinon chaque vente compte double.
  *
  * Sans aucune de ces variables : pas de bandeau cookies, aucun script tiers,
  * aucune donnée d'attribution. Mode d'emploi complet : `docs/ADS-TRACKING.md`.

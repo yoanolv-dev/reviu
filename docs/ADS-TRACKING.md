@@ -29,37 +29,50 @@ l'identifiant de clic (gclid) seulement avec l'accord « Publicité ».
 ### Google Analytics 4
 1. [analytics.google.com](https://analytics.google.com) → Créer une propriété
    « reviu » (France, EUR) → flux Web `https://reviu.fr`.
-2. Copier l'**ID de mesure** (`G-XXXXXXX`).
+2. Copier l'**ID de mesure** : `G-NJK6DK30ZJ` (propriété créée le 28/09/2026).
+   Ne PAS coller l'extrait de code proposé par Google : le site charge la
+   balise lui-même, après consentement.
 3. Administration → Conservation des données → **14 mois**.
 4. L'événement `purchase` est un événement clé par défaut : rien à faire.
 5. Créer une audience « Utilisateurs de l'outil QR » (événement `qr_download`)
    pour le reciblage.
 
-### Google Ads
-1. Objectifs → Conversions → Nouvelle action → **Site Web** → configuration
-   manuelle : catégorie **Achat**, valeur « utiliser des valeurs différentes
-   pour chaque conversion » (repli 29,90 €), comptabilisation **Toutes**.
-2. Option « Installer la balise vous-même » : dans l'extrait d'événement, relever
-   `send_to: 'AW-123456789/AbCdEfGh'` → ID = `AW-123456789`, libellé =
-   `AbCdEfGh`.
-3. Associer Google Ads à Analytics (Administration GA4 → Association Google Ads)
-   pour importer l'audience « Utilisateurs de l'outil QR ».
+### Google Ads : conversion « Achat » importée d'Analytics (méthode retenue)
+Google Ads, associé à Analytics, propose directement les événements GA4.
+1. Objectifs → Conversions → Créer → objectif **Achat** → cocher l'événement
+   GA4 **`purchase`** (« Inactif » tant qu'aucune vente n'a eu lieu : normal)
+   → Enregistrer et continuer.
+2. Réglages : valeur = celle de l'événement Analytics (le site envoie le
+   montant TTC de chaque commande), comptabilisation **Toutes**, action
+   **principale**.
+3. Relever l'**ID Google Ads `AW-…`** (barre de recherche Google Ads →
+   « Balise Google » → ID commençant par `AW-`). Il active la catégorie
+   « Publicité » du bandeau cookies : sans ce consentement, Google ne peut pas
+   relier une vente au clic sur l'annonce pour les visiteurs européens. Il sert
+   aussi au reciblage. Attention : le numéro `123-456-7890` en haut à droite
+   est le numéro client, pas l'ID `AW-…`.
+4. **Pas de libellé de conversion** (`NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL`
+   vide) : avec l'import GA4, une balise de conversion Google Ads en plus
+   compterait chaque vente deux fois. Le libellé ne sert que si l'on remplace
+   un jour l'import par une conversion Google Ads native (alors retirer
+   l'import GA4 des actions principales).
+5. Associer Google Ads à Analytics (Administration GA4 → Association Google Ads),
+   déjà fait si `purchase` apparaît dans Google Ads.
 
 ### Vercel (Production)
 Settings → Environment Variables, puis **redéployer** (variables injectées au build) :
 
 ```
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXX
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-NJK6DK30ZJ
 NEXT_PUBLIC_GOOGLE_ADS_ID=AW-123456789
-NEXT_PUBLIC_GOOGLE_ADS_PURCHASE_LABEL=AbCdEfGh
 ```
 
 ### Vérifier
 1. Ouvrir `https://reviu.fr/?utm_source=test&utm_medium=test&utm_campaign=verif`,
    « Tout accepter ».
 2. GA4 → Rapports → Temps réel : la visite apparaît.
-3. Google Ads → la conversion « Achat » passe à « Enregistrement des
-   conversions » après la première vente (ou via Google Tag Assistant).
+3. Google Ads → la conversion `purchase` passe de « Inactif » à active dans
+   les 24 à 48 h qui suivent la première vente (import depuis Analytics).
 4. Après une commande : métadonnées `utm_*` visibles sur le paiement dans
    Stripe, et ligne « Provenance » dans l'e-mail de commande.
 
