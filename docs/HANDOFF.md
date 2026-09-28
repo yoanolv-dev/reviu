@@ -9,6 +9,16 @@
 
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
 
+### Mise à jour du 28/09 - vocabulaire produit (décision client)
+- Le produit s'appelle **« Présentoir Reviu »** : plus jamais « présentoir NFC + QR »
+  dans le discours (titres, boutique, facture Stripe, visuels). Descripteur SEO :
+  **« présentoir avis Google »**. Pour expliquer le geste : **« sans contact ou
+  QR code »** (« comme pour payer sans contact »). « Puce NFC » reste réservé aux
+  caractéristiques, à la compatibilité, aux mentions légales et au guide
+  `presentoir-plaque-nfc-avis-google`. Règle documentée dans `src/lib/brand.ts`.
+- Charte graphique complète dans `brand/` (voir `brand/README.md`) et dans Canva
+  (dossier « Reviu - Charte graphique ») : logo, bannières, 5 posts, 5 stories.
+
 ### Mise à jour du 23/09 (soir) - retours client
 - **Aucun sur-titre** au-dessus des titres (demande explicite du client) : ne
   pas en réintroduire (ni pastille, ni texte mono en majuscules).

@@ -95,7 +95,7 @@ const PHRASES = [
 const COMPARE: { label: string; qr: boolean; stand: boolean }[] = [
   { label: "Ouvre votre page d'avis Google", qr: true, stand: true },
   { label: "Gratuit", qr: true, stand: false },
-  { label: "Fonctionne d'un simple contact (NFC)", qr: false, stand: true },
+  { label: "Il suffit d'approcher le téléphone (sans contact)", qr: false, stand: true },
   { label: "Lien modifiable sans réimprimer", qr: false, stand: true },
   { label: "Statistiques de scans", qr: false, stand: true },
 ];
@@ -134,8 +134,8 @@ const FAQ = [
     a: "Oui, à condition de proposer l'avis à tous vos clients de la même façon, sans contrepartie et sans filtrer selon leur satisfaction. C'est la règle de Google, et c'est ce qui rend vos avis crédibles.",
   },
   {
-    q: "Quelle différence avec le présentoir NFC reviu ?",
-    a: `Le QR code demande d'ouvrir l'appareil photo et de viser. Le présentoir reviu ajoute une puce NFC : le client approche simplement son téléphone. Il reste posé au comptoir, son lien est modifiable sans réimprimer et vous suivez vos scans. ${STAND_PRICE}, sans abonnement.`,
+    q: "Quelle différence avec le présentoir Reviu ?",
+    a: `Le QR code demande d'ouvrir l'appareil photo et de viser. Le présentoir Reviu ajoute le sans contact (puce NFC) : le client approche simplement son téléphone. Il reste posé au comptoir, son lien est modifiable sans réimprimer et vous suivez vos scans. ${STAND_PRICE}, sans abonnement.`,
   },
 ];
 
@@ -216,7 +216,7 @@ export default function QrToolPage() {
                 href={PRODUCT_PATH}
                 className="group inline-flex items-center gap-1.5 font-semibold text-brand"
               >
-                Plus simple encore : le présentoir NFC à {STAND_PRICE}
+                Plus simple encore : le présentoir Reviu à {STAND_PRICE}
                 <IconArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
@@ -358,7 +358,7 @@ export default function QrToolPage() {
             <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
               <div>
                 <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  {accentLastWord("QR code imprimé ou présentoir NFC ?")}
+                  {accentLastWord("QR code imprimé ou présentoir Reviu ?")}
                 </h2>
                 <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-ink-soft">
                   Le QR code gratuit est un très bon début. Le présentoir reviu
@@ -366,7 +366,7 @@ export default function QrToolPage() {
                 </p>
                 <div className="mt-6 overflow-hidden rounded-3xl border border-line bg-canvas">
                   <table className="w-full border-collapse text-left text-[14px] sm:text-[15px]">
-                    <caption className="sr-only">Comparatif QR code imprimé et présentoir NFC reviu</caption>
+                    <caption className="sr-only">Comparatif QR code imprimé et présentoir Reviu</caption>
                     <thead>
                       <tr className="border-b border-line text-[13px] text-muted">
                         <th scope="col" className="px-4 py-3 sm:px-6"><span className="sr-only">Critère</span></th>
@@ -398,7 +398,7 @@ export default function QrToolPage() {
               </div>
               <ProductPhoto
                 src="/products/etape-3.webp"
-                alt="Présentoir NFC et QR code reviu pour avis Google sur un comptoir"
+                alt="Présentoir Reviu pour avis Google sur un comptoir"
                 sizes="(min-width: 1024px) 420px, 90vw"
                 framed={false}
                 className="mx-auto aspect-square w-full max-w-[420px] rounded-[2rem] shadow-[var(--shadow-lift)]"

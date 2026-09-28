@@ -51,7 +51,7 @@ function envCents(key: string, fallback: number): number {
 export const CATALOG: ShopProduct[] = [
   {
     id: "stand",
-    name: "Présentoir NFC + QR",
+    name: "Présentoir Reviu",
     tagline: "Le présentoir connecté, prêt à poser sur le comptoir.",
     priceCents: envCents("SHOP_PRICE_STAND", 2990),
     kind: "physical",
@@ -59,7 +59,7 @@ export const CATALOG: ShopProduct[] = [
     standsIncluded: 1,
     adjustableQuantity: true,
     features: [
-      "NFC + QR déjà encodés, prêts à l'emploi",
+      "Sans contact et QR code prêts à l'emploi",
       "Redirection modifiable à distance",
       "Espace Reviu inclus, sans frais supplémentaires",
     ],
@@ -92,7 +92,7 @@ export const CATALOG: ShopProduct[] = [
     standsIncluded: 10,
     adjustableQuantity: false,
     features: [
-      "10 présentoirs NFC + QR livrés",
+      "10 présentoirs Reviu livrés",
       "Formation complète incluse",
       "≈ 19,90 €/présentoir - marge à la revente à 29,90 €",
       "Espace Reviu inclus pour chaque commerçant équipé",
@@ -110,7 +110,7 @@ export const CATALOG: ShopProduct[] = [
     standsIncluded: 20,
     adjustableQuantity: false,
     features: [
-      "20 présentoirs NFC + QR livrés",
+      "20 présentoirs Reviu livrés",
       "Formation complète incluse",
       "≈ 17,45 €/présentoir - meilleure marge du catalogue",
       "Idéal pour équiper tout un secteur de commerçants",

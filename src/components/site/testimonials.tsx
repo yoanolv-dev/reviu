@@ -4,7 +4,7 @@ import { Reveal } from "./reveal";
 
 /** Attributs produit factuels - aucun résultat chiffré ni témoignage. */
 const FACTS = [
-  { value: "NFC + QR", label: "sur le même présentoir" },
+  { value: "Sans contact", label: "ou QR code, sur le même présentoir" },
   { value: "À distance", label: "vous pilotez la destination, sans réimprimer" },
   { value: "2 min", label: "pour activer un présentoir" },
 ];

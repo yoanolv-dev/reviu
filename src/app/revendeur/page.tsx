@@ -204,7 +204,7 @@ export default function RevendeurPage() {
               />
               <ProductPhoto
                 src="/products/presentoir-comptoir.webp"
-                alt="Présentoir Reviu NFC et QR code pour avis Google installé dans un commerce"
+                alt="Présentoir Reviu pour avis Google installé dans un commerce"
                 sizes="(min-width: 1024px) 440px, 90vw"
                 preload
                 framed={false}

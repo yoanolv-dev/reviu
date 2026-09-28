@@ -84,7 +84,7 @@ export default async function CommanderPage({
               <div className="overflow-hidden rounded-3xl border border-line bg-surface shadow-[var(--shadow-soft)]">
                 <ProductPhoto
                   src={PHOTO}
-                  alt="Présentoir Reviu NFC et QR code pour avis Google"
+                  alt="Présentoir Reviu pour avis Google"
                   className="aspect-[4/3] w-full"
                 />
                 <div className="p-6">

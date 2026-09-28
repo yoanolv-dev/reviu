@@ -48,9 +48,9 @@ import { StickyBuyBar } from "./sticky-buy-bar";
 import { QuickOrder } from "./quick-order";
 
 export const metadata: Metadata = buildMetadata({
-  title: "reviu : le présentoir NFC + QR code pour plus d'avis Google",
+  title: "reviu : le présentoir avis Google pour votre comptoir",
   description:
-    "Le présentoir NFC + QR code qui ouvre votre page d'avis Google en un geste. 29,90 €, sans abonnement, livraison offerte, satisfait ou remboursé 30 jours.",
+    "Le présentoir Reviu ouvre votre page d'avis Google d'un geste, sans application. 29,90 €, sans abonnement, livraison offerte, satisfait ou remboursé 30 jours.",
   path: "/",
   keywords: [
     "présentoir avis Google",
@@ -78,17 +78,17 @@ const METIERS: { pre: string; label: string; href: string }[] = [
 type Cell = boolean | "partial" | string;
 const COMPARISON: { label: string; oral: Cell; qr: Cell; reviu: Cell }[] = [
   { label: "Le client trouve votre fiche sans chercher", oral: false, qr: true, reviu: true },
-  { label: "Un simple contact suffit (NFC)", oral: false, qr: false, reviu: true },
+  { label: "Il suffit d'approcher le téléphone", oral: false, qr: false, reviu: true },
   { label: "Visible en permanence au comptoir", oral: false, qr: "partial", reviu: true },
   { label: "Lien modifiable sans rien réimprimer", oral: false, qr: false, reviu: true },
-  { label: "Statistiques de scans (QR code et NFC)", oral: false, qr: false, reviu: true },
+  { label: "Statistiques de scans (sans contact et QR code)", oral: false, qr: false, reviu: true },
   { label: "Coût", oral: "Gratuit", qr: "Gratuit", reviu: "29,90 € une fois" },
 ];
 
 const FAQ: { q: string; a: string }[] = [
   {
     q: "Y a-t-il un abonnement ou des frais récurrents ?",
-    a: "Non. Le présentoir est un achat unique à 29,90 € TTC, livraison offerte. Votre espace Reviu est inclus, sans abonnement : vous suivez vos statistiques de scans (QR et NFC distingués), gérez vos présentoirs et modifiez votre lien de redirection à tout moment.",
+    a: "Non. Le présentoir est un achat unique à 29,90 € TTC, livraison offerte. Votre espace Reviu est inclus, sans abonnement : vous suivez vos statistiques de scans (sans contact et QR code distingués), gérez vos présentoirs et modifiez votre lien de redirection à tout moment.",
   },
   {
     q: "Et si le présentoir ne me convient pas ?",
@@ -96,11 +96,11 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Comment fonctionne le présentoir ?",
-    a: "Posez-le sur votre comptoir. Le client approche son téléphone de la puce NFC ou scanne le QR code, et votre page d'avis Google s'ouvre instantanément. Aucune application à installer.",
+    a: "Posez-le sur votre comptoir. Le client approche son téléphone, comme pour payer sans contact, ou scanne le QR code : votre page d'avis Google s'ouvre instantanément. Aucune application à installer.",
   },
   {
     q: "Est-il compatible avec iPhone et Android ?",
-    a: "Oui. Le QR code fonctionne sur tous les smartphones. La lecture NFC est prise en charge sans application par les iPhone récents (XS et plus) et la grande majorité des Android équipés du NFC.",
+    a: "Oui. Le QR code fonctionne sur tous les smartphones. La lecture sans contact (NFC) est prise en charge sans application par les iPhone récents (XS et plus) et la grande majorité des Android équipés du NFC.",
   },
   {
     q: "Quels sont les délais et les frais de livraison ?",
@@ -138,8 +138,8 @@ export default function BoutiquePage() {
                 <span className="text-brand">comptoir</span>.
               </h1>
               <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
-                Le présentoir NFC + QR code reviu : vos clients approchent leur
-                téléphone ou scannent, et votre page d&apos;avis Google
+                Le présentoir Reviu : vos clients approchent leur téléphone ou
+                scannent le QR code, et votre page d&apos;avis Google
                 s&apos;ouvre instantanément. Sans application, sans abonnement.
               </p>
               <div className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row">
@@ -218,7 +218,7 @@ export default function BoutiquePage() {
               <Link href={PRODUCT_PATH} className="group block" aria-label="Voir la fiche du présentoir">
                 <ProductPhoto
                   src={PHOTO.front}
-                  alt="Présentoir Reviu NFC et QR code pour avis Google"
+                  alt="Présentoir Reviu pour avis Google, sans contact et QR code"
                   sizes="(min-width: 768px) 420px, 90vw"
                   className="mx-auto aspect-square w-full max-w-[220px] rounded-[2rem] sm:max-w-[420px]"
                   imgClassName="transition-transform duration-500 group-hover:scale-[1.03]"
@@ -229,8 +229,8 @@ export default function BoutiquePage() {
                   {accentLastWord("Commandez votre présentoir.")}
                 </h2>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                  NFC + QR code déjà encodés, prêt à poser. Espace Reviu inclus,
-                  sans abonnement.
+                  Sans contact et QR code prêts à l&apos;emploi, à poser tel
+                  quel. Espace Reviu inclus, sans abonnement.
                 </p>
                 <p className="mt-6 flex items-baseline gap-2">
                   <span className="font-display text-5xl font-semibold tracking-tight text-ink">
@@ -449,7 +449,7 @@ export default function BoutiquePage() {
               <div className="relative mx-auto hidden w-full max-w-[300px] lg:block">
                 <ProductPhoto
                   src={PHOTO.front}
-                  alt="Présentoir Reviu NFC et QR code pour avis Google"
+                  alt="Présentoir Reviu pour avis Google, sans contact et QR code"
                   sizes="300px"
                   framed={false}
                   className="float aspect-square w-full rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(27,77,255,0.6)]"
@@ -475,7 +475,7 @@ function HeroVisual() {
       />
       <ProductPhoto
         src={PHOTO.etape3}
-        alt="Cliente laissant un avis Google depuis son téléphone devant le présentoir Reviu NFC et QR code, posé sur le comptoir"
+        alt="Cliente laissant un avis Google depuis son téléphone devant le présentoir Reviu posé sur le comptoir"
         sizes="(min-width: 1024px) 520px, (min-width: 640px) 460px, 90vw"
         preload
         framed={false}
@@ -526,7 +526,7 @@ function DashboardMock() {
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3">
           {[
-            { l: "Scans NFC", icon: <IconNfc size={16} /> },
+            { l: "Scans sans contact", icon: <IconNfc size={16} /> },
             { l: "Scans QR", icon: <IconQr size={16} /> },
           ].map((k) => (
             <div key={k.l} className="rounded-2xl border border-line bg-surface p-3.5">

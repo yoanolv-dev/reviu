@@ -180,7 +180,7 @@ export const GUIDES: Guide[] = [
       {
         type: "ol",
         items: [
-          "Le support NFC + QR sur le comptoir : demande au bon moment, geste unique, rappel permanent. Le meilleur rapport effort/résultat pour un commerce physique.",
+          "Le présentoir sur le comptoir, sans contact et QR code : demande au bon moment, geste unique, rappel permanent. Le meilleur rapport effort/résultat pour un commerce physique.",
           "La demande orale de l’équipe : un « si vous avez aimé, un avis Google nous aide beaucoup » sincère, appuyé par un support à montrer.",
           "Le QR code sur l’addition, le ticket ou le sac : utile en complément, moins immédiat que le comptoir.",
           "L’e-mail / SMS après visite : pertinent pour les prestations avec coordonnées, mais taux de réponse faible et délai qui refroidit l’enthousiasme.",
@@ -353,7 +353,7 @@ export const GUIDES: Guide[] = [
         type: "ul",
         items: [
           "Lien modifiable à distance : vous changez la destination sans réimprimer ni racheter.",
-          "NFC + QR ensemble : rapidité et compatibilité universelle.",
+          "NFC et QR code ensemble : rapidité et compatibilité universelle.",
           "Un vrai service derrière : statistiques de scan, canal de retour privé, suivi - pas juste un bout de plastique.",
           "Conforme aux règles de Google : bouton d’avis proposé à tous, sans filtrage selon la note.",
           "Robuste et présentable : il vit sur un comptoir, il doit tenir et donner envie.",
@@ -554,7 +554,7 @@ export const GUIDES: Guide[] = [
         type: "ol",
         items: [
           "Rendez la [demande d’avis](/guides/avoir-plus-avis-google) systématique, au moment du paiement.",
-          "Réduisez le geste au minimum avec un [support NFC + QR sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
+          "Réduisez le geste au minimum avec un [présentoir sans contact (NFC) sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
           "[Répondez aux avis](/guides/repondre-avis-google), positifs comme négatifs, pour montrer que vous êtes attentif.",
           "Suivez vos chiffres (scans, clics vers Google) pour ajuster ce qui marche.",
         ],
@@ -757,7 +757,7 @@ export const GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Avec un [présentoir reviu](/#produits) sur chaque table ou au comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
+        text: "Avec un [présentoir reviu](/#produits) sur chaque table ou au comptoir, sans contact et QR code, modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
       },
     ],
     faq: [
@@ -840,7 +840,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un [présentoir reviu](/#produits) encodé NFC + QR au comptoir et modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
+        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
       },
     ],
     faq: [
@@ -923,7 +923,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et progresser" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) sur le comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
+        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) sur le comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
       },
     ],
     faq: [
@@ -1005,7 +1005,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer ce qui marche" },
       {
         type: "p",
-        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un [présentoir reviu](/#produits) au comptoir, encodé NFC + QR et modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
+        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
       },
     ],
     faq: [
@@ -1087,7 +1087,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
+        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
       },
     ],
     faq: [
@@ -1345,7 +1345,7 @@ export const GUIDES: Guide[] = [
         type: "ol",
         items: [
           "Demandez au pic de satisfaction, quand le client est content et disponible.",
-          "Réduisez le geste à un scan, avec un [support NFC + QR sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
+          "Réduisez le geste à un scan, avec un [présentoir sans contact (NFC) sur le comptoir](/guides/presentoir-plaque-nfc-avis-google).",
           "Systématisez : la demande fait partie du service, pour tous les clients.",
           "Mesurez les scans et les clics vers Google pour ajuster emplacement et discours.",
         ],
@@ -1445,7 +1445,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Répondre et mesurer" },
       {
         type: "p",
-        text: "À l’hôtel plus qu’ailleurs, la façon de [répondre aux avis](/guides/repondre-avis-negatif) - y compris aux critiques - pèse dans la décision. Suivez aussi vos scans et vos clics vers Google pour ajuster l’emplacement des supports. Avec un [présentoir reviu](/#produits) à la réception, encodé NFC + QR et modifiable à distance, la demande d’avis devient un réflexe de départ - et votre note Google progresse, séjour après séjour.",
+        text: "À l’hôtel plus qu’ailleurs, la façon de [répondre aux avis](/guides/repondre-avis-negatif) - y compris aux critiques - pèse dans la décision. Suivez aussi vos scans et vos clics vers Google pour ajuster l’emplacement des supports. Avec un [présentoir reviu](/#produits) à la réception, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de départ - et votre note Google progresse, séjour après séjour.",
       },
     ],
     faq: [
@@ -1527,7 +1527,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver la meilleure place pour le support et le bon mot à la caisse. Avec un [présentoir reviu](/#produits) sur le comptoir, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe d’encaissement - et la note de la boutique grimpe, semaine après semaine.",
+        text: "Combien de scans par semaine, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver la meilleure place pour le support et le bon mot à la caisse. Avec un [présentoir reviu](/#produits) sur le comptoir, sans contact et QR code, modifiable à distance, la collecte devient un réflexe d’encaissement - et la note de la boutique grimpe, semaine après semaine.",
       },
     ],
     faq: [
@@ -1609,7 +1609,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de patients scannent, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à ajuster le support et le mot de l’accueil, sans jamais peser sur la relation. Avec un [présentoir reviu](/#produits) au secrétariat, encodé NFC + QR et modifiable à distance, l’invitation reste discrète et régulière - et la réputation du cabinet se renforce dans le temps.",
+        text: "Combien de patients scannent, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à ajuster le support et le mot de l’accueil, sans jamais peser sur la relation. Avec un [présentoir reviu](/#produits) au secrétariat, sans contact et QR code, modifiable à distance, l’invitation reste discrète et régulière - et la réputation du cabinet se renforce dans le temps.",
       },
     ],
     faq: [
@@ -1691,7 +1691,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Mesurer et ajuster" },
       {
         type: "p",
-        text: "Combien de scans par semaine, après quels créneaux ? Un tableau de bord qui suit les scans et les clics vers Google aide à repérer les meilleurs moments et emplacements. Avec un [présentoir reviu](/#produits) à l’accueil, encodé NFC + QR et modifiable à distance, la collecte devient un réflexe de sortie de séance - et la salle attire de nouveaux membres, mois après mois.",
+        text: "Combien de scans par semaine, après quels créneaux ? Un tableau de bord qui suit les scans et les clics vers Google aide à repérer les meilleurs moments et emplacements. Avec un [présentoir reviu](/#produits) à l’accueil, sans contact et QR code, modifiable à distance, la collecte devient un réflexe de sortie de séance - et la salle attire de nouveaux membres, mois après mois.",
       },
     ],
     faq: [

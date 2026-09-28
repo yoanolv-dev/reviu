@@ -29,7 +29,7 @@ export default function CGV() {
       <H2>1. Produits et prix</H2>
       <UL>
         <li>
-          <strong>Présentoir NFC + QR</strong> : {STAND_PRICE} l&apos;unité,
+          <strong>Présentoir Reviu</strong> (puce NFC et QR code) : {STAND_PRICE} l&apos;unité,
           achat unique (produit physique).
         </li>
         <li>

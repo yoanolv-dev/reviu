@@ -28,7 +28,7 @@ export function BuyStandCard() {
         Aucun présentoir pour l&apos;instant
       </h3>
       <p className="max-w-sm text-sm text-muted">
-        Commandez votre présentoir NFC + QR pour commencer à collecter des avis
+        Commandez votre présentoir Reviu pour commencer à collecter des avis
         Google en un geste.
       </p>
       <BuyStandButton className="mt-1" />

@@ -7,11 +7,17 @@ export const SITE = {
 /**
  * Nom commercial et descriptif du produit - à employer partout, sans varier
  * (pas de « plaque », « borne », « carte », « support », « hub »… dans le
- * discours commercial). « plaque NFC avis Google » reste réservé au SEO.
+ * discours commercial). Vocabulaire :
+ * - le nom : « Présentoir Reviu » (titres, visuels, boutique, facture) ;
+ * - ce que c'est : « présentoir avis Google » (titres SEO, descriptions) ;
+ * - comment ça marche : « sans contact ou QR code ». On ne nomme pas le
+ *   produit par sa technologie (pas de « présentoir NFC + QR ») ; « puce NFC »
+ *   reste pour les caractéristiques, la compatibilité et le SEO
+ *   (« plaque NFC avis Google »).
  */
 export const PRODUCT = {
   name: "Présentoir Reviu",
-  descriptive: "Présentoir NFC et QR code pour avis Google",
+  descriptive: "Présentoir avis Google, sans contact et QR code",
 } as const;
 
 /** Prix du présentoir physique (achat unique via la boutique). */
@@ -51,7 +57,7 @@ export const INCLUDED_SPACE = {
   title: "Espace Reviu inclus",
   tagline: "Inclus avec votre plaque, sans frais supplémentaires.",
   features: [
-    "Statistiques de scans, QR et NFC distingués",
+    "Statistiques de scans, sans contact et QR code distingués",
     "Gestion de vos présentoirs",
     "Modification de votre lien de redirection à tout moment",
   ],

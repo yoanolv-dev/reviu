@@ -35,7 +35,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "reviu - Présentoir avis Google NFC + QR code",
+    default: "reviu - Présentoir avis Google pour votre comptoir",
     template: "%s",
   },
   description: BRAND_DESCRIPTION,
@@ -58,20 +58,20 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: "fr_FR",
     url: SITE_URL,
-    title: "reviu - Présentoir NFC + QR pour plus d'avis Google",
+    title: "reviu - Le présentoir pour plus d'avis Google",
     description: BRAND_DESCRIPTION,
     images: [
       {
         url: `${SITE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "reviu - Présentoir NFC et QR code pour plus d'avis Google",
+        alt: "reviu - Le présentoir pour plus d'avis Google",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "reviu - Présentoir NFC + QR pour plus d'avis Google",
+    title: "reviu - Le présentoir pour plus d'avis Google",
     description: BRAND_DESCRIPTION,
     images: [`${SITE_URL}/opengraph-image`],
   },

@@ -16,7 +16,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 export const metadata: Metadata = buildMetadata({
   title: "Démo produit - reviu",
   description:
-    "Découvrez reviu en images : le parcours de scan vers l'avis Google, le présentoir NFC + QR, le tableau de bord et les deux modes de redirection.",
+    "Découvrez reviu en images : le parcours de scan vers l'avis Google, le présentoir Reviu, le tableau de bord et les deux modes de redirection.",
   path: "/demo",
   keywords: [
     "démo présentoir avis Google",
@@ -157,7 +157,7 @@ export default async function DemoPage() {
             <div className="justify-self-center" style={{ width: 260 }}>
               <ProductPhoto
                 src="/products/presentoir-angle.webp"
-                alt="Présentoir reviu NFC + QR pour avis Google"
+                alt="Présentoir Reviu pour avis Google"
                 className="mb-6 aspect-square w-full rounded-3xl shadow-[0_24px_50px_-30px_rgba(20,30,70,0.55)]"
               />
               <div className="rounded-[20px] border border-line bg-surface p-6 text-center shadow-[0_16px_40px_-28px_rgba(20,30,70,0.5)]">
@@ -169,7 +169,7 @@ export default async function DemoPage() {
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
                     <path d="M5 17c3.5-4 3.5-6 0-10M9.5 15c2-2.5 2-3.5 0-6M14 20c6-6 6-10 0-16" />
                   </svg>
-                  NFC · approchez le téléphone
+                  Sans contact · approchez le téléphone
                 </span>
                 <p className="mt-3 font-mono text-xs text-muted">r.reviu.fr/demo</p>
               </div>
@@ -439,7 +439,7 @@ export default async function DemoPage() {
               </p>
               <ul className="mx-auto mt-6 grid max-w-md gap-2 text-left">
                 {[
-                  "Puce NFC + QR code déjà encodés",
+                  "Sans contact et QR code prêts à l'emploi",
                   "Redirection modifiable à distance",
                   "Compatible iPhone et Android, aucune application",
                 ].map((f) => (

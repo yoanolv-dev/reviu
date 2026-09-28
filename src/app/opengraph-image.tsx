@@ -11,7 +11,7 @@ import { ImageResponse } from "next/og";
  * glyphes hors police par défaut (pas d’emoji/★ : dessinés en SVG à la place).
  */
 export const alt =
-  "reviu - Présentoir NFC et QR code pour plus d’avis Google, 29,90 € espace Reviu inclus";
+  "reviu - Le présentoir Reviu pour plus d’avis Google, 29,90 €, espace Reviu inclus";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -111,7 +111,7 @@ export default function OpengraphImage() {
             </div>
           </div>
           <div style={{ marginTop: 24, fontSize: 30, color: "#333a49", maxWidth: 900 }}>
-            Le présentoir NFC + QR code pour accéder à votre page d’avis Google.
+            Le présentoir Reviu : votre page d’avis Google, d’un geste.
           </div>
         </div>
 

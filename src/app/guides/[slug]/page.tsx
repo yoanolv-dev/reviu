@@ -180,8 +180,8 @@ export default async function GuidePage({ params }: Props) {
                 Mettez ce guide sur votre comptoir
               </h2>
               <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-white/70">
-                Le présentoir reviu (NFC + QR) transforme chaque client satisfait
-                en avis Google, en un seul geste. Achat unique, activation
+                Le présentoir Reviu transforme chaque client satisfait en avis
+                Google, en un seul geste. Achat unique, activation
                 gratuite.
               </p>
               <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">

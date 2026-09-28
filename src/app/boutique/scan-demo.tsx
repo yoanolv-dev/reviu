@@ -9,7 +9,7 @@ const STEP_MS = 3200;
 const STEPS = [
   {
     title: "Le client approche son téléphone",
-    body: "Contact NFC sur le présentoir, ou scan du QR code avec l'appareil photo. Aucune application.",
+    body: "Il approche son téléphone du présentoir, comme pour payer sans contact, ou scanne le QR code. Aucune application.",
   },
   {
     title: "Votre page d'avis Google s'ouvre",

@@ -23,9 +23,9 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { StandOrder } from "../boutique/stand-order";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Présentoir avis Google NFC + QR code : prix et caractéristiques | reviu",
+  title: "Présentoir avis Google sans contact : prix et caractéristiques | reviu",
   description:
-    "Fiche du présentoir avis Google reviu : puce NFC + QR code déjà encodés, lien modifiable, statistiques incluses. 29,90 €, dégressif, livraison offerte.",
+    "Le présentoir Reviu en détail : sans contact (NFC) et QR code prêts à l'emploi, lien modifiable, statistiques incluses. 29,90 €, dégressif, livraison offerte.",
   path: PRODUCT_PATH,
   keywords: [
     "présentoir avis Google",
@@ -38,10 +38,10 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const GALLERY = [
-  { src: PHOTO.front, alt: "Présentoir Reviu NFC et QR code pour avis Google, vue de face" },
+  { src: PHOTO.front, alt: "Présentoir Reviu pour avis Google, vue de face" },
   { src: PHOTO.etape3, alt: "Cliente laissant un avis Google depuis son téléphone devant le présentoir Reviu" },
   { src: PHOTO.etape1, alt: "Smartphone scannant le QR code du présentoir Reviu pour avis Google" },
-  { src: PHOTO.angle, alt: "Présentoir Reviu, vue de trois quarts montrant le QR code et la zone NFC" },
+  { src: PHOTO.angle, alt: "Présentoir Reviu, vue de trois quarts montrant le QR code et la zone sans contact" },
 ];
 
 const BENEFITS = [
@@ -59,7 +59,7 @@ const SPEC_MATERIAU = ""; //   TODO: matériau réel, ex. « PVC rigide, finitio
 const SPEC_POIDS = ""; //      TODO: poids réel, ex. « 120 g »
 
 const SPECS: { label: string; value: string }[] = [
-  { label: "Technologies", value: "Puce NFC + QR code, déjà encodés" },
+  { label: "Technologies", value: "Puce NFC (sans contact) et QR code, prêts à l'emploi" },
   { label: "Emplacement du QR code", value: "En façade du présentoir" },
   { label: "Emplacement de la puce NFC", value: "Intégrée au présentoir, zone de contact indiquée" },
   { label: "Code secret d'activation", value: "Imprimé à côté du QR code, sur le présentoir" },
@@ -153,9 +153,9 @@ export default function ProductPage() {
     ...(stand
       ? [
           productSchema({
-            name: "Présentoir Reviu - NFC + QR code pour avis Google",
+            name: "Présentoir Reviu pour avis Google",
             description:
-              "Présentoir connecté (puce NFC + QR code déjà encodés) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans abonnement, livraison offerte et satisfait ou remboursé 30 jours ; espace Reviu inclus (statistiques, gestion, modification du lien).",
+              "Présentoir sans contact (puce NFC et QR code prêts à l'emploi) à poser sur le comptoir pour accéder à votre page d'avis Google en un geste. Achat unique, sans abonnement, livraison offerte et satisfait ou remboursé 30 jours ; espace Reviu inclus (statistiques, gestion, modification du lien).",
             priceCents: stand.priceCents,
             path: PRODUCT_PATH,
             image: PHOTO.front,
@@ -190,11 +190,12 @@ export default function ProductPage() {
               <div>
                 <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                   Présentoir avis Google
-                  <span className="block text-brand">NFC + QR code</span>
+                  <span className="block text-brand">sans contact</span>
                 </h1>
                 <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-soft">
-                  Le présentoir connecté qui envoie vos clients vers votre page
-                  d&apos;avis Google, en un geste. Déjà encodé, prêt à poser.
+                  Le présentoir Reviu envoie vos clients vers votre page
+                  d&apos;avis Google, d&apos;un geste : sans contact ou QR code.
+                  Prêt à poser.
                 </p>
                 <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
                   {BENEFITS.map((b) => (

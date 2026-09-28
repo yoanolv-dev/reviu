@@ -22,7 +22,7 @@ export default function CGU() {
 
       <H2>1. Objet du service</H2>
       <P>
-        reviu fournit des présentoirs NFC et QR ainsi qu&apos;une plateforme
+        reviu fournit des présentoirs pour avis Google (puce NFC et QR code) ainsi qu&apos;une plateforme
         permettant de rediriger les clients vers une page d&apos;avis, de suivre
         les statistiques et de gérer sa réputation en ligne.
       </P>

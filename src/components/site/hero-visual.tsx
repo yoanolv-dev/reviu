@@ -83,7 +83,7 @@ export function HeroVisual() {
       <div className="float-slow absolute -bottom-6 -left-5 hidden -rotate-6 rounded-2xl border border-line bg-surface p-3 shadow-[var(--shadow-lift)] sm:block">
         <DecorativeQR />
         <p className="mt-1.5 text-center text-[10px] font-medium text-ink-soft">
-          Scan · NFC
+          Sans contact · QR
         </p>
       </div>
     </div>
