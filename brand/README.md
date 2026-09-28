@@ -2,18 +2,18 @@
 
 Identité visuelle de reviu : logo, couleurs, typographie, éléments graphiques
 et gabarits réseaux sociaux. La version de référence, éditable, est dans Canva
-(dossier **Reviu - Charte graphique**) ; ce dossier en garde les sources.
+([dossier **Reviu - Charte graphique**](https://www.canva.com/folder/FAHWeHHjrKs)) ; ce dossier en garde les sources.
 
 ## Designs Canva
 
 | Design | Contenu |
 |---|---|
-| Reviu - Charte graphique | 15 pages : marque, logo, déclinaisons, protection, interdits, couleurs, typographie, signature des titres, éléments graphiques, photographie, ton, réseaux sociaux |
-| Reviu - Logo | 6 pages : logo sur blanc, cobalt, encre, version verticale, monogramme, avatar réseaux sociaux |
-| Reviu - Bannière Facebook | 1640 × 624 px (texte dans la zone visible sur mobile) |
-| Reviu - Bannière LinkedIn | 1584 × 396 px (zone de gauche laissée libre pour la photo de profil) |
-| Reviu - 5 posts Instagram | 1080 × 1350 px : produit, fonctionnement, comparatif, offre, métiers |
-| Reviu - 5 stories Instagram | 1080 × 1920 px : accroche, démo, sondage, offre, outil QR gratuit |
+| [Reviu - Charte graphique](https://www.canva.com/d/TN4D-F3W1HxSqlX) | 15 pages : marque, logo, déclinaisons, protection, interdits, couleurs, typographie, signature des titres, éléments graphiques, photographie, ton, réseaux sociaux |
+| [Reviu - Logo](https://www.canva.com/d/jpFBXrE7vv9O9mW) | 6 pages : logo sur blanc, cobalt, encre, version verticale, monogramme, avatar réseaux sociaux |
+| [Reviu - Bannière Facebook](https://www.canva.com/d/fYJy6v1AT3OuzJ9) | 1640 × 624 px (texte dans la zone visible sur mobile) |
+| [Reviu - Bannière LinkedIn](https://www.canva.com/d/dN1FKNO8QDgC8Wo) | 1584 × 396 px (zone de gauche laissée libre pour la photo de profil) |
+| [Reviu - 5 posts Instagram](https://www.canva.com/d/y9Z1JJiWOW7zHD5) | 1080 × 1350 px : produit, fonctionnement, comparatif, offre, métiers |
+| [Reviu - 5 stories Instagram](https://www.canva.com/d/nTV5_ccB66Iflad) | 1080 × 1920 px : accroche, démo, sondage, offre, outil QR gratuit |
 
 ## L'essentiel
 
