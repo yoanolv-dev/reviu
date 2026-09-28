@@ -19,6 +19,9 @@ def width(text, size, weight=500, ls=0):
     return _fonts[key].getlength(text) + ls * size * max(len(text) - 1, 0)
 
 def A(p):
+    # Les images binaires passent par raw.githubusercontent (githack les redirige).
+    if MODE != "local" and p.endswith((".jpg", ".png")):
+        return ROOT.replace("https://raw.githack.com/", "https://raw.githubusercontent.com/") + "/" + p
     return f"{ROOT}/{p}"
 
 # ---------- primitives (chaque élément est positionné en absolu : import Canva fidèle) ----------
