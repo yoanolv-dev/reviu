@@ -19,4 +19,20 @@ export type Installation = {
   caption: string;
 };
 
-export const INSTALLATIONS: Installation[] = [];
+export const INSTALLATIONS: Installation[] = [
+  {
+    src: "/installations/presentoir-debout-etagere.webp",
+    alt: "Présentoir Reviu posé debout sur une étagère en verre, près de brochures touristiques",
+    caption: "Debout, près des brochures",
+  },
+  {
+    src: "/installations/presentoir-comptoir-accueil.webp",
+    alt: "Présentoir Reviu posé sur le comptoir d'accueil d'un client",
+    caption: "À l'accueil",
+  },
+  {
+    src: "/installations/presentoir-table.webp",
+    alt: "Présentoir Reviu posé à plat sur une table en bois chez un client",
+    caption: "À plat, sur une table",
+  },
+];

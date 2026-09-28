@@ -95,3 +95,39 @@ la fiche produit, ce que Google vérifie.
   - clics mais peu de `begin_checkout` → la page ou l'offre ne convainc pas ;
   - `begin_checkout` sans `purchase` → confiance ou paiement ;
   - coût par vente inférieur à la marge par commande → augmenter le budget.
+
+### Textes de l'annonce (prêts à coller, limites Google vérifiées)
+
+Annonce responsive sur le Réseau de Recherche. Si Google refuse un titre
+contenant « Google » (politique de marque), le supprimer : les autres suffisent.
+
+**Titres** (30 caractères max) :
+1. Présentoir avis Google
+2. Plaque NFC pour vos avis
+3. Plus d'avis clients
+4. 29,90 €, sans abonnement
+5. Livraison offerte
+6. Satisfait ou remboursé 30 j
+7. Sans contact et QR code
+8. Prêt en 2 minutes
+9. Compatible iPhone et Android
+10. Aucune application requise
+11. Présentoir Reviu
+12. Idéal au comptoir
+
+**Descriptions** (90 caractères max) :
+1. Vos clients approchent leur téléphone et votre page d'avis s'ouvre. Sans application.
+2. Achat unique à 29,90 €, livraison offerte. Satisfait ou remboursé 30 jours.
+3. Posez-le au comptoir : sans contact ou QR code, compatible avec tous les smartphones.
+4. Statistiques de scans et lien modifiable inclus, sans abonnement. Commandez en 2 min.
+
+**Liens annexes** (titre / description) :
+- Le présentoir / Fiche produit, photos, prix → `https://reviu.fr/presentoir-avis-google`
+- Comment ça marche / Un geste, la page d'avis s'ouvre → `https://reviu.fr/#fonctionnement`
+- QR code gratuit / Générateur de QR code avis → `https://reviu.fr/outils/qr-code-avis-google`
+- Devenir revendeur / Programme sur sélection → `https://reviu.fr/revendeur`
+
+**Accroches** : Livraison offerte · Sans abonnement · Satisfait ou remboursé ·
+Paiement sécurisé · Compatible iPhone/Android.
+
+**Extension d'appel** : 07 81 98 30 42, aux heures où tu peux répondre.

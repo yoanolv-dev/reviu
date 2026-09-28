@@ -33,8 +33,8 @@ export function InstallationsSection({
             {accentLastWord("Déjà sur le comptoir de nos clients.")}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-soft sm:text-base">
-            Coiffeurs, restaurants, ateliers : quelques présentoirs Reviu en
-            place, photographiés par nos clients.
+            Quelques présentoirs Reviu en place, photographiés par nos
+            clients.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function InstallationsSection({
           {items.map((it, i) => (
             <li
               key={it.src}
-              className="w-[62vw] max-w-[230px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:flex-1 sm:shrink sm:basis-0"
+              className="w-[62vw] max-w-[230px] shrink-0 snap-center sm:w-auto sm:max-w-[250px] sm:flex-1 sm:shrink sm:basis-0"
             >
               <figure
                 className="rotate-[var(--tilt)] rounded-[14px] bg-[#fbfaf7] p-2.5 pb-3 shadow-[0_2px_6px_rgba(10,13,22,0.08),0_24px_48px_-24px_rgba(17,57,201,0.35)] transition-transform duration-300 ease-out hover:-translate-y-1 hover:rotate-0"
@@ -53,7 +53,7 @@ export function InstallationsSection({
                     src={it.src}
                     alt={it.alt}
                     fill
-                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 20vw, 62vw"
+                    sizes="(min-width: 640px) 250px, 62vw"
                     className="object-cover"
                   />
                 </div>
