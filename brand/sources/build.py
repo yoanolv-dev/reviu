@@ -15,7 +15,7 @@ def width(text, size, weight=500, ls=0):
     name = {400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold", 800: "ExtraBold"}[weight]
     key = (name, size)
     if key not in _fonts:
-        _fonts[key] = ImageFont.truetype(f"static/PlusJakartaSans-{name}.ttf", size)
+        _fonts[key] = ImageFont.truetype(f"static/Inter-{name}.ttf", size)
     return _fonts[key].getlength(text) + ls * size * max(len(text) - 1, 0)
 
 def A(p):
@@ -29,7 +29,14 @@ def T(x, y, w, txt, size, weight=500, color=INK, lh=1.35, ls=0.0, align="left"):
     return (f'<div class="t" style="left:{x}px;top:{y}px;width:{w}px;font-size:{size}px;font-weight:{weight};'
             f'color:{color};line-height:{lh};letter-spacing:{ls}em;text-align:{align}">{txt}</div>')
 
-def HEAD(x, y, w, txt, size, color=INK, lh=1.02, ls=-0.035, weight=800, align="left"):
+import re as _re
+WARN = []
+def HEAD(x, y, w, txt, size, color=INK, lh=1.04, ls=-0.03, weight=800, align="left"):
+    for line in txt.split("<br>"):
+        plain = H.unescape(_re.sub(r"<[^>]+>", "", line))
+        lw = width(plain, size, weight, ls)
+        if lw > w * 0.94:
+            WARN.append(f"{plain!r} {lw:.0f}/{w}")
     return T(x, y, w, txt, size, weight, color, lh, ls, align)
 
 def R(x, y, w, h, bg, r=0, border=None, opacity=None):
@@ -102,12 +109,12 @@ def page(w, h, bg, inner, label):
 
 def doc(pages, title):
     if MODE == "local":
-        fonts = '<link rel="stylesheet" href="../../fonts/static.css">'
+        fonts = '<link rel="stylesheet" href="../../fonts/inter.css">'
     else:
         fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-                 '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">')
+                 '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">')
     css = ("*{margin:0;padding:0;box-sizing:border-box}html,body{background:#fff}"
-           "body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}"
+           "body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}"
            ".page{position:relative;overflow:hidden;break-after:page}.page:last-child{break-after:auto}"
            ".t,.r,.i{position:absolute}.t{white-space:normal}")
     return f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{title}</title>{fonts}<style>{css}</style></head><body>{"".join(pages)}</body></html>'
@@ -232,7 +239,7 @@ def stories():
 
     # 3. Sondage (cobalt)
     inner = logo(80, 250, 58, "blanc-sur-cobalt")
-    inner += HEAD(80, 420, 940, f"Combien d’avis<br>Google avez-vous<br>aujourd’hui {g('?')}", 104, WHITE)
+    inner += HEAD(80, 420, 940, f"Combien d’avis<br>Google avez-vous<br>aujourd’hui {g('?')}", 96, WHITE)
     inner += R(130, 840, 820, 460, STRONG, 48)
     inner += I(390, 930, 300, "icons/stars-5-gold.svg")
     inner += T(130, 1030, 820, "Ajoutez ici le sticker Sondage", 32, 700, WHITE, 1.3, 0, "center")
@@ -468,26 +475,31 @@ def charte():
 
     # 9 Typographie
     inner = ctitle(f"La {c('typographie')}{g()}")
-    inner += T(110, 230, 700, "Aa", 330, 800, INK, 1.0, -0.05)
-    inner += T(120, 590, 700, "Plus Jakarta Sans", 52, 800, INK, 1.2, -0.03)
-    inner += T(120, 660, 700, "Gratuite sur Google Fonts et disponible dans Canva.", 24, 500, MUTED, 1.4)
-    inner += T(120, 730, 700, "ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 € % ! ? « »", 26, 600, SOFT, 1.6, 0.02)
-    rows = [("Titre", f"Plus d’avis Google{g()}", 64, 800, -0.035, "ExtraBold 800 · interlettrage -3,5 % · interligne 1"),
-            ("Sous-titre", "Depuis votre comptoir", 40, 700, -0.02, "Bold 700 · interlettrage -2 %"),
-            ("Texte", "Le client approche son téléphone et votre page d’avis s’ouvre.", 28, 500, 0, "Medium 500 · interligne 1,4"),
-            ("Étiquette", "Commander", 26, 600, 0, "SemiBold 600 · boutons, pastilles, mentions")]
-    y = 250
-    for lab, sample, sz, wt, ls, spec in rows:
-        inner += T(960, y + 8, 200, lab, 22, 800, COBALT, 1.3)
+    inner += R(120, 250, 820, 410, PERLE, 36)
+    inner += I(160, 290, 250, "icons/specimen-pjs-aa.svg")
+    inner += I(440, 306, 440, "icons/specimen-pjs-nom.svg")
+    inner += T(440, 392, 460, "Police d’identité : logo, site web et documents imprimés. Gratuite sur Google Fonts.", 22, 500, SOFT, 1.5)
+    inner += I(160, 580, 700, "icons/specimen-pjs-alphabet.svg")
+    inner += R(980, 250, 820, 410, BRUME, 36)
+    inner += T(1016, 318, 270, "Aa", 196, 800, INK, 1.0, -0.04)
+    inner += T(1300, 300, 460, "Inter", 64, 800, INK, 1.1, -0.03)
+    inner += T(1300, 392, 460, "Police des visuels créés dans Canva : réseaux sociaux, affiches, présentations. Gratuite dans Canva.", 22, 500, SOFT, 1.5)
+    inner += T(1020, 580, 740, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 30, 600, SOFT, 1.3, 0.02)
+    rows = [("Titre", f"Plus d’avis{g()}", 56, 800, -0.03, "Inter ExtraBold 800 · interlettrage -3 %"),
+            ("Sous-titre", "Votre comptoir", 38, 700, -0.02, "Inter Bold 700 · interlettrage -2 %"),
+            ("Texte", "Le client approche son téléphone.", 24, 500, 0, "Inter Medium 500 · interligne 1,4"),
+            ("Étiquette", "Commander", 24, 600, 0, "Inter SemiBold 600 · boutons, pastilles")]
+    for i, (lab, sample, sz, wt, ls, spec) in enumerate(rows):
+        x = 120 + i * 430
+        inner += R(x, 700, 390, 2, LINE)
+        inner += T(x, 724, 390, lab, 20, 800, COBALT, 1.3)
         if lab == "Étiquette":
-            o, _ = pill(1180, y - 6, sample, 26, COBALT, WHITE, None, h=62, weight=600, pad=30)
+            o, _ = pill(x, 772, sample, 24, COBALT, WHITE, None, h=60, weight=600, pad=28)
             inner += o
         else:
-            inner += T(1180, y, 640, sample, sz, wt, INK, 1.15, ls)
-        inner += T(1180, y + (sz * 1.15 if lab != "Texte" else 80) + (14 if lab != "Étiquette" else 30), 640, spec, 20, 600, MUTED, 1.4)
-        y += {"Titre": 190, "Sous-titre": 160, "Texte": 190, "Étiquette": 0}[lab]
-    inner += R(960, 930, 840, 2, LINE)
-    inner += T(960, 950, 840, "Sur le site web, le texte courant de l’interface utilise Geist.", 20, 600, MUTED, 1.4)
+            inner += T(x, 770, 400, sample, sz, wt, INK, 1.2, ls)
+        inner += T(x, 870, 390, spec, 18, 600, MUTED, 1.4)
+    inner += T(120, 950, 1680, "Sur le site web, le texte courant de l’interface utilise Geist. Dans Canva, tout le texte est en Inter.", 20, 600, MUTED, 1.4)
     inner += foot(9)
     pg.append(page(CW, CH, WHITE, inner, "La typographie"))
 
@@ -592,9 +604,10 @@ def charte():
              "Stories : 1080 × 1920 px, rien d’important dans les 250 px du haut et du bas.",
              "Logo en haut à gauche, reviu.fr en haut à droite.",
              "Alterner les fonds : blanc, brume, cobalt, encre.",
-             "Une photo réelle du présentoir dans un visuel sur deux."]
+             "Une photo réelle du présentoir dans un visuel sur deux.",
+             "Texte en Inter : titres ExtraBold, texte Medium."]
     for i, r_ in enumerate(rules):
-        y = 240 + i * 138
+        y = 240 + i * 124
         inner += I(1520, y + 4, 30, "icons/dot-gold.svg") if False else ""
         inner += R(1500, y, 300, 2, LINE)
         inner += T(1500, y + 18, 300, r_, 22, 600, INK, 1.45)
@@ -618,3 +631,5 @@ if __name__ == "__main__":
     open(f"{out}/logo.html", "w").write(logo_doc())
     open(f"{out}/charte-graphique.html", "w").write(charte())
     print("ok", out)
+    for w_ in WARN:
+        print("TROP LARGE", w_)

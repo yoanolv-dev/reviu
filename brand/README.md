@@ -61,7 +61,7 @@ Les scripts de `sources/` attendent, dans leur dossier de travail, les polices
 leurs instances statiques dans `static/`. Dépendances : `fonttools`, `brotli`,
 `uharfbuzz`, `pillow`, et Playwright pour les rendus.
 
-1. `python glyphs.py` puis `python make_logos.py` et `python variants.py` : logos et pictogrammes.
+1. `python glyphs.py` puis `python make_logos.py`, `python variants.py` et `python specimen.py` : logos, pictogrammes et spécimens.
 2. `python build.py local` : aperçu local ; `python build.py canva <URL racine des ressources> <dossier>` : pages pour l'import Canva.
 3. Pousser les ressources, puis importer chaque page HTML dans Canva
    (import depuis une URL publique qui sert le HTML en `text/html`).
