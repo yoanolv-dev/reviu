@@ -146,7 +146,7 @@ def posts():
     inner += HEAD(80, 190, 940, f"Comment ça<br>{c('marche')} {g('?')}", 110)
     steps = [
         ("1", "Posez-le sur votre comptoir", "Visible toute la journée, là où vos clients attendent quelques secondes."),
-        ("2", "Le client approche son téléphone", "Puce NFC ou QR code : votre page d’avis Google s’ouvre aussitôt."),
+        ("2", "Le client approche son téléphone", "Sans contact ou QR code : votre page d’avis Google s’ouvre aussitôt."),
         ("3", "Il laisse son avis", "Aucune application à installer. Compatible iPhone et Android."),
     ]
     y = 480
@@ -171,7 +171,7 @@ def posts():
         inner += T(cx - 70, cy + 44, 140, lab, 22, 700, col, 1.25, 0, "center")
     rows = [
         ("Le client trouve votre fiche sans chercher", "x", "v", "v"),
-        ("Un simple contact suffit (NFC)", "x", "x", "v"),
+        ("Il suffit d’approcher le téléphone", "x", "x", "v"),
         ("Lien modifiable sans rien réimprimer", "x", "x", "v"),
         ("Statistiques de scans", "x", "x", "v"),
     ]
@@ -232,7 +232,7 @@ def stories():
     inner += HEAD(80, 380, 940, f"Un geste<br>{c('suffit')}{g()}", 140)
     inner += T(80, 690, 900, "Le client approche son téléphone du présentoir : votre page d’avis Google s’ouvre, sans application.", 36, 500, SOFT, 1.4)
     inner += P(80, 900, 920, 760, "etape-1.jpg", 48, "50% 50%")
-    o1, w1 = pill(120, 1560, "NFC", 28)
+    o1, w1 = pill(120, 1560, "Sans contact", 28)
     o2, _ = pill(120 + w1 + 14, 1560, "QR code", 28)
     inner += o1 + o2
     ss.append(page(SW, SH, BRUME, inner, "Story 2 - Un geste suffit"))
@@ -277,7 +277,7 @@ def banner_fb():
     W, Hh = 1640, 624
     inner = logo(290, 70, 48, "blanc-sur-cobalt")
     inner += HEAD(290, 162, 720, f"Plus d’avis Google,<br>directement depuis<br>votre comptoir{g()}", 70, WHITE)
-    inner += T(290, 410, 700, "Présentoir NFC et QR code · 29,90 € une seule fois<br>Livraison offerte · Sans abonnement", 24, 600, PALE, 1.5)
+    inner += T(290, 410, 700, "Le présentoir Reviu · 29,90 € une seule fois<br>Livraison offerte · Sans abonnement", 24, 600, PALE, 1.5)
     inner += P(1000, 72, 360, 480, "etape-3.jpg", 40, "42% 55%")
     inner += R(900, 452, 320, 80, WHITE, 40)
     inner += I(924, 479, 142, "icons/stars-5-gold.svg")
@@ -287,7 +287,7 @@ def banner_fb():
 def banner_li():
     W, Hh = 1584, 396
     inner = HEAD(520, 92, 700, f"Plus d’avis Google,<br>directement depuis<br>votre comptoir{g()}", 54, WHITE)
-    inner += T(520, 290, 720, "Présentoir NFC et QR code · reviu.fr", 24, 600, PALE, 1.4)
+    inner += T(520, 290, 720, "Le présentoir Reviu · reviu.fr", 24, 600, PALE, 1.4)
     inner += P(1230, 48, 300, 300, "etape-3.jpg", 32, "50% 55%")
     inner += logo(1300, 0, 1, "blanc-sur-cobalt") if False else ""
     return doc([page(W, Hh, COBALT, inner, "Bannière LinkedIn")], "reviu - Bannière LinkedIn")
@@ -354,7 +354,7 @@ def charte():
         inner += T(x + 34, 374, 480, t, 30, 800, INK, 1.3, -0.02)
         inner += T(x, 432, 500, d, 28, 500, SOFT, 1.5)
     inner += R(120, 700, 1680, 250, BRUME, 40)
-    stats = [("29,90 €", "achat unique"), ("0 €", "d’abonnement"), ("30 jours", "satisfait ou remboursé"), ("NFC + QR", "iPhone et Android")]
+    stats = [("29,90 €", "achat unique"), ("0 €", "d’abonnement"), ("30 jours", "satisfait ou remboursé"), ("1 geste", "sans contact ou QR code")]
     for i, (n, l) in enumerate(stats):
         x = 180 + i * 410
         inner += T(x, 752, 380, n, 72, 800, COBALT, 1.1, -0.04)
@@ -581,8 +581,8 @@ def charte():
     inner += T(1000, 292, 360, "On dit", 26, 800, INK, 1.3)
     inner += I(1370, 294, 36, "icons/cross-muted.svg")
     inner += T(1420, 292, 360, "On évite", 26, 800, INK, 1.3)
-    pairs = [("Le présentoir Reviu", "plaque, borne, support, carte"),
-             ("Votre page d’avis Google s’ouvre", "redirection vers l’URL de la fiche"),
+    pairs = [("Le présentoir Reviu", "présentoir NFC + QR, plaque, borne"),
+             ("Sans contact ou QR code", "puce NFC, encodage, redirection"),
              ("29,90 € une seule fois", "offre exceptionnelle, prix choc"),
              ("Vous", "tu"),
              ("Plus d’avis, plus de clients", "révolutionnaire, n°1, magique")]

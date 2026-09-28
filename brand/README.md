@@ -35,6 +35,10 @@ monogramme porte le point doré (icône, favicon, avatar).
 | Perle | `#F5F6F8` | Fonds neutres |
 | Ardoise | `#6B7382` | Textes secondaires |
 
+**Nom du produit** : « Présentoir Reviu » (descripteur SEO : « présentoir
+avis Google »). Le geste s'explique par « sans contact ou QR code » ; jamais
+« présentoir NFC + QR » dans le discours.
+
 **Typographie** : Plus Jakarta Sans pour l'identité (logo, site web, print).
 Dans Canva, tout le texte est en **Inter** (gratuite dans Canva ; Plus Jakarta
 Sans n'y est pas reconnue à l'import). Titres en ExtraBold, interlettrage -3 %.
