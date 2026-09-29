@@ -34,6 +34,7 @@ for (const id of ids) {
   });
   if (stillsOnly) continue;
   const t0 = Date.now();
+  let last = -1;
   await renderMedia({
     composition,
     serveUrl,
@@ -47,8 +48,13 @@ for (const id of ids) {
     jpegQuality: 95,
     concurrency: Math.max(2, (await import("node:os")).cpus().length - 1),
     outputLocation: path.join(outDir, `${id}.mp4`),
+    colorSpace: "bt709",
     onProgress: ({ progress }) => {
-      process.stdout.write(`\r${id} ${(progress * 100).toFixed(0)} %   `);
+      const p = Math.floor(progress * 10);
+      if (p !== last) {
+        last = p;
+        process.stdout.write(`${id} ${p * 10} %\n`);
+      }
     },
   });
   console.log(`\n${id} : ${((Date.now() - t0) / 1000).toFixed(0)} s`);

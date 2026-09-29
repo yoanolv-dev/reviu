@@ -4,6 +4,12 @@ import { Img, staticFile } from "remotion";
 /** Proportions de la face detouree (852 x 904 px). */
 export const FACE_RATIO = 904 / 852;
 
+/**
+ * Variante de face pour toute la composition : "standard" (photo exacte, QR
+ * neutralise) ou "logoFlou" (variante de secours, logo Google floute).
+ */
+export const FaceVariant = React.createContext<"standard" | "logoFlou">("standard");
+
 type Props = {
   /** Largeur affichee de la face, en px. */
   width: number;
@@ -21,6 +27,8 @@ type Props = {
   /** Photo agrandie x2 pour les gros plans. */
   hd?: boolean;
   style?: React.CSSProperties;
+  /** Elements poses sur la face (coordonnees en % de la face), qui suivent la 3D. */
+  children?: React.ReactNode;
 };
 
 /**
@@ -39,13 +47,18 @@ export const Presentoir3D: React.FC<Props> = ({
   shadow = 0.5,
   hd = false,
   style,
+  children,
 }) => {
   const height = width * FACE_RATIO;
   const layers = Math.max(4, Math.round(thickness / 2));
   const step = thickness / layers;
   const g = glare * 1.6 - 0.3; // centre du reflet, en fraction de largeur
-  const face = staticFile(hd ? "img/presentoir-face-2x.png" : "img/presentoir-face.png");
+  const variant = React.useContext(FaceVariant);
+  const suffix = variant === "logoFlou" ? "-gflou" : "";
+  const face = staticFile(`img/presentoir-face${suffix}${hd ? "-2x" : ""}.png`);
   const mask = `url(${staticFile("img/presentoir-mask.png")})`;
+  // Le reflet ne passe jamais sur le logo imprime (on ne le "lave" pas).
+  const logoHole = "radial-gradient(ellipse 13% 12.5% at 50.2% 17.8%, transparent 96%, #000 100%)";
 
   return (
     <div style={{ position: "relative", width, height, ...style }}>
@@ -96,16 +109,19 @@ export const Presentoir3D: React.FC<Props> = ({
             transform: "translateZ(0.5px)",
           }}
         />
+        {children && <div style={{ position: "absolute", inset: 0, transform: "translateZ(2px)" }}>{children}</div>}
         {glare > -1 && (
           <div
             style={{
               position: "absolute",
               inset: 0,
               transform: "translateZ(1px)",
-              WebkitMaskImage: mask,
-              maskImage: mask,
-              WebkitMaskSize: "100% 100%",
-              maskSize: "100% 100%",
+              WebkitMaskImage: `${mask}, ${logoHole}`,
+              maskImage: `${mask}, ${logoHole}`,
+              WebkitMaskSize: "100% 100%, 100% 100%",
+              maskSize: "100% 100%, 100% 100%",
+              WebkitMaskComposite: "source-in",
+              maskComposite: "intersect",
               background: `linear-gradient(105deg, rgba(255,255,255,0) ${(g - 0.22) * 100}%, rgba(255,255,255,${glareStrength}) ${g * 100}%, rgba(255,255,255,0) ${(g + 0.14) * 100}%)`,
               mixBlendMode: "screen",
             }}

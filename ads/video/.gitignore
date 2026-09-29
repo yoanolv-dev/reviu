@@ -3,3 +3,4 @@ out/
 .remotion/
 *.log
 public/audio/music/example.wav
+__pycache__/

@@ -78,7 +78,7 @@ export const KineticTitle: React.FC<Props> = ({
             const i = idx++;
             const isLast = i === total - 1;
             const t = prog(frame, at + i * stagger, 14, EASE.out);
-            const y = interpolate(t, [0, 1], [105, 0]) - exit * 105;
+            const y = interpolate(t, [0, 1], [135, 0]) - exit * 140;
             const hl = highlight.includes(i);
             const hlT = hl ? prog(frame, at + i * stagger + 6, 10, EASE.out) : 0;
             return (

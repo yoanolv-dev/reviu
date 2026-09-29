@@ -25,7 +25,7 @@ export const NfcWaves: React.FC<{ at: number; size: number; color?: string; coun
               position: "absolute",
               inset: 0,
               borderRadius: "50%",
-              border: `${size * 0.025}px solid ${color}`,
+              border: `${size * 0.032}px solid ${color}`,
               transform: `scale(${0.2 + t * 1.1})`,
               opacity: (1 - t) * 0.9,
             }}

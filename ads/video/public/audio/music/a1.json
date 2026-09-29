@@ -1,0 +1,11 @@
+{
+  "bars": 12,
+  "sections": [
+    {"from_bar": 0, "to_bar": 4, "energy": "build"},
+    {"from_bar": 4, "to_bar": 9, "energy": "drop"},
+    {"from_bar": 9, "to_bar": 12, "energy": "outro"}
+  ],
+  "final_hit_bar": 9,
+  "tail_s": 0.0,
+  "end_button": false
+}
