@@ -4,3 +4,6 @@ out/
 *.log
 public/audio/music/example.wav
 __pycache__/
+# Videos finales : livrees a part (trop lourdes pour le depot), regenerables
+# avec scripts/render-all.mjs puis scripts/master.py.
+renders/*.mp4

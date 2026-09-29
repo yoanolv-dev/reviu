@@ -5,11 +5,10 @@ import { pop, prog } from "../lib/anim";
 import { Presentoir3D } from "../components/Presentoir3D";
 import { KineticTitle } from "../components/KineticTitle";
 import { SfxTrack } from "../components/Sfx";
-import { Mention } from "../components/Legal";
 import { CounterBackdrop } from "./Backdrops";
 
 /** Pictogrammes au trait (meme esprit que celui imprime sur le presentoir). */
-const ICONS: Record<string, React.ReactNode> = {
+export const METIER_ICONS: Record<string, React.ReactNode> = {
   restaurant: (
     <g>
       <path d="M16 8v12a4 4 0 0 0 8 0V8M20 8v32" />
@@ -44,77 +43,93 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-const WORDS = ["restaurant", "salon", "garage", "boulangerie", "boutique", "hôtel"] as const;
-const STEP = 11;
+const WORDS = ["restaurant", "salon", "boulangerie"] as const;
+const STEP = 15; // 1 temps a 120 BPM
+const FINALE = 45;
 
-/** "Au comptoir de votre [metier]" puis "Au bon moment." */
-export const MetiersScene: React.FC = () => {
+/**
+ * "Au comptoir de votre [metier]." (un metier par temps) puis
+ * "Sans avoir a demander." Le presentoir reprend la pose de fin de la scene
+ * precedente pour un raccord sur la coupe.
+ */
+export const MetiersScene: React.FC<{ words?: readonly string[] }> = ({ words = WORDS }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const idx = Math.min(WORDS.length - 1, Math.max(0, Math.floor((frame - 4) / STEP)));
-  const local = frame - 4 - idx * STEP;
-  const wordIn = interpolate(local, [0, 6], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE.enter });
-  const finale = 72;
-  const firstOut = prog(frame, finale - 6, 8, EASE.exit);
-  const badge = pop(frame, fps, 4 + idx * STEP, SPRING.pop);
-  const badgeOut = prog(frame, finale - 4, 8, EASE.exit);
+  const idx = Math.min(words.length - 1, Math.max(0, Math.floor(frame / STEP)));
+  const local = frame - idx * STEP;
+  const swapIn = idx === 0 ? 0 : interpolate(local, [0, 6], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE.whip });
+  const blockOut = prog(frame, FINALE - 5, 8, EASE.exit);
+  const badge = pop(frame, fps, idx * STEP, SPRING.pop);
+  const firstIn = prog(frame, -6, 12, EASE.enter);
+  const prev = idx > 0 ? words[idx - 1] : null;
+
+  const wordStyle: React.CSSProperties = {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    fontFamily: FONT_DISPLAY,
+    fontWeight: 800,
+    fontSize: 96,
+    letterSpacing: "-0.03em",
+    color: C.cobalt,
+    whiteSpace: "nowrap",
+  };
+  const Word: React.FC<{ w: string; y: number }> = ({ w, y }) => (
+    <div style={{ ...wordStyle, transform: `translateY(${y}%)` }}>
+      {w}
+      <span style={{ color: C.gold, marginLeft: "-0.06em" }}>.</span>
+    </div>
+  );
 
   return (
     <AbsoluteFill>
       <CounterBackdrop horizon={1190} wall={C.white} />
-      <div style={{ position: "absolute", left: 100, top: 300, opacity: 1 - firstOut, transform: `translateY(${-firstOut * 40}px)` }}>
-        <KineticTitle text="Au comptoir de votre" size={66} at={0} />
-        <div
-          style={{
-            height: 150,
-            overflow: "hidden",
-            marginTop: 4,
-            fontFamily: FONT_DISPLAY,
-            fontWeight: 800,
-            fontSize: 124,
-            letterSpacing: "-0.03em",
-            color: C.cobalt,
-            lineHeight: 1.15,
-          }}
-        >
-          {frame >= 4 && (
-            <div style={{ transform: `translateY(${wordIn * 100}%)` }}>{WORDS[idx]}</div>
-          )}
+      <div style={{ position: "absolute", left: 100, top: 292, opacity: 1 - blockOut, transform: `translateY(${-blockOut * 40}px)` }}>
+        <KineticTitle text={"Au comptoir\nde votre"} size={96} at={-6} stagger={2} />
+        <div style={{ position: "relative", height: 124, overflow: "hidden", marginTop: 2 }}>
+          {prev && swapIn > 0 && <Word w={prev} y={-(1 - swapIn) * 110} />}
+          <Word w={words[idx]} y={idx === 0 ? (1 - firstIn) * 110 : swapIn * 110} />
         </div>
       </div>
-      <div style={{ position: "absolute", left: 100, top: 330 }}>
-        <KineticTitle text={"Au bon\nmoment"} size={124} at={finale} dot accentLast />
+      <div style={{ position: "absolute", left: 100, top: 300 }}>
+        <KineticTitle text={"Sans avoir\nà demander"} size={110} at={FINALE} dot accentLast />
       </div>
 
-      <div style={{ position: "absolute", left: 250, top: 620, perspective: 2400 }}>
-        <Presentoir3D width={540} rotateY={interpolate(frame, [0, 105], [-20, -8])} rotateX={2} thickness={24} glare={prog(frame, 70, 34, EASE.inOut)} glareStrength={0.3} />
+      <div style={{ position: "absolute", left: 300, top: 640, perspective: 2400 }}>
+        <Presentoir3D
+          width={460}
+          rotateY={interpolate(frame, [0, 105], [-4, 8])}
+          rotateX={2}
+          thickness={22}
+          glare={prog(frame, 50, 40, EASE.inOut)}
+          glareStrength={0.3}
+        />
       </div>
-      {frame >= 4 && badgeOut < 1 && (
+      {blockOut < 1 && (
         <div
           style={{
             position: "absolute",
-            left: 700,
-            top: 540,
-            width: 170,
-            height: 170,
-            borderRadius: 52,
+            left: 690,
+            top: 580,
+            width: 150,
+            height: 150,
+            borderRadius: 46,
             background: C.cobalt,
             display: "grid",
             placeItems: "center",
-            transform: `scale(${(0.6 + 0.4 * badge) * (1 - badgeOut)}) rotate(${(1 - badge) * -12}deg)`,
+            transform: `scale(${(0.6 + 0.4 * badge) * (1 - blockOut)}) rotate(${(1 - badge) * -12}deg)`,
             boxShadow: "0 20px 40px -20px rgba(17,57,201,0.6)",
           }}
         >
-          <svg width={100} height={100} viewBox="0 0 48 48" fill="none" stroke="#fff" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">
-            {ICONS[WORDS[idx]]}
+          <svg width={90} height={90} viewBox="0 0 48 48" fill="none" stroke="#fff" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">
+            {METIER_ICONS[words[idx]]}
           </svg>
         </div>
       )}
-      <Mention from={6} to={100} text="Reviu est un service indépendant de Google. Google est une marque de Google LLC." />
       <SfxTrack
         cues={[
-          ...WORDS.map((_, i) => ["tick", 4 + i * STEP] as ["tick", number]),
-          ["whoosh-short", finale],
+          ...words.map((_, i) => ["tick", i * STEP] as ["tick", number]),
+          ["whoosh-short", FINALE - 3],
         ]}
       />
     </AbsoluteFill>

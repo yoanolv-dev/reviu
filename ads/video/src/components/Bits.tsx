@@ -129,37 +129,43 @@ export const StarRow: React.FC<{ at: number; size: number; gap?: number; stagger
 export const CheckPill: React.FC<{
   at: number;
   label: string;
+  /** Taille de reference ; le texte ne descend jamais sous 44 px. */
   size?: number;
   dark?: boolean;
   style?: React.CSSProperties;
-}> = ({ at, label, size = 50, dark = false, style }) => {
+}> = ({ at, label, size = 64, dark = false, style }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const s = pop(frame, fps, at, SPRING.snappy);
   const draw = prog(frame, at + 3, 10);
   if (frame < at) return null;
+  const font = Math.max(44, size * 0.72);
+  const icon = font * 1.1;
   return (
     <div
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: size * 0.36,
-        padding: `${size * 0.3}px ${size * 0.62}px ${size * 0.3}px ${size * 0.34}px`,
-        borderRadius: size,
-        background: dark ? "rgba(255,255,255,0.12)" : C.white,
-        boxShadow: dark ? "inset 0 0 0 2px rgba(255,255,255,0.18)" : "0 1px 2px rgba(10,13,22,0.06), 0 14px 30px -18px rgba(17,57,201,0.35)",
+        gap: font * 0.42,
+        padding: `12px ${font * 0.75}px 12px ${font * 0.34}px`,
+        borderRadius: 999,
+        maxWidth: 830,
+        boxSizing: "border-box",
+        background: dark ? "rgba(255,255,255,0.14)" : C.white,
+        boxShadow: dark ? "inset 0 0 0 2px rgba(255,255,255,0.22)" : "0 1px 2px rgba(10,13,22,0.06), 0 14px 30px -18px rgba(17,57,201,0.35)",
         fontFamily: FONT_DISPLAY,
         fontWeight: 700,
-        fontSize: size * 0.72,
-        letterSpacing: "-0.01em",
+        fontSize: font,
+        letterSpacing: "-0.015em",
         color: dark ? C.white : C.ink,
         transform: `translateX(${(1 - s) * -40}px) scale(${0.85 + 0.15 * s})`,
+        transformOrigin: "left center",
         opacity: clamp01(s * 1.5),
         whiteSpace: "nowrap",
         ...style,
       }}
     >
-      <svg width={size} height={size} viewBox="0 0 24 24">
+      <svg width={icon} height={icon} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
         <circle cx={12} cy={12} r={12} fill={dark ? C.white : C.cobalt} />
         <path
           d="M7 12.4l3.2 3.1L17 8.8"
@@ -174,6 +180,17 @@ export const CheckPill: React.FC<{
       </svg>
       {label}
     </div>
+  );
+};
+
+/** Resserre le point de "reviu.fr" (Plus Jakarta Sans l'isole trop). */
+const renderUrl = (t: string) => {
+  const i = t.indexOf("reviu.fr");
+  if (i < 0) return t;
+  return (
+    <>
+      {t.slice(0, i)}reviu<span style={{ margin: "0 -0.04em" }}>.</span>fr{t.slice(i + 8)}
+    </>
   );
 };
 
@@ -211,7 +228,7 @@ export const CtaButton: React.FC<{ at: number; label: string; width?: number; pu
         ...style,
       }}
     >
-      {label}
+      <span>{renderUrl(label)}</span>
       <svg width={width * 0.06} height={width * 0.06} viewBox="0 0 24 24">
         <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke={C.ink} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
       </svg>

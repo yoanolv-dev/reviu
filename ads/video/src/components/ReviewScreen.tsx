@@ -223,7 +223,7 @@ export const ReviewScreen: React.FC<Props> = ({
           fontWeight: 700,
           fontSize: u * 5.2,
           color: C.white,
-          background: done > 0 ? C.success : typed >= 1 ? C.cobalt : "#C9CEDA",
+          background: done > 0 ? C.cobaltDeep : typed >= 1 ? C.cobalt : "#C9CEDA",
           transform: `scale(${btnScale})`,
         }}
       >

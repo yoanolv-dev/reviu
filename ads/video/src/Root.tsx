@@ -7,7 +7,7 @@ import { A1Geste, A1_DURATION, AdProps } from "./ads/A1Geste";
 const handle = delayRender("polices");
 fontsReady.then(() => continueRender(handle));
 
-const base: AdProps = { hook: "H1", logoFlou: false, safeZones: false, posterFrame: 150 };
+const base: AdProps = { hook: "H1", logoFlou: false, safeZones: false, posterFrame: 60 };
 
 /**
  * Nommage des compositions : Reviu-<angle>-<hook>-<duree>-<format>.

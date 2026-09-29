@@ -27,7 +27,7 @@ export type AdProps = {
 const Punch: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const f = useCurrentFrame();
   const t = prog(f, 0, 8, EASE.enter);
-  return <AbsoluteFill style={{ transform: `scale(${1.06 - 0.06 * t})` }}>{children}</AbsoluteFill>;
+  return <AbsoluteFill style={{ transform: `scale(${1.03 - 0.03 * t})` }}>{children}</AbsoluteFill>;
 };
 
 export const A1_DURATION = 720;
@@ -46,16 +46,14 @@ export const A1Geste: React.FC<AdProps> = ({ hook, logoFlou, safeZones }) => {
         <Sequence durationInFrames={GESTE.end} name="1 Geste">
           <GesteScene hook={<Hook id={hook} />} />
         </Sequence>
-        <Sequence from={GESTE.waveAt} durationInFrames={34} name="Vague">
+        <Sequence from={GESTE.waveAt} durationInFrames={GESTE.end - GESTE.waveAt + 2} name="Vague">
           <WaveWipe progress={prog(frame - GESTE.waveAt, 0, GESTE.end - GESTE.waveAt - 2, EASE.inOut)} color={C.cobalt} />
         </Sequence>
         <Sequence from={225} durationInFrames={90} name="2 Sans contact ou QR">
           <ModesScene />
         </Sequence>
         <Sequence from={315} durationInFrames={105} name="3 Metiers">
-          <Punch>
-            <MetiersScene />
-          </Punch>
+          <MetiersScene />
         </Sequence>
         <Sequence from={420} durationInFrames={120} name="4 Espace">
           <Punch>
@@ -72,18 +70,24 @@ export const A1Geste: React.FC<AdProps> = ({ hook, logoFlou, safeZones }) => {
         </Sequence>
 
         <Mention
-          from={542}
-          to={632}
-          dark={frame < 600}
-          text="TVA non applicable, art. 293 B du CGI. Livraison offerte en France métropolitaine."
+          from={226}
+          to={414}
+          dark={frame < 315}
+          text={"Reviu est un service indépendant de Google.\nGoogle est une marque de Google LLC."}
         />
-        <Mention from={636} to={A1_DURATION + 10} text="*Satisfait ou remboursé 30 jours : conditions sur reviu.fr/cgv" />
+        <Mention
+          from={540}
+          to={A1_DURATION + 10}
+          dark={frame < 600}
+          text={"TVA non applicable, art.\u00a0293\u00a0B du CGI.\nLivraison offerte en France métropolitaine."}
+        />
+        <Mention from={612} to={A1_DURATION + 10} lift={109} text={"*Conditions\u00a0: reviu.fr/cgv"} />
 
         <Grain opacity={0.035} />
         {safeZones && <SafeZones />}
 
         <Audio src={staticFile("audio/music/a1.wav")} volume={0.8} />
-        <SfxTrack cues={[["whoosh", GESTE.waveAt + 12], ["whoosh-short", 315], ["whoosh-short", 420]]} />
+        <SfxTrack cues={[["whoosh", GESTE.waveAt + 11], ["whoosh-short", 420]]} />
       </AbsoluteFill>
     </FaceVariant.Provider>
   );

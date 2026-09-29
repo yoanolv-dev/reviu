@@ -6,6 +6,7 @@ import { Phone } from "../components/Phone";
 import { DashboardScreen } from "../components/PhoneScreens";
 import { KineticTitle } from "../components/KineticTitle";
 import { SfxTrack } from "../components/Sfx";
+import { Mention } from "../components/Legal";
 
 const W = 460;
 const LEFT = 540 - W / 2;
@@ -23,14 +24,16 @@ export const EspaceScene: React.FC<{ duration?: number }> = ({ duration = 120 })
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const inP = pop(frame, fps, 0, SPRING.notif);
-  const swapAt = 58;
-  const editAt = 86;
+  const swapAt = 50;
+  const editAt = 80;
 
-  const zoomIn = pop(frame, fps, 18, SPRING.camera);
-  const toLink = prog(frame, 56, 22, EASE.move);
-  const Z = mix(1, mix(1.5, 1.42, toLink), zoomIn);
+  // Cadrages verifies : haut du telephone toujours sous le titre (y >= 500),
+  // bouton "Modifier le lien" au-dessus du bandeau de mention (y <= 1180).
+  const zoomIn = pop(frame, fps, 16, SPRING.camera);
+  const toLink = prog(frame, 48, 22, EASE.move);
+  const Z = mix(1, mix(1.5, 1.15, toLink), zoomIn);
   const F = { x: mix(STATS.x, LINK.x, toLink), y: mix(STATS.y, LINK.y, toLink) };
-  const T = { x: 540, y: mix(mix(TOP + STATS.y, 900, zoomIn), 1020, toLink) };
+  const T = { x: 540, y: mix(mix(TOP + STATS.y, 900, zoomIn), 1080, toLink) };
   const dx = T.x - (LEFT + F.x);
   const dy = T.y - (TOP + F.y);
   const tilt = interpolate(frame, [0, duration], [-6, 5]);
@@ -50,24 +53,13 @@ export const EspaceScene: React.FC<{ duration?: number }> = ({ duration = 120 })
           <DashboardScreen width={W * 0.93} countAt={16} editAt={editAt} newLinkAt={editAt + 5} />
         </Phone>
       </div>
-      {/* Degrade qui degage la zone de titre quand la camera remonte. */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: 600,
-          background: `linear-gradient(180deg, ${C.brume} 0%, ${C.brume} 72%, rgba(237,241,255,0) 100%)`,
-          opacity: toLink,
-        }}
-      />
       <div style={{ position: "absolute", left: 100, top: 292 }}>
         <KineticTitle text={"Espace Reviu\ninclus"} size={100} at={2} out={swapAt - 8} dot accentLast />
       </div>
       <div style={{ position: "absolute", left: 100, top: 292 }}>
         <KineticTitle text={"Changez le lien\nà tout moment"} size={86} at={swapAt} out={duration + 2} dot accentLast />
       </div>
+      <Mention from={4} to={duration - 4} text="Aperçu. Chiffres d’exemple." />
       <SfxTrack
         cues={[
           ["swipe-up", 4],

@@ -78,7 +78,7 @@ export const KineticTitle: React.FC<Props> = ({
             const i = idx++;
             const isLast = i === total - 1;
             const t = prog(frame, at + i * stagger, 14, EASE.out);
-            const y = interpolate(t, [0, 1], [135, 0]) - exit * 140;
+            const y = interpolate(t, [0, 1], [165, 0]) - exit * 170;
             const hl = highlight.includes(i);
             const hlT = hl ? prog(frame, at + i * stagger + 6, 10, EASE.out) : 0;
             return (
@@ -124,6 +124,7 @@ export const KineticTitle: React.FC<Props> = ({
                         style={{
                           display: "inline-block",
                           color: C.gold,
+                          marginLeft: "-0.06em",
                           transform: `scale(${dotPop})`,
                           transformOrigin: "30% 80%",
                         }}
@@ -133,7 +134,7 @@ export const KineticTitle: React.FC<Props> = ({
                     )}
                   </span>
                 </span>
-                {wi < words.length - 1 && <span> </span>}
+                {wi < words.length - 1 && <span style={{ display: "inline-block", width: "0.26em" }} />}
               </React.Fragment>
             );
           })}

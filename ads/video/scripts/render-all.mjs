@@ -13,6 +13,8 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const args = process.argv.slice(2);
 const stillsOnly = args.includes("--stills-only");
+// Rendu en x2 (2160 x 3840) puis reduction Lanczos dans master.py : bords nets.
+const scale = Number((args.find((a) => a.startsWith("--scale=")) || "--scale=2").split("=")[1]);
 const wanted = args.filter((a) => !a.startsWith("--"));
 
 const serveUrl = await bundle({ entryPoint: path.join(root, "src/index.ts") });
@@ -30,6 +32,7 @@ for (const id of ids) {
     serveUrl,
     browserExecutable,
     frame: poster,
+    scale,
     output: path.join(outDir, `${id}.png`),
   });
   if (stillsOnly) continue;
@@ -40,7 +43,8 @@ for (const id of ids) {
     serveUrl,
     browserExecutable,
     codec: "h264",
-    crf: 16,
+    scale,
+    crf: 12,
     pixelFormat: "yuv420p",
     audioCodec: "aac",
     audioBitrate: "320k",

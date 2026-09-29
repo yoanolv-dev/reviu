@@ -11,8 +11,9 @@ import { SfxTrack } from "../components/Sfx";
 export const PriceStamp: React.FC<{ at: number; size?: number; color?: string }> = ({ at, size = 200, color = C.white }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const s = pop(frame, fps, at, SPRING.stamp);
-  const wave = prog(frame, at + 2, 18, EASE.out);
+  // Ressort avance de 2 frames : le prix est deja lisible sur le coup final.
+  const s = pop(frame + 2, fps, at, SPRING.stamp);
+  const wave = prog(frame, at, 18, EASE.out);
   if (frame < at) return null;
   return (
     <div style={{ position: "relative" }}>
@@ -45,7 +46,7 @@ export const PriceStamp: React.FC<{ at: number; size?: number; color?: string }>
           opacity: Math.min(1, s * 3),
         }}
       >
-        29,90&nbsp;€
+        29<span style={{ margin: "0 -0.05em" }}>,</span>90&nbsp;€
       </div>
     </div>
   );
@@ -63,23 +64,23 @@ export const PriceScene: React.FC = () => {
         <KineticTitle text="une seule fois" size={92} color={C.white} at={8} dot />
       </div>
       <div style={{ position: "absolute", left: 100, top: 720 }}>
-        <CheckPill at={20} label="Sans abonnement" dark size={56} />
+        <CheckPill at={12} label="Sans abonnement" dark />
       </div>
-      <div style={{ position: "absolute", left: 590, top: 760, perspective: 2400 }}>
+      <div style={{ position: "absolute", left: 600, top: 720, perspective: 2400 }}>
         <Presentoir3D
-          width={360}
+          width={340}
           rotateY={interpolate(frame, [0, 60], [-26, -18])}
           rotateZ={4}
           thickness={22}
           shadow={0}
-          style={{ transform: `translateY(${(1 - prog(frame, 0, 14, EASE.enter)) * 500}px)` }}
+          style={{ transform: `translateY(${(1 - prog(frame, 0, 14, EASE.enter)) * 220}px)` }}
         />
       </div>
       <SfxTrack
         cues={[
           ["impact", 2],
           ["whoosh-short", 8],
-          ["pop", 20],
+          ["pop", 12],
         ]}
       />
     </AbsoluteFill>

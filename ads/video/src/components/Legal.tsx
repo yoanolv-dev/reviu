@@ -40,9 +40,11 @@ export const Mention: React.FC<{
           lineHeight: 1.25,
           letterSpacing: "-0.005em",
           color: dark ? C.white : C.inkSoft,
-          background: dark ? "rgba(10,13,22,0.55)" : "rgba(255,255,255,0.88)",
+          background: dark ? C.ink : C.white,
+          boxShadow: dark ? "none" : "0 8px 24px -12px rgba(10,13,22,0.35)",
           borderRadius: 14,
           padding: "8px 16px",
+          whiteSpace: "pre-line",
           maxWidth: VIDEO.width - SAFE.left - SAFE.right,
         }}
       >

@@ -86,10 +86,10 @@ export const LinkBanner: React.FC<{ width: number; at: number; tapAt: number; go
     <div
       style={{
         position: "absolute",
-        top: u * 4,
+        top: u * 14,
         left: u * 4,
         right: u * 4,
-        transform: `translateY(${(1 - s) * -u * 30 - out * u * 30}px) scale(${pressed ? 0.97 : 1})`,
+        transform: `translateY(${(1 - s) * -u * 40 - out * u * 40}px) scale(${pressed ? 0.97 : 1})`,
         opacity: 1 - out,
       }}
     >
@@ -125,11 +125,11 @@ export const LinkBanner: React.FC<{ width: number; at: number; tapAt: number; go
           </svg>
         </div>
         <div style={{ lineHeight: 1.25, minWidth: 0 }}>
-          <div style={{ fontWeight: 700, fontSize: u * 5, color: C.ink }}>r.reviu.fr</div>
-          <div style={{ fontSize: u * 4.2, color: C.inkSoft }}>Touchez pour ouvrir</div>
+          <div style={{ fontWeight: 700, fontSize: u * 6.5, color: C.ink }}>r.reviu.fr</div>
+          <div style={{ fontSize: u * 5.5, color: C.inkSoft }}>Touchez pour ouvrir</div>
         </div>
       </div>
-      <TouchDot x={width * 0.46 - u * 4} y={u * 10} size={u * 13} downAt={tapAt} upAt={tapAt + 4} />
+      <TouchDot x={u * 10.5} y={u * 10} size={u * 13} downAt={tapAt} upAt={tapAt + 4} />
     </div>
   );
 };
@@ -148,7 +148,7 @@ const Counter: React.FC<{ to: number; at: number; size: number; color?: string }
 
 /**
  * Apercu de l'Espace Reviu : scans du mois (sans contact / QR code) et lien
- * du presentoir modifiable. Chiffres d'exemple, etiquetes comme tels.
+ * du presentoir modifiable. Chiffres d’exemple, etiquetes comme tels.
  */
 export const DashboardScreen: React.FC<{ width: number; countAt: number; editAt: number; newLinkAt: number }> = ({
   width,
@@ -185,17 +185,17 @@ export const DashboardScreen: React.FC<{ width: number; countAt: number; editAt:
           </div>
         ))}
       </div>
-      <div style={{ position: "absolute", top: u * 83, left: u * 7, right: u * 7, fontSize: u * 3.6, color: C.ardoise }}>
-        Chiffres d'exemple
+      <div style={{ position: "absolute", top: u * 83, left: u * 7, right: u * 7, fontSize: u * 4.4, fontWeight: 600, color: C.inkSoft }}>
+        Chiffres d’exemple
       </div>
       <div style={{ position: "absolute", top: u * 95, left: u * 7, right: u * 7, background: C.white, borderRadius: u * 5, padding: u * 4.5 }}>
         <div style={{ fontSize: u * 4, color: C.ardoise, fontWeight: 600 }}>Lien du présentoir</div>
         <div style={{ position: "relative", height: u * 8, marginTop: u * 2, overflow: "hidden" }}>
           <div style={{ position: "absolute", fontSize: u * 4.6, fontWeight: 600, transform: `translateY(${-swap * 100}%)`, opacity: 1 - swap }}>
-            Votre page d'avis Google
+            Votre page d’avis Google
           </div>
           <div style={{ position: "absolute", fontSize: u * 4.6, fontWeight: 600, color: C.cobalt, transform: `translateY(${(1 - swap) * 100}%)`, opacity: swap }}>
-            Votre nouvelle fiche
+            Votre nouvelle fiche Google
           </div>
         </div>
         <div
@@ -270,7 +270,7 @@ export const ScanScreen: React.FC<{ width: number; at: number; children?: React.
           opacity: 0.9,
         }}
       >
-        {lock > 0 ? "Page d'avis trouvée" : "Cadrez le QR code"}
+        {lock > 0 ? "Page d’avis trouvée" : "Cadrez le QR code"}
       </div>
     </div>
   );

@@ -12,44 +12,48 @@ import { Mention } from "../components/Legal";
 import { SfxTrack } from "../components/Sfx";
 import { CounterBackdrop } from "./Backdrops";
 
-/** Reperes de la scene (frames locales), partages avec les compositions. */
+/**
+ * Reperes de la scene (frames locales), partages avec les compositions.
+ * La page d'avis s'ouvre dans le telephone encore au comptoir (32), pendant
+ * que l'accroche est a l'ecran ; la camera plonge ensuite dans le telephone.
+ */
 export const GESTE = {
   contact: 4,
   bannerAt: 10,
-  bannerTap: 30,
-  pushFrom: 48,
-  sheetAt: 54,
-  starsAt: 108,
+  bannerTap: 26,
+  sheetAt: 32,
+  pushFrom: 82,
+  starsAt: 135,
   starGap: 3,
-  textAt: 128,
-  publishAt: 154,
+  textAt: 153,
+  publishAt: 165,
   /** Debut de la vague de sortie (la scene suivante commence a end). */
-  waveAt: 196,
+  waveAt: 208,
   end: 225,
 } as const;
 
 const PRODUCT_W = 640;
-const PRODUCT_LEFT = 220;
+const PRODUCT_LEFT = 300;
 const PRODUCT_TOP = 640;
 const PHONE_W = 480; // taille finale (gros plan)
-const PHONE_SMALL = 0.66; // echelle au moment du geste
 const PHONE_FINAL = { x: 540, y: 520 + (PHONE_W * PHONE_RATIO) / 2 };
-const PHONE_TAP = { x: 468, y: 1392, rot: -9 };
-const PHONE_START = { x: 790, y: 1520, rot: 12 };
+const NFC = { x: PRODUCT_LEFT + 0.3 * PRODUCT_W, y: PRODUCT_TOP + 0.76 * PRODUCT_W * FACE_RATIO };
+const PHONE_TAP = { x: NFC.x, y: 1330, rot: -9 };
+const PHONE_START = { x: 820, y: 1480, rot: 12 };
 
 type Props = {
-  /** Titre d'accroche (frames 0 a ~60). */
+  /** Titre d'accroche (frames 0 a ~90). */
   hook?: React.ReactNode;
   /** Masque les supers (pour des variantes qui posent leurs propres textes). */
   supers?: boolean;
-  /** Coupe les effets sonores (copie figee pour la boucle de fin). */
+  /** Coupe les effets sonores. */
   sfx?: boolean;
 };
 
 /**
  * Plan-sequence du geste : le telephone touche le presentoir, la banniere
- * apparait et on la touche, la camera plonge dans le telephone, la page
- * d'avis s'ouvre et le client choisit lui-meme ses etoiles.
+ * apparait et on la touche, la page d'avis s'ouvre, la camera plonge dans
+ * le telephone et le client choisit lui-meme ses etoiles.
  */
 export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true }) => {
   const frame = useCurrentFrame();
@@ -62,14 +66,15 @@ export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true })
     extrapolateRight: "clamp",
     easing: EASE.in,
   });
-  // Plongee de la camera vers le telephone.
+  // Mini-plongee pendant que la banniere s'affiche, puis plongee complete.
+  const small = mix(0.66, 0.85, prog(frame, 10, 14, EASE.move));
   const push = pop(frame, fps, G.pushFrom, SPRING.camera);
   const tapSquash = frame >= G.contact && frame < G.contact + 5 ? 0.975 : 1;
 
   const px = mix(mix(PHONE_START.x, PHONE_TAP.x, approach), PHONE_FINAL.x, push);
   const py = mix(mix(PHONE_START.y, PHONE_TAP.y, approach), PHONE_FINAL.y, push);
   const prot = mix(mix(PHONE_START.rot, PHONE_TAP.rot, approach), 0, push);
-  const pscale = mix(PHONE_SMALL, 1, push) * tapSquash;
+  const pscale = mix(small, 1, push) * tapSquash;
 
   const drop = prog(frame, G.pushFrom, 22, EASE.in);
   const productY = drop * 700;
@@ -82,7 +87,6 @@ export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true })
 
   const phoneH = PHONE_W * PHONE_RATIO;
   const screenW = PHONE_W * 0.93;
-  const nfc = { x: PRODUCT_LEFT + 0.3 * PRODUCT_W, y: PRODUCT_TOP + 0.76 * PRODUCT_W * FACE_RATIO };
 
   return (
     <AbsoluteFill style={{ transform: `scale(${bump})` }}>
@@ -97,9 +101,9 @@ export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true })
           filter: drop > 0 ? `blur(${drop * 10}px)` : undefined,
         }}
       >
-        <Presentoir3D width={PRODUCT_W} rotateY={-12 + frame * 0.05} rotateX={3} thickness={26} shadow={0.55} />
+        <Presentoir3D width={PRODUCT_W} rotateY={-20 + frame * 0.05} rotateX={3} thickness={26} shadow={0.55} focusBlur={7} />
       </div>
-      <NfcWaves at={G.contact} size={480} color={C.cobalt} style={{ left: nfc.x - 240, top: nfc.y - 240 + productY }} />
+      <NfcWaves at={G.contact} size={480} color={C.cobalt} style={{ left: NFC.x - 240, top: NFC.y - 240 + productY }} />
 
       <div
         style={{
@@ -127,35 +131,38 @@ export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true })
       </div>
 
       {/* Textes */}
-      <div style={{ position: "absolute", left: 100, top: 290, right: 150 }}>{hook}</div>
+      <div style={{ position: "absolute", left: 100, top: 292, right: 150 }}>{hook}</div>
       {supers && (
         <>
           <div style={{ position: "absolute", left: 100, top: 300 }}>
-            <KineticTitle text={"Sans appli"} size={120} at={64} out={102} dot accentLast />
+            <KineticTitle text={"Sans appli"} size={120} at={92} out={114} dot accentLast />
           </div>
           <div style={{ position: "absolute", left: 100, top: 300 }}>
-            <KineticTitle text={"Le client note\nlibrement"} size={86} at={114} out={G.waveAt} dot accentLast />
+            <KineticTitle text={"Le client note\nlibrement"} size={86} at={125} out={G.waveAt} dot accentLast />
           </div>
         </>
       )}
-      <Mention from={66} to={G.waveAt + 6} text="Scène reconstituée. Avis fictif." />
+      <Mention from={30} to={G.waveAt + 6} dark text="Scène reconstituée. Avis fictif." />
 
-      {sfx && <SfxTrack
-        cues={[
-          ["tap", G.contact],
-          ["nfc", G.contact + 1],
-          ["whoosh-short", G.bannerAt],
-          ["click", G.bannerTap],
-          ["swipe-up", G.sheetAt + 4],
-          ["star-1", G.starsAt],
-          ["star-2", G.starsAt + G.starGap],
-          ["star-3", G.starsAt + G.starGap * 2],
-          ["star-4", G.starsAt + G.starGap * 3],
-          ["star-5", G.starsAt + G.starGap * 4],
-          ["click", G.publishAt],
-          ["success", G.publishAt + 3],
-        ]}
-      />}
+      {sfx && (
+        <SfxTrack
+          cues={[
+            ["tap", G.contact],
+            ["nfc", G.contact + 1],
+            ["whoosh-short", G.bannerAt],
+            ["click", G.bannerTap],
+            ["swipe-up", G.sheetAt + 4],
+            ["whoosh", G.pushFrom + 6, 0.6],
+            ["star-1", G.starsAt],
+            ["star-2", G.starsAt + G.starGap],
+            ["star-3", G.starsAt + G.starGap * 2],
+            ["star-4", G.starsAt + G.starGap * 3],
+            ["star-5", G.starsAt + G.starGap * 4],
+            ["click", G.publishAt],
+            ["success", G.publishAt + 3],
+          ]}
+        />
+      )}
     </AbsoluteFill>
   );
 };

@@ -29,6 +29,11 @@ type Props = {
   style?: React.CSSProperties;
   /** Elements poses sur la face (coordonnees en % de la face), qui suivent la 3D. */
   children?: React.ReactNode;
+  /**
+   * Profondeur de champ : flou (px) du haut de la face, mise au point sur la
+   * zone "COLLEZ VOTRE TELEPHONE" (le logo imprime n'est pas le sujet).
+   */
+  focusBlur?: number;
 };
 
 /**
@@ -48,6 +53,7 @@ export const Presentoir3D: React.FC<Props> = ({
   hd = false,
   style,
   children,
+  focusBlur = 0,
 }) => {
   const height = width * FACE_RATIO;
   const layers = Math.max(4, Math.round(thickness / 2));
@@ -109,6 +115,21 @@ export const Presentoir3D: React.FC<Props> = ({
             transform: "translateZ(0.5px)",
           }}
         />
+        {focusBlur > 0 && (
+          <Img
+            src={face}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              transform: "translateZ(0.8px)",
+              filter: `blur(${focusBlur}px)`,
+              WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 42%, transparent 58%)",
+              maskImage: "linear-gradient(to bottom, #000 0%, #000 42%, transparent 58%)",
+            }}
+          />
+        )}
         {children && <div style={{ position: "absolute", inset: 0, transform: "translateZ(2px)" }}>{children}</div>}
         {glare > -1 && (
           <div
