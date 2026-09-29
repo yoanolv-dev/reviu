@@ -30,7 +30,24 @@ export const GESTE = {
   /** Debut de la vague de sortie (la scene suivante commence a end). */
   waveAt: 208,
   end: 225,
-} as const;
+};
+
+export type GesteTiming = typeof GESTE;
+
+/** Version resserree (coupe de 15 s) : meme geste, 175 frames au lieu de 225. */
+export const GESTE_COURT: GesteTiming = {
+  contact: 4,
+  bannerAt: 10,
+  bannerTap: 24,
+  sheetAt: 30,
+  pushFrom: 72,
+  starsAt: 118,
+  starGap: 3,
+  textAt: 132,
+  publishAt: 142,
+  waveAt: 160,
+  end: 175,
+};
 
 const PRODUCT_W = 640;
 const PRODUCT_LEFT = 300;
@@ -48,6 +65,8 @@ type Props = {
   supers?: boolean;
   /** Coupe les effets sonores. */
   sfx?: boolean;
+  /** Reperes temporels (par defaut GESTE ; GESTE_COURT pour la coupe de 15 s). */
+  timing?: GesteTiming;
 };
 
 /**
@@ -55,10 +74,10 @@ type Props = {
  * apparait et on la touche, la page d'avis s'ouvre, la camera plonge dans
  * le telephone et le client choisit lui-meme ses etoiles.
  */
-export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true }) => {
+export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true, timing = GESTE }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const G = GESTE;
+  const G = timing;
 
   // Approche du telephone (deja en mouvement a la frame 0), contact a G.contact.
   const approach = interpolate(frame, [-6, G.contact], [0, 1], {
@@ -135,10 +154,10 @@ export const GesteScene: React.FC<Props> = ({ hook, supers = true, sfx = true })
       {supers && (
         <>
           <div style={{ position: "absolute", left: 100, top: 300 }}>
-            <KineticTitle text={"Sans appli"} size={120} at={92} out={114} dot accentLast />
+            <KineticTitle text={"Sans appli"} size={120} at={G.pushFrom + 10} out={G.pushFrom + 32} dot accentLast />
           </div>
           <div style={{ position: "absolute", left: 100, top: 300 }}>
-            <KineticTitle text={"Le client note\nlibrement"} size={86} at={125} out={G.waveAt} dot accentLast />
+            <KineticTitle text={"Le client note\nlibrement"} size={86} at={G.pushFrom + 43} out={G.waveAt} dot accentLast />
           </div>
         </>
       )}
