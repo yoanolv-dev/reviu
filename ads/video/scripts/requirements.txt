@@ -1,0 +1,8 @@
+# Outils Python des scripts (detourage, sons, musique).
+pillow
+numpy
+scipy
+pyloudnorm
+imageio-ffmpeg
+# facultatif : spectrogrammes de controle
+matplotlib

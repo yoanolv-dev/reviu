@@ -1,0 +1,191 @@
+{
+  "format": "WAV PCM 16 bits, stéréo, 48000 Hz",
+  "note": "hit_s = instant perceptif à caler sur l'événement visuel. Démarrer le son à la frame (F - hit_s * fps) pour que le hit tombe sur la frame F. loudness_lufs est indicatif (sons courts complétés à 400 ms). suggested_volume : point de départ pour le volume Remotion au-dessus de la musique.",
+  "origin": "Synthèse originale (numpy/scipy), aucun échantillon ni contenu tiers.",
+  "sounds": [
+    {
+      "file": "whoosh.wav",
+      "duration_s": 0.4481,
+      "hit_s": 0.19,
+      "hit_frames_30fps": 5.7,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -13.8,
+      "suggested_volume": 0.97,
+      "description": "Passage d'air, balayage de filtre montant puis descendant, panoramique gauche vers droite. Transitions de scènes."
+    },
+    {
+      "file": "whoosh-short.wav",
+      "duration_s": 0.2197,
+      "hit_s": 0.0886,
+      "hit_frames_30fps": 2.66,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -17.1,
+      "suggested_volume": 1.0,
+      "description": "Whoosh léger et court pour les apparitions de texte."
+    },
+    {
+      "file": "swipe-up.wav",
+      "duration_s": 0.2996,
+      "hit_s": 0.2378,
+      "hit_frames_30fps": 7.13,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -16.4,
+      "suggested_volume": 1.0,
+      "description": "Montée filtrée (bruit + sinus montant discret) pour les transitions vers le haut."
+    },
+    {
+      "file": "pop.wav",
+      "duration_s": 0.12,
+      "hit_s": 0.0032,
+      "hit_frames_30fps": 0.1,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -18.3,
+      "suggested_volume": 1.0,
+      "description": "Pop rond et amical (sinus 900 vers 280 Hz + petit clic)."
+    },
+    {
+      "file": "tap.wav",
+      "duration_s": 0.15,
+      "hit_s": 0.0051,
+      "hit_frames_30fps": 0.15,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -18.3,
+      "suggested_volume": 1.0,
+      "description": "Tap du téléphone sur le présentoir : clic clair + choc sourd ~150 Hz."
+    },
+    {
+      "file": "nfc.wav",
+      "duration_s": 0.6,
+      "hit_s": 0.0056,
+      "hit_frames_30fps": 0.17,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -9.9,
+      "suggested_volume": 0.63,
+      "description": "Confirmation sans contact : deux notes de carillon à la quinte (Do6 puis Sol6), attaque douce.",
+      "markers_s": {
+        "note_1_s": 0.0,
+        "note_2_s": 0.085
+      }
+    },
+    {
+      "file": "star-1.wav",
+      "duration_s": 0.25,
+      "hit_s": 0.0037,
+      "hit_frames_30fps": 0.11,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -16.8,
+      "suggested_volume": 1.0,
+      "description": "Étoile 1/5 : pluck clochette C6 (1046.5 Hz), gamme pentatonique montante, même timbre pour les 5."
+    },
+    {
+      "file": "star-2.wav",
+      "duration_s": 0.25,
+      "hit_s": 0.0034,
+      "hit_frames_30fps": 0.1,
+      "peak_dbfs": -4.81,
+      "loudness_lufs": -16.8,
+      "suggested_volume": 1.0,
+      "description": "Étoile 2/5 : pluck clochette D6 (1174.7 Hz), gamme pentatonique montante, même timbre pour les 5."
+    },
+    {
+      "file": "star-3.wav",
+      "duration_s": 0.25,
+      "hit_s": 0.0032,
+      "hit_frames_30fps": 0.1,
+      "peak_dbfs": -6.67,
+      "loudness_lufs": -16.8,
+      "suggested_volume": 1.0,
+      "description": "Étoile 3/5 : pluck clochette F6 (1396.9 Hz), gamme pentatonique montante, même timbre pour les 5."
+    },
+    {
+      "file": "star-4.wav",
+      "duration_s": 0.25,
+      "hit_s": 0.0033,
+      "hit_frames_30fps": 0.1,
+      "peak_dbfs": -7.45,
+      "loudness_lufs": -16.8,
+      "suggested_volume": 1.0,
+      "description": "Étoile 4/5 : pluck clochette G6 (1568.0 Hz), gamme pentatonique montante, même timbre pour les 5."
+    },
+    {
+      "file": "star-5.wav",
+      "duration_s": 0.25,
+      "hit_s": 0.0036,
+      "hit_frames_30fps": 0.11,
+      "peak_dbfs": -4.77,
+      "loudness_lufs": -16.8,
+      "suggested_volume": 1.0,
+      "description": "Étoile 5/5 : pluck clochette A6 (1760.0 Hz), gamme pentatonique montante, même timbre pour les 5."
+    },
+    {
+      "file": "success.wav",
+      "duration_s": 0.9,
+      "hit_s": 0.0043,
+      "hit_frames_30fps": 0.13,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -13.9,
+      "suggested_volume": 0.99,
+      "description": "Arpège de validation (Fa La Do Fa, accord parfait + octave), marimba/cloche. Pour 'Avis publié'.",
+      "markers_s": {
+        "note_1_s": 0.0,
+        "note_2_s": 0.075,
+        "note_3_s": 0.15,
+        "note_4_s": 0.225
+      }
+    },
+    {
+      "file": "notif.wav",
+      "duration_s": 0.5,
+      "hit_s": 0.0044,
+      "hit_frames_30fps": 0.13,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -11.8,
+      "suggested_volume": 0.77,
+      "description": "Notification douce deux notes (Do5 puis Fa5), marimba, originale.",
+      "markers_s": {
+        "note_1_s": 0.0,
+        "note_2_s": 0.11
+      }
+    },
+    {
+      "file": "impact.wav",
+      "duration_s": 1.2,
+      "hit_s": 0.0056,
+      "hit_frames_30fps": 0.17,
+      "peak_dbfs": -1.5,
+      "loudness_lufs": -17.8,
+      "suggested_volume": 1.0,
+      "description": "Impact cinématique grave (sub 110 vers 45 Hz + transitoire + queue douce). Grandes révélations."
+    },
+    {
+      "file": "riser.wav",
+      "duration_s": 1.5,
+      "hit_s": 1.5,
+      "hit_frames_30fps": 45.0,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -17.3,
+      "suggested_volume": 1.0,
+      "description": "Montée de tension, finit net à pleine intensité : caler la FIN (hit_s) sur la coupe."
+    },
+    {
+      "file": "click.wav",
+      "duration_s": 0.05,
+      "hit_s": 0.0017,
+      "hit_frames_30fps": 0.05,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -27.8,
+      "suggested_volume": 1.0,
+      "description": "Clic d'interface net (appui bouton)."
+    },
+    {
+      "file": "tick.wav",
+      "duration_s": 0.05,
+      "hit_s": 0.0016,
+      "hit_frames_30fps": 0.05,
+      "peak_dbfs": -3.0,
+      "loudness_lufs": -25.1,
+      "suggested_volume": 1.0,
+      "description": "Tic très court et doux (compteurs, coches)."
+    }
+  ]
+}
