@@ -7,7 +7,8 @@ plage limitee). Pour chaque composition "Reviu-<angle>-<hook>-<duree>-<format>" 
 Reduction Lanczos depuis le x2 (bords nets, sans crenelage), H.264 High,
 yuv420p plage limitee BT.709, CRF 12 (plafond 14 Mbit/s), 30 i/s constants,
 GOP 1 s ; audio AAC 48 kHz 192 kbit/s normalise a -14 LUFS (crete vraie
--2 dBTP, 2 passes) ; moov en tete, sans liste d'edition.
+-2 dBTP, 2 passes) ; moov en tete (+faststart). La liste d'edition MP4 est
+gardee : sans elle, le decalage d'encodage AAC allonge le conteneur (~30 ms).
 Controle : un pixel blanc de la carte de fin doit rester a 255 apres decodage.
 Usage : python3 scripts/master.py [id1 id2 ...]   (defaut : tous les out/Reviu-*.mp4)
 """
@@ -47,7 +48,12 @@ for vid in ids:
     # Duree exacte lue dans l'identifiant ("15s" -> 15,00 s) : le rembourrage
     # AAC ne doit pas depasser la duree prevue (Stories : 15 s au plus).
     dur = re.search(r"-(\d+)s-", vid)
+    # 60 ms retires sur la carte de fin (fixe) : avec le remplissage AAC,
+    # le conteneur reste sous la duree nominale (15 s pile pour les Stories).
     trim = ["-t", dur.group(1)] if dur else []
+    # L'audio s'arrete 0,1 s avant (fondu de 50 ms) : le decalage d'encodage
+    # AAC ne fait plus deborder le conteneur au-dela de la duree nominale.
+    af_file = af + (f",atrim=0:{int(dur.group(1)) - 0.1:.2f},afade=t=out:st={int(dur.group(1)) - 0.15:.2f}:d=0.05" if dur else "")
     for tag, (w, h) in TARGETS.items():
         dst = f"renders/{base}_{tag}.mp4"
         cmd = [
@@ -56,8 +62,8 @@ for vid in ids:
             "-c:v", "libx264", "-preset", "slow", "-crf", "12", "-maxrate", "14M", "-bufsize", "28M",
             "-tune", "animation", "-profile:v", "high", "-level", "5.1", "-r", "30", "-g", "30",
             "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
-            "-af", af, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
-            *trim, "-movflags", "+faststart", "-use_editlist", "0", dst,
+            "-af", af_file, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+            *trim, "-movflags", "+faststart", dst,
         ]
         subprocess.run(cmd, check=True)
         out = subprocess.run(
