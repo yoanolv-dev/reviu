@@ -1,0 +1,25 @@
+{
+  "name": "reviu-ads-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Videos publicitaires Reviu (TikTok, Reels, Stories) en motion design Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "node scripts/render-all.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.530",
+    "@remotion/fonts": "^4.0.530",
+    "@remotion/media": "^4.0.530",
+    "@remotion/noise": "^4.0.530",
+    "@remotion/paths": "^4.0.530",
+    "@remotion/renderer": "^4.0.530",
+    "@remotion/shapes": "^4.0.530",
+    "@remotion/transitions": "^4.0.530",
+    "@types/react": "^19.3.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.530",
+    "typescript": "^5.9.3"
+  }
+}
