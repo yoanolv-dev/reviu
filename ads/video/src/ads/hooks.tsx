@@ -17,9 +17,9 @@ export const Hook: React.FC<{ id: HookId; out?: number }> = ({ id, out = HOOK_OU
   if (id === "H2") {
     return (
       <>
-        <KineticTitle text={"Vos clients\nvous adorent"} size={104} at={-8} out={out} stagger={2} />
-        <div style={{ marginTop: 14 }}>
-          <KineticTitle text={"Google ne le sait\npas encore"} size={70} at={10} out={out} stagger={3} accentLast dot />
+        <KineticTitle text={"Vos clients\nvous adorent"} size={96} at={-8} out={out} stagger={2} />
+        <div style={{ marginTop: 10 }}>
+          <KineticTitle text={"Google ne le sait\npas encore"} size={64} at={10} out={out} stagger={3} accentLast dot />
         </div>
       </>
     );
@@ -27,7 +27,7 @@ export const Hook: React.FC<{ id: HookId; out?: number }> = ({ id, out = HOOK_OU
   if (id === "H3") {
     return (
       <>
-        <KineticTitle text={"Nouveau :"} size={70} at={-8} out={out} />
+        <KineticTitle text={"Nouveau\u00a0:"} size={70} at={-8} out={out} />
         <div style={{ marginTop: 6 }}>
           <KineticTitle text={"le présentoir\nd’avis sans appli"} size={100} at={-2} out={out} stagger={2} accentLast dot />
         </div>
