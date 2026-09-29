@@ -27,8 +27,8 @@ export const Root: React.FC = () => (
     <Composition id="Reviu-A1-H1-24s-916-LogoFlou" component={A1Geste} durationInFrames={A1_DURATION} {...VIDEO} defaultProps={{ ...base, logoFlou: true }} />
     <Composition id="Reviu-A1-H1-15s-916" component={A1Court} durationInFrames={A1C_DURATION} {...VIDEO} defaultProps={base} />
     <Composition id="Reviu-A2-H2-21s-916" component={A2Suite} durationInFrames={A2_DURATION} {...VIDEO} defaultProps={{ ...base, hook: "H2" }} />
-    <Composition id="Reviu-A3-H1-20s-916" component={A3Chemin} durationInFrames={A3_DURATION} {...VIDEO} defaultProps={base} />
-    <Composition id="Reviu-A4-H1-15s-916" component={A4Prix} durationInFrames={A4_DURATION} {...VIDEO} defaultProps={base} />
+    <Composition id="Reviu-A3-H1-20s-916" component={A3Chemin} durationInFrames={A3_DURATION} {...VIDEO} defaultProps={{ ...base, posterFrame: 166 }} />
+    <Composition id="Reviu-A4-H1-15s-916" component={A4Prix} durationInFrames={A4_DURATION} {...VIDEO} defaultProps={{ ...base, posterFrame: 45 }} />
 
     <Composition id="Check-A1" component={A1Geste} durationInFrames={A1_DURATION} {...VIDEO} defaultProps={check} />
     <Composition id="Check-A1C" component={A1Court} durationInFrames={A1C_DURATION} {...VIDEO} defaultProps={check} />

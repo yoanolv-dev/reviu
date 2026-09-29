@@ -8,13 +8,14 @@ import { KineticTitle } from "../components/KineticTitle";
 import { SfxTrack } from "../components/Sfx";
 
 /**
- * Carte de fin (image de conversion), en deux colonnes :
- * a gauche le nom, le prix et les reassurances ; a droite le presentoir
- * (photo exacte). Dessous, la garantie et le bouton. Les mentions (conditions,
- * TVA) sont posees par la composition sous le bouton.
+ * Copie A4 de EndCard (scenes/EndCard.tsx) : image et animations identiques,
+ * seuls les sons changent (et l'espace insecable de "30 jours"). A4Prix la joue avec 8 frames d'avance (logo, nom et
+ * prix poses sur le coup final de la musique), ce qui tronquerait le "nfc" de la
+ * frame 4 : il est retire (le coup final porte l'entree), et les pops passent a
+ * 0,55 pour que le mix reste sous -1 dBFS sur la queue du coup final.
  * Tout le texte reste dans x 100 a 930 et y 292 a 1064.
  */
-export const EndCard: React.FC = () => {
+export const A4Fin: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const logo = pop(frame, fps, 0, SPRING.pop);
@@ -111,11 +112,10 @@ export const EndCard: React.FC = () => {
       </div>
       <SfxTrack
         cues={[
-          ["nfc", 4, 0.5],
-          ["pop", 14],
-          ["pop", 18],
-          ["pop", 22],
-          ["whoosh-short", 28],
+          ["pop", 14, 0.55],
+          ["pop", 18, 0.55],
+          ["pop", 22, 0.55],
+          ["whoosh-short", 28, 0.7],
         ]}
       />
     </AbsoluteFill>

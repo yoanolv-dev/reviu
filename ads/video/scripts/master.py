@@ -44,6 +44,10 @@ for vid in ids:
     rng = "in_range=pc:out_range=tv:" if full_range else "in_range=tv:out_range=tv:"
     af = loudnorm_filter(src)
     base = "REV_" + vid.replace("Reviu-", "").replace("-", "_")
+    # Duree exacte lue dans l'identifiant ("15s" -> 15,00 s) : le rembourrage
+    # AAC ne doit pas depasser la duree prevue (Stories : 15 s au plus).
+    dur = re.search(r"-(\d+)s-", vid)
+    trim = ["-t", dur.group(1)] if dur else []
     for tag, (w, h) in TARGETS.items():
         dst = f"renders/{base}_{tag}.mp4"
         cmd = [
@@ -53,7 +57,7 @@ for vid in ids:
             "-tune", "animation", "-profile:v", "high", "-level", "5.1", "-r", "30", "-g", "30",
             "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
             "-af", af, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
-            "-movflags", "+faststart", "-use_editlist", "0", dst,
+            *trim, "-movflags", "+faststart", "-use_editlist", "0", dst,
         ]
         subprocess.run(cmd, check=True)
         out = subprocess.run(
@@ -63,8 +67,10 @@ for vid in ids:
         lufs = re.findall(r"I:\s+(-?[\d.]+) LUFS", out)[-1]
         tp = re.findall(r"Peak:\s+(-?[\d.]+) dBFS", out)[-1]
         size = os.path.getsize(dst) / 1e6
-        rate = re.search(r"bitrate: (\d+) kb/s", probe(dst)).group(1)
-        print(f"{dst} : {size:.1f} Mo, {rate} kbit/s, {lufs} LUFS, crete vraie {tp} dBTP")
+        info_dst = probe(dst)
+        rate = re.search(r"bitrate: (\d+) kb/s", info_dst).group(1)
+        length = re.search(r"Duration: ([\d:.]+)", info_dst).group(1)
+        print(f"{dst} : {length}, {size:.1f} Mo, {rate} kbit/s, {lufs} LUFS, crete vraie {tp} dBTP")
     png = f"out/{vid}.png"
     if os.path.exists(png):
         subprocess.run([FF, "-y", "-loglevel", "error", "-i", png, "-vf", "scale=1080:1920:flags=lanczos", "-q:v", "3", f"renders/{base}.jpg"], check=True)
