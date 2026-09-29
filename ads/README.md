@@ -30,7 +30,7 @@ vidéo : `_TT` en 1080 x 1920 (TikTok, Reels, Stories) et `_META` en
 | `REV_A1_H3_24s_916` | 24 s | Même vidéo, autre accroche | « Nouveau : le présentoir d'avis sans appli. » | Test d'accroche (valable moins d'un an après le lancement) |
 | `REV_A1_H1_15s_916` | 15 s | Coupe courte de la vidéo principale | « Un geste. Votre page d'avis Google s'ouvre. » | Stories (lues en entier jusqu'à 15 s) |
 | `REV_A2_H2_21s_916` | 21 s | Problème : « Vous connaissez la suite » | « « Je vous mets un avis ce soir ! » » | TikTok, Reels |
-| `REV_A3_H1_20s_916` | 20 s | Friction : « Le chemin trop long » | « Laisser un avis Google, aujourd'hui : » | TikTok, Reels |
+| `REV_A3_H1_20s_916` | 20 s | Friction : « Le chemin trop long » | « Pour vous laisser un avis Google : » (les étapes s'empilent) | TikTok, Reels |
 | `REV_A4_H1_15s_916` | 15 s | Offre d'abord : « 29,90 €. Une fois. » | « 29,90 € » | Stories, reciblage |
 | `REV_A1_H1_24s_916_LogoFlou` | 24 s | Secours : logo Google imprimé flouté | idem A1 H1 | Seulement si une régie refuse la version normale |
 
