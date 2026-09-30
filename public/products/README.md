@@ -21,4 +21,16 @@ façon homogène (même fond / même échelle) pour un rendu propre.
 Format : WebP (conseillé), idéalement carré ou 4/3, ~1200 px de côté, < 500 Ko
 (compressez si besoin). Les fichiers de ce dossier sont servis publiquement.
 
+## QR code visible sur les photos
+
+Le QR imprimé sur le présentoir doit mener chez Reviu, jamais ailleurs : les
+photos fournies à l'origine renvoyaient vers un concurrent. Le QR actuel est un
+vrai QR vers `https://reviu.fr/demo`. Pour vérifier (ou corriger une nouvelle
+photo déposée dans `brand/photos/` puis ajoutée au script) :
+
+```
+python3 scripts/replace-qr.py --check   # vérification seule
+python3 scripts/replace-qr.py           # remplacement puis vérification
+```
+
 Après ajout : `git add public/products/*.webp && git commit && git push`.

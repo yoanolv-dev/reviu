@@ -1,6 +1,6 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **28 septembre 2026**. **À lire en premier : la section
+> Dernière mise à jour : **30 septembre 2026**. **À lire en premier : la section
 > « 🟪 Reprise - état au 23/09 » ci-dessous fait foi**, puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
@@ -8,6 +8,45 @@
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
 
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
+
+### Mise à jour du 30/09 - QR code des photos produit (⚠️ question client bloquante)
+- **Constat** : sur les photos produit fournies, le QR imprimé sur le présentoir
+  renvoyait vers **https://digifeel.fr**, un concurrent (décodé par OpenCV et
+  ZXing). Fichiers touchés : `public/products/*.webp` (accueil, fiche produit,
+  flux Google Shopping), `brand/photos/*.jpg` et les aperçus `brand/apercus/`
+  `post-1`, `post-4`, `post-5`, `story-2`, `story-4`.
+- **Corrigé** : QR remplacé, sur la même géométrie, par un vrai QR Reviu
+  (version 2, vers `https://reviu.fr/demo`) avec `scripts/replace-qr.py`. Le
+  script revérifie toutes les images de 0,5x à 3x (`--check` pour la
+  vérification seule). Hors du QR, les JPEG sont identiques au bit près ; les
+  WebP du site sont régénérés (1254 x 1254, qualité 92).
+- **Canva** : photos remplacées dans la charte (pages 5, 11, 12, 14), les
+  posts 1, 4, 5, les stories 2 et 4, les deux bannières et la story à la une 1.
+  Les pages `brand/canva/*.html` pointent sur le commit corrigé.
+- **Reste à traiter** :
+  - Canva « Reviu - Photos mises en situation » (hors dossier charte) : 3 autres
+    photos (boulangerie, salon, café) avec le même QR concurrent. Export refusé
+    par Canva (droits d'accès) : non corrigé.
+  - Canva : anciens doublons hors dossier (« Reviu - Charte graphique »,
+    « 5 posts », « 5 stories », « Bannière Facebook », « Bannière LinkedIn »
+    créés avant les versions de référence) : anciennes photos, à supprimer.
+  - Branches non fusionnées : `brand/reseaux/a-la-une/story-1-demo.png`
+    (`claude/beautiful-edison-jxfi29`) et `ads/video/assets-src/presentoir-face*`
+    (`claude/compassionate-bardeen-rhqrlz`) décodent encore digifeel.fr.
+  - Le QR affiché sur l'écran du téléphone d'`etape-1` est un motif illisible
+    (aucun lecteur ne le décode, même redressé) : laissé tel quel.
+- **Questions au client** (à trancher avant toute vente) :
+  1. D'où viennent ces visuels ? Le gabarit du présentoir (vague, pictogramme
+     NFC, mise en page) est identique à celui de CollecteAvis et le QR mène
+     chez Digifeel : visuels générés, fournis par le fabricant, repris d'un site ?
+  2. Qui détient les droits sur ces images et sur ce gabarit ? Licence écrite ?
+  3. **Les présentoirs physiques livrés portent-ils ce même QR ?** Si oui,
+     c'est **bloquant** : chaque scan enverrait le client final chez un
+     concurrent. Chaque présentoir doit porter son propre QR
+     `https://r.reviu.fr/{code}?s=qr` (export fournisseur :
+     `/admin/export`, SVG : `/admin/qr/{code}`). Les photos clients de
+     `public/installations/` ont le QR flouté : elles ne permettent pas de
+     vérifier.
 
 ### Mise à jour du 28/09 - publicité et mesure des ventes
 - **Google Analytics 4 + Google Ads + bandeau cookies CNIL** (mode basique :

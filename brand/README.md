@@ -53,7 +53,8 @@ Pas de sur-titre, pas de tiret long.
   `reviu-avatar-reseaux` sert de photo de profil (Instagram, Facebook, LinkedIn).
 - `icons/` : pictogrammes, étoiles, coches, spécimens typographiques vectorisés
   et exemples d'usages interdits du logo.
-- `photos/` : photos produit utilisées dans les gabarits.
+- `photos/` : photos produit utilisées dans les gabarits. Leur QR mène à
+  `reviu.fr/demo` (voir `scripts/replace-qr.py`).
 - `apercus/` : aperçus JPG des posts et stories (page Réseaux sociaux de la charte).
 - `canva/` : pages HTML importées dans Canva (une section = une page Canva).
 - `sources/` : scripts Python qui génèrent le logo vectorisé et les pages.
