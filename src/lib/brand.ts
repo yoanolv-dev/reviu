@@ -90,6 +90,16 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://reviu.fr";
 /** Adresse de contact affichée sur le site et les pages légales. */
 export const CONTACT_EMAIL = "contact@reviu.fr";
 
+/** Réseaux sociaux officiels (footer + `sameAs` du JSON-LD Organization). */
+export const SOCIAL_LINKS = [
+  { name: "Instagram", href: "https://www.instagram.com/reviu.fr/" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/reviu-fr/" },
+  { name: "TikTok", href: "https://www.tiktok.com/@reviufr" },
+  { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61595054728197" },
+] as const;
+
+export type SocialName = (typeof SOCIAL_LINKS)[number]["name"];
+
 /**
  * Téléphone de contact affiché sur le site (header, footer, pages clés), au
  * format international sans espaces, ex. "+33612345678". Vide = masqué partout.

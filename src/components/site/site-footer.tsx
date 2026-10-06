@@ -12,6 +12,7 @@ import {
 } from "@/lib/brand";
 import { TRACKING_ENABLED } from "@/lib/tracking-config";
 import { CookieConsent, ManageCookiesButton } from "./cookie-consent";
+import { SocialLinks } from "./social-links";
 
 const COLS: { title: string; links: { label: string; href: string; ext?: boolean }[] }[] = [
   {
@@ -88,6 +89,7 @@ export function SiteFooter() {
                 </a>
               )}
             </div>
+            <SocialLinks className="mt-5" />
           </div>
 
           {/* Colonnes de liens */}

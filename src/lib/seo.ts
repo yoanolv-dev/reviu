@@ -5,6 +5,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
   GUARANTEE,
+  SOCIAL_LINKS,
   STAND_PRICE,
 } from "@/lib/brand";
 
@@ -131,6 +132,7 @@ export function organizationSchema() {
     description: BRAND_DESCRIPTION,
     areaServed: { "@type": "Country", name: "France" },
     knowsLanguage: "fr-FR",
+    sameAs: SOCIAL_LINKS.map((s) => s.href),
     contactPoint: {
       "@type": "ContactPoint",
       email: CONTACT_EMAIL,
