@@ -327,7 +327,7 @@ export function ActivateFlow({
             inputMode="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="vous@exemple.fr"
+            placeholder={forOther ? "commercant@exemple.fr" : "vous@exemple.fr"}
             hint={
               forOther
                 ? "Son espace est créé au passage s'il n'en a pas encore."
