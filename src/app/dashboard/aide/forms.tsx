@@ -9,6 +9,10 @@ const primaryBtn =
   "flex h-11 w-fit items-center justify-center rounded-full bg-brand px-6 text-sm font-medium text-white transition-colors hover:bg-brand-strong disabled:opacity-50";
 
 export function NewTicketForm({ standCodes }: { standCodes: string[] }) {
+  // Champs contrôlés : en cas d'erreur, le texte saisi reste en place.
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [standCode, setStandCode] = useState("");
   const [state, action, pending] = useActionState(createTicketAction, null);
   return (
     <form action={action} className="flex flex-col gap-4">
@@ -17,6 +21,8 @@ export function NewTicketForm({ standCodes }: { standCodes: string[] }) {
         name="subject"
         maxLength={200}
         placeholder="Ex. Changer le lien de mon présentoir"
+        value={subject}
+        onChange={(e) => setSubject(e.target.value)}
       />
       <TextArea
         label="Votre message"
@@ -25,6 +31,8 @@ export function NewTicketForm({ standCodes }: { standCodes: string[] }) {
         rows={5}
         maxLength={5000}
         placeholder="Décrivez votre demande. Nous vous répondons par e-mail et ici."
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
       />
       {standCodes.length > 0 && (
         <label className="flex flex-col gap-1.5">
@@ -33,7 +41,8 @@ export function NewTicketForm({ standCodes }: { standCodes: string[] }) {
           </span>
           <select
             name="stand_code"
-            defaultValue=""
+            value={standCode}
+            onChange={(e) => setStandCode(e.target.value)}
             className="h-11 rounded-xl border border-line bg-surface px-3.5 text-sm text-ink outline-none focus:border-brand"
           >
             <option value="">Aucun en particulier</option>

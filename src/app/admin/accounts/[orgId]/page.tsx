@@ -32,7 +32,17 @@ export default async function ClientPage({
   const [c, isSuperAdmin] = await Promise.all([getClientDetail(orgId), getIsSuperAdmin()]);
   if (!c) notFound();
 
-  const main = c.establishments[0] ?? null;
+  // Commerce principal : celui qui a le plus de présentoirs (comme côté client).
+  const standsByEst = new Map<string, number>();
+  for (const s of c.stands) {
+    if (s.establishment_id) {
+      standsByEst.set(s.establishment_id, (standsByEst.get(s.establishment_id) ?? 0) + 1);
+    }
+  }
+  const main =
+    [...c.establishments].sort(
+      (a, b) => (standsByEst.get(b.id) ?? 0) - (standsByEst.get(a.id) ?? 0),
+    )[0] ?? null;
   const title = main?.name || c.org.name || "Sans nom";
   const conv = c.views30 > 0 ? Math.round((c.clicks30 / c.views30) * 100) : 0;
   const urlByEst = new Map(c.establishments.map((e) => [e.id, e.google_review_url]));
@@ -90,7 +100,7 @@ export default async function ClientPage({
           <ul className="flex flex-col gap-3">
             {c.stands.map((s) => (
               <StandRow
-                key={s.id}
+                key={`${s.id}:${s.target_url ?? ""}`}
                 stand={s}
                 commerceUrl={s.establishment_id ? (urlByEst.get(s.establishment_id) ?? null) : null}
               />

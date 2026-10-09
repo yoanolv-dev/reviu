@@ -18,7 +18,9 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
         ← Toutes vos demandes
       </Link>
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <h1 className="font-display text-2xl font-semibold text-ink">{ticket.subject}</h1>
+        <h1 className="min-w-0 font-display text-2xl font-semibold text-ink [overflow-wrap:anywhere]">
+          {ticket.subject}
+        </h1>
         <TicketStatusBadge status={ticket.status} />
       </div>
       {ticket.stand_code && (
@@ -28,6 +30,11 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
       )}
       <Thread messages={messages} viewer="client" />
       <section className="rounded-3xl border border-line bg-surface p-6">
+        {ticket.status === "closed" && (
+          <p className="mb-4 text-sm text-muted">
+            Cette demande est clôturée. Écrire un message la rouvrira.
+          </p>
+        )}
         <ReplyForm ticketId={ticket.id} />
       </section>
     </div>

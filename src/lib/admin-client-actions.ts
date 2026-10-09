@@ -14,6 +14,20 @@ import type { AdminActionState } from "./admin-actions";
 const NOT_ADMIN: AdminActionState = { error: "Accès réservé aux administrateurs." };
 const NO_DB: AdminActionState = { error: "Service indisponible (clé serveur manquante)." };
 
+type AuditRow = {
+  stand_id?: string;
+  action: string;
+  detail: Record<string, unknown>;
+  actor: string;
+  actor_email: string | null;
+};
+
+/** Journal : une erreur d'écriture ne bloque pas l'action mais reste visible dans les logs. */
+async function audit(db: NonNullable<ReturnType<typeof adminDb>>, rows: AuditRow[]) {
+  const { error } = await db.from("stand_audit").insert(rows);
+  if (error) console.error("[admin] stand_audit insert failed:", error.message);
+}
+
 function refresh(orgId: string | null) {
   revalidatePath("/admin");
   revalidatePath("/admin/stands");
@@ -64,28 +78,47 @@ export async function adminUpdateEstablishmentAction(
 
   // Présentoirs qui gardaient une copie de l'ancien lien (anciennes
   // activations) : ils suivent désormais le lien du commerce.
+  let released: { id: string }[] = [];
   if (before.google_review_url && before.google_review_url !== url.url) {
-    await db
+    const { data } = await db
       .from("stands")
       .update({ target_url: null })
       .eq("establishment_id", id)
-      .eq("target_url", before.google_review_url);
+      .eq("target_url", before.google_review_url)
+      .select("id");
+    released = data ?? [];
   }
 
-  await db.from("stand_audit").insert({
-    action: "admin_edit_establishment",
-    detail: {
-      establishment: id,
-      name,
-      from_url: before.google_review_url,
-      to_url: url.url,
+  await audit(db, [
+    {
+      action: "admin_edit_establishment",
+      detail: {
+        establishment: id,
+        name,
+        from_url: before.google_review_url,
+        to_url: url.url,
+      },
+      actor: admin.id,
+      actor_email: admin.email,
     },
-    actor: admin.id,
-    actor_email: admin.email,
-  });
+    // Une ligne par présentoir dont le lien change, pour son historique.
+    ...released.map((s) => ({
+      stand_id: s.id,
+      action: "admin_set_link",
+      detail: { from: before.google_review_url, to: null, via: "establishment" },
+      actor: admin.id,
+      actor_email: admin.email,
+    })),
+  ]);
 
   refresh(before.org_id);
-  return { success: true, info: "Commerce mis à jour. Les présentoirs suivent le nouveau lien." };
+  const linkChanged = (before.google_review_url ?? null) !== url.url;
+  return {
+    success: true,
+    info: linkChanged
+      ? "Commerce mis à jour. Les présentoirs sans lien propre utilisent le nouveau lien."
+      : "Commerce mis à jour.",
+  };
 }
 
 /** Lien propre à un présentoir (vide = suit le lien du commerce). */
@@ -117,13 +150,15 @@ export async function adminSetStandLinkAction(
         : "Enregistrement impossible. Réessayez.",
     };
   }
-  await db.from("stand_audit").insert({
-    stand_id: standId,
-    action: "admin_set_link",
-    detail: { from: before.target_url, to: url.url },
-    actor: admin.id,
-    actor_email: admin.email,
-  });
+  await audit(db, [
+    {
+      stand_id: standId,
+      action: "admin_set_link",
+      detail: { from: before.target_url, to: url.url },
+      actor: admin.id,
+      actor_email: admin.email,
+    },
+  ]);
 
   refresh(before.org_id);
   return {

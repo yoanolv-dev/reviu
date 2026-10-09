@@ -30,12 +30,16 @@ export async function getStandByCode(code: string): Promise<Stand | null> {
 
   if (error || !data) return null;
 
+  // Lien effectif : celui du présentoir s'il en a un, sinon celui du commerce
+  // (resolve_stand renvoie déjà target_url = coalesce des deux). Un présentoir
+  // avec son propre lien fonctionne donc même si le commerce n'en a pas.
+  const link = data.target_url ?? data.google_review_url;
   const establishment: Establishment | null =
-    data.establishment_id && data.google_review_url
+    data.establishment_id && link
       ? {
           id: data.establishment_id,
           name: data.name ?? "",
-          googleReviewUrl: data.google_review_url,
+          googleReviewUrl: link,
           logoUrl: data.logo_url,
           brandColor: data.brand_color,
           welcomeMessage: data.welcome_message,

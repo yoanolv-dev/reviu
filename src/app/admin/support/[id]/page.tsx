@@ -22,7 +22,9 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
       </Link>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="font-display text-2xl font-semibold text-ink">{ticket.subject}</h1>
+          <h1 className="font-display text-2xl font-semibold text-ink [overflow-wrap:anywhere]">
+            {ticket.subject}
+          </h1>
           <p className="mt-1 text-sm text-muted">
             {ticket.email}
             {ticket.stand_code ? (

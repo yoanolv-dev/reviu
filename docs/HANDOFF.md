@@ -117,9 +117,22 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   lien du commerce** (plus de copie dans `stands.target_url`). Changer le lien
   du commerce (espace ou admin) met aussi à jour les présentoirs qui gardaient
   une copie de l'ancien lien. Un lien propre à un présentoir reste possible.
+- **Clients** : la liste ne sert qu'à trouver un client (commerce, contact,
+  e-mail) ; toutes les actions sont sur la fiche. Un code de présentoir vierge
+  ou retiré ouvre la page Présentoirs. « Suspendre le compte » demande une
+  confirmation (tous ses présentoirs cessent de rediriger).
+- **Lien propre d'un présentoir** : il fonctionne même si le commerce n'a pas
+  encore de lien (`getStandByCode` utilise le lien effectif). Bouton « Suivre
+  le lien du commerce » pour revenir au lien du commerce.
+- Les pages admin affichent un message clair (`src/app/admin/error.tsx`) si la
+  clé `SUPABASE_SERVICE_ROLE_KEY` manque, au lieu de la page d'erreur générique.
 - Migration **`20261009130000_reviu_support_tickets.sql`** (tables
-  `support_tickets`, `support_messages`, accès serveur uniquement) : à
-  appliquer pour activer le support (sinon les listes restent vides).
+  `support_tickets`, `support_messages`, accès serveur uniquement) :
+  **appliquée en prod le 09/10**. Les limites d'envoi du support (10 demandes
+  par jour et par commerçant, 60 e-mails par heure vers l'admin) passent par
+  `rl_allow` (migration `20261009120000`) et sont **bloquantes** : tant que
+  cette migration n'est pas appliquée, la création de demande répond « Trop de
+  demandes pour le moment ».
 
 ### Un commerce par compte (limite actuelle de l'espace)
 - L'espace ne gère qu'un établissement par compte : `getMyContext` affiche
@@ -133,11 +146,22 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   rattacher le présentoir à son propre commerce.
 
 ### Base de données
+- `20261009115000_reviu_lock_roles.sql` : **appliquée en prod le 09/10
+  (correctif de sécurité urgent)**. Avant, tout utilisateur connecté pouvait
+  modifier son propre `profiles.role` (devenir administrateur) ou lever la
+  suspension de son organisation via l'API publique. Les utilisateurs ne
+  peuvent plus écrire que leur nom et le nom de leur organisation. Vérifié :
+  seul yoan.oliveira30@gmail.com a un rôle admin.
 - `20261009120000_reviu_verified_activation.sql` : **ajouts uniquement**
   (`rate_events`, `rl_*`, `is_allowed_review_url`, `stand_secret_matches`,
   `check_stand_secret`, `activate_stand_verified`, `auth_unconfirmed_user_id`),
-  service role seulement.
-  Sans effet sur la prod actuelle ; nécessaire pour tester la branche.
+  service role seulement, plus `admin_assign_stand` / `admin_transfer_stand`
+  qui ne copient plus le lien du commerce dans le présentoir.
+  Sans effet sur le parcours actuel ; **nécessaire pour tester la branche et
+  pour le support** (limites d'envoi). **Pas encore appliquée** : le connecteur
+  Supabase demande une confirmation manuelle pour cette migration (elle
+  contient un `delete` de purge). À appliquer dans Supabase > SQL Editor en
+  collant le fichier, ou en acceptant la demande du connecteur.
 - `20261009121000_reviu_activation_lockdown.sql` : **à appliquer AU MOMENT de la
   mise en prod** (juste après le déploiement) : retire l'accès public à
   `activate_stand`, `claim_stand` et `self_set_subscription` (cette dernière

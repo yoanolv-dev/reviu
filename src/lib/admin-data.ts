@@ -15,22 +15,47 @@ function sinceIso(days: number): string {
 
 function db() {
   const client = adminDb();
+  // Affiché par src/app/admin/error.tsx avec une explication en français.
   if (!client) throw new Error("SUPABASE_SERVICE_ROLE_KEY manquante");
   return client;
 }
 
 export type ScanRow = { stand_id: string; kind: string; created_at: string };
 
+/** Jours calendaires (Europe/Paris) des N derniers jours, du plus ancien à aujourd'hui. */
+export function lastDays(days: number): string[] {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const get = (t: string) => Number(parts.find((p) => p.type === t)?.value);
+  const [y, m, d] = [get("year"), get("month"), get("day")];
+  const out: string[] = [];
+  // Arithmétique de calendrier (et non « - 24 h ») : aucun jour sauté ou doublé
+  // aux changements d'heure.
+  for (let i = days - 1; i >= 0; i--) {
+    out.push(new Date(Date.UTC(y, m - 1, d - i)).toISOString().slice(0, 10));
+  }
+  return out;
+}
+
+const parisDay = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris" }); // AAAA-MM-JJ
+
 /** Scans (vues et clics) depuis N jours, éventuellement limités à des présentoirs. */
 export async function scansSince(days: number, standIds?: string[]): Promise<ScanRow[]> {
   if (standIds && standIds.length === 0) return [];
   const out: ScanRow[] = [];
+  // Borne calculée une fois (+ 1 jour de marge pour couvrir le premier jour
+  // calendaire entier) ; tri stable par id pour une pagination sans trou.
+  const since = sinceIso(days + 1);
   for (let page = 0; page < 50; page++) {
     let q = db()
       .from("scans")
       .select("stand_id,kind,created_at")
-      .gte("created_at", sinceIso(days))
-      .order("created_at", { ascending: true })
+      .gte("created_at", since)
+      .order("id", { ascending: true })
       .range(page * PAGE, page * PAGE + PAGE - 1);
     if (standIds) q = q.in("stand_id", standIds);
     const { data, error } = await q;
@@ -55,16 +80,19 @@ export function countByStand(rows: ScanRow[]): StandCounts {
 
 export type DayPoint = { day: string; views: number; clicks: number };
 
+/** Ne garde que les scans des N derniers jours calendaires (Europe/Paris). */
+export function withinDays(rows: ScanRow[], days: number): ScanRow[] {
+  const keep = new Set(lastDays(days));
+  return rows.filter((r) => keep.has(parisDay.format(new Date(r.created_at))));
+}
+
 /** Série quotidienne sur N jours (jours sans scan inclus, à zéro). */
 export function dailySeries(rows: ScanRow[], days: number): DayPoint[] {
-  const fmt = new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }); // AAAA-MM-JJ
-  const points = new Map<string, DayPoint>();
-  for (let i = days - 1; i >= 0; i--) {
-    const day = fmt.format(new Date(Date.now() - i * DAY_MS));
-    points.set(day, { day, views: 0, clicks: 0 });
-  }
+  const points = new Map<string, DayPoint>(
+    lastDays(days).map((day) => [day, { day, views: 0, clicks: 0 }]),
+  );
   for (const r of rows) {
-    const p = points.get(fmt.format(new Date(r.created_at)));
+    const p = points.get(parisDay.format(new Date(r.created_at)));
     if (!p) continue;
     if (r.kind === "click") p.clicks++;
     else if (r.kind === "view") p.views++;
@@ -96,6 +124,8 @@ export interface TicketRow {
   last_author: "client" | "admin";
   created_at: string;
   updated_at: string;
+  /** Nom du commerce du client (pour le reconnaître dans les listes). */
+  commerce?: string | null;
 }
 
 export interface TicketMessage {
@@ -115,7 +145,20 @@ export async function listTickets(filter: "todo" | "all"): Promise<TicketRow[]> 
   });
   if (filter === "todo") q = q.eq("status", "open");
   const { data } = await q.limit(300);
-  return (data ?? []) as TicketRow[];
+  const rows = (data ?? []) as TicketRow[];
+
+  const orgIds = [...new Set(rows.map((t) => t.org_id).filter((v): v is string => !!v))];
+  if (orgIds.length === 0) return rows;
+  const { data: ests } = await db()
+    .from("establishments")
+    .select("org_id,name")
+    .in("org_id", orgIds)
+    .order("created_at");
+  const names = new Map<string, string>();
+  for (const e of (ests ?? []) as { org_id: string; name: string }[]) {
+    if (!names.has(e.org_id) && e.name) names.set(e.org_id, e.name);
+  }
+  return rows.map((t) => ({ ...t, commerce: t.org_id ? (names.get(t.org_id) ?? null) : null }));
 }
 
 export async function getTicketWithMessages(
@@ -172,20 +215,19 @@ export async function getOverview(): Promise<Overview> {
     ]);
 
   // Présentoirs actifs qui ne redirigent nulle part (ni lien propre, ni lien
-  // du commerce) : à corriger en priorité.
+  // du commerce) : à corriger en priorité. Filtré par la base (inner join).
   const { data: activeRows } = await client
     .from("stands")
-    .select("code,org_id,target_url,establishments(name,google_review_url)")
+    .select("code,org_id,establishments!inner(name,google_review_url)")
     .eq("status", "active")
     .is("target_url", null)
-    .limit(500);
+    .is("establishments.google_review_url", null)
+    .limit(100);
   const noLink = ((activeRows ?? []) as unknown as {
     code: string;
     org_id: string | null;
-    establishments: { name: string; google_review_url: string | null } | null;
-  }[])
-    .filter((s) => !s.establishments?.google_review_url)
-    .map((s) => ({ code: s.code, orgId: s.org_id, name: s.establishments?.name ?? "" }));
+    establishments: { name: string } | null;
+  }[]).map((s) => ({ code: s.code, orgId: s.org_id, name: s.establishments?.name ?? "" }));
 
   const { data: audit } = await client
     .from("stand_audit")
@@ -361,8 +403,10 @@ export async function getClientDetail(orgId: string): Promise<ClientDetail | nul
       .limit(20),
   ]);
 
-  const counts = countByStand(rows30);
-  const days = dailySeries(rows30, 30);
+  // Même fenêtre (30 jours calendaires) pour la série et les compteurs.
+  const window30 = withinDays(rows30, 30);
+  const counts = countByStand(window30);
+  const days = dailySeries(window30, 30);
   return {
     org: {
       id: org.id,

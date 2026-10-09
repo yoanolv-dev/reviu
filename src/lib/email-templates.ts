@@ -184,7 +184,8 @@ export function supportToAdminEmail(opts: {
 }): { subject: string; html: string } {
   const body = `${p(`${opts.isNew ? "Nouvelle demande" : "Nouveau message"} de <strong style="color:#0a0d16;">${esc(opts.email)}</strong> :`)}
       <div style="margin:0 0 20px;padding:14px 16px;border-radius:12px;background:#f5f6f8;font-size:15px;line-height:1.6;color:#0a0d16;white-space:pre-wrap;">${esc(opts.body)}</div>
-      ${button(opts.link, "Répondre")}`;
+      ${button(opts.link, "Répondre dans l'admin")}
+      ${p(`<span style="font-size:13px;color:#6b7280;">Répondre depuis l'admin garde l'historique et met à jour la demande. Une réponse directe par e-mail n'apparaît pas dans la demande.</span>`)}`;
   return {
     subject: `${opts.isNew ? "Support" : "Support (réponse)"} - ${opts.subject}`,
     html: layout({

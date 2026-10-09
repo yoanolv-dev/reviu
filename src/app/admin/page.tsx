@@ -48,11 +48,11 @@ export default async function AdminHome() {
         <StatCard label="Clients" value={o.clients} />
         <StatCard label="Présentoirs actifs" value={o.activeStands} />
         <StatCard label="Scans (30 j)" value={o.views30} />
-        <StatCard label="Vers Google (30 j)" value={`${o.clicks30} · ${conv30} %`} />
+        <StatCard label="Vers Google (30 j)" value={o.clicks30} />
       </div>
       <p className="-mt-5 text-xs text-muted">
-        7 derniers jours : {o.views7} scans, {o.clicks7} clics vers Google ·{" "}
-        {o.blankStands} présentoirs vierges en stock.
+        Taux vers Google (30 j) : {conv30} % des scans · 7 derniers jours : {o.views7}{" "}
+        scans, {o.clicks7} vers Google · {o.blankStands} présentoirs vierges en stock.
       </p>
 
       <section className="grid gap-4 lg:grid-cols-2">
@@ -63,8 +63,8 @@ export default async function AdminHome() {
           {o.openTickets.length === 0 ? (
             <Empty>Aucune demande en attente.</Empty>
           ) : (
-            <ul className="flex flex-col divide-y divide-line">
-              {o.openTickets.slice(0, 6).map((t) => (
+            <ul className="flex max-h-96 flex-col divide-y divide-line overflow-y-auto">
+              {o.openTickets.map((t) => (
                 <li key={t.id}>
                   <Link
                     href={`/admin/support/${t.id}`}
@@ -75,6 +75,7 @@ export default async function AdminHome() {
                         {t.subject}
                       </span>
                       <span className="block truncate text-xs text-muted">
+                        {t.commerce ? `${t.commerce} · ` : ""}
                         {t.email} · {formatDateTime(t.updated_at)}
                       </span>
                     </span>
@@ -90,8 +91,8 @@ export default async function AdminHome() {
           {o.noLink.length === 0 ? (
             <Empty>Tous les présentoirs actifs redirigent vers Google.</Empty>
           ) : (
-            <ul className="flex flex-col divide-y divide-line">
-              {o.noLink.slice(0, 8).map((s) => (
+            <ul className="flex max-h-96 flex-col divide-y divide-line overflow-y-auto">
+              {o.noLink.map((s) => (
                 <li key={s.code}>
                   <ClientLink orgId={s.orgId}>
                     <span className="font-mono text-sm text-ink">{s.code}</span>

@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createSupabaseServer } from "./supabase/server";
 import { normalizeEmail, sendLoginCode } from "./auth-code";
 import { getIsAdmin } from "./admin";
@@ -176,7 +177,7 @@ export async function setAccountDisabledAction(
   });
   if (error) return { error: mapErr(error.message) };
   revalidatePath("/admin/accounts");
-  return { success: true, info: disabled ? "Compte désactivé." : "Compte réactivé." };
+  return { success: true, info: disabled ? "Compte suspendu." : "Compte réactivé." };
 }
 
 export async function deleteAccountAction(
@@ -189,6 +190,8 @@ export async function deleteAccountAction(
   });
   if (error) return { error: mapErr(error.message) };
   revalidatePath("/admin/accounts");
+  // Depuis la fiche du client (qui n'existe plus) : retour à la liste.
+  if (formData.get("then") === "list") redirect("/admin/accounts");
   return { success: true, info: "Compte supprimé (présentoirs retirés)." };
 }
 

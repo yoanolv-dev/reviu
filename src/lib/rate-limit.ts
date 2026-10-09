@@ -38,9 +38,10 @@ export async function rateAllow(
   key: string,
   windowSeconds: number,
   max: number,
+  opts: { failClosed?: boolean } = {},
 ): Promise<boolean> {
   const admin = createSupabaseAdmin();
-  if (!admin) return true;
+  if (!admin) return !opts.failClosed;
   const { data, error } = await admin.rpc("rl_allow", {
     p_kind: kind,
     p_key: key,
@@ -49,7 +50,7 @@ export async function rateAllow(
   });
   if (error) {
     console.error("[rate-limit] rl_allow", kind, error.message);
-    return true;
+    return !opts.failClosed;
   }
   return data !== false;
 }

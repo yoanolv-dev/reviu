@@ -9,7 +9,7 @@ import { currentOrigin } from "./auth-code";
 import { rateAllow } from "./rate-limit";
 import { sendEmail } from "./email";
 import { supportToAdminEmail, supportToClientEmail } from "./email-templates";
-import { ADMIN_NOTIFY_EMAIL } from "./brand";
+import { ADMIN_NOTIFY_EMAIL, CONTACT_EMAIL } from "./brand";
 import type { FormState } from "./form";
 import type { AdminActionState } from "./admin-actions";
 
@@ -48,11 +48,29 @@ export async function createTicketAction(
   if (!body) return { error: "Décrivez votre demande." };
   const subject =
     String(formData.get("subject") ?? "").trim().slice(0, 200) ||
-    body.split("\n")[0].slice(0, 80);
-  const standCode = String(formData.get("stand_code") ?? "").trim().toLowerCase() || null;
+    body.split(/\r?\n/)[0].trim().slice(0, 80) ||
+    "Demande";
 
-  if (!(await rateAllow("ticket_create", me.id, 86_400, 10))) {
-    return { error: "Vous avez ouvert beaucoup de demandes aujourd'hui. Réessayez demain." };
+  // Présentoir concerné : seulement l'un des siens (le code est public).
+  let standCode: string | null = null;
+  const rawCode = String(formData.get("stand_code") ?? "").trim().toLowerCase();
+  if (/^[a-z0-9]{6,8}$/.test(rawCode) && me.orgId) {
+    const { data: own } = await db
+      .from("stands")
+      .select("code")
+      .eq("code", rawCode)
+      .eq("org_id", me.orgId)
+      .maybeSingle<{ code: string }>();
+    standCode = own?.code ?? null;
+  }
+
+  // Limites (bloquantes si le compteur est indisponible) : protège la boîte
+  // de l'admin contre un envoi massif.
+  if (
+    !(await rateAllow("ticket_create", me.id, 86_400, 10, { failClosed: true })) ||
+    !(await rateAllow("support_notify", "admin", 3600, 60, { failClosed: true }))
+  ) {
+    return { error: "Trop de demandes pour le moment. Réessayez plus tard ou écrivez-nous par e-mail." };
   }
 
   const { data: ticket, error } = await db
@@ -105,14 +123,19 @@ export async function replyTicketAction(
   if (!body) return { error: "Écrivez votre message." };
   const { data: ticket } = await db
     .from("support_tickets")
-    .select("id,subject")
+    .select("id,subject,status,last_author")
     .eq("id", ticketId)
     .eq("user_id", me.id)
-    .maybeSingle<{ id: string; subject: string }>();
+    .maybeSingle<{ id: string; subject: string; status: string; last_author: string }>();
   if (!ticket) return { error: "Demande introuvable." };
-  if (!(await rateAllow("ticket_message", me.id, 3600, 30))) {
+  if (!(await rateAllow("ticket_message", me.id, 3600, 30, { failClosed: true }))) {
     return { error: "Trop de messages envoyés. Réessayez dans un moment." };
   }
+  // L'admin n'est prévenu qu'une fois par « tour » : si la demande attend déjà
+  // sa réponse, les messages suivants ne déclenchent pas de nouvel e-mail.
+  const notifyAdmin =
+    !(ticket.status === "open" && ticket.last_author === "client") &&
+    (await rateAllow("support_notify", "admin", 3600, 60, { failClosed: true }));
 
   await db.from("support_messages").insert({
     ticket_id: ticket.id,
@@ -126,16 +149,18 @@ export async function replyTicketAction(
     .eq("id", ticket.id);
 
   const origin = await currentOrigin();
-  after(async () => {
-    const mail = supportToAdminEmail({
-      subject: ticket.subject,
-      body,
-      email: me.email,
-      isNew: false,
-      link: `${origin}/admin/support/${ticket.id}`,
+  if (notifyAdmin) {
+    after(async () => {
+      const mail = supportToAdminEmail({
+        subject: ticket.subject,
+        body,
+        email: me.email,
+        isNew: false,
+        link: `${origin}/admin/support/${ticket.id}`,
+      });
+      await sendEmail({ to: ADMIN_NOTIFY_EMAIL, ...mail, replyTo: me.email });
     });
-    await sendEmail({ to: ADMIN_NOTIFY_EMAIL, ...mail, replyTo: me.email });
-  });
+  }
   revalidatePath(`/dashboard/aide/${ticket.id}`);
   revalidatePath("/dashboard/aide");
   return { success: true };
@@ -185,7 +210,8 @@ export async function adminReplyTicketAction(
       body,
       link: `${origin}/dashboard/aide/${ticket.id}`,
     });
-    await sendEmail({ to: ticket.email, ...mail, replyTo: ADMIN_NOTIFY_EMAIL });
+    // Réponse : adresse de contact publique (jamais l'adresse personnelle).
+    await sendEmail({ to: ticket.email, ...mail, replyTo: CONTACT_EMAIL });
   });
   revalidatePath(`/admin/support/${ticket.id}`);
   revalidatePath("/admin/support");

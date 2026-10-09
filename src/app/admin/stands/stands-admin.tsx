@@ -20,8 +20,8 @@ const STATUS_OPTIONS = [
   { value: "retired", label: "Retiré" },
 ];
 
-function StandCard({ stand }: { stand: StandFull }) {
-  const [open, setOpen] = useState(false);
+function StandCard({ stand, defaultOpen = false }: { stand: StandFull; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   const [statusState, statusAction, statusPending] = useActionState(
     setStandStatusAction,
     null,
@@ -253,7 +253,11 @@ export function StandsAdmin({
       ) : (
         <ul className="flex flex-col gap-3">
           {filtered.map((s) => (
-            <StandCard key={s.id} stand={s} />
+            <StandCard
+              key={s.id}
+              stand={s}
+              defaultOpen={initialQuery !== "" && s.code === initialQuery.trim().toLowerCase()}
+            />
           ))}
         </ul>
       )}

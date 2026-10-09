@@ -12,12 +12,24 @@ function label(day: string) {
 /**
  * Scans par jour sur 30 jours : une seule série (le titre la nomme, pas de
  * légende), barres fines arrondies côté valeur, axe discret, info-bulle au
- * survol ou au clavier, et tableau des données pour les lecteurs d'écran.
+ * survol, et tableau des données (clavier, lecteurs d'écran).
  */
 export function ScansChart({ days }: { days: DayPoint[] }) {
   const [active, setActive] = useState<number | null>(null);
   const max = Math.max(1, ...days.map((d) => d.views));
+  const total = days.reduce((n, d) => n + d.views, 0);
   const current = active === null ? null : days[active];
+
+  if (total === 0) {
+    return (
+      <figure className="rounded-3xl border border-line bg-surface p-5">
+        <figcaption className="font-display text-base font-semibold text-ink">
+          Scans par jour (30 jours)
+        </figcaption>
+        <p className="mt-3 text-sm text-muted">Aucun scan sur les 30 derniers jours.</p>
+      </figure>
+    );
+  }
 
   return (
     <figure className="rounded-3xl border border-line bg-surface p-5">
@@ -28,7 +40,7 @@ export function ScansChart({ days }: { days: DayPoint[] }) {
         <span className="text-xs text-muted" aria-live="polite">
           {current
             ? `${label(current.day)} : ${current.views} scan${current.views > 1 ? "s" : ""}, ${current.clicks} vers Google`
-            : `Max ${max} / jour`}
+            : `${total} scan${total > 1 ? "s" : ""}, jusqu'à ${max} par jour`}
         </span>
       </figcaption>
       <div

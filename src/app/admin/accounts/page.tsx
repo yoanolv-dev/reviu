@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { listCustomers, getIsSuperAdmin } from "@/lib/admin";
+import { listCustomers } from "@/lib/admin";
 import { adminDb, requireAdmin } from "@/lib/admin-server";
 import { AccountsAdmin } from "./accounts-admin";
 
@@ -23,12 +23,11 @@ export default async function AdminAccountsPage({
       .eq("code", code)
       .maybeSingle<{ org_id: string | null }>()) ?? { data: null };
     if (data?.org_id) redirect(`/admin/accounts/${data.org_id}`);
+    // Présentoir vierge ou retiré : pas de client, on l'ouvre dans Présentoirs.
+    if (data) redirect(`/admin/stands?q=${code}`);
   }
 
-  const [customers, isSuperAdmin] = await Promise.all([
-    listCustomers(),
-    getIsSuperAdmin(),
-  ]);
+  const customers = await listCustomers();
 
   return (
     <div className="flex flex-col gap-6">
@@ -39,7 +38,7 @@ export default async function AdminAccountsPage({
           commerce, liens, présentoirs, statistiques, support.
         </p>
       </div>
-      <AccountsAdmin customers={customers} isSuperAdmin={isSuperAdmin} initialQuery={q} />
+      <AccountsAdmin customers={customers} initialQuery={q} />
     </div>
   );
 }

@@ -318,6 +318,57 @@ as $$
   limit 1;
 $$;
 
+-- 4 ter. Attribution et transfert par l'admin : plus de copie du lien --------
+-- Un presentoir sans lien propre suit le lien de son commerce. Les versions
+-- precedentes copiaient le lien du commerce dans stands.target_url, qui ne
+-- suivait donc plus les changements de lien. Au transfert, l'ancien lien
+-- (celui d'un autre commerce) est retire.
+create or replace function public.admin_assign_stand(p_code text, p_establishment_id uuid)
+returns void language plpgsql security definer set search_path to 'public' as $$
+declare v_org uuid; v_stand uuid; v_status text; v_email text := lower(coalesce(auth.jwt() ->> 'email',''));
+begin
+  if not public.is_admin() then raise exception 'not_admin'; end if;
+  select org_id into v_org from public.establishments where id = p_establishment_id;
+  if v_org is null then raise exception 'establishment_not_found'; end if;
+  select id, status into v_stand, v_status from public.stands where code = lower(trim(p_code));
+  if v_stand is null then raise exception 'stand_not_found'; end if;
+  if v_status <> 'blank' then raise exception 'stand_already_assigned'; end if;
+
+  update public.stands
+    set org_id = v_org, establishment_id = p_establishment_id, status = 'active',
+        activated_at = now(), target_url = null
+  where id = v_stand;
+
+  insert into public.stand_audit (stand_id, action, detail, actor, actor_email)
+  values (v_stand, 'assigned', jsonb_build_object('establishment', p_establishment_id), auth.uid(), v_email);
+end; $$;
+
+create or replace function public.admin_transfer_stand(p_stand uuid, p_target_establishment_id uuid)
+returns void language plpgsql security definer set search_path to 'public' as $$
+declare v_org uuid; v_from text; v_email text := lower(coalesce(auth.jwt() ->> 'email',''));
+begin
+  if not public.is_admin() then raise exception 'not_admin'; end if;
+  select org_id into v_org from public.establishments where id = p_target_establishment_id;
+  if v_org is null then raise exception 'establishment_not_found'; end if;
+  select target_url into v_from from public.stands where id = p_stand;
+  if not found then raise exception 'stand_not_found'; end if;
+
+  update public.stands
+    set org_id = v_org, establishment_id = p_target_establishment_id,
+        target_url = null, status = 'active', status_changed_at = now()
+  where id = p_stand;
+
+  insert into public.stand_audit (stand_id, action, detail, actor, actor_email)
+  values (p_stand, 'transferred',
+          jsonb_build_object('establishment', p_target_establishment_id, 'from_url', v_from),
+          auth.uid(), v_email);
+end; $$;
+
+revoke execute on function public.admin_assign_stand(text, uuid) from public, anon;
+revoke execute on function public.admin_transfer_stand(uuid, uuid) from public, anon;
+grant execute on function public.admin_assign_stand(text, uuid) to authenticated, service_role;
+grant execute on function public.admin_transfer_stand(uuid, uuid) to authenticated, service_role;
+
 -- 5. Droits : serveur uniquement (service role) ------------------------------
 do $$
 declare

@@ -61,11 +61,11 @@ export function Thread({
           <li key={m.id} className={cn("flex", mine ? "justify-end" : "justify-start")}>
             <div
               className={cn(
-                "max-w-[85%] rounded-2xl px-4 py-3",
+                "min-w-0 max-w-[85%] rounded-2xl px-4 py-3",
                 mine ? "bg-brand text-white" : "border border-line bg-surface text-ink",
               )}
             >
-              <p className="whitespace-pre-wrap text-[15px] leading-relaxed">{m.body}</p>
+              <p className="whitespace-pre-wrap text-[15px] leading-relaxed [overflow-wrap:anywhere]">{m.body}</p>
               <p className={cn("mt-1.5 text-[11px]", mine ? "text-white/75" : "text-muted")}>
                 {m.author === "admin" ? "reviu" : (m.author_email ?? "Commerçant")} ·{" "}
                 {formatDateTime(m.created_at)}

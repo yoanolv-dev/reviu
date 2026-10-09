@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { listAudit } from "@/lib/admin";
 import { formatDate } from "@/components/dashboard/ui";
 
@@ -15,7 +16,23 @@ const ACTION_LABELS: Record<string, string> = {
   transferred: "Présentoir transféré",
   admin_set_link: "Lien du présentoir modifié (admin)",
   admin_edit_establishment: "Commerce modifié (admin)",
+  account_edit: "Compte modifié",
+  account_disabled: "Compte suspendu",
+  account_enabled: "Compte réactivé",
+  account_deleted: "Compte supprimé",
+  reseller_assigned: "Attribué à un revendeur",
 };
+
+const STATUS_LABELS: Record<string, string> = {
+  blank: "vierge",
+  active: "actif",
+  suspended: "suspendu",
+  lost: "perdu",
+  replaced: "remplacé",
+  disabled: "désactivé",
+};
+
+const status = (v: unknown) => STATUS_LABELS[String(v)] ?? String(v ?? "?");
 
 const VIA: Record<string, string> = {
   scan: "par scan",
@@ -28,12 +45,19 @@ const VIA: Record<string, string> = {
 function summarize(action: string, detail: Record<string, unknown> | null): string {
   if (!detail) return "";
   if (action === "generated") return `${detail.count ?? "?"} présentoir(s)`;
-  if (action === "status_changed") return `${detail.from} → ${detail.to}`;
+  if (action === "status_changed") return `${status(detail.from)} → ${status(detail.to)}`;
   if (action === "replaced") return `→ ${detail.new_code}`;
   if (action === "activated") return VIA[String(detail.via ?? "")] ?? String(detail.via ?? "");
-  if (action === "admin_set_link") return `${detail.to ?? "lien du commerce"}`;
+  if (action === "admin_set_link") return `${detail.to ?? "suit le lien du commerce"}`;
+  if (action === "reseller_assigned") return `${detail.assigned ?? "?"} présentoir(s)`;
   if (action === "admin_edit_establishment") return `${detail.name ?? ""} · ${detail.to_url ?? "sans lien"}`;
   return "";
+}
+
+/** Client concerné (lien vers sa fiche) quand l'action le précise. */
+function orgOf(detail: Record<string, unknown> | null): string | null {
+  const org = detail?.org;
+  return typeof org === "string" && /^[0-9a-f-]{36}$/i.test(org) ? org : null;
 }
 
 export default async function AdminHistoryPage() {
@@ -42,14 +66,11 @@ export default async function AdminHistoryPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-brand">
-          Admin
-        </p>
-        <h1 className="mt-1.5 font-display text-2xl font-semibold text-ink">
+        <h1 className="font-display text-2xl font-semibold text-ink">
           Journal des opérations
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Générations, exports, changements de statut et remplacements -
+          Activations, changements de lien, de statut et de compte :
           historique complet et horodaté.
         </p>
       </div>
@@ -75,6 +96,14 @@ export default async function AdminHistoryPage() {
                 <span className="text-xs text-muted">
                   {summarize(r.action, r.detail)}
                 </span>
+                {orgOf(r.detail) && r.action !== "account_deleted" && (
+                  <Link
+                    href={`/admin/accounts/${orgOf(r.detail)}`}
+                    className="text-xs text-brand hover:underline"
+                  >
+                    Fiche client
+                  </Link>
+                )}
               </div>
               <div className="flex shrink-0 items-center gap-3 text-xs text-muted">
                 {r.actor_email && <span className="truncate">{r.actor_email}</span>}

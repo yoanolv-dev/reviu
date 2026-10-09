@@ -49,6 +49,7 @@ export default async function AdminSupportPage({
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-medium text-ink">{t.subject}</span>
                   <span className="block truncate text-xs text-muted">
+                    {t.commerce ? `${t.commerce} · ` : ""}
                     {t.email}
                     {t.stand_code ? ` · ${t.stand_code}` : ""} · {formatDateTime(t.updated_at)}
                   </span>
