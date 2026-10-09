@@ -15,7 +15,7 @@ export function ForgotForm() {
         required
         autoComplete="email"
         placeholder="vous@exemple.fr"
-        hint="Nous vous enverrons un lien pour définir un nouveau mot de passe."
+        hint="Nous vous enverrons un lien pour définir un nouveau mot de passe. Vous n'en avez jamais créé ? Vous recevrez un code de connexion."
       />
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state?.info && (

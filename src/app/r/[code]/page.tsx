@@ -6,7 +6,7 @@ import { getStandByCode, recordEvent } from "@/lib/data";
 import { StarMark } from "@/components/ui/logo";
 import { Stars } from "@/components/ui/stars";
 import { ScreenShell, Avatar, PoweredBy } from "@/components/site/screen";
-import { ActivateFlow } from "./activate-flow";
+import { APP_BASE } from "@/lib/brand";
 
 export default async function RedirectPage({
   params,
@@ -20,25 +20,27 @@ export default async function RedirectPage({
   const stand = await getStandByCode(code);
 
   if (!stand) return <NotFoundView code={code} />;
+
+  const h = await headers();
+  // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
+  const onRedirectSub =
+    (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
+
+  // Présentoir vierge : activation sur le domaine de l'app, pour que la
+  // session ouverte pendant l'activation vaille directement pour l'espace.
+  if (stand.status === "blank") {
+    const path = `/activer/${encodeURIComponent(code.toLowerCase())}`;
+    redirect(onRedirectSub ? `${APP_BASE}${path}` : path);
+  }
   if (stand.status !== "active" || !stand.establishment) {
-    return (
-      <ScreenShell>
-        <ActivateFlow code={code} />
-        <PoweredBy />
-      </ScreenShell>
-    );
+    return <NotReadyView />;
   }
 
   const est = stand.establishment;
 
   // Canal transmis par l'URL physique, ex. r.reviu.fr/{code}?s=nfc
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
-  const h = await headers();
   const ua = h.get("user-agent");
-
-  // Sur r.reviu.fr le chemin public est /{code} ; en local c'est /r/{code}.
-  const onRedirectSub =
-    (h.get("host") ?? "").split(":")[0].split(".")[0] === "r";
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
   const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
 
@@ -101,6 +103,34 @@ function NotFoundView({ code }: { code: string }) {
           Le code{" "}
           <span className="font-mono text-ink-soft">{code}</span> ne correspond à
           aucun présentoir reviu.
+        </p>
+      </div>
+      <PoweredBy />
+    </ScreenShell>
+  );
+}
+
+/** Présentoir activé mais sans lien d'avis, ou suspendu : rien à rediriger. */
+function NotReadyView() {
+  return (
+    <ScreenShell>
+      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
+        <h1 className="font-display text-xl font-semibold text-ink">
+          Présentoir bientôt prêt
+        </h1>
+        <p className="mt-2 text-sm text-muted">
+          Ce présentoir n&apos;est pas encore relié à une page d&apos;avis.
+          Merci de votre visite !
+        </p>
+        <p className="mt-4 text-xs text-muted">
+          Vous êtes le commerçant ?{" "}
+          <a
+            href={`${APP_BASE}/dashboard/establishment`}
+            className="font-medium text-brand hover:underline"
+          >
+            Ajoutez votre lien d&apos;avis Google
+          </a>
+          .
         </p>
       </div>
       <PoweredBy />

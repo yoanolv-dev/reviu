@@ -30,6 +30,12 @@ export default async function DashboardLayout({
                 Admin
               </Link>
             )}
+            <Link
+              href="/reset-password"
+              className="rounded-full px-3 py-2 text-sm text-muted transition-colors hover:text-ink"
+            >
+              Mot de passe
+            </Link>
             <form action={signOutAction}>
               <button
                 type="submit"

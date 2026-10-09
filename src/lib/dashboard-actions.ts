@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createSupabaseServer } from "./supabase/server";
+import { normalizeReviewUrl, REVIEW_URL_ERROR } from "./review-url";
 import type { FormState } from "./form";
 
 export async function createEstablishmentAction(
@@ -16,8 +17,10 @@ export async function createEstablishmentAction(
   if (!user) redirect("/login");
 
   const name = String(formData.get("name") ?? "").trim();
-  const googleUrl = String(formData.get("google_review_url") ?? "").trim();
   if (!name) return { error: "Le nom de l'établissement est requis." };
+  const url = normalizeReviewUrl(String(formData.get("google_review_url") ?? ""));
+  if (!url.ok) return { error: REVIEW_URL_ERROR };
+  const googleUrl = url.url;
 
   let orgId: string;
   const { data: org } = await supabase
@@ -40,7 +43,7 @@ export async function createEstablishmentAction(
 
   const { error: e2 } = await supabase
     .from("establishments")
-    .insert({ org_id: orgId, name, google_review_url: googleUrl || null });
+    .insert({ org_id: orgId, name, google_review_url: googleUrl });
   if (e2) return { error: e2.message };
   redirect("/dashboard");
 }
@@ -54,11 +57,13 @@ export async function updateEstablishmentAction(
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Le nom est requis." };
 
+  const url = normalizeReviewUrl(String(formData.get("google_review_url") ?? ""));
+  if (!url.ok) return { error: REVIEW_URL_ERROR };
+
   const scanMode = formData.get("scan_mode") === "page" ? "page" : "direct";
   const patch = {
     name,
-    google_review_url:
-      String(formData.get("google_review_url") ?? "").trim() || null,
+    google_review_url: url.url,
     google_place_id: String(formData.get("google_place_id") ?? "").trim() || null,
     welcome_message: String(formData.get("welcome_message") ?? "").trim() || null,
     brand_color: String(formData.get("brand_color") ?? "#1b4dff"),
@@ -69,38 +74,12 @@ export async function updateEstablishmentAction(
     .from("establishments")
     .update(patch)
     .eq("id", id);
-  if (error) return { error: error.message };
+  if (error) {
+    if (error.message.includes("invalid_review_url")) return { error: REVIEW_URL_ERROR };
+    return { error: error.message };
+  }
   revalidatePath("/dashboard/establishment");
   revalidatePath("/dashboard");
-  return { success: true };
-}
-
-export async function claimStandAction(
-  _prev: FormState,
-  formData: FormData,
-): Promise<FormState> {
-  const supabase = await createSupabaseServer();
-  const code = String(formData.get("code") ?? "").trim();
-  const pin = String(formData.get("pin") ?? "").trim();
-  const estId = String(formData.get("establishment_id") ?? "");
-  if (!code) return { error: "Entrez le code du présentoir." };
-
-  const { error } = await supabase.rpc("claim_stand", {
-    p_code: code,
-    p_establishment_id: estId,
-    p_pin: pin || null,
-  });
-  if (error) {
-    const map: Record<string, string> = {
-      establishment_not_owned: "Établissement introuvable.",
-      stand_not_found: "Aucun présentoir avec ce code.",
-      stand_already_assigned: "Ce présentoir est déjà rattaché à un compte.",
-      invalid_pin: "Code PIN d'activation incorrect (il figure à côté du QR code, sur le présentoir).",
-    };
-    const known = Object.keys(map).find((k) => error.message.includes(k));
-    return { error: known ? map[known] : "Impossible de rattacher ce présentoir." };
-  }
-  revalidatePath("/dashboard/stands");
   return { success: true };
 }
 
@@ -115,15 +94,17 @@ export async function setStandTargetAction(
 ): Promise<FormState> {
   const supabase = await createSupabaseServer();
   const standId = String(formData.get("stand_id") ?? "");
-  const url = String(formData.get("target_url") ?? "").trim();
+  const url = normalizeReviewUrl(String(formData.get("target_url") ?? ""));
+  if (!url.ok) return { error: REVIEW_URL_ERROR };
   const { error } = await supabase.rpc("set_stand_target", {
     p_stand_id: standId,
-    p_url: url,
+    p_url: url.url ?? "",
   });
   if (error) {
     if (error.message.includes("stand_not_owned")) {
       return { error: "Présentoir introuvable sur votre compte." };
     }
+    if (error.message.includes("invalid_review_url")) return { error: REVIEW_URL_ERROR };
     return { error: "Modification impossible. Réessayez." };
   }
   revalidatePath("/dashboard/stands");

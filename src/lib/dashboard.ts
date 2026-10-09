@@ -82,6 +82,27 @@ export async function getMyContext(): Promise<DashContext | null> {
   return { orgId: org.id, orgName: org.name, establishment };
 }
 
+/** Commerce du compte, tel que proposé lors de l'activation d'un présentoir. */
+export interface MyEstablishment {
+  id: string;
+  name: string;
+  googleReviewUrl: string | null;
+}
+
+/** Commerces du compte connecté, du plus ancien au plus récent (RLS). */
+export async function getMyEstablishments(): Promise<MyEstablishment[]> {
+  const supabase = await createSupabaseServer();
+  const { data } = await supabase
+    .from("establishments")
+    .select("id,name,google_review_url")
+    .order("created_at");
+  return (data ?? []).map((e) => ({
+    id: e.id as string,
+    name: e.name as string,
+    googleReviewUrl: (e.google_review_url as string | null) ?? null,
+  }));
+}
+
 export async function getStats() {
   const supabase = await createSupabaseServer();
   // Un seul aller-retour, agrégé côté SQL (au lieu de 2 requêtes count).

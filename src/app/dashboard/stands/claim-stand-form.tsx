@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { claimStandAction } from "@/lib/dashboard-actions";
+import { claimStandAction } from "@/lib/activation-actions";
 
 export function ClaimStandForm({
   establishmentId,
@@ -21,8 +21,10 @@ export function ClaimStandForm({
         />
         <input
           name="pin"
-          placeholder="Secret"
+          required
+          placeholder="Code secret"
           autoCapitalize="characters"
+          autoComplete="off"
           className="h-11 rounded-xl border border-line bg-canvas px-3.5 font-mono text-sm uppercase tracking-wider text-ink outline-none transition-colors placeholder:font-sans placeholder:normal-case placeholder:tracking-normal placeholder:text-muted focus:border-brand sm:w-32"
         />
         <button
@@ -34,13 +36,15 @@ export function ClaimStandForm({
         </button>
       </div>
       <p className="text-xs text-muted">
-        Le code figure dans le QR&nbsp;; le secret d&apos;activation est imprimé
-        à côté du QR code, sur le présentoir.
+        Le code secret est imprimé sur le présentoir, à côté du QR code. Plus
+        simple : scannez le présentoir avec votre téléphone, connecté à cet
+        espace.
       </p>
       {state?.error && <p className="text-sm text-red-600">{state.error}</p>}
       {state?.success && (
         <p className="text-sm text-emerald-600">
-          Présentoir rattaché et activé.
+          Présentoir rattaché et activé. Une confirmation vous a été envoyée
+          par e-mail.
         </p>
       )}
     </form>

@@ -4,25 +4,32 @@ import { AuthShell } from "@/components/auth/auth-shell";
 import { getCurrentUser } from "@/lib/dashboard";
 import { ResetForm } from "./reset-form";
 
-export const metadata: Metadata = { title: "Nouveau mot de passe - reviu" };
+export const metadata: Metadata = { title: "Mot de passe - reviu" };
 export const dynamic = "force-dynamic";
 
 export default async function ResetPasswordPage() {
-  // Le lien de récupération a établi une session via /auth/callback.
+  // Session ouverte par le lien de réinitialisation (/auth/confirm), ou
+  // commerçant connecté qui souhaite définir un mot de passe (facultatif).
   const user = await getCurrentUser();
 
   return (
     <AuthShell
-      title="Nouveau mot de passe"
+      title="Mot de passe"
       subtitle={
         user
-          ? "Choisissez un nouveau mot de passe pour votre compte."
+          ? "Facultatif : vous pouvez toujours vous connecter avec un code reçu par e-mail."
           : "Lien invalide ou expiré."
       }
       footer={
-        <Link href="/login" className="font-medium text-brand hover:underline">
-          Retour à la connexion
-        </Link>
+        user ? (
+          <Link href="/dashboard" className="font-medium text-brand hover:underline">
+            Retour à mon espace
+          </Link>
+        ) : (
+          <Link href="/login" className="font-medium text-brand hover:underline">
+            Retour à la connexion
+          </Link>
+        )
       }
     >
       {user ? (
