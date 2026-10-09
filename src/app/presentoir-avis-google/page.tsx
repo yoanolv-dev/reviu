@@ -124,7 +124,7 @@ const PLACES = [
 const FAQ: { q: string; a: string }[] = [
   {
     q: "Comment relier le présentoir à ma fiche Google ?",
-    a: "Après réception, scannez le présentoir (ou rendez-vous sur la page d'activation), saisissez le code secret imprimé à côté du QR code, puis collez le lien de votre fiche Google. Le présentoir est opérationnel aussitôt.",
+    a: "Après réception, scannez le présentoir avec votre téléphone. Saisissez le code secret imprimé à côté du QR code et votre e-mail, puis le code reçu par e-mail, et collez le lien de votre fiche Google. Le présentoir est opérationnel aussitôt et votre espace est créé, sans mot de passe.",
   },
   {
     q: "Est-il compatible avec tous les téléphones ?",

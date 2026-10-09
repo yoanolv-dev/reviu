@@ -1,12 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { createSupabaseServer } from "./supabase/server";
-import { createPublicClient } from "./supabase/public";
+import { normalizeEmail, sendLoginCode } from "./auth-code";
 import { getIsAdmin } from "./admin";
 import { standGenerationAllowed } from "./env";
-import { APP_BASE } from "./brand";
 
 export type GeneratedStand = { code: string; secret: string };
 export type GenerateState = {
@@ -34,6 +32,7 @@ const ERR: Record<string, string> = {
   stand_not_activated: "Ce présentoir n'est pas activé.",
   stand_replaced: "Ce présentoir a déjà été remplacé.",
   establishment_not_found: "Établissement introuvable.",
+  invalid_review_url: "Ce lien n'est pas un lien de fiche Google accepté.",
   invalid_status: "Statut invalide.",
   stand_not_resettable:
     "Ce présentoir ne peut pas être réinitialisé dans son état actuel.",
@@ -209,24 +208,22 @@ export async function assignStandAction(
 }
 
 /**
- * Renvoi d'un e-mail d'activation / invitation : envoie un lien de connexion
- * (magic link) à l'e-mail du compte. Réservé aux administrateurs.
+ * Renvoi d'un accès au commerçant : e-mail avec un code de connexion et un
+ * lien direct (valable sur tout appareil). Réservé aux administrateurs.
  */
 export async function resendActivationAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
   if (!(await getIsAdmin())) return { error: ERR.not_admin };
-  const email = String(formData.get("email") ?? "").trim();
+  const email = normalizeEmail(String(formData.get("email") ?? ""));
   if (!email) return { error: "Adresse e-mail manquante." };
-  const h = await headers();
-  const origin = h.get("origin") ?? APP_BASE;
-  // persistSession:false → n'affecte pas la session admin en cours.
-  const supabase = createPublicClient();
-  const { error } = await supabase.auth.signInWithOtp({
+  const res = await sendLoginCode({
     email,
-    options: { emailRedirectTo: `${origin}/auth/callback?next=/dashboard` },
+    purpose: "login",
+    next: "/dashboard",
+    skipRateLimit: true,
   });
-  if (error) return { error: "Envoi impossible. Réessayez." };
-  return { success: true, info: `Lien d'activation envoyé à ${email}.` };
+  if (!res.ok) return { error: res.error };
+  return { success: true, info: `Code de connexion envoyé à ${email}.` };
 }

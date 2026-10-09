@@ -46,10 +46,9 @@ declare v_count integer;
 begin
   -- Serialise les appels concurrents sur la meme cle.
   perform pg_advisory_xact_lock(hashtext(p_kind || ':' || p_key));
-  -- Menage opportuniste : au-dela de 2 jours, les evenements ne servent plus.
-  if random() < 0.05 then
-    delete from public.rate_events where created_at < now() - interval '2 days';
-  end if;
+  -- Menage : au-dela de 2 jours, les evenements ne servent plus (index sur
+  -- created_at : suppression quasi gratuite).
+  delete from public.rate_events where created_at < now() - interval '2 days';
   select count(*) into v_count from public.rate_events
   where kind = p_kind and key = p_key
     and created_at > now() - make_interval(secs => p_window_seconds);
@@ -64,7 +63,6 @@ create or replace function public.rl_count(
 )
 returns integer
 language sql
-stable
 security definer
 set search_path to 'public'
 as $$
@@ -82,21 +80,50 @@ as $$
   insert into public.rate_events (kind, key) values (p_kind, p_key);
 $$;
 
--- 2. Liens de redirection autorises : Google uniquement ---------------------
--- https obligatoire ; domaines google.<tld> (et sous-domaines : www, search,
--- maps, business...), g.page, goo.gl (maps.app.goo.gl), g.co, share.google.
--- L'hote doit etre suivi de / ? # ou de la fin : « https://google.com@pirate.fr »
--- ou « https://google.com.pirate.fr » sont refuses. Meme regle cote serveur
--- Next.js : src/lib/review-url.ts.
+-- 2. Liens de redirection autorises : liens de fiche Google uniquement -------
+-- Pas « tout ce qui est chez Google » : sites.google.com, docs.google.com
+-- (formulaires), script.google.com et les redirecteurs (/url, /amp, btnI)
+-- peuvent heberger ou rediriger vers n'importe quoi. Formes acceptees :
+--   g.page/...  maps.app.goo.gl/...  share.google/...  goo.gl/maps/...
+--   g.co/kgs/...  search.google.com/local/...
+--   [www.|maps.]google.<pays>/maps... ou /search...  (pays : liste ci-dessous)
+--   maps.google.<pays>/?cid=...  (hors /url)
+-- https obligatoire, ni espace ni antislash ; « https://google.com@pirate.fr »
+-- ou « https://google.pirate.fr » sont refuses. Meme regle cote serveur
+-- Next.js : src/lib/review-url.ts (garder les deux alignees).
 create or replace function public.is_allowed_review_url(p_url text)
 returns boolean
-language sql
+language plpgsql
 immutable
+set search_path to ''
 as $$
-  select p_url is null or (
-    length(p_url) <= 2048
-    and p_url ~* '^https://([a-z0-9-]+\.)*(google\.[a-z]{2,3}(\.[a-z]{2})?|g\.page|goo\.gl|g\.co|share\.google)(:443)?([/?#]|$)'
-  );
+declare m text[]; v_host text; v_rest text; v_path text; v_query text; v_gm text[];
+begin
+  if p_url is null then return true; end if;
+  if length(p_url) > 2048 or p_url ~ '[[:space:][:cntrl:]\\]' then return false; end if;
+  m := regexp_match(p_url, '^https://([A-Za-z0-9.-]+)(:443)?([/?#].*)?$');
+  if m is null then return false; end if;
+  v_host := lower(m[1]);
+  v_rest := coalesce(m[3], '/');
+  v_path := coalesce(nullif(split_part(split_part(v_rest, '?', 1), '#', 1), ''), '/');
+  -- Segments « . » / « .. » (meme encodes) et barres encodees : le navigateur
+  -- les resoudrait (/maps/../amp/... = redirecteur), donc refuses.
+  if v_path ~* '(^|/)(\.|%2e){1,2}(/|$)' or v_rest ~* '%2f|%5c' then return false; end if;
+
+  if v_host in ('g.page', 'maps.app.goo.gl', 'share.google') then return true; end if;
+  if v_host = 'goo.gl' then return v_path like '/maps/%'; end if;
+  if v_host = 'g.co' then return v_path like '/kgs/%'; end if;
+  if v_host = 'search.google.com' then return v_path like '/local/%'; end if;
+
+  v_gm := regexp_match(v_host, '^(www\.|maps\.)?google\.([a-z.]+)$');
+  if v_gm is null or v_gm[2] <> all (array['com','fr','be','ch','lu','ca','de','es','it','pt','nl','at','ie','co.uk']) then
+    return false;
+  end if;
+  v_query := coalesce(substring(v_rest from '[?#].*$'), '');
+  if v_query ~* 'btn(i|%49)' then return false; end if;
+  if v_path ~ '^/(maps|search)(/|$)' then return true; end if;
+  return coalesce(v_gm[1], '') = 'maps.' and v_path not like '/url%';
+end;
 $$;
 
 -- 3. Verification du secret imprime -----------------------------------------
@@ -270,6 +297,25 @@ begin
 end;
 $$;
 
+-- 4 bis. Compte jamais confirme pour une adresse -----------------------------
+-- Avant l'envoi d'un code, le serveur remplace le mot de passe d'un compte
+-- jamais confirme par une valeur aleatoire (voir src/lib/auth-code.ts) : un
+-- tiers qui aurait cree un compte avec l'adresse d'un commercant et un mot de
+-- passe de son choix ne garde aucun acces une fois l'adresse confirmee.
+create or replace function public.auth_unconfirmed_user_id(p_email text)
+returns uuid
+language sql
+stable
+security definer
+set search_path to 'public'
+as $$
+  select u.id from auth.users u
+  where lower(u.email) = lower(trim(p_email))
+    and u.email_confirmed_at is null
+    and u.deleted_at is null
+  limit 1;
+$$;
+
 -- 5. Droits : serveur uniquement (service role) ------------------------------
 do $$
 declare
@@ -280,7 +326,8 @@ declare
     'public.rl_record(text, text)',
     'public.stand_secret_matches(text, text, text, smallint)',
     'public.check_stand_secret(text, text)',
-    'public.activate_stand_verified(uuid, text, text, text, uuid, text, text, text)'
+    'public.activate_stand_verified(uuid, text, text, text, uuid, text, text, text)',
+    'public.auth_unconfirmed_user_id(text)'
   ];
 begin
   foreach fn in array server_fns loop

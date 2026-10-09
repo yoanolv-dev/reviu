@@ -1,11 +1,139 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **28 septembre 2026**. **À lire en premier : la section
-> « 🟪 Reprise - état au 23/09 » ci-dessous fait foi**, puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
+> Dernière mise à jour : **9 octobre 2026**. **À lire en premier : la section
+> « 🟥 Activation vérifiée - 09/10 » ci-dessous**, puis « 🟪 Reprise - état au 23/09 » (fait foi), puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
 > l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**, c'est
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
+
+## 🟥 Activation vérifiée et connexion sans mot de passe - 09/10/2026
+
+Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
+
+### Pourquoi
+- Après l'activation, le commerçant n'avait **aucun compte de connexion**
+  (l'ancien `activate_stand` n'écrivait que dans `customers`) : « Mot de passe
+  oublié » n'envoyait rien, seul le lien magique (caché, et cassé s'il était
+  ouvert sur un autre appareil) fonctionnait.
+- Le **code secret est imprimé sur le présentoir** : n'importe quel client au
+  comptoir peut le photographier. L'ancien parcours permettait d'activer un
+  présentoir vierge avec n'importe quelle adresse, sans la vérifier.
+- Chaque activation par scan créait un **nouvel établissement**, même pour le
+  même commerce (l'espace n'en affiche qu'un).
+
+### Nouveau parcours
+- Scan d'un présentoir **vierge** (`r.reviu.fr/{code}`) -> redirection vers
+  **`app.reviu.fr/activer/{code}`** (la session ouverte vaut pour l'espace).
+- 1) code secret + e-mail -> 2) **code à 6 chiffres** reçu par e-mail -> 3)
+  choix du commerce (existant pré-sélectionné, ou nouveau) -> activé, **connecté**.
+  Déjà connecté sur le téléphone : code secret + commerce seulement.
+- **Connexion** (`/login`) : code par e-mail par défaut, mot de passe en option
+  (« Mot de passe » dans l'en-tête de l'espace pour en définir un).
+- Les codes sont générés par Supabase (`auth.admin.generateLink`, qui crée le
+  compte au besoin) et envoyés par **notre** e-mail Resend
+  (`src/lib/auth-code.ts`, `src/lib/email-templates.ts`) : **aucun modèle
+  Supabase à modifier**. Le lien de l'e-mail mène à `/auth/confirm` (bouton à
+  cliquer : les antivirus de messagerie qui ouvrent les liens ne le consomment
+  pas), valable sur **n'importe quel appareil**.
+- « Mot de passe oublié » : lien de réinitialisation si le compte existe, sinon
+  code de connexion pour un commerçant de l'ancien parcours.
+- **E-mails après chaque activation** (`src/lib/activation-notify.ts`) : au
+  commerçant (confirmation + accès) et à `ADMIN_NOTIFY_EMAIL` (code, commerce,
+  lien, e-mail vérifié, nombre de présentoirs du compte).
+
+### Sécurité (le secret est visible sur le présentoir)
+- Le secret **ne sert qu'une fois** : il n'est accepté que tant que le
+  présentoir est vierge. Une fois activé, il ne permet plus rien.
+- Activation **uniquement par le serveur** (`activate_stand_verified`, service
+  role) pour l'utilisateur de la session : e-mail vérifié, impossible de
+  rattacher un présentoir au compte d'un autre.
+- **Limites** (table `rate_events`, `src/lib/rate-limit.ts` ; IP et e-mails
+  stockés sous forme d'empreinte, purge après 2 jours) : secret faux 15/h par IP,
+  10/h par couple présentoir + IP, 100/h par présentoir ; envoi de code 15/h par
+  IP, puis 1/50 s et 6/h par adresse (comptés seulement quand un e-mail part) ;
+  saisie de code 40/15 min par IP, 8/15 min par couple adresse + IP, 30/15 min
+  par adresse. Un tiers ne peut pas bloquer seul un commerçant.
+- **Écran neutre** : un client qui scanne un présentoir pas encore activé voit
+  « Présentoir bientôt prêt. Merci de votre visite ! » et non un formulaire ;
+  le commerçant touche « Vous êtes le commerçant ? Activer mon présentoir ».
+- **Liens de fiche Google uniquement** (`src/lib/review-url.ts` + SQL
+  `is_allowed_review_url`, mêmes règles) : g.page, maps.app.goo.gl,
+  share.google, goo.gl/maps, g.co/kgs, search.google.com/local,
+  [www.|maps.]google.<pays>/maps ou /search. Refusés : sites.google.com,
+  docs.google.com, script.google.com, redirecteurs (/url, /amp, btnI),
+  google.<n'importe quoi>, segments « .. » et barres encodées. Un présentoir
+  détourné ne peut pas renvoyer vers du phishing.
+- **Compte pré-créé par un tiers** (adresse du commerçant + mot de passe choisi
+  par le tiers) : avant chaque envoi de code, le mot de passe d'un compte jamais
+  confirmé est remplacé par une valeur aléatoire (`auth_unconfirmed_user_id`).
+  `/signup` crée désormais le compte par code (plus de mot de passe à
+  l'inscription).
+- Redirection après connexion (`next`) limitée à `/dashboard…`,
+  `/activer/{code}`, `/reset-password`.
+- Saisie du secret tolérante (minuscules, espaces, tirets, O/0, I/L/1).
+- Un présentoir **sans secret** (anciens modèles) ne s'active plus en
+  libre-service : passer par l'admin.
+- Détournement constaté (un tiers a activé un présentoir avant le commerçant) :
+  l'admin le voit dans l'e-mail de notification. **Ne pas laisser le présentoir
+  vierge** : le secret imprimé (qui ne change jamais) permettrait au tiers de le
+  réactiver. Faire créer son espace au vrai commerçant (connexion par code),
+  puis réinitialiser le présentoir et l'**attribuer aussitôt** à son
+  établissement (Admin > Comptes > attribuer). Même prudence pour le cycle
+  « démo prospect » : un prospect qui a vu le secret pourrait réactiver un
+  présentoir remis à zéro.
+- **Corrigé au passage (bug prod)** : sur `r.reviu.fr`, un code commençant par
+  « r » (4 présentoirs imprimés sur 102) n'était pas réécrit par `proxy.ts` et
+  donnait une 404.
+- **Fournisseur** (prochaines séries) : imprimer le secret sur un autocollant
+  amovible ou sur la notice dans la boîte plutôt que sur la face visible, et
+  **verrouiller les puces NFC en lecture seule** (sinon une appli comme NFC
+  Tools peut réécrire l'adresse de la puce).
+
+### Un commerce par compte (limite actuelle de l'espace)
+- L'espace ne gère qu'un établissement par compte : `getMyContext` affiche
+  celui qui porte le plus de présentoirs. À l'activation, un compte qui a déjà
+  un commerce ne se voit donc PAS proposer « un autre commerce » (il serait
+  introuvable ensuite). Présentoir pour un 2e commerce : le rattacher au
+  commerce existant puis changer son lien dans « Présentoirs ». Un vrai mode
+  multi-commerces reste à construire.
+- Démo prospect par l'admin : utiliser une adresse alias (ex.
+  `prenom+prospect@gmail.com`) pour créer un compte de démo séparé, au lieu de
+  rattacher le présentoir à son propre commerce.
+
+### Base de données
+- `20261009120000_reviu_verified_activation.sql` : **ajouts uniquement**
+  (`rate_events`, `rl_*`, `is_allowed_review_url`, `stand_secret_matches`,
+  `check_stand_secret`, `activate_stand_verified`, `auth_unconfirmed_user_id`),
+  service role seulement.
+  Sans effet sur la prod actuelle ; nécessaire pour tester la branche.
+- `20261009121000_reviu_activation_lockdown.sql` : **à appliquer AU MOMENT de la
+  mise en prod** (juste après le déploiement) : retire l'accès public à
+  `activate_stand`, `claim_stand` et `self_set_subscription` (cette dernière
+  permettait à n'importe qui de modifier le statut d'abonnement d'un présentoir
+  avec son seul code public), et ajoute les triggers « liens Google
+  uniquement ».
+- Variables requises (déjà utilisées ailleurs) : `SUPABASE_SERVICE_ROLE_KEY` et
+  `RESEND_API_KEY` (+ `REVIU_EMAIL_FROM`), **y compris sur l'environnement
+  Preview** de Vercel pour tester la branche.
+- Limite connue : les appels `verifyOtp` partent du serveur, donc la limite
+  Supabase « vérifications par IP » s'applique à l'IP de Vercel ; sans effet au
+  volume actuel.
+
+### Réglages Supabase recommandés (tableau de bord, Authentication)
+- **Désactiver les inscriptions publiques** (« Allow new users to sign up ») :
+  l'app crée les comptes elle-même via l'API admin (`generateLink`). Sinon un
+  tiers peut encore créer un compte avec l'adresse d'un commerçant en appelant
+  directement l'API Supabase. **Tester juste après** avec une adresse jamais
+  utilisée sur `/login` : si le code n'arrive plus (la documentation Supabase ne
+  précise pas si l'API admin est concernée), réactiver le réglage ; le mot de
+  passe d'un compte non confirmé est de toute façon neutralisé par l'app.
+- **Code e-mail sur 8 chiffres** et **expiration 15 min** (Email OTP length /
+  expiration) : l'écran s'adapte tout seul à la longueur, et les e-mails disent
+  « expire rapidement ». L'API `/auth/v1/verify` de Supabase est appelable
+  directement avec la clé publique : ses limites à elle s'appliquent.
+- Le bouton admin « Envoyer un code de connexion » (Admin > Comptes) remplace
+  l'ancien « Renvoyer l'activation » (lien magique qui ne fonctionnait pas).
 
 ## 🟪 Reprise - état au 23 septembre 2026 (fait foi, lire en premier)
 
@@ -171,7 +299,7 @@ main (voir « Vérif »).
   code secret + lien fiche Google / installation comptoir).
 - **Module d'achat** (`stand-order.tsx`) : paliers dégressifs en **cartes cliquables**
   (tranche, prix unitaire, économie/unité) ; **mention revendeur retirée**.
-- **Pages d'activation** (`src/app/r/[code]/activate-flow.tsx`) : logo de marque
+- **Pages d'activation** (depuis le 09/10 : `src/app/activer/[code]/activate-flow.tsx`) : logo de marque
   (`LogoBadge`, nouvel export de `logo.tsx`) à la place de l'étoile ; écran de
   confirmation avec pastille verte de succès.
 

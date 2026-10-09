@@ -66,9 +66,9 @@ export function authCodeEmail(opts: {
       : "Pour vous connecter à votre espace reviu, saisissez ce code :";
   const body = `${p(intro)}
       <div style="margin:0 0 20px;padding:16px;border-radius:12px;background:#f5f6f8;text-align:center;font-family:'SFMono-Regular',Menlo,Consolas,monospace;font-size:32px;font-weight:700;letter-spacing:0.3em;color:#0a0d16;">${esc(opts.code)}</div>
-      ${p("Ou connectez-vous directement avec ce bouton :")}
-      ${button(opts.link, "Ouvrir mon espace")}
-      <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;">Ce code est valable 1 heure. Si vous en redemandez un, seul le dernier fonctionne. Ne le communiquez à personne : reviu ne vous le demandera jamais par téléphone.</p>`;
+      ${p("Ou continuez directement avec ce bouton :")}
+      ${button(opts.link, opts.purpose === "activation" ? "Continuer l'activation" : "Ouvrir mon espace")}
+      <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;">Ce code expire rapidement. Si vous en redemandez un, seul le dernier fonctionne. Ne le communiquez à personne : reviu ne vous le demandera jamais par téléphone.</p>`;
   return {
     subject: `${opts.code} est votre code reviu`,
     html: layout({
@@ -85,7 +85,7 @@ export function authCodeEmail(opts: {
 export function passwordResetEmail(link: string): { subject: string; html: string } {
   const body = `${p("Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le bouton ci-dessous pour en choisir un nouveau.")}
       ${button(link, "Choisir un nouveau mot de passe")}
-      <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;">Ce lien est valable 1 heure.</p>`;
+      <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;">Ce lien expire rapidement et ne sert qu'une fois.</p>`;
   return {
     subject: "Réinitialisez votre mot de passe reviu",
     html: layout({
@@ -108,7 +108,10 @@ export function activationCustomerEmail(opts: {
 }): { subject: string; html: string } {
   const row = (label: string, value: string) =>
     `<tr><td style="padding:6px 0;font-size:13px;color:#8a90a0;width:140px;vertical-align:top;">${label}</td><td style="padding:6px 0;font-size:14px;color:#0a0d16;word-break:break-all;">${value}</td></tr>`;
-  const body = `${p(`Votre présentoir est relié à <strong style="color:#0a0d16;">${esc(opts.establishmentName)}</strong>. Vos clients peuvent déjà l'utiliser.`)}
+  const status = opts.googleUrl
+    ? "Vos clients peuvent déjà l'utiliser."
+    : "<strong style=\"color:#0a0d16;\">Dernière étape :</strong> ajoutez le lien d'avis de votre fiche Google depuis votre espace, pour que le présentoir redirige vos clients.";
+  const body = `${p(`Votre présentoir est relié à <strong style="color:#0a0d16;">${esc(opts.establishmentName)}</strong>. ${status}`)}
       <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin:0 0 20px;border-top:1px solid #eef0f3;border-bottom:1px solid #eef0f3;">
         ${row("Présentoir", esc(opts.standAddress))}
         ${row("Lien d'avis", opts.googleUrl ? esc(opts.googleUrl) : "À ajouter depuis votre espace")}
@@ -116,7 +119,7 @@ export function activationCustomerEmail(opts: {
       ${p("Depuis votre espace, suivez vos scans et modifiez votre lien à tout moment.")}
       ${button(opts.loginUrl, "Accéder à mon espace")}
       <p style="margin:20px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;"><strong style="color:#4a5160;">Pour revenir plus tard :</strong> saisissez votre e-mail sur la page de connexion, vous recevrez un code. Pas de mot de passe à retenir.</p>
-      <p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;"><strong style="color:#4a5160;">Bon à savoir :</strong> le code secret imprimé sur le présentoir ne sert plus. Personne ne peut modifier votre présentoir sans accéder à votre adresse e-mail.</p>`;
+      <p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:#8a90a0;"><strong style="color:#4a5160;">Bon à savoir :</strong> le code secret imprimé ne permet plus de réactiver ce présentoir. Votre espace est protégé par votre adresse e-mail.</p>`;
   return {
     subject: "Votre Présentoir Reviu est activé",
     html: layout({
@@ -148,7 +151,14 @@ export function activationAdminEmail(opts: {
         ${li("Lien d'avis", opts.googleUrl ? esc(opts.googleUrl) : "(aucun pour l'instant)")}
         ${li("E-mail (vérifié)", esc(opts.email))}
         ${li("Présentoirs actifs sur ce compte", String(opts.standsOnAccount))}
-        ${li("Activé depuis", opts.via === "dashboard" ? "l'espace client" : "le scan du présentoir")}
+        ${li(
+          "Activé depuis",
+          opts.via === "dashboard"
+            ? "l'espace client"
+            : opts.via === "tiers"
+              ? "le téléphone d'un tiers (revendeur ou démo), code donné par le commerçant"
+              : "le scan du présentoir",
+        )}
         ${li("Date", esc(opts.date))}
       </ul>
       ${button(opts.adminUrl, "Ouvrir l'admin")}`;
@@ -159,7 +169,7 @@ export function activationAdminEmail(opts: {
       title: "Nouveau présentoir activé",
       body,
       footer:
-        "Activation inattendue (commerce inconnu, lien étrange) ? Réinitialisez le présentoir depuis l'admin puis contactez le commerçant.",
+        "Activation inattendue (commerce inconnu, lien étrange) ? Faites d'abord créer son espace au vrai commerçant (connexion par code), puis réinitialisez le présentoir et attribuez-le aussitôt à son établissement depuis l'admin : un présentoir laissé vierge se réactive avec le code secret imprimé.",
     }),
   };
 }

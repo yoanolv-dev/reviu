@@ -114,7 +114,7 @@ function AccountCard({
               <form action={resendAction}>
                 <input type="hidden" name="email" value={c.email} />
                 <button type="submit" disabled={resendPending} className={btnGhost}>
-                  {resendPending ? "…" : "Renvoyer l'activation"}
+                  {resendPending ? "…" : "Envoyer un code de connexion"}
                 </button>
               </form>
             )}

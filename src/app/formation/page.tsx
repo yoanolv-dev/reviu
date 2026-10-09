@@ -428,10 +428,10 @@ const MODULES: Module[] = [
           {
             type: "steps",
             items: [
-              "Scanne le présentoir (ou saisis son code) pour lancer l'activation.",
+              "Scanne le présentoir, puis touche « Vous l'installez chez un client ? Activer pour lui » (ou « Activer pour un autre commerçant » si tu es connecté à ton espace).",
+              "Saisis le code secret imprimé sur le présentoir et l'e-mail du commerçant : il reçoit un code à 6 chiffres et te le donne.",
               "Renseigne l'établissement : nom du commerce et lien de sa fiche Google (le lien « Demander des avis » depuis son compte Google Business Profile).",
-              "Choisis le comportement au scan : « direct » (le scan ouvre l'avis Google immédiatement, idéal comptoir) ou « page » (une page d'accueil reviu avec le bouton Google pour tous et le canal de retour privé).",
-              "Valide : le présentoir est actif. Un test au scan doit ouvrir la bonne fiche.",
+              "Valide : le présentoir est actif dans l'espace du commerçant (pas dans le tien). Un test au scan doit ouvrir la bonne fiche. Le comportement au scan (« direct » ou « page ») se règle ensuite dans son espace.",
             ],
           },
           {

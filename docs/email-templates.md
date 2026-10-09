@@ -6,8 +6,10 @@
 - Styles **en ligne** (compatibilité maximale des clients mail).
 - ⚠️ **Ne pas retirer `{{ .ConfirmationURL }}`** : c'est l'URL qui passe par `src/app/auth/callback/route.ts`
   (`exchangeCodeForSession`) pour ouvrir la session.
-- État : le **lien magique** et la **confirmation d'inscription** sont fonctionnels (une fois le SMTP configuré).
-  Le **reset password** et le **changement d'e-mail** nécessitent encore l'UI correspondante dans l'app (cf. HANDOFF).
+- ⚠️ Depuis le 09/10/2026, le **code de connexion** (activation, connexion) et la **réinitialisation du mot de
+  passe** ne passent plus par ces modèles : l'app génère le code (`auth.admin.generateLink`) et envoie son propre
+  e-mail via Resend (`src/lib/auth-code.ts`, `src/lib/email-templates.ts`). `/signup` crée aussi le compte par
+  code. Ces modèles ne servent plus que pour le **changement d'e-mail** (et l'API Supabase appelée directement).
 
 ---
 

@@ -18,7 +18,7 @@ export default async function ResetPasswordPage() {
       subtitle={
         user
           ? "Facultatif : vous pouvez toujours vous connecter avec un code reçu par e-mail."
-          : "Lien invalide ou expiré."
+          : "Lien expiré ou session terminée."
       }
       footer={
         user ? (
@@ -36,8 +36,12 @@ export default async function ResetPasswordPage() {
         <ResetForm />
       ) : (
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
-          Ce lien de réinitialisation est invalide ou a expiré. Demandez-en un
-          nouveau depuis{" "}
+          Reconnectez-vous avec un code reçu par e-mail depuis la{" "}
+          <Link href="/login" className="font-medium underline">
+            page de connexion
+          </Link>
+          , puis revenez ici pour définir un mot de passe. Vous pouvez aussi
+          demander un lien depuis{" "}
           <Link href="/forgot-password" className="font-medium underline">
             Mot de passe oublié
           </Link>

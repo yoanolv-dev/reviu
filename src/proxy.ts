@@ -12,7 +12,9 @@ export async function proxy(req: NextRequest) {
   const sub = host.split(".")[0];
   const { pathname } = req.nextUrl;
 
-  if (sub === "r" && !pathname.startsWith("/r")) {
+  // /r ou /r/… uniquement : un code qui commence par « r » (ex. /rk3m9xa)
+  // doit lui aussi être réécrit.
+  if (sub === "r" && !/^\/r(\/|$)/.test(pathname)) {
     const url = req.nextUrl.clone();
     url.pathname = `/r${pathname === "/" ? "" : pathname}`;
     return NextResponse.rewrite(url);
@@ -61,7 +63,10 @@ export async function proxy(req: NextRequest) {
   if (
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/admin") ||
-    pathname.startsWith("/activer")
+    pathname.startsWith("/activer") ||
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/reset-password"
   ) {
     return updateSession(req);
   }

@@ -20,6 +20,18 @@ export async function clientKey(): Promise<string> {
   return createHash("sha256").update(`reviu-rl:${ip}`).digest("hex").slice(0, 32);
 }
 
+/**
+ * Empreinte d'une adresse e-mail pour les compteurs : les adresses ne sont
+ * jamais stockées en clair dans `rate_events`.
+ */
+export function emailKey(email: string): string {
+  const pepper = process.env.REVIU_SHOP_SECRET ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
+  return createHash("sha256")
+    .update(`reviu-rl-email:${pepper}:${email.trim().toLowerCase()}`)
+    .digest("hex")
+    .slice(0, 32);
+}
+
 /** Enregistre une tentative si la limite le permet. `false` = limite atteinte. */
 export async function rateAllow(
   kind: string,

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthShell } from "@/components/auth/auth-shell";
+import { safeNext } from "@/lib/auth-code";
 import { ConfirmForm } from "./confirm-form";
 
 export const metadata: Metadata = {
@@ -18,31 +19,53 @@ export default async function ConfirmPage({
 }: {
   searchParams: Promise<{ token_hash?: string; type?: string; next?: string }>;
 }) {
-  const { token_hash, type, next } = await searchParams;
+  const { token_hash, type, next: rawNext } = await searchParams;
   const valid = Boolean(token_hash) && (type === "email" || type === "recovery");
+  const next = safeNext(rawNext);
+  const activation = type === "email" && next.startsWith("/activer/");
 
   return (
     <AuthShell
-      title={type === "recovery" ? "Nouveau mot de passe" : "Connexion à votre espace"}
+      title={
+        type === "recovery"
+          ? "Nouveau mot de passe"
+          : activation
+            ? "Activation de votre présentoir"
+            : "Connexion à votre espace"
+      }
       subtitle={
         valid
           ? type === "recovery"
             ? "Confirmez pour choisir un nouveau mot de passe."
-            : "Confirmez pour ouvrir votre espace reviu sur cet appareil."
+            : activation
+              ? "Confirmez pour continuer l'activation sur cet appareil."
+              : "Confirmez pour ouvrir votre espace reviu sur cet appareil."
           : undefined
       }
       footer={
-        <Link href="/login" className="font-medium text-brand hover:underline">
-          Retour à la connexion
-        </Link>
+        activation ? (
+          <Link href={next} className="font-medium text-brand hover:underline">
+            Retour à l&apos;activation
+          </Link>
+        ) : (
+          <Link href="/login" className="font-medium text-brand hover:underline">
+            Retour à la connexion
+          </Link>
+        )
       }
     >
       {valid ? (
         <ConfirmForm
           tokenHash={token_hash!}
           type={type!}
-          next={next ?? "/dashboard"}
-          label={type === "recovery" ? "Continuer" : "Ouvrir mon espace"}
+          next={next}
+          label={
+            type === "recovery"
+              ? "Continuer"
+              : activation
+                ? "Continuer l'activation"
+                : "Ouvrir mon espace"
+          }
         />
       ) : (
         <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">

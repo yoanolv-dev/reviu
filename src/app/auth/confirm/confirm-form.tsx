@@ -21,7 +21,7 @@ export function ConfirmForm({
       <input type="hidden" name="type" value={type} />
       <input type="hidden" name="next" value={next} />
       {state?.error && (
-        <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
           {state.error}
         </p>
       )}

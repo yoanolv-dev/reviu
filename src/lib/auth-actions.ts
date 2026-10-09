@@ -1,11 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { createSupabaseServer } from "./supabase/server";
-import { APP_BASE, ADMIN_NOTIFY_EMAIL } from "./brand";
-import { sendEmail } from "./email";
 import {
+  afterEmailVerified,
   normalizeEmail,
   safeNext,
   sendLoginCode,
@@ -26,52 +24,6 @@ export async function signInAction(
   // Rattache les présentoirs activés en self-service, une seule fois à la
   // connexion (idempotent), plutôt qu'à chaque chargement du dashboard.
   await supabase.rpc("bind_account");
-  redirect("/dashboard");
-}
-
-export async function signUpAction(
-  _prev: FormState,
-  formData: FormData,
-): Promise<FormState> {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const fullName = String(formData.get("name") ?? "").trim();
-  if (password.length < 8) {
-    return { error: "Le mot de passe doit faire au moins 8 caractères." };
-  }
-  const supabase = await createSupabaseServer();
-  const h = await headers();
-  const origin = h.get("origin") ?? APP_BASE;
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { full_name: fullName },
-      // Le lien de confirmation passe par /auth/callback : l'utilisateur est
-      // connecté directement après avoir confirmé son e-mail.
-      emailRedirectTo: `${origin}/auth/callback?next=/dashboard`,
-    },
-  });
-  if (error) return { error: error.message };
-
-  // Notification interne à chaque nouvelle inscription (best-effort : n'échoue
-  // jamais le parcours si l'e-mail ne part pas).
-  await sendEmail({
-    to: ADMIN_NOTIFY_EMAIL,
-    subject: `Nouvelle inscription reviu - ${email}`,
-    html: `<p>Nouvelle inscription sur reviu.</p>
-<ul>
-  <li><strong>E-mail :</strong> ${email}</li>
-  <li><strong>Nom :</strong> ${fullName || "(non renseigné)"}</li>
-  <li><strong>Date :</strong> ${new Date().toLocaleString("fr-FR")}</li>
-</ul>`,
-  });
-
-  if (!data.session) {
-    return {
-      info: "Compte créé. Vérifiez votre e-mail pour confirmer votre inscription.",
-    };
-  }
   redirect("/dashboard");
 }
 
@@ -98,8 +50,8 @@ export async function verifyLoginCodeAction(input: {
 }): Promise<{ ok: false; error: string }> {
   const email = normalizeEmail(input.email);
   if (!email) return { ok: false, error: "Adresse e-mail invalide." };
-  const res = await verifyLoginCode(email, input.token);
-  if (!res.ok) return res;
+  const res = await verifyLoginCode(email, input.token, { notifyNewAccount: true });
+  if (!res.ok) return { ok: false, error: res.error };
   redirect("/dashboard");
 }
 
@@ -119,14 +71,23 @@ export async function confirmEmailLinkAction(
     return { error: "Lien invalide. Demandez un nouveau code depuis la page de connexion." };
   }
   const supabase = await createSupabaseServer();
-  const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
+  const { data, error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
   if (error) {
+    // Lien déjà utilisé (ex. le code a été saisi avant) mais session ouverte
+    // sur cet appareil : on continue simplement.
+    if (type === "email") {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) redirect(next);
+    }
     return {
-      error:
-        "Ce lien a expiré ou a déjà servi. Demandez un nouveau code depuis la page de connexion.",
+      error: next.startsWith("/activer/")
+        ? "Ce lien a expiré ou a déjà servi. Revenez à la page d'activation pour recevoir un nouveau code."
+        : "Ce lien a expiré ou a déjà servi. Demandez un nouveau code depuis la page de connexion.",
     };
   }
-  await supabase.rpc("bind_account");
+  await afterEmailVerified(supabase, data.user, { notifyNewAccount: !next.startsWith("/activer/") });
   redirect(type === "recovery" ? "/reset-password" : next);
 }
 

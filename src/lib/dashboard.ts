@@ -61,25 +61,42 @@ export async function getMyContext(): Promise<DashContext | null> {
   // plus appelé ici : il l'est une seule fois à la connexion, pas à chaque
   // chargement de page (c'était une écriture répétée inutile).
   //
-  // Organisation + établissement récupérés en UNE requête (embedding PostgREST)
-  // au lieu de deux allers-retours séquentiels.
-  const { data: org } = await supabase
+  // Organisations + établissements (+ nombre de présentoirs) en UNE requête
+  // (embedding PostgREST).
+  const { data: orgs } = await supabase
     .from("organizations")
-    .select("id,name,establishments(*)")
+    .select("id,name,created_at,establishments(*,stands(count))")
     .order("created_at")
-    .limit(1)
-    .maybeSingle<{
-      id: string;
-      name: string;
-      establishments: EstablishmentRow[] | null;
-    }>();
-  if (!org) return null;
-  const rows = org.establishments ?? [];
-  // Le plus ancien établissement de l'organisation (comportement historique).
-  const establishment = rows.length
-    ? rows.reduce((a, b) => (a.created_at <= b.created_at ? a : b))
-    : null;
-  return { orgId: org.id, orgName: org.name, establishment };
+    .returns<
+      {
+        id: string;
+        name: string;
+        created_at: string;
+        establishments: (EstablishmentRow & { stands?: { count: number }[] })[] | null;
+      }[]
+    >();
+  if (!orgs?.length) return null;
+
+  // L'espace gère un établissement : celui qui porte le plus de présentoirs
+  // (à égalité, le plus ancien). Un compte qui a d'abord créé un établissement
+  // vide puis activé un présentoir ailleurs voit ainsi le bon.
+  let best: { org: (typeof orgs)[number]; est: EstablishmentRow; stands: number } | null =
+    null;
+  for (const org of orgs) {
+    for (const row of org.establishments ?? []) {
+      const { stands, ...est } = row;
+      const count = Number(stands?.[0]?.count ?? 0);
+      if (
+        !best ||
+        count > best.stands ||
+        (count === best.stands && est.created_at < best.est.created_at)
+      ) {
+        best = { org, est, stands: count };
+      }
+    }
+  }
+  if (!best) return { orgId: orgs[0].id, orgName: orgs[0].name, establishment: null };
+  return { orgId: best.org.id, orgName: best.org.name, establishment: best.est };
 }
 
 /** Commerce du compte, tel que proposé lors de l'activation d'un présentoir. */
@@ -89,9 +106,14 @@ export interface MyEstablishment {
   googleReviewUrl: string | null;
 }
 
-/** Commerces du compte connecté, du plus ancien au plus récent (RLS). */
-export async function getMyEstablishments(): Promise<MyEstablishment[]> {
-  const supabase = await createSupabaseServer();
+/**
+ * Commerces du compte connecté, du plus ancien au plus récent (RLS). Accepte le
+ * client qui vient d'ouvrir la session (même requête), sinon en crée un.
+ */
+export async function getMyEstablishments(
+  client?: Awaited<ReturnType<typeof createSupabaseServer>>,
+): Promise<MyEstablishment[]> {
+  const supabase = client ?? (await createSupabaseServer());
   const { data } = await supabase
     .from("establishments")
     .select("id,name,google_review_url")

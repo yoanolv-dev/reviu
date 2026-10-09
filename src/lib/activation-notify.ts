@@ -24,7 +24,7 @@ export async function notifyActivation(info: {
   googleUrl: string | null;
   newEstablishment: boolean;
   standsOnAccount: number;
-  via: "scan" | "dashboard";
+  via: "scan" | "dashboard" | "tiers";
   origin: string;
 }): Promise<void> {
   const standAddress = `${REDIRECT_BASE.replace(/^https?:\/\//, "")}/${info.code}`;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/dashboard";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { LoginForm } from "./login-form";
 
@@ -11,17 +12,17 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string; email?: string }>;
 }) {
   const { error, email } = await searchParams;
+  // Déjà connecté (ex. bouton « Accéder à mon espace » de l'e-mail de
+  // confirmation, ouvert sur le même téléphone) : directement dans l'espace.
+  if (await getCurrentUser()) redirect("/dashboard");
   return (
     <AuthShell
       title="Bon retour"
       subtitle="Connectez-vous à votre espace reviu."
       footer={
         <>
-          Nouveau ? Scannez votre présentoir pour l&apos;activer, ou{" "}
-          <Link href="/signup" className="font-medium text-brand hover:underline">
-            créez un compte
-          </Link>
-          .
+          Nouveau ? Scannez votre présentoir pour l&apos;activer : votre
+          espace est créé au passage.
         </>
       }
     >

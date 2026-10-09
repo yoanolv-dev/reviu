@@ -32,9 +32,8 @@ export default async function RedirectPage({
     const path = `/activer/${encodeURIComponent(code.toLowerCase())}`;
     redirect(onRedirectSub ? `${APP_BASE}${path}` : path);
   }
-  if (stand.status !== "active" || !stand.establishment) {
-    return <NotReadyView />;
-  }
+  if (stand.status !== "active") return <UnavailableView />;
+  if (!stand.establishment) return <NotReadyView />;
 
   const est = stand.establishment;
 
@@ -110,7 +109,25 @@ function NotFoundView({ code }: { code: string }) {
   );
 }
 
-/** Présentoir activé mais sans lien d'avis, ou suspendu : rien à rediriger. */
+/** Présentoir suspendu, remplacé, désactivé... : message neutre. */
+function UnavailableView() {
+  return (
+    <ScreenShell>
+      <div className="w-full max-w-sm rounded-3xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
+        <h1 className="font-display text-xl font-semibold text-ink">
+          Présentoir indisponible
+        </h1>
+        <p className="mt-2 text-sm text-muted">
+          Ce présentoir n&apos;est pas utilisable pour le moment. Merci de votre
+          visite !
+        </p>
+      </div>
+      <PoweredBy />
+    </ScreenShell>
+  );
+}
+
+/** Présentoir activé mais sans lien d'avis : rien à rediriger. */
 function NotReadyView() {
   return (
     <ScreenShell>

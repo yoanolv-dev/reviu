@@ -45,7 +45,8 @@ export default async function StandsPage() {
           Rattacher un présentoir
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Le code figure sur le présentoir, à côté du QR code (ex.&nbsp;k7Qm2p).
+          Le plus simple : scannez le présentoir avec votre téléphone connecté
+          à cet espace. Sinon, saisissez ses deux codes ci-dessous.
         </p>
         <div className="mt-4">
           <ClaimStandForm establishmentId={ctx.establishment.id} />

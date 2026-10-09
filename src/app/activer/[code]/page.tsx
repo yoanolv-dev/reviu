@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getStandByCode } from "@/lib/data";
 import { getCurrentUser, getMyEstablishments } from "@/lib/dashboard";
+import { createSupabaseServer } from "@/lib/supabase/server";
 import { CONTACT_EMAIL, CONTACT_PHONE, REDIRECT_BASE } from "@/lib/brand";
 import { ScreenShell, PoweredBy } from "@/components/site/screen";
 import { LogoBadge } from "@/components/ui/logo";
@@ -39,6 +40,43 @@ export default async function ActivatePage({
   }
 
   const user = await getCurrentUser();
+
+  if (stand.status !== "blank" && user) {
+    // Présentoir activé sur CE compte (RLS : seuls les présentoirs du compte
+    // sont lisibles). Cas aussi d'un rafraîchissement de la page juste après
+    // l'activation : on affiche la réussite, pas « déjà activé ».
+    // Même arbre que le parcours (ScreenShell > ActivateFlow) : si la page se
+    // re-rend juste après l'activation, l'écran de réussite reste affiché.
+    const supabase = await createSupabaseServer();
+    const { data: mine } = await supabase
+      .from("stands")
+      .select("id, target_url, establishments(name, google_review_url)")
+      .eq("code", code)
+      .maybeSingle<{
+        id: string;
+        target_url: string | null;
+        establishments: { name: string; google_review_url: string | null } | null;
+      }>();
+    if (mine) {
+      return (
+        <ScreenShell>
+          <ActivateFlow
+            code={code}
+            standAddress={standAddress}
+            account={user.email ? { email: user.email } : null}
+            establishments={[]}
+            activated={{
+              establishmentName: mine.establishments?.name ?? "",
+              hasGoogleLink: Boolean(
+                mine.target_url ?? mine.establishments?.google_review_url,
+              ),
+            }}
+          />
+          <PoweredBy />
+        </ScreenShell>
+      );
+    }
+  }
 
   if (stand.status !== "blank") {
     return (

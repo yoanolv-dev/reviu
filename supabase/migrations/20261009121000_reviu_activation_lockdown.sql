@@ -25,6 +25,13 @@ revoke all on function public.self_set_subscription(text, text, text)
 --    d'ecriture (tableau de bord, API directe, admin). Un presentoir detourne
 --    ne peut donc pas renvoyer vers une page de phishing. Seules les valeurs
 --    MODIFIEES sont controlees : les liens existants restent intacts.
+-- Avant d'appliquer : verifier qu'aucun lien existant ne serait refuse.
+--   select id, google_review_url from public.establishments
+--   where not public.is_allowed_review_url(nullif(trim(google_review_url), ''));
+--   select id, target_url from public.stands
+--   where not public.is_allowed_review_url(nullif(trim(target_url), ''));
+-- (au 09/10/2026 : aucun). Les liens existants restent de toute facon valides
+-- tant qu'ils ne sont pas modifies.
 create or replace function public.guard_review_url()
 returns trigger
 language plpgsql
@@ -37,8 +44,13 @@ begin
       raise exception 'invalid_review_url';
     end if;
   elsif tg_table_name = 'stands' then
+    -- Copie du lien deja enregistre pour l'etablissement (activation,
+    -- attribution admin) : acceptee telle quelle.
     if (tg_op = 'INSERT' or new.target_url is distinct from old.target_url)
-       and not public.is_allowed_review_url(nullif(trim(new.target_url), '')) then
+       and not public.is_allowed_review_url(nullif(trim(new.target_url), ''))
+       and new.target_url is distinct from (
+         select e.google_review_url from public.establishments e
+         where e.id = new.establishment_id) then
       raise exception 'invalid_review_url';
     end if;
   end if;
