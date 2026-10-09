@@ -224,6 +224,13 @@ export function StandRow({
   // Une copie du lien du commerce (anciennes activations) équivaut à « suit le commerce ».
   const ownLink = stand.target_url && stand.target_url !== commerceUrl ? stand.target_url : null;
   const [url, setUrl] = useState(ownLink ?? "");
+  // Lien changé côté serveur (ex. nouveau lien du commerce) : le champ suit,
+  // sans remonter la ligne (le message de confirmation reste affiché).
+  const [synced, setSynced] = useState(ownLink);
+  if (synced !== ownLink) {
+    setSynced(ownLink);
+    setUrl(ownLink ?? "");
+  }
   const effective = ownLink || commerceUrl;
   const active = stand.status === "active";
   return (

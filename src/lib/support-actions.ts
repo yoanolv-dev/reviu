@@ -64,14 +64,13 @@ export async function createTicketAction(
     standCode = own?.code ?? null;
   }
 
-  // Limites (bloquantes si le compteur est indisponible) : protège la boîte
-  // de l'admin contre un envoi massif.
-  if (
-    !(await rateAllow("ticket_create", me.id, 86_400, 10, { failClosed: true })) ||
-    !(await rateAllow("support_notify", "admin", 3600, 60, { failClosed: true }))
-  ) {
+  // Limite par commerçant (bloquante si le compteur est indisponible).
+  if (!(await rateAllow("ticket_create", me.id, 86_400, 10, { failClosed: true }))) {
     return { error: "Trop de demandes pour le moment. Réessayez plus tard ou écrivez-nous par e-mail." };
   }
+  // Plafond global des e-mails vers l'admin : au-delà, la demande est bien
+  // enregistrée (visible dans l'admin) mais sans e-mail.
+  const notifyAdmin = await rateAllow("support_notify", "admin", 3600, 60, { failClosed: true });
 
   const { data: ticket, error } = await db
     .from("support_tickets")
@@ -95,16 +94,18 @@ export async function createTicketAction(
   });
 
   const origin = await currentOrigin();
-  after(async () => {
-    const mail = supportToAdminEmail({
-      subject,
-      body,
-      email: me.email,
-      isNew: true,
-      link: `${origin}/admin/support/${ticket.id}`,
+  if (notifyAdmin) {
+    after(async () => {
+      const mail = supportToAdminEmail({
+        subject,
+        body,
+        email: me.email,
+        isNew: true,
+        link: `${origin}/admin/support/${ticket.id}`,
+      });
+      await sendEmail({ to: ADMIN_NOTIFY_EMAIL, ...mail, replyTo: me.email });
     });
-    await sendEmail({ to: ADMIN_NOTIFY_EMAIL, ...mail, replyTo: me.email });
-  });
+  }
   revalidatePath("/dashboard/aide");
   redirect(`/dashboard/aide/${ticket.id}`);
 }

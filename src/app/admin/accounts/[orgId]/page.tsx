@@ -100,7 +100,7 @@ export default async function ClientPage({
           <ul className="flex flex-col gap-3">
             {c.stands.map((s) => (
               <StandRow
-                key={`${s.id}:${s.target_url ?? ""}`}
+                key={s.id}
                 stand={s}
                 commerceUrl={s.establishment_id ? (urlByEst.get(s.establishment_id) ?? null) : null}
               />
