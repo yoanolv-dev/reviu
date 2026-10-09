@@ -9,7 +9,12 @@
 
 ## 🟥 Activation vérifiée et connexion sans mot de passe - 09/10/2026
 
-Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
+Branche `claude/optimistic-noether-m6o1ge`, **en prod depuis le 09/10/2026**
+(fast-forward de `main`, déploiement Vercel vérifié : scan d'un présentoir actif,
+redirection d'un présentoir vierge vers `/activer`, connexion par code, admin
+protégé). Avant la mise en prod : relecture « release gate » (liens écrits
+partout, contrat base / code, régressions pour les clients existants) sans
+point bloquant.
 
 ### Pourquoi
 - Après l'activation, le commerçant n'avait **aucun compte de connexion**
@@ -163,12 +168,16 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   vérifié : fonctions présentes, réservées au service role). Pour la coller à
   la main : copier le fichier depuis la vue « Raw » de GitHub, la vue normale
   ne copie que les lignes affichées sur les longs fichiers.
-- `20261009121000_reviu_activation_lockdown.sql` : **à appliquer AU MOMENT de la
-  mise en prod** (juste après le déploiement) : retire l'accès public à
-  `activate_stand`, `claim_stand` et `self_set_subscription` (cette dernière
-  permettait à n'importe qui de modifier le statut d'abonnement d'un présentoir
-  avec son seul code public), et ajoute les triggers « liens Google
-  uniquement ».
+- `20261009121000_reviu_activation_lockdown.sql` : **appliquée le 09/10 juste
+  après le déploiement**, en deux migrations côté Supabase
+  (`reviu_activation_lockdown_revokes` puis `reviu_activation_lockdown_url_guard`,
+  le connecteur refusant sans confirmation le `drop trigger` du fichier). Retire
+  l'accès public à `activate_stand`, `claim_stand` et `self_set_subscription`
+  (vérifié : « permission denied » avec la clé publique) et ajoute les triggers
+  « liens Google uniquement » (`establishments_review_url_guard`,
+  `stands_target_url_guard`).
+- Note : `20261009120000` a été collée dans le SQL Editor, elle n'apparaît donc
+  pas dans `supabase_migrations.schema_migrations` (les objets sont bien là).
 - Variables requises : `SUPABASE_SERVICE_ROLE_KEY` et `RESEND_API_KEY`
   (+ `REVIU_EMAIL_FROM`). **Étendues à l'environnement Preview de Vercel le
   09/10** (elles n'étaient qu'en Production) pour tester la branche. Les
