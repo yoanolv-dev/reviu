@@ -130,9 +130,10 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   `support_tickets`, `support_messages`, accès serveur uniquement) :
   **appliquée en prod le 09/10**. Les limites d'envoi du support (10 demandes
   par jour et par commerçant, 60 e-mails par heure vers l'admin) passent par
-  `rl_allow` (migration `20261009120000`) et sont **bloquantes** : tant que
-  cette migration n'est pas appliquée, la création de demande répond « Trop de
-  demandes pour le moment ».
+  `rl_allow` (migration `20261009120000`, appliquée). La limite par
+  commerçant est bloquante si le compteur est indisponible ; le plafond
+  d'e-mails vers l'admin ne bloque jamais la demande, il saute seulement
+  l'e-mail.
 
 ### Un commerce par compte (limite actuelle de l'espace)
 - L'espace ne gère qu'un établissement par compte : `getMyContext` affiche
@@ -157,20 +158,23 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   `check_stand_secret`, `activate_stand_verified`, `auth_unconfirmed_user_id`),
   service role seulement, plus `admin_assign_stand` / `admin_transfer_stand`
   qui ne copient plus le lien du commerce dans le présentoir.
-  Sans effet sur le parcours actuel ; **nécessaire pour tester la branche et
-  pour le support** (limites d'envoi). **Pas encore appliquée** : le connecteur
-  Supabase demande une confirmation manuelle pour cette migration (elle
-  contient un `delete` de purge). À appliquer dans Supabase > SQL Editor en
-  collant le fichier, ou en acceptant la demande du connecteur.
+  Sans effet sur le parcours actuel ; nécessaire pour la branche et pour le
+  support (limites d'envoi). **Appliquée en prod le 09/10** (SQL Editor ;
+  vérifié : fonctions présentes, réservées au service role). Pour la coller à
+  la main : copier le fichier depuis la vue « Raw » de GitHub, la vue normale
+  ne copie que les lignes affichées sur les longs fichiers.
 - `20261009121000_reviu_activation_lockdown.sql` : **à appliquer AU MOMENT de la
   mise en prod** (juste après le déploiement) : retire l'accès public à
   `activate_stand`, `claim_stand` et `self_set_subscription` (cette dernière
   permettait à n'importe qui de modifier le statut d'abonnement d'un présentoir
   avec son seul code public), et ajoute les triggers « liens Google
   uniquement ».
-- Variables requises (déjà utilisées ailleurs) : `SUPABASE_SERVICE_ROLE_KEY` et
-  `RESEND_API_KEY` (+ `REVIU_EMAIL_FROM`), **y compris sur l'environnement
-  Preview** de Vercel pour tester la branche.
+- Variables requises : `SUPABASE_SERVICE_ROLE_KEY` et `RESEND_API_KEY`
+  (+ `REVIU_EMAIL_FROM`). **Étendues à l'environnement Preview de Vercel le
+  09/10** (elles n'étaient qu'en Production) pour tester la branche. Les
+  aperçus utilisent la base de prod et restent protégés par l'authentification
+  Vercel. Pour revenir en arrière : Vercel > reviu > Settings > Environment
+  Variables, décocher Preview sur ces trois variables.
 - Limite connue : les appels `verifyOtp` partent du serveur, donc la limite
   Supabase « vérifications par IP » s'applique à l'IP de Vercel ; sans effet au
   volume actuel.
