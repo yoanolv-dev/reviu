@@ -13,10 +13,12 @@
 --   - le lien de redirection doit etre un lien Google (pas de lien de
 --     phishing sur un presentoir detourne).
 --
--- Cette migration n'ajoute que de nouveaux objets, appelables UNIQUEMENT par le
--- serveur (service role). Elle ne change rien au comportement actuel de la
--- prod. Le verrouillage des anciennes fonctions est dans la migration
--- 20261009121000_reviu_activation_lockdown.sql, a appliquer a la mise en prod.
+-- Cette migration ajoute de nouveaux objets, appelables UNIQUEMENT par le
+-- serveur (service role). Seul changement pour la prod actuelle :
+-- admin_assign_stand / admin_transfer_stand ne copient plus le lien du
+-- commerce dans le presentoir (section 4 ter). Le verrouillage des anciennes
+-- fonctions est dans la migration 20261009121000_reviu_activation_lockdown.sql,
+-- a appliquer a la mise en prod.
 
 -- 1. Limitation des essais ------------------------------------------------
 create table if not exists public.rate_events (
