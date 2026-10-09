@@ -90,6 +90,37 @@ Branche `claude/optimistic-noether-m6o1ge` (**pas encore en prod**).
   **verrouiller les puces NFC en lecture seule** (sinon une appli comme NFC
   Tools peut réécrire l'adresse de la puce).
 
+### Admin : la main complète, sans toucher à la base (09/10)
+- **Accueil** (`/admin`) : chiffres clés (clients, présentoirs actifs, scans et
+  clics vers Google sur 7 et 30 jours) et **ce qui est à traiter** : demandes de
+  support en attente, présentoirs actifs sans lien d'avis, dernières
+  activations. Recherche : nom, e-mail ou **code présentoir** (ouvre
+  directement la fiche du client).
+- **Clients** (`/admin/accounts`) -> **fiche client** (`/admin/accounts/[id]`) :
+  tout sur une page et modifiable à distance : commerce (nom, **lien d'avis**,
+  mode de scan, message, retour privé), **lien propre de chaque présentoir**
+  (vide = suit le lien du commerce), statistiques 30 jours + graphique par
+  jour, présentoirs (statut, scans), attribution d'un présentoir vierge,
+  retours privés, demandes de support, envoi d'un code de connexion,
+  suspension, suppression (super-admin).
+- **Présentoirs** (`/admin/stands`) : statut, remplacement, réinitialisation,
+  lien vers la fiche client. **Production** (`/admin/production`) : lots et
+  génération (ancienne page d'accueil de l'admin).
+- **Support** (`/admin/support`) : le commerçant écrit depuis son espace
+  (**Aide**, `/dashboard/aide`), l'admin répond ; chaque message part aussi par
+  e-mail (admin -> `ADMIN_NOTIFY_EMAIL`, réponse -> commerçant). Statuts : à
+  traiter, répondu, clôturé.
+- Technique : les écrans admin lisent et écrivent via le **service role**,
+  toujours après `requireAdmin()` (`src/lib/admin-server.ts`), dans chaque page
+  ET chaque action. Modifications tracées dans le Journal (`stand_audit`).
+- **Liens des présentoirs** : depuis le 09/10, un présentoir activé **suit le
+  lien du commerce** (plus de copie dans `stands.target_url`). Changer le lien
+  du commerce (espace ou admin) met aussi à jour les présentoirs qui gardaient
+  une copie de l'ancien lien. Un lien propre à un présentoir reste possible.
+- Migration **`20261009130000_reviu_support_tickets.sql`** (tables
+  `support_tickets`, `support_messages`, accès serveur uniquement) : à
+  appliquer pour activer le support (sinon les listes restent vides).
+
 ### Un commerce par compte (limite actuelle de l'espace)
 - L'espace ne gère qu'un établissement par compte : `getMyContext` affiche
   celui qui porte le plus de présentoirs. À l'activation, un compte qui a déjà

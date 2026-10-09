@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   updateAccountAction,
   setAccountDisabledAction,
@@ -67,13 +68,21 @@ function AccountCard({
             {formatDate(c.created_at)}
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="shrink-0 rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-line-soft"
-        >
-          {open ? "Fermer" : "Gérer"}
-        </button>
+        <div className="flex shrink-0 gap-2">
+          <Link
+            href={`/admin/accounts/${c.org_id}`}
+            className="rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-ink-soft"
+          >
+            Ouvrir la fiche
+          </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-line-soft"
+          >
+            {open ? "Fermer" : "Actions rapides"}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -175,11 +184,13 @@ function AccountCard({
 export function AccountsAdmin({
   customers,
   isSuperAdmin,
+  initialQuery = "",
 }: {
   customers: CustomerRow[];
   isSuperAdmin: boolean;
+  initialQuery?: string;
 }) {
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(initialQuery);
   const filtered = useMemo(() => {
     const n = q.trim().toLowerCase();
     if (!n) return customers;

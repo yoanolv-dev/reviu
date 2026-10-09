@@ -34,7 +34,7 @@ export function StandManage({
           <input
             name="target_url"
             defaultValue={targetUrl ?? ""}
-            placeholder="https://g.page/r/…"
+            placeholder="Vide : lien de votre commerce"
             className="h-10 flex-1 rounded-xl border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-brand"
           />
           <input type="hidden" name="stand_id" value={standId} />
@@ -46,6 +46,10 @@ export function StandManage({
             {tgtPending ? "…" : "Mettre à jour"}
           </button>
         </div>
+        <p className="text-xs text-muted">
+          Laissez vide pour suivre le lien d&apos;avis de votre commerce
+          (onglet Établissement). Un lien ici ne vaut que pour ce présentoir.
+        </p>
         {tgtState?.error && (
           <p className="text-sm text-red-600">{tgtState.error}</p>
         )}

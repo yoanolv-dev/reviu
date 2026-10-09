@@ -183,7 +183,7 @@ $$;
 -- - rattache le client (e-mail) et ses anciennes organisations au compte ;
 -- - reutilise un etablissement existant du compte (p_establishment_id) ou en
 --   cree un nouveau (p_name, p_google_url) : plus de doublons ;
--- - active le presentoir et trace l'activation.
+-- - active le presentoir (il suit le lien du commerce) et trace l'activation.
 create or replace function public.activate_stand_verified(
   p_user_id uuid,
   p_email text,
@@ -270,10 +270,12 @@ begin
   update public.organizations set customer_id = v_customer
   where id = v_org and customer_id is null;
 
+  -- Pas de copie du lien dans target_url : le presentoir suit le lien du
+  -- commerce (resolve_stand = coalesce(target_url, lien du commerce)). Un lien
+  -- propre au presentoir reste possible ensuite (espace ou admin).
   update public.stands
     set org_id = v_org, establishment_id = v_est, status = 'active',
-        activated_at = now(), target_url = coalesce(target_url, v_est_url),
-        status_changed_at = now()
+        activated_at = now(), status_changed_at = now()
   where id = v_stand;
 
   insert into public.stand_audit (stand_id, action, detail, actor, actor_email)

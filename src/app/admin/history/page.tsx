@@ -10,6 +10,19 @@ const ACTION_LABELS: Record<string, string> = {
   status_changed: "Statut modifié",
   replaced: "Présentoir remplacé",
   activated: "Présentoir activé",
+  assigned: "Présentoir attribué (admin)",
+  reset: "Présentoir réinitialisé",
+  transferred: "Présentoir transféré",
+  admin_set_link: "Lien du présentoir modifié (admin)",
+  admin_edit_establishment: "Commerce modifié (admin)",
+};
+
+const VIA: Record<string, string> = {
+  scan: "par scan",
+  dashboard: "depuis l'espace client",
+  tiers: "par un revendeur (code du commerçant)",
+  self_service: "par scan (ancien parcours)",
+  dashboard_claim: "depuis l'espace client (ancien parcours)",
 };
 
 function summarize(action: string, detail: Record<string, unknown> | null): string {
@@ -17,7 +30,9 @@ function summarize(action: string, detail: Record<string, unknown> | null): stri
   if (action === "generated") return `${detail.count ?? "?"} présentoir(s)`;
   if (action === "status_changed") return `${detail.from} → ${detail.to}`;
   if (action === "replaced") return `→ ${detail.new_code}`;
-  if (action === "activated") return String(detail.via ?? "");
+  if (action === "activated") return VIA[String(detail.via ?? "")] ?? String(detail.via ?? "");
+  if (action === "admin_set_link") return `${detail.to ?? "lien du commerce"}`;
+  if (action === "admin_edit_establishment") return `${detail.name ?? ""} · ${detail.to_url ?? "sans lien"}`;
   return "";
 }
 

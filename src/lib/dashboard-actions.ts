@@ -60,6 +60,14 @@ export async function updateEstablishmentAction(
   const url = normalizeReviewUrl(String(formData.get("google_review_url") ?? ""));
   if (!url.ok) return { error: REVIEW_URL_ERROR };
 
+  // Lien actuel : les présentoirs qui en gardaient une copie (anciennes
+  // activations) suivront désormais le nouveau lien du commerce.
+  const { data: before } = await supabase
+    .from("establishments")
+    .select("google_review_url")
+    .eq("id", id)
+    .maybeSingle<{ google_review_url: string | null }>();
+
   const scanMode = formData.get("scan_mode") === "page" ? "page" : "direct";
   const patch = {
     name,
@@ -77,6 +85,18 @@ export async function updateEstablishmentAction(
   if (error) {
     if (error.message.includes("invalid_review_url")) return { error: REVIEW_URL_ERROR };
     return { error: error.message };
+  }
+  const oldUrl = before?.google_review_url ?? null;
+  if (oldUrl && oldUrl !== url.url) {
+    const { data: copies } = await supabase
+      .from("stands")
+      .select("id")
+      .eq("establishment_id", id)
+      .eq("target_url", oldUrl);
+    for (const s of copies ?? []) {
+      await supabase.rpc("set_stand_target", { p_stand_id: s.id as string, p_url: "" });
+    }
+    revalidatePath("/dashboard/stands");
   }
   revalidatePath("/dashboard/establishment");
   revalidatePath("/dashboard");

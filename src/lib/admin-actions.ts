@@ -72,7 +72,7 @@ export async function generateStandsAction(
     p_label: label,
   });
   if (error) return { error: mapErr(error.message) };
-  revalidatePath("/admin");
+  revalidatePath("/admin/production");
   return { rows: (data ?? []) as GeneratedStand[], label };
 }
 
@@ -86,7 +86,7 @@ export async function validateBatchAction(
     p_batch: batchId,
   });
   if (error) return { error: mapErr(error.message) };
-  revalidatePath("/admin");
+  revalidatePath("/admin/production");
   return { success: true, info: "Lot validé et verrouillé." };
 }
 

@@ -5,9 +5,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
-  { href: "/admin", label: "Présentoirs" },
-  { href: "/admin/stands", label: "Tous les stands" },
-  { href: "/admin/accounts", label: "Comptes" },
+  { href: "/admin", label: "Accueil" },
+  { href: "/admin/accounts", label: "Clients" },
+  { href: "/admin/stands", label: "Présentoirs" },
+  { href: "/admin/support", label: "Support" },
+  { href: "/admin/production", label: "Production" },
   { href: "/admin/resellers", label: "Revendeurs" },
   { href: "/admin/history", label: "Journal" },
 ];

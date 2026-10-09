@@ -11,7 +11,7 @@ export default async function PrintPage() {
         <h1 className="font-display text-xl font-semibold text-ink">
           Feuille QR · {stands.length} présentoirs
         </h1>
-        <Link href="/admin" className="text-sm text-brand hover:underline">
+        <Link href="/admin/production" className="text-sm text-brand hover:underline">
           ← Retour
         </Link>
       </div>

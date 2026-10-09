@@ -1,13 +1,14 @@
 "use client";
 
 import { useActionState, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   setStandStatusAction,
   replaceStandAction,
   resetStandAction,
 } from "@/lib/admin-actions";
 import type { StandFull } from "@/lib/admin";
-import { StatusBadge, formatDate } from "@/components/dashboard/ui";
+import { StatusBadge } from "@/components/dashboard/ui";
 import { REDIRECT_BASE } from "@/lib/brand";
 
 const STATUS_OPTIONS = [
@@ -70,13 +71,23 @@ function StandCard({ stand }: { stand: StandFull }) {
             <p className="mt-1 text-xs text-amber-700">Note : {stand.status_note}</p>
           )}
         </div>
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="shrink-0 rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-line-soft"
-        >
-          {open ? "Fermer" : "Gérer"}
-        </button>
+        <div className="flex shrink-0 gap-2">
+          {stand.org_id && (
+            <Link
+              href={`/admin/accounts/${stand.org_id}`}
+              className="rounded-full bg-ink px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-ink-soft"
+            >
+              Fiche client
+            </Link>
+          )}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-line-soft"
+          >
+            {open ? "Fermer" : "Gérer"}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -204,8 +215,14 @@ function StandCard({ stand }: { stand: StandFull }) {
   );
 }
 
-export function StandsAdmin({ stands }: { stands: StandFull[] }) {
-  const [q, setQ] = useState("");
+export function StandsAdmin({
+  stands,
+  initialQuery = "",
+}: {
+  stands: StandFull[];
+  initialQuery?: string;
+}) {
+  const [q, setQ] = useState(initialQuery);
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     if (!needle) return stands;

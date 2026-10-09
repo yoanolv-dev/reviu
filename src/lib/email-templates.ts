@@ -173,3 +173,45 @@ export function activationAdminEmail(opts: {
     }),
   };
 }
+
+/** Support : nouveau message d'un commerçant (vers l'admin). */
+export function supportToAdminEmail(opts: {
+  subject: string;
+  body: string;
+  email: string;
+  isNew: boolean;
+  link: string;
+}): { subject: string; html: string } {
+  const body = `${p(`${opts.isNew ? "Nouvelle demande" : "Nouveau message"} de <strong style="color:#0a0d16;">${esc(opts.email)}</strong> :`)}
+      <div style="margin:0 0 20px;padding:14px 16px;border-radius:12px;background:#f5f6f8;font-size:15px;line-height:1.6;color:#0a0d16;white-space:pre-wrap;">${esc(opts.body)}</div>
+      ${button(opts.link, "Répondre")}`;
+  return {
+    subject: `${opts.isNew ? "Support" : "Support (réponse)"} - ${opts.subject}`,
+    html: layout({
+      preheader: opts.body.slice(0, 120),
+      title: opts.subject,
+      body,
+      footer: "Répondez depuis l'admin : le commerçant reçoit votre réponse par e-mail.",
+    }),
+  };
+}
+
+/** Support : réponse de l'équipe (vers le commerçant). */
+export function supportToClientEmail(opts: {
+  subject: string;
+  body: string;
+  link: string;
+}): { subject: string; html: string } {
+  const body = `${p("Nous avons répondu à votre demande :")}
+      <div style="margin:0 0 20px;padding:14px 16px;border-radius:12px;background:#f5f6f8;font-size:15px;line-height:1.6;color:#0a0d16;white-space:pre-wrap;">${esc(opts.body)}</div>
+      ${button(opts.link, "Voir la conversation")}`;
+  return {
+    subject: `Réponse à votre demande - ${opts.subject}`,
+    html: layout({
+      preheader: opts.body.slice(0, 120),
+      title: opts.subject,
+      body,
+      footer: "Pour répondre, utilisez le bouton ci-dessus (rubrique Aide de votre espace).",
+    }),
+  };
+}

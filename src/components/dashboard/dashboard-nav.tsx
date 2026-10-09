@@ -10,6 +10,7 @@ const ITEMS = [
   { href: "/dashboard/stands", label: "Présentoirs" },
   { href: "/dashboard/establishment", label: "Établissement" },
   { href: "/dashboard/feedback", label: "Avis privés" },
+  { href: "/dashboard/aide", label: "Aide" },
 ];
 
 export function DashboardNav({ showReseller = false }: { showReseller?: boolean }) {
