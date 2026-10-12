@@ -49,8 +49,6 @@ export type Guide = {
 const UPDATED = "2026-07-24";
 // Date de dernière révision des guides « par métier » ajoutés fin juillet 2026.
 const UPDATED_METIERS = "2026-07-29";
-// Révision du guide dentiste (rappel déontologique, octobre 2026).
-const UPDATED_DENTISTE = "2026-10-12";
 
 const BASE_GUIDES: Guide[] = [
   {
@@ -312,195 +310,326 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "presentoir-plaque-nfc-avis-google",
-    metaTitle:
-      "Plaque et présentoir NFC pour avis Google : le guide 2026 · reviu",
+    metaTitle: "Plaque et présentoir NFC avis Google : le guide · reviu",
     h1: "Plaque et présentoir NFC pour avis Google : comment ça marche",
     description:
-      "Comment fonctionne une plaque ou un présentoir NFC pour avis Google, ce qui distingue une bonne solution d’un gadget, et comment l’installer en boutique en 2 minutes.",
+      "Plaque ou présentoir NFC pour avis Google : fonctionnement de la puce, compatibilité, formats, critères d’une bonne solution et installation en boutique.",
     excerpt:
-      "La puce NFC transforme un geste - approcher le téléphone - en avis Google. Voici comment ça marche, ce qui compte vraiment, et comment éviter la carte NFC « morte ».",
+      "La puce NFC transforme un geste, approcher le téléphone, en avis Google. Voici comment elle fonctionne, quel format choisir, ce qui compte vraiment et comment éviter la carte NFC « morte ».",
     keywords: [
       "plaque nfc avis google",
       "présentoir avis google",
       "carte nfc avis google",
       "présentoir nfc",
       "support avis google",
+      "autocollant nfc avis google",
     ],
     category: "Le présentoir",
     readMinutes: 7,
     datePublished: "2026-07-24",
-    dateModified: UPDATED,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Une plaque ou un présentoir NFC pour avis Google, c’est un petit objet posé sur le comptoir qui déclenche l’ouverture de votre page d’avis Google dès qu’un client approche son téléphone. Aucune application à installer, aucune recherche : le geste est immédiat. Mais toutes les solutions ne se valent pas. Ce guide explique le fonctionnement, ce qui sépare un vrai outil d’un gadget, et comment le mettre en place.",
+        text: "Une plaque ou un présentoir NFC pour avis Google est un support posé en boutique qui contient une puce sans contact : quand le client approche son téléphone, votre page d’avis Google s’ouvre, sans application ni recherche. Un QR code imprimé sur le même support prend le relais pour les téléphones qui ne lisent pas la puce. La qualité d’une solution se juge surtout à ce qu’il y a derrière : un lien modifiable, des statistiques, et pas d’abonnement caché.",
       },
-      { type: "h2", text: "Ce qu’est la NFC, en une minute" },
       {
         type: "p",
-        text: "La NFC (Near Field Communication) est la même technologie que le paiement sans contact. Une puce sans pile est intégrée dans le présentoir ; quand un smartphone passe à quelques centimètres, il lit l’adresse enregistrée et propose de l’ouvrir. Tous les iPhone récents et la quasi-totalité des Android lisent le NFC nativement, sans réglage particulier.",
+        text: "Ce guide explique le fonctionnement, les formats, les critères de choix et l’installation. Pour les tarifs pratiqués, voyez notre guide sur le [prix d’une plaque avis Google](/guides/prix-plaque-avis-google).",
+      },
+      { type: "h2", text: "Comment fonctionne la puce NFC" },
+      {
+        type: "p",
+        text: "La NFC (communication en champ proche) est la famille de technologies utilisée pour le paiement sans contact. La puce intégrée au support est passive : elle n’a ni pile ni batterie, c’est le champ émis par le téléphone qui l’alimente le temps de la lecture. Elle contient une simple adresse web. Quand un smartphone compatible passe à quelques centimètres, il lit cette adresse et propose de l’ouvrir, par une notification ou directement dans le navigateur.",
       },
       {
-        type: "callout",
-        title: "NFC et QR : les deux, pas l’un ou l’autre",
-        text: "Un bon présentoir combine puce NFC et QR code imprimé. Le NFC pour la rapidité (approcher le téléphone), le QR pour l’universalité (n’importe quel appareil photo). Le client choisit, vous ne perdez personne.",
+        type: "p",
+        text: "La puce ne collecte rien sur le téléphone du client et ne déclenche aucun paiement : elle transmet un lien, exactement comme un QR code, mais sans avoir à viser.",
+      },
+      { type: "h2", text: "Quels téléphones lisent une plaque NFC" },
+      {
+        type: "p",
+        text: "La lecture des puces NFC sans application est prise en charge par les iPhone récents (à partir de l’iPhone XS) et par la grande majorité des smartphones Android équipés du NFC. Quelques précautions toutefois :",
+      },
+      {
+        type: "ul",
+        items: [
+          "Sur iPhone, le téléphone doit être déverrouillé, écran allumé ; la lecture peut être suspendue quand l’appareil photo ou le portefeuille de paiement est ouvert.",
+          "Sur Android, le NFC doit être activé dans les réglages : il l’est souvent par défaut, mais pas toujours.",
+          "La zone de lecture varie : vers le haut de l’appareil sur iPhone, souvent au centre du dos sur Android.",
+          "Une coque épaisse, métallique ou contenant des cartes peut gêner la lecture.",
+        ],
+      },
+      {
+        type: "p",
+        text: "C’est pour toutes ces raisons qu’un bon support comporte aussi un QR code : le client qui n’obtient rien en approchant son téléphone le scanne, sans chercher plus loin. Pour comparer les deux technologies point par point, voyez notre guide [NFC ou QR code pour les avis Google](/guides/nfc-ou-qr-code-avis-google).",
+      },
+      { type: "h2", text: "Plaque, présentoir, carte ou autocollant : quel format choisir" },
+      {
+        type: "ul",
+        items: [
+          "Le présentoir de comptoir : autoportant, il se pose près de la caisse, côté client, et se déplace facilement. C’est le format le plus polyvalent pour un commerce de proximité.",
+          "La plaque murale ou adhésive : fixée au mur ou au comptoir, elle ne bouge plus, d’où l’importance de bien choisir son emplacement, à hauteur de main.",
+          "La carte NFC : pratique pour un professionnel itinérant qui la tend au client, mais elle se perd ou s’abîme plus vite.",
+          "L’autocollant NFC : discret et peu coûteux, à coller sur une table ou un menu. Évitez de le placer sur le terminal de paiement ou juste à côté, pour ne pas mélanger les deux gestes sans contact.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Dans tous les cas, le support doit annoncer clairement son usage (« Laissez-nous un avis Google ») et montrer où approcher le téléphone : une puce invisible et sans indication ne sert à rien. Pour l’affichage complémentaire, notre guide du [QR code avis Google](/guides/qr-code-avis-google) précise tailles et emplacements.",
       },
       { type: "h2", text: "Le piège de la carte NFC « morte »" },
       {
         type: "p",
-        text: "Beaucoup de cartes NFC vendues en ligne encodent en dur le lien de votre fiche Google. Le jour où vous changez d’enseigne, où Google modifie le format des liens, ou si vous voulez rediriger ailleurs, la carte devient inutilisable : il faut tout racheter et réimprimer. C’est la carte « morte » - figée à jamais.",
+        text: "Beaucoup de cartes NFC vendues en ligne encodent en dur le lien de votre fiche Google. Le jour où vous changez d’enseigne, où le lien évolue ou si vous voulez rediriger ailleurs, la carte devient inutilisable : il faut tout racheter et réimprimer. C’est la carte « morte », figée à jamais.",
       },
       {
         type: "p",
-        text: "La solution durable consiste à encoder une adresse intermédiaire qui vous appartient (par exemple une URL de redirection) et dont vous pilotez la destination à distance. L’objet reste le même, mais vous changez où il pointe quand vous voulez. C’est ce qui distingue un présentoir « intelligent » d’une simple carte imprimée.",
+        text: "La solution durable consiste à encoder une adresse intermédiaire dont la destination se pilote à distance. L’objet reste le même, mais vous changez où il pointe quand vous voulez. C’est ce qui distingue un présentoir « intelligent » d’une simple carte imprimée.",
       },
-      { type: "h2", text: "Ce qui fait un bon présentoir d’avis" },
+      { type: "h2", text: "Les critères d’une bonne solution" },
       {
         type: "ul",
         items: [
-          "Lien modifiable à distance : vous changez la destination sans réimprimer ni racheter.",
-          "NFC et QR code ensemble : rapidité et compatibilité universelle.",
-          "Un vrai service derrière : statistiques de scan, canal de retour privé, suivi - pas juste un bout de plastique.",
-          "Conforme aux règles de Google : bouton d’avis proposé à tous, sans filtrage selon la note.",
-          "Robuste et présentable : il vit sur un comptoir, il doit tenir et donner envie.",
+          "Un lien modifiable à distance : vous changez la destination sans réimprimer ni racheter le support.",
+          "Un QR code de secours sur le même support, pour les téléphones sans NFC ou dont le NFC est désactivé.",
+          "Des statistiques : nombre de scans, distinction entre sans contact et QR code, pour savoir quel emplacement fonctionne.",
+          "Pas d’abonnement obligatoire : vérifiez que le lien continue de fonctionner si vous ne payez rien après l’achat.",
+          "Une invitation conforme aux règles de Google : le bouton d’avis proposé à tous, sans filtre selon la note.",
+          "Un objet robuste et présentable : il vit sur un comptoir, il doit tenir et donner envie.",
         ],
       },
-      { type: "h2", text: "Installation : de la boîte au comptoir en 2 minutes" },
+      {
+        type: "callout",
+        title: "Les questions à poser avant d’acheter",
+        text: "« Si je ne paie rien après l’achat, le lien inscrit dans la plaque fonctionne-t-il toujours ? » et « Qui peut modifier sa destination, et comment ? ». Des réponses claires sur ces deux points valent plus que tous les arguments de design.",
+      },
+      { type: "h2", text: "Installation et emplacement en boutique" },
       {
         type: "ol",
         items: [
-          "Vous recevez le présentoir déjà encodé (NFC et QR prêts), rien à configurer côté matériel.",
-          "Vous l’activez en le scannant et en collant le lien de votre fiche Google.",
-          "Vous le posez sur le comptoir, côté client, bien visible.",
-          "Dès le premier client, le geste fonctionne : approcher le téléphone, la page d’avis s’ouvre.",
+          "Activez le support selon la procédure du fabricant : en général, on le scanne, puis on y associe le lien de sa fiche Google.",
+          "Testez-le avec plusieurs téléphones, au moins un iPhone et un Android, en sans contact puis en QR code.",
+          "Posez-le côté client, à portée de main, près de l’endroit où l’on paie.",
+          "Évitez les surfaces métalliques, qui peuvent gêner la lecture de la puce, et les zones de passage.",
+          "Expliquez le geste à l’équipe, avec une phrase commune pour inviter tous les clients.",
         ],
       },
       {
         type: "p",
-        text: "Avec reviu, chaque présentoir intègre NFC et QR encodés sur une adresse r.reviu.fr unique et permanente, dont vous choisissez la destination à distance. Vous pouvez même décider du comportement au scan : redirection directe vers Google (volume maximal), ou page à votre marque avec un canal de contact en complément.",
+        text: "Si un téléphone ne réagit pas, notre guide [plaque NFC avis Google qui ne fonctionne pas](/guides/plaque-nfc-avis-google-ne-fonctionne-pas) passe en revue les causes et les solutions.",
       },
-      { type: "h2", text: "Combien ça coûte ?" },
+      { type: "h2", text: "Ce que le présentoir ne fait pas à votre place" },
       {
         type: "p",
-        text: "Un [présentoir reviu](/#produits) est un achat unique (29,90 €), sans frais supplémentaires. Votre espace Reviu est inclus : statistiques de scans (QR et NFC distingués), gestion de vos présentoirs et modification de votre lien de redirection à tout moment.",
+        text: "Un support, même bien placé, ne remplace pas l’invitation : les clients le voient, mais une phrase simple au moment de payer reste le meilleur déclencheur. Il ne fait pas non plus disparaître les avis négatifs : il rend votre note plus représentative, en donnant la parole à tous vos clients et pas seulement à ceux qui ont une réclamation. La méthode complète pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) détaille les mots et les moments qui fonctionnent.",
+      },
+      { type: "h2", text: "Un exemple concret : lien permanent et achat unique" },
+      {
+        type: "p",
+        text: "Le [Présentoir Reviu](/presentoir-avis-google) réunit puce NFC et QR code sur une même adresse r.reviu.fr permanente, dont vous changez la destination à distance. Il s’achète une fois (29,90 €), sans abonnement, et l’espace Reviu est inclus : statistiques de scans sans contact et QR distinguées, gestion des présentoirs, modification du lien à tout moment. Vous choisissez aussi le comportement au scan : accès direct à votre page d’avis Google, ou page à votre nom avec le bouton d’avis proposé à tous et, si vous le souhaitez, un canal de contact en complément.",
       },
     ],
     faq: [
       {
-        q: "Faut-il une application pour lire le présentoir NFC ?",
-        a: "Non. La lecture NFC est native sur les iPhone récents et la grande majorité des Android. Le client approche simplement son téléphone. Pour les rares appareils non compatibles, le QR code imprimé prend le relais.",
+        q: "Faut-il une application pour lire un présentoir NFC ?",
+        a: "Non. Les iPhone récents et la grande majorité des Android équipés du NFC lisent la puce sans application : le client approche simplement son téléphone. Pour les appareils non compatibles ou dont le NFC est désactivé, le QR code imprimé prend le relais.",
       },
       {
-        q: "Peut-on changer le lien après l’achat ?",
-        a: "Avec reviu, oui, autant de fois que vous voulez, à distance et sans réimprimer. C’est justement ce qui évite la carte NFC « morte » : l’objet reste, la destination s’ajuste.",
+        q: "Quelle différence entre une plaque, un présentoir et une carte NFC ?",
+        a: "La technologie est la même, seul le format change. Le présentoir se pose sur le comptoir et se déplace, la plaque se fixe au mur ou au comptoir, la carte se tend au client et convient aux professionnels itinérants. Pour un commerce avec une caisse, le présentoir est le plus polyvalent.",
+      },
+      {
+        q: "Peut-on changer le lien d’une plaque NFC après l’achat ?",
+        a: "Cela dépend de la solution. Si la puce contient directement le lien Google, il faut la réencoder ou la remplacer. Si elle pointe vers une adresse de redirection, vous changez la destination à distance, sans toucher au support.",
+      },
+      {
+        q: "Une plaque NFC fonctionne-t-elle posée sur une surface métallique ?",
+        a: "Le métal peut perturber la lecture de la puce. Mieux vaut poser le support sur du bois, du verre ou du plastique, ou l’éloigner un peu du métal. Le QR code, lui, n’est pas concerné.",
       },
       {
         q: "Y a-t-il des frais récurrents ?",
-        a: "Non. Le présentoir s’achète une fois et votre espace Reviu est inclus, sans frais supplémentaires : statistiques de scans, gestion et modification du lien à tout moment.",
+        a: "Cela dépend du fournisseur : certaines solutions fonctionnent par abonnement, d’autres par achat unique. Vérifiez avant d’acheter ce que devient le lien si vous ne payez rien après l’achat. Le Présentoir Reviu s’achète une fois, sans abonnement, espace de suivi inclus.",
+      },
+      {
+        q: "La puce NFC peut-elle lire des données du téléphone du client ?",
+        a: "Non. La puce d’un présentoir est passive : elle transmet seulement une adresse web au téléphone qui s’en approche, comme le ferait un QR code. Le client voit la page s’ouvrir et reste libre de laisser un avis ou non.",
       },
     ],
-    related: ["avoir-plus-avis-google", "qr-code-avis-google", "avis-google-restaurant"],
+    related: [
+      "avoir-plus-avis-google",
+      "qr-code-avis-google",
+      "avis-google-commerce-local",
+      "avis-google-restaurant",
+    ],
   },
 
   {
     slug: "qr-code-avis-google",
-    metaTitle:
-      "QR code avis Google : le créer et l’utiliser en boutique · reviu",
+    metaTitle: "QR code avis Google : le créer et bien le placer · reviu",
     h1: "QR code avis Google : le créer et l’utiliser en boutique",
     description:
-      "Comment créer un QR code qui ouvre votre page d’avis Google, où le placer pour qu’il soit scanné, et pourquoi un QR dynamique vaut mieux qu’un QR figé.",
+      "Créer un QR code d’avis Google pour votre boutique : celui de Google ou un générateur, statique ou dynamique, taille, emplacement et erreurs d’impression.",
     excerpt:
-      "Un QR code bien placé transforme une visite en avis en un scan. Voici comment le générer, où l’afficher, et l’erreur du QR « statique » à éviter.",
+      "Un QR code bien placé transforme une visite en avis en un scan. Voici comment l’obtenir, quelle taille choisir, où l’afficher et quelles erreurs d’impression éviter.",
     keywords: [
       "qr code avis google",
       "générer qr code avis google",
       "qr code avis client",
       "créer qr code avis",
       "qr code fiche google",
+      "taille qr code avis google",
     ],
     category: "Collecter des avis",
-    readMinutes: 6,
+    readMinutes: 7,
     datePublished: "2026-07-24",
-    dateModified: UPDATED,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Un QR code avis Google est un code que vos clients scannent avec l’appareil photo de leur téléphone pour ouvrir directement votre page d’avis - sans chercher votre établissement sur Google. Simple à mettre en place, il fait sauter l’obstacle principal du dépôt d’avis : trouver le bon endroit où cliquer. Voici comment le créer correctement et en tirer le maximum.",
+        text: "Pour créer un QR code d’avis Google, récupérez le lien de demande d’avis de votre fiche d’établissement (Google propose aussi son propre QR code, depuis un ordinateur), puis imprimez-le assez grand et placez-le là où le client attend quelques secondes, idéalement près de la caisse. Le reste tient à quelques détails : un contraste net, un message clair et un support qui dure.",
       },
-      { type: "h2", text: "Comment obtenir le lien de votre fiche Google" },
+      {
+        type: "p",
+        text: "Le QR code fait sauter l’obstacle principal du dépôt d’avis : chercher votre établissement sur Google puis le bon bouton. Ce guide porte sur son usage en boutique ; pour produire le fichier lui-même, notre [générateur de QR code avis Google](/outils/qr-code-avis-google) fait le travail gratuitement, sans inscription.",
+      },
+      { type: "h2", text: "Récupérer le bon lien d’avis" },
       {
         type: "ol",
         items: [
-          "Connectez-vous à votre profil d’établissement Google (Google Business Profile).",
-          "Cherchez l’option « Demander des avis » ou « Obtenir plus d’avis ».",
-          "Google vous fournit un lien court dédié aux avis (souvent de la forme g.page/… ou un lien de rédaction d’avis).",
-          "C’est ce lien qui doit se cacher derrière votre QR code.",
+          "Connectez-vous à votre fiche d’établissement Google (business.google.com) avec le compte qui la gère.",
+          "Sélectionnez « Voir les avis », puis l’icône de partage associée à « Recevoir plus d’avis » (le libellé peut varier selon l’interface, par exemple « Demander des avis »).",
+          "Copiez le lien proposé : il ouvre directement la fenêtre de rédaction d’avis de votre établissement.",
+          "Testez-le sur un téléphone qui n’est pas connecté à votre compte, pour voir exactement ce que verra un client.",
         ],
       },
       {
         type: "p",
-        text: "Une fois le lien en main, notre [générateur de QR code avis Google gratuit](/outils/qr-code-avis-google) crée en quelques secondes le QR code (PNG ou SVG) et une affiche prête à imprimer.",
+        text: "Si l’option n’apparaît pas, notre guide pour [trouver son lien d’avis Google](/guides/lien-avis-google) détaille les autres méthodes, dont celle du Place ID.",
+      },
+      { type: "h2", text: "Le QR code proposé par Google dans votre fiche" },
+      {
+        type: "p",
+        text: "Google permet aussi de générer un QR code de demande d’avis, au même endroit que le lien. Selon sa page d’aide [Créer un lien ou un QR code pour demander des avis](https://support.google.com/business/answer/16816815?hl=fr), ce QR code ne peut pour le moment être généré que depuis un navigateur sur ordinateur : il s’enregistre par un clic droit sur l’image, puis « Enregistrer l’image sous ».",
+      },
+      {
+        type: "p",
+        text: "C’est une solution simple et officielle, qui suffit pour un premier affichage. En revanche, vous ne pouvez pas changer la destination de ce QR code, la page d’aide ne mentionne aucune statistique de scan, et l’image seule ne porte aucun message pour le client : il vous reste à la mettre en page.",
+      },
+      { type: "h2", text: "Créer le QR code avec un générateur" },
+      {
+        type: "p",
+        text: "Un générateur part du même lien d’avis, ou de votre Place ID, et produit un fichier à imprimer. Le nôtre fournit le QR en PNG ou en SVG, ainsi qu’une affiche ou un autocollant prêts à imprimer ; le SVG, vectoriel, reste net à toutes les tailles, ce que préfèrent les imprimeurs. Quel que soit l’outil, vérifiez que le QR ouvre bien la fenêtre d’avis (et non la simple fiche), et qu’il ne porte ni publicité ni filigrane envahissant.",
       },
       { type: "h2", text: "QR statique ou QR dynamique : ne vous trompez pas" },
       {
         type: "p",
-        text: "Un générateur de QR gratuit produit le plus souvent un QR statique : le lien est gravé dans le motif, définitivement. Si votre lien Google change, si vous déménagez ou changez de nom, le QR imprimé est bon à jeter. Un QR dynamique, lui, pointe vers une adresse intermédiaire que vous contrôlez : vous modifiez la destination sans réimprimer.",
+        text: "Un générateur gratuit produit le plus souvent un QR statique : le lien est inscrit dans le motif, définitivement. Si votre lien change, si vous déménagez ou changez de nom, le QR imprimé est bon à jeter. Un QR dynamique, lui, pointe vers une adresse intermédiaire : vous modifiez la destination sans réimprimer.",
       },
-      {
-        type: "callout",
-        title: "Pourquoi c’est décisif",
-        text: "Un présentoir posé une fois doit durer des années. Avec un QR dynamique, vous corrigez une faute, changez de fiche ou basculez vers une page à votre marque - sans jamais racheter ni réimprimer le support.",
-      },
-      { type: "h2", text: "Où placer le QR code pour qu’il soit vraiment scanné" },
       {
         type: "ul",
         items: [
-          "Sur le comptoir, dans un présentoir : l’emplacement roi, au moment du paiement.",
-          "Sur l’addition, le ticket ou le sac : un rappel qui repart avec le client.",
-          "En vitrine ou en salle : capte les clients pendant l’attente.",
-          "Sur la carte, le menu, la table : particulièrement efficace en restauration.",
+          "Statique : gratuit et indépendant de tout service tiers, il fonctionne tant que le lien Google reste valide. Mais il ne se modifie pas et ne compte rien.",
+          "Dynamique : la destination se change à distance et les scans peuvent être comptés. En contrepartie, il dépend du service qui gère la redirection : si celui-ci disparaît ou suspend votre compte, le QR imprimé cesse de fonctionner.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Le piège du QR dynamique « gratuit »",
+        text: "Certains services offrent un QR dynamique pendant une période d’essai, puis le désactivent faute d’abonnement. Avant d’imprimer un support censé durer des années, lisez les conditions : qui détient l’adresse de redirection, et que devient-elle si vous arrêtez de payer ?",
+      },
+      { type: "h2", text: "Quelle taille et quel emplacement en boutique" },
+      {
+        type: "p",
+        text: "Une règle empirique suffit pour la taille : comptez environ 1 cm de côté pour 10 cm de distance de lecture. Le tableau détaillé par support (ticket, autocollant, affiche A5 ou A4) figure sur la page du générateur citée plus haut. Pour l’emplacement, pensez aux endroits où le client est disponible :",
+      },
+      {
+        type: "ul",
+        items: [
+          "Près du terminal de paiement : le client a déjà son téléphone en main.",
+          "Sur le comptoir, dans un présentoir à hauteur des yeux, tourné vers le client.",
+          "Sur le ticket, le sac ou la facture : un rappel pour ceux qui préfèrent laisser leur avis plus tard.",
+          "En vitrine : utile pour les habitués, à condition que le QR soit assez grand pour être lu depuis le trottoir.",
+          "En restauration, sur la table, la carte ou dans le porte-addition.",
         ],
       },
       {
         type: "p",
-        text: "La règle : le QR doit être présent là où le client est satisfait et disponible. Le comptoir au moment de payer reste, de loin, le meilleur emplacement.",
+        text: "La règle : le QR doit se trouver là où le client est satisfait et a quelques secondes devant lui, pas dans un couloir de passage ni derrière le comptoir.",
+      },
+      { type: "h2", text: "Les erreurs d’impression qui rendent un QR illisible" },
+      {
+        type: "ul",
+        items: [
+          "Un QR trop petit pour la distance de lecture, ou posé trop loin du client.",
+          "Un contraste insuffisant : gris clair sur blanc, couleurs pastel, ou motif clair sur fond foncé, que certains lecteurs reconnaissent mal.",
+          "Une marge blanche rognée : le QR a besoin d’une zone vide autour de lui pour être détecté.",
+          "Un logo trop grand au centre, ou un motif trop stylisé par souci d’esthétique.",
+          "Un support brillant ou une plastification qui crée des reflets sous l’éclairage du magasin.",
+          "Une image étirée ou pixelisée, faute d’avoir utilisé un fichier vectoriel.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Avant de lancer un tirage, imprimez un exemplaire, posez-le à l’emplacement prévu et scannez-le avec un iPhone et un Android, à la distance réelle du client. Ce test de quelques minutes évite de jeter une série d’affiches.",
       },
       { type: "h2", text: "Accompagner le QR d’un message clair" },
       {
         type: "p",
-        text: "Un QR seul intrigue mais ne suffit pas toujours. Une phrase courte et honnête multiplie les scans : « Votre avis nous aide beaucoup - scannez pour nous laisser un mot sur Google ». Restez sincère et proposez-le à tout le monde : pas de « seulement si vous avez aimé », qui contreviendrait aux règles de Google.",
+        text: "Un QR seul intrigue mais ne suffit pas toujours. Une phrase courte et honnête aide à passer à l’acte : « Votre avis nous aide beaucoup : scannez pour nous laisser un mot sur Google ». Pour les clients moins à l’aise, indiquez aussi le geste : « ouvrez l’appareil photo et visez le code ».",
       },
-      { type: "h2", text: "Aller plus loin : mesurer et ajuster" },
       {
         type: "p",
-        text: "Un QR statique ne dit rien de son efficacité. Une solution comme [reviu](/#produits) compte les scans, distingue le canal NFC du QR, et suit les clics vers Google - établissement par établissement. Vous savez ce qui fonctionne, à quel emplacement, et vous ajustez. Le QR n’est plus un pari, c’est un canal piloté.",
+        text: "Restez sincère et proposez-le à tout le monde. Pas de « seulement si vous avez aimé » : les [règles de Google](https://support.google.com/contributionpolicy/answer/7400114?hl=fr) interdisent de solliciter des avis positifs de façon sélective, comme de proposer un avantage en échange d’un avis.",
+      },
+      { type: "h2", text: "QR code et sans contact : combiner les deux" },
+      {
+        type: "p",
+        text: "Le QR code demande d’ouvrir l’appareil photo et de viser ; le sans contact se contente d’approcher le téléphone, comme pour payer. Les deux se complètent : le geste sans contact est plus rapide pour les téléphones qui le permettent, le QR reste la solution universelle. Notre comparatif [NFC ou QR code pour les avis Google](/guides/nfc-ou-qr-code-avis-google) détaille les atouts de chacun, et le guide des [plaques et présentoirs NFC](/guides/presentoir-plaque-nfc-avis-google) explique le fonctionnement de la puce.",
+      },
+      {
+        type: "p",
+        text: "Un support qui réunit les deux, comme le [Présentoir Reviu](/presentoir-avis-google), garde la même adresse pour le QR et le sans contact : vous modifiez la destination quand vous voulez, et votre espace distingue les scans de chaque canal.",
       },
     ],
     faq: [
       {
         q: "Comment créer un QR code pour les avis Google gratuitement ?",
-        a: "Récupérez le lien d’avis dans votre Google Business Profile, puis passez-le dans un générateur de QR. Attention : la plupart créent un QR statique, non modifiable. Pour un support durable en boutique, préférez un QR dynamique dont vous pilotez la destination.",
+        a: "Depuis votre fiche d’établissement, sur un ordinateur : « Voir les avis », puis l’icône de partage de « Recevoir plus d’avis », qui propose un lien et un QR code. Vous pouvez aussi coller ce lien dans un générateur gratuit pour obtenir une affiche prête à imprimer.",
+      },
+      {
+        q: "Google fournit-il lui-même un QR code pour les avis ?",
+        a: "Oui. La fiche d’établissement propose un QR code de demande d’avis, au même endroit que le lien à partager. Selon l’aide de Google, il ne peut pour le moment être généré que depuis un navigateur sur ordinateur.",
+      },
+      {
+        q: "Quelle taille doit faire un QR code d’avis ?",
+        a: "Comptez environ 1 cm de côté pour 10 cm de distance de lecture : 2 cm sur un ticket ou une carte, 4 à 5 cm sur un autocollant, 8 à 10 cm sur une affiche posée au comptoir. Testez toujours à la distance réelle du client avant d’imprimer en série.",
+      },
+      {
+        q: "Quelle différence entre un QR code statique et dynamique ?",
+        a: "Le statique contient directement votre lien : il est gratuit et ne dépend d’aucun service, mais il ne se modifie pas. Le dynamique passe par une adresse intermédiaire : la destination se change sans réimprimer et les scans peuvent être comptés, mais il dépend du service qui gère cette adresse.",
       },
       {
         q: "Le QR code fonctionne-t-il sur tous les téléphones ?",
-        a: "Oui. Depuis plusieurs années, l’appareil photo natif des iPhone et Android détecte les QR codes sans application dédiée. C’est ce qui en fait un complément universel à la puce NFC.",
+        a: "Oui. L’appareil photo des iPhone et des Android récents détecte les QR codes sans application dédiée. C’est ce qui en fait un complément universel au geste sans contact.",
       },
       {
-        q: "Quelle différence avec un présentoir NFC ?",
-        a: "Le NFC est plus rapide (approcher le téléphone), le QR est plus universel (n’importe quel appareil photo). Le mieux est de combiner les deux sur un même présentoir pour ne perdre aucun client.",
+        q: "Un QR code d’avis Google peut-il expirer ?",
+        a: "Un QR code statique n’expire pas : il fonctionne tant que le lien qu’il contient reste valide. Un QR code dynamique peut en revanche cesser de fonctionner si le service qui gère la redirection s’arrête ou si l’abonnement associé prend fin.",
       },
     ],
     related: [
       "presentoir-plaque-nfc-avis-google",
       "avoir-plus-avis-google",
       "avis-google-commerce-local",
+      "avis-google-boutique",
     ],
   },
 
   {
     slug: "avis-google-commerce-local",
     metaTitle:
-      "Avis Google : pourquoi ils sont décisifs pour un commerce local · reviu",
+      "Avis Google : pourquoi ils comptent pour un commerce · reviu",
     h1: "Pourquoi les avis Google sont décisifs pour un commerce local",
     description:
       "Référencement local, taux de clic, confiance : ce que les avis Google changent concrètement pour un commerce de proximité, et comment en tirer parti.",
@@ -596,7 +725,7 @@ const BASE_GUIDES: Guide[] = [
   {
     slug: "repondre-avis-google",
     metaTitle:
-      "Répondre aux avis Google : méthode et exemples (positifs et négatifs) · reviu",
+      "Répondre aux avis Google : méthode et exemples · reviu",
     h1: "Répondre aux avis Google : positifs et négatifs, avec exemples",
     description:
       "Comment répondre aux avis Google, bons comme mauvais : la méthode, les erreurs à éviter et des modèles de réponses prêts à adapter pour votre commerce.",
@@ -698,121 +827,230 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-restaurant",
-    metaTitle:
-      "Plus d’avis Google pour un restaurant : la méthode qui marche · reviu",
+    metaTitle: "Plus d’avis Google pour un restaurant : la méthode · reviu",
     h1: "Obtenir plus d’avis Google pour un restaurant",
     description:
-      "La méthode concrète pour collecter plus d’avis Google au restaurant : quand demander, où placer le QR, quoi dire en salle - sans gêner le service.",
+      "Plus d’avis Google au restaurant : quand demander, quoi dire en salle, où placer le QR code, comment répondre aux critiques, sans gêner le service.",
     excerpt:
-      "En restauration, le bon moment et le bon support font tout. Voici comment récolter des avis Google sans alourdir le service ni forcer la main.",
+      "En restauration, le bon moment et le bon support font tout. Voici comment récolter des avis Google à l’addition, répondre aux critiques propres au métier et éviter les faux pas.",
     keywords: [
       "avis google restaurant",
       "avis clients restaurant",
       "plus d’avis restaurant",
       "qr code avis restaurant",
       "collecter avis restaurant",
+      "répondre avis restaurant",
     ],
     category: "Par métier",
-    readMinutes: 6,
+    readMinutes: 8,
     datePublished: "2026-07-24",
-    dateModified: UPDATED,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Au restaurant, les avis Google font venir de nouveaux clients - mais les récolter sans casser le rythme du service est un art. Bonne nouvelle : quelques réflexes simples suffisent à transformer des convives satisfaits en avis, sans gêner ni forcer. Voici la méthode, pensée pour la salle.",
+        text: "Pour obtenir plus d’avis Google dans un restaurant, proposez l’avis à toutes les tables au moment de l’addition, avec un support déjà présent sur la table ou au comptoir qui ouvre votre page d’avis en un geste. Une phrase simple, la même pour tous, suffit : aucune contrepartie, aucun tri des clients contents. Le reste du travail consiste à répondre aux avis et à corriger ce qu’ils révèlent.",
       },
-      { type: "h2", text: "Le moment parfait : la fin du repas" },
       {
         type: "p",
-        text: "L’émotion est au sommet quand le repas s’est bien passé et que l’addition arrive. C’est là qu’il faut proposer l’avis - pas par e-mail le lendemain, quand le souvenir s’estompe. Le client est encore attablé, détendu, téléphone à portée de main : tout est réuni.",
+        text: "Au restaurant, l’avis Google pèse sur une décision prise vite, souvent téléphone en main, au moment de choisir où dîner. Le récolter sans casser le rythme du service demande quelques réflexes, pensés ici pour la salle comme pour la vente à emporter.",
+      },
+      { type: "h2", text: "Ce que les clients jugent dans un avis de restaurant" },
+      {
+        type: "p",
+        text: "Avant de demander, il est utile de savoir sur quoi vous serez évalué. Sur Google, l’avis d’un restaurant peut comporter des notes séparées pour la cuisine, le service et l’ambiance, et les commentaires reviennent souvent aux mêmes points :",
+      },
+      {
+        type: "ul",
+        items: [
+          "La cuisine : goût, cuisson, générosité des assiettes, régularité d’une visite à l’autre.",
+          "Le service : amabilité, attente entre les plats, attention portée aux demandes particulières (allergies, enfants, régimes).",
+          "Le rapport qualité/prix, jugé sur le menu mais aussi sur les boissons et les suppléments.",
+          "L’ambiance : bruit, confort, terrasse, propreté de la salle et des toilettes.",
+          "L’accueil et la gestion des réservations, surtout quand la salle est pleine.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Ces critères disent aussi ce que vos futurs clients chercheront en vous lisant. Un commentaire qui cite un plat précis ou le prénom d’un serveur rassure bien davantage qu’un simple « très bien ».",
+      },
+      { type: "h2", text: "Le moment parfait : l’addition, pas le lendemain" },
+      {
+        type: "p",
+        text: "L’émotion est au sommet quand le repas s’est bien passé et que l’addition arrive. C’est là qu’il faut proposer l’avis, pas par e-mail le lendemain, quand le souvenir s’estompe. Le client est encore attablé, détendu, téléphone à portée de main : tout est réuni. Évitez en revanche de demander avant le dessert ou pendant qu’une table attend encore un plat : vous sollicitez un jugement sur un repas qui n’est pas terminé.",
       },
       {
         type: "callout",
         title: "La règle d’or en restauration",
         text: "Demandez au moment de l’addition, avec un support déjà sur la table ou apporté avec la note. Le geste doit tenir en un scan, sans quitter la table.",
       },
-      { type: "h2", text: "Où placer le support pour être scanné" },
+      { type: "h2", text: "Où placer le support en salle et au comptoir" },
       {
         type: "ul",
         items: [
-          "Sur la table, dans un petit présentoir : visible tout le repas, scanné à la fin.",
-          "Avec l’addition ou le porte-note : le moment le plus naturel.",
+          "Sur la table, dans un petit présentoir : visible tout le repas, il est utilisé à la fin, sans se lever.",
+          "Glissé dans le porte-addition : le moment le plus naturel, sans rien changer au dressage des tables.",
           "Sur le comptoir, pour la vente à emporter et le passage rapide.",
           "Sur le menu ou le set de table : un rappel discret pendant l’attente.",
+          "En terrasse, un support lesté ou fixé : une affichette posée ne résiste ni au vent ni à la pluie.",
         ],
       },
-      { type: "h2", text: "Quoi dire, sans que ça sonne forcé" },
+      { type: "h2", text: "Phrases types pour la salle" },
       {
         type: "p",
-        text: "Un mot simple du serveur, sincère, fait toute la différence : « Si vous avez passé un bon moment, un avis Google nous aide énormément - c’est juste ici, en un scan. » On propose à tous, on ne conditionne jamais à une bonne note, et on n’offre rien en échange : ce sont les règles de Google, et c’est aussi ce qui garde vos avis crédibles.",
+        text: "Une phrase commune, que toute l’équipe connaît, évite l’improvisation gênante. Quelques formulations qui passent bien en salle :",
       },
-      { type: "h2", text: "Former l’équipe en salle" },
       {
-        type: "ol",
+        type: "ul",
         items: [
-          "Une phrase commune, courte, que tout le monde connaît.",
-          "Un geste unique à montrer : approcher le téléphone du présentoir ou scanner le QR.",
-          "La proposition au bon moment : à l’addition, jamais avant le dessert.",
-          "Aucune pression : on invite, on n’insiste pas.",
+          "« Un petit mot sur Google nous aide énormément : il suffit d’approcher votre téléphone du support, ou de scanner le code. »",
+          "« Le chef lit tous les avis : si vous avez deux minutes, dites-nous ce que vous avez pensé du repas. »",
+          "Pour la vente à emporter : « Le code sur le sac ouvre notre page d’avis Google, si vous voulez nous dire ce que vous en avez pensé. »",
+          "À un habitué : « Vous venez souvent, votre avis aiderait ceux qui hésitent encore à pousser la porte. »",
         ],
       },
-      { type: "h2", text: "Mesurer pour progresser" },
       {
         type: "p",
-        text: "Combien de scans par service ? Quel présentoir marche le mieux, en terrasse ou au comptoir ? Un tableau de bord qui compte les scans et les clics vers Google, par établissement, permet d’ajuster l’emplacement et le discours. En restauration multi-sites, c’est aussi la seule façon de comparer objectivement ce qui fonctionne.",
+        text: "Une seule règle : la même invitation pour toutes les tables, y compris celle qui a attendu son plat. Les règles de Google interdisent de solliciter des avis positifs de façon sélective, et c’est aussi ce qui garde votre note crédible.",
+      },
+      { type: "h2", text: "Situations délicates propres à la restauration" },
+      { type: "h3", text: "Le client qui menace d’un mauvais avis" },
+      {
+        type: "p",
+        text: "Certains clients conditionnent leur avis à un geste : un dessert offert, une addition réduite. Traitez la réclamation sur le fond, comme pour n’importe quel client, mais ne négociez jamais l’avis lui-même. Un geste commercial se décide sur ce qui s’est passé, pas sous la menace. Si un avis mensonger est publié ensuite, il peut être signalé à Google.",
+      },
+      { type: "h3", text: "Le soir de rush" },
+      {
+        type: "p",
+        text: "Un service débordé produit les avis les plus durs, souvent sur l’attente. Prévenez les tables dès que le délai s’allonge : un retard annoncé, avec une estimation honnête, passe beaucoup mieux qu’un retard découvert.",
+      },
+      { type: "h3", text: "Allergies et régimes particuliers" },
+      {
+        type: "p",
+        text: "Un avis qui évoque une réaction allergique ou une erreur sur ce point se traite en priorité, et d’abord en privé : on ne débat pas publiquement d’un sujet de santé. Dans la réponse, on remercie, on prend la remarque au sérieux et on invite à appeler le restaurant.",
+      },
+      { type: "h3", text: "La livraison et la vente à emporter" },
+      {
+        type: "p",
+        text: "Un avis peut critiquer un retard qui relève du livreur ou de la plateforme. Répondez sans rejeter la faute en bloc : expliquez ce que vous maîtrisez (préparation, emballage, température) et ce que vous allez vérifier.",
+      },
+      { type: "h2", text: "Répondre aux critiques typiques d’un restaurant" },
+      {
+        type: "p",
+        text: "Les reproches les plus courants portent sur l’attente, le prix ou un plat décevant. La bonne réponse est courte, signée, sans contre-attaque, et montre ce qui change. Exemple pour un avis sur l’attente :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Marc, merci d’avoir pris le temps de nous écrire. Samedi soir, la salle était complète et nous avons mal anticipé le rythme des commandes : vous avez attendu votre plat bien trop longtemps, et nous en sommes désolés. Nous avons depuis ajouté une personne en cuisine le week-end. Nous serions heureux de vous recevoir à nouveau. Julie, gérante »",
       },
       {
         type: "p",
-        text: "Avec un [présentoir reviu](/#produits) sur chaque table ou au comptoir, sans contact et QR code, modifiable à distance, la collecte devient un réflexe de fin de service - et la note grimpe, semaine après semaine.",
+        text: "Évitez de proposer publiquement un repas offert en échange d’une modification de l’avis : c’est une contrepartie déguisée. Pour d’autres cas (plat froid, addition contestée, note sans commentaire), le [générateur de réponses aux avis](/outils/reponse-avis-google) propose des modèles pour la restauration, à adapter, et notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) détaille la méthode.",
+      },
+      { type: "h2", text: "Les erreurs qui coûtent cher en restauration" },
+      {
+        type: "ul",
+        items: [
+          "Offrir un café, un digestif ou une remise contre un avis : c’est une contrepartie, interdite par Google, et les avis concernés peuvent être supprimés.",
+          "Ne tendre le support qu’aux tables qui semblent ravies : c’est la sollicitation sélective que Google proscrit.",
+          "Faire écrire des avis par l’équipe, la famille ou des amis : ils relèvent du conflit d’intérêts.",
+          "Répondre le soir même, à chaud, à un avis jugé injuste : relisez le lendemain, à froid.",
+          "Laisser en ligne une ancienne carte ou d’anciens prix : le client qui découvre l’écart à table le signalera dans son avis.",
+        ],
+      },
+      { type: "h2", text: "Organiser la collecte service après service" },
+      {
+        type: "p",
+        text: "En restauration, la collecte se joue en équipe et dans la durée. Fixez la phrase commune lors du briefing d’avant-service, décidez qui la prononce (souvent la personne qui apporte l’addition) et faites le point chaque semaine sur les nouveaux avis : ce qui revient, ce qui a été corrigé, à qui il reste à répondre.",
+      },
+      {
+        type: "p",
+        text: "Plusieurs outils gratuits aident à chaque étape. Le [générateur de QR code avis Google](/outils/qr-code-avis-google) imprime un chevalet de table ou un autocollant pour les sacs de vente à emporter. Le [calculateur de note Google](/outils/calculateur-note-google) indique combien de nouveaux avis il faut pour remonter après un mauvais mois. Pour un repas de groupe ou une privatisation, un [message de demande d’avis](/outils/message-demande-avis-google) envoyé le lendemain à l’organisateur complète la demande faite en salle.",
+      },
+      {
+        type: "p",
+        text: "Pour que le geste tienne en quelques secondes sur chaque table ou au comptoir, le [Présentoir Reviu](/presentoir-avis-google) ouvre votre page d’avis sans contact ou par QR code, comme pour payer sans contact, et son lien reste modifiable à tout moment.",
       },
     ],
     faq: [
       {
         q: "Comment demander un avis Google au restaurant sans gêner le client ?",
-        a: "Au moment de l’addition, avec un mot sincère et un support déjà sur la table : « si vous avez passé un bon moment, un avis nous aide beaucoup, c’est en un scan ». On propose, on n’insiste pas, et on le fait pour tous les clients.",
+        a: "Au moment de l’addition, avec une phrase simple et un support déjà présent sur la table ou dans le porte-addition. On propose l’avis à toutes les tables de la même façon, sans insister. Le client le laisse en quelques secondes, sans quitter sa place.",
       },
       {
         q: "Faut-il un QR code sur chaque table ?",
-        a: "C’est très efficace : le support reste visible tout le repas et le client scanne à la fin, sans quitter la table. À défaut, un présentoir au comptoir et un QR sur l’addition font déjà une grande différence.",
+        a: "C’est très efficace : le support reste visible tout le repas et le client scanne à la fin, sans se lever. À défaut, un présentoir au comptoir et un QR code dans le porte-addition font déjà une grande différence.",
       },
       {
         q: "Peut-on offrir un café ou une réduction contre un avis ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner la suppression des avis. On récompense la fidélité autrement, jamais l’avis lui-même.",
+        a: "Non. Google interdit les avis publiés en échange d’un avantage, et ils peuvent être supprimés. Un geste commercial reste possible pour réparer un problème, mais il ne doit jamais dépendre de l’avis.",
+      },
+      {
+        q: "Comment répondre à un avis négatif sur l’attente ou le service ?",
+        a: "Rapidement mais à froid : remerciez, reconnaissez ce qui s’est réellement passé et expliquez ce qui a été corrigé. Évitez de contester les faits en public ou d’accuser un membre de l’équipe. Une réponse courte et signée rassure les futurs clients.",
+      },
+      {
+        q: "Que faire si un client menace de laisser un mauvais avis ?",
+        a: "Traitez sa réclamation sur le fond, comme celle de n’importe quel client, mais ne négociez pas l’avis lui-même. Si un avis mensonger ou injurieux est publié, vous pouvez le signaler à Google depuis votre fiche d’établissement.",
+      },
+      {
+        q: "Les avis sur la livraison comptent-ils dans la note du restaurant ?",
+        a: "Oui, s’ils sont publiés sur votre fiche Google, ils pèsent dans la note comme les autres. Répondez en distinguant ce qui dépend de vous, comme la préparation et l’emballage, de ce qui relève du livreur, sans rejeter la faute en bloc.",
       },
     ],
     related: [
       "avoir-plus-avis-google",
+      "repondre-avis-negatif",
       "qr-code-avis-google",
       "presentoir-plaque-nfc-avis-google",
       "avis-google-boulangerie",
-      "avis-google-hotel",
     ],
   },
 
   {
     slug: "avis-google-coiffeur",
-    metaTitle:
-      "Plus d’avis Google pour un salon de coiffure : la méthode · reviu",
+    metaTitle: "Avis Google coiffeur : obtenir plus d’avis au salon · reviu",
     h1: "Obtenir plus d’avis Google pour un salon de coiffure",
     description:
-      "La méthode concrète pour récolter plus d’avis Google en salon de coiffure : le bon moment à l’encaissement, quoi dire, où poser le support - dans les règles.",
+      "Plus d’avis Google en salon de coiffure : le bon moment après le miroir, phrases types, réponses aux critiques sur une couleur ou un prix, erreurs à éviter.",
     excerpt:
-      "En coiffure, la relation est forte et la satisfaction se voit dans le miroir. Voici comment transformer ce moment en avis Google, sans jamais forcer.",
+      "En coiffure, la satisfaction se voit dans le miroir. Voici comment transformer ce moment en avis Google, répondre aux critiques sur une couleur ou un tarif, et éviter les faux pas.",
     keywords: [
       "avis google coiffeur",
       "avis google salon de coiffure",
       "avis clients coiffeur",
       "qr code avis coiffeur",
       "plus d’avis coiffure",
+      "répondre avis coiffeur",
     ],
     category: "Par métier",
     readMinutes: 6,
     datePublished: "2026-07-26",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Pour un salon de coiffure, les avis Google sont la première vitrine : on choisit rarement un coiffeur au hasard, on regarde d’abord la note et les commentaires. Or la coiffure a un atout que peu de métiers possèdent - la satisfaction est immédiate et visible, dans le miroir, à la fin de la prestation. Il suffit de capter ce moment. Voici comment [récolter plus d’avis Google](/guides/avoir-plus-avis-google) en salon, sans alourdir l’accueil ni forcer la main.",
+        text: "Pour obtenir plus d’avis Google en salon de coiffure, proposez l’avis à chaque client à l’encaissement, juste après la découverte du résultat au miroir, avec un support posé sur le comptoir qui ouvre votre page d’avis en un geste. La même phrase pour tous, aucune remise en échange : c’est la règle de Google, et c’est ce qui rend vos avis crédibles.",
+      },
+      {
+        type: "p",
+        text: "On choisit rarement un coiffeur au hasard : on regarde la note, on lit les commentaires, on cherche des photos de coupes et de couleurs. La coiffure a pourtant un atout que peu de métiers possèdent : la satisfaction est immédiate et visible. Les principes généraux pour [récolter plus d’avis Google](/guides/avoir-plus-avis-google) s’appliquent, avec quelques réflexes propres au salon.",
+      },
+      { type: "h2", text: "Ce que les clients regardent dans les avis d’un coiffeur" },
+      {
+        type: "ul",
+        items: [
+          "L’écoute : le coiffeur a-t-il compris la demande, posé des questions, regardé une photo avant de couper ?",
+          "Le résultat, surtout en coloration, balayage ou coupe courte, où l’écart avec l’attente se voit tout de suite.",
+          "La transparence des prix : un supplément cheveux longs ou un soin ajouté sans prévenir revient souvent dans les critiques.",
+          "La ponctualité : un rendez-vous tenu à l’heure, ou un retard annoncé.",
+          "Les conseils d’entretien, et l’absence de pression pour vendre des produits.",
+          "L’hygiène, le confort au bac et l’ambiance du salon.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Ces critères disent aussi quoi soigner avant même de demander un avis : un tarif affiché clairement et une question de plus avant les ciseaux évitent bien des commentaires amers.",
       },
       { type: "h2", text: "Le bon moment : le miroir, puis l’encaissement" },
       {
@@ -822,7 +1060,7 @@ const BASE_GUIDES: Guide[] = [
       {
         type: "callout",
         title: "La règle d’or en coiffure",
-        text: "Proposez l’avis à l’encaissement, juste après le « ça vous plaît ? » devant le miroir. Un support déjà posé sur le comptoir, un scan, et c’est fait - sans quitter la caisse.",
+        text: "Proposez l’avis à l’encaissement, juste après le « ça vous plaît ? » devant le miroir. Un support déjà posé sur le comptoir, un geste, et c’est fait, sans quitter la caisse.",
       },
       { type: "h2", text: "Où placer le support dans le salon" },
       {
@@ -831,158 +1069,324 @@ const BASE_GUIDES: Guide[] = [
           "Sur le comptoir d’encaissement : l’emplacement le plus naturel, au moment du paiement.",
           "À chaque poste de coiffage, près du miroir : un rappel visible pendant toute la prestation.",
           "Sur le meuble d’accueil, à côté des cartes de rendez-vous : pour l’attente et le départ.",
+          "Pas aux bacs à shampoing : mains mouillées et position allongée ne s’y prêtent pas.",
         ],
       },
-      { type: "h2", text: "Quoi dire, sans que ça sonne commercial" },
+      { type: "h2", text: "Phrases types pour l’équipe du salon" },
       {
-        type: "p",
-        text: "Un mot sincère suffit : « Si la coupe vous plaît, un avis Google nous aide énormément - c’est juste ici, en un scan. » On propose à tout le monde, on ne réserve jamais la demande aux clients qu’on croit satisfaits, et on n’offre aucune remise en échange : ce sont les règles de Google, et c’est aussi ce qui garde vos avis crédibles.",
+        type: "ul",
+        items: [
+          "« Si vous avez deux minutes, votre avis sur Google aide le salon à se faire connaître : approchez simplement votre téléphone, ici. »",
+          "« Si vous avez un moment, dites sur Google ce que vous pensez de votre couleur, ça aide les clientes qui hésitent à se lancer. »",
+          "Pour une première visite : « Votre avis comptera beaucoup pour ceux qui ne nous connaissent pas encore. »",
+        ],
       },
-      { type: "h2", text: "Profiter de la clientèle fidèle" },
       {
         type: "p",
-        text: "Un salon vit de ses habitués, qui reviennent toutes les quelques semaines. C’est une force pour les avis : même si un client oublie une fois, l’occasion revient. L’idée n’est pas de redemander à chaque passage, mais de rendre le support visible en permanence, pour que celui qui n’a pas encore laissé d’avis le fasse dès qu’il en a envie.",
+        text: "Ces phrases s’adressent à tout le monde, y compris au client resté silencieux devant le miroir. Ne réservez jamais la demande aux habitués enthousiastes : Google interdit de solliciter des avis positifs de façon sélective.",
       },
-      { type: "h2", text: "Mesurer et ajuster" },
+      { type: "h2", text: "Situations délicates en salon" },
+      { type: "h3", text: "La couleur qui ne correspond pas à l’attente" },
       {
         type: "p",
-        text: "Combien de scans par semaine ? Le poste au miroir marche-t-il mieux que le comptoir ? Un tableau de bord qui compte les scans et les clics vers Google permet de tester les emplacements et le discours de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de fin de prestation - et la note du salon monte, rendez-vous après rendez-vous.",
+        text: "C’est la déception la plus sensible, parce qu’elle se voit pendant des semaines. Si la cliente exprime un doute au miroir, réglez d’abord le problème : une retouche immédiate ou un rendez-vous de correction. L’invitation à laisser un avis reste la même que pour tout le monde, et si elle choisit d’écrire, son avis parlera aussi de la façon dont vous avez réagi.",
+      },
+      { type: "h3", text: "Le client mécontent qui ne dit rien" },
+      {
+        type: "p",
+        text: "Certains clients sourient au miroir puis écrivent un avis sévère le soir. Prenez l’habitude de poser une vraie question avant l’encaissement (« la longueur vous convient ? ») : un problème formulé au salon se règle bien plus facilement qu’un problème découvert sur Google.",
+      },
+      { type: "h3", text: "Le retard sur le planning" },
+      {
+        type: "p",
+        text: "Une attente non annoncée revient régulièrement dans les avis de salons. Prévenez par SMS ou dès l’arrivée, et proposez un autre créneau si le retard devient important.",
+      },
+      { type: "h2", text: "Répondre à une critique sur une couleur ou un prix" },
+      {
+        type: "p",
+        text: "Une réponse publique ne se gagne pas sur le terrain technique : elle montre surtout que le salon écoute. Restez bref, reconnaissez le ressenti, proposez d’en parler au salon. Exemple :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Sophie, merci pour votre retour. Nous sommes désolés que la nuance obtenue ne corresponde pas à ce que vous attendiez. Une correction est possible : appelez-nous pour convenir d’un créneau avec Léa, qui prendra le temps de revoir la couleur avec vous. À bientôt, l’équipe du salon »",
+      },
+      {
+        type: "p",
+        text: "Pour une critique sur le prix, rappelez calmement la grille affichée et ce qu’elle comprend, sans ton défensif. Pour gagner du temps, notre [générateur de réponses aux avis](/outils/reponse-avis-google) propose une version coiffure et barbier de chaque modèle, à personnaliser avant publication.",
+      },
+      { type: "h2", text: "Erreurs à éviter en coiffure" },
+      {
+        type: "ul",
+        items: [
+          "Offrir une remise sur la prochaine coupe ou un soin contre un avis : c’est une contrepartie interdite par Google.",
+          "Demander pendant la prestation, ciseaux en main : le client ne peut pas encore juger le résultat.",
+          "Faire publier des avis par l’équipe, un apprenti ou des proches : Google y voit un conflit d’intérêts.",
+          "Détailler dans une réponse publique la chevelure ou l’historique du client : restez général, la relation est personnelle.",
+          "Négliger les photos de réalisations sur la fiche Google : elles complètent les avis et montrent concrètement votre travail.",
+        ],
+      },
+      { type: "h2", text: "Habitués, réservation en ligne et barbiers" },
+      {
+        type: "p",
+        text: "Un salon vit de ses habitués, qui reviennent toutes les quelques semaines : si un client oublie une fois, l’occasion revient. Inutile de redemander à chaque passage, il suffit de garder le support visible en permanence. Les avis laissés sur une plateforme de réservation ne remplacent pas ceux de Google : ce sont deux vitrines distinctes. Pour les clients qui réservent en ligne, un [message de demande d’avis](/outils/message-demande-avis-google) envoyé après le rendez-vous complète la demande au comptoir, à condition de l’envoyer à tous.",
+      },
+      {
+        type: "p",
+        text: "Si vous tenez aussi un espace barbier, les attentes de cette clientèle sont détaillées dans notre guide [avis Google pour un barbier](/guides/avis-google-barbier). Le [générateur de QR code](/outils/qr-code-avis-google) gratuit permet d’imprimer un rappel pour chaque poste, et le [Présentoir Reviu](/presentoir-avis-google), posé au comptoir, ouvre votre page d’avis Google sans contact ou par QR code, sans application.",
       },
     ],
     faq: [
       {
         q: "Comment demander un avis Google à un client en coiffure ?",
-        a: "À l’encaissement, juste après avoir montré le résultat au miroir : « si la coupe vous plaît, un avis Google nous aide beaucoup, c’est en un scan ». On propose à tous les clients, sans insister et sans conditionner à une bonne note.",
+        a: "À l’encaissement, juste après avoir montré le résultat au miroir, avec une phrase simple : « votre avis sur Google nous aide beaucoup, c’est ici ». On propose l’avis à tous les clients, sans insister et sans le conditionner à une bonne note.",
       },
       {
         q: "Où placer le QR code dans un salon de coiffure ?",
-        a: "Sur le comptoir d’encaissement en priorité, car c’est là que se fait le paiement. Un rappel à chaque poste, près du miroir, renforce l’effet en gardant le support visible pendant toute la prestation.",
+        a: "Sur le comptoir d’encaissement en priorité, car c’est là que se fait le paiement. Un rappel à chaque poste, près du miroir, garde le support visible pendant toute la prestation.",
       },
       {
         q: "Peut-on offrir une réduction contre un avis ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner la suppression des avis. On fidélise autrement, jamais en échange de l’avis lui-même.",
+        a: "Non. Google interdit les avis obtenus en échange d’un avantage, et une remise sur la prochaine coupe en est un. Les avis concernés peuvent être supprimés ; on fidélise autrement, sans aucun lien avec l’avis.",
+      },
+      {
+        q: "Comment répondre à un avis négatif sur une couleur ratée ?",
+        a: "Reconnaissez la déception sans entrer dans un débat technique, puis proposez d’en parler au salon pour envisager une correction. Restez bref et courtois : la réponse s’adresse aussi aux futurs clients, qui jugent votre façon de réagir.",
+      },
+      {
+        q: "Les avis de ma plateforme de réservation suffisent-ils ?",
+        a: "Non, ce sont deux vitrines distinctes. Les avis Google apparaissent dans la recherche et sur Google Maps, là où de nombreux clients découvrent un salon avant de réserver. Il est utile de collecter les deux, en invitant tous les clients de la même façon.",
+      },
+      {
+        q: "Un salon peut-il demander à ses apprentis de laisser un avis ?",
+        a: "Non. Les avis rédigés par des salariés, des apprentis ou des proches relèvent du conflit d’intérêts selon les règles de Google et peuvent être supprimés. Seuls les clients doivent donner leur avis.",
       },
     ],
     related: [
       "avoir-plus-avis-google",
       "presentoir-plaque-nfc-avis-google",
       "avis-google-institut-beaute",
-      "repondre-avis-google",
+      "repondre-avis-negatif",
       "avis-google-salle-de-sport",
     ],
   },
 
   {
     slug: "avis-google-garage",
-    metaTitle:
-      "Plus d’avis Google pour un garage : la méthode qui marche · reviu",
+    metaTitle: "Avis Google garage : obtenir plus d’avis clients · reviu",
     h1: "Obtenir plus d’avis Google pour un garage automobile",
     description:
-      "Comment un garage récolte plus d’avis Google : le bon moment à la restitution du véhicule, quoi dire pour rassurer, où placer le QR - dans les règles.",
+      "Plus d’avis Google pour un garage : demander à la restitution du véhicule, rassurer sur les prix, répondre à une facture contestée, erreurs à éviter.",
     excerpt:
-      "En mécanique auto, la confiance décide de tout. Des avis Google nombreux et récents rassurent les nouveaux clients. Voici comment les collecter simplement.",
+      "En mécanique auto, la confiance décide de tout. Voici comment collecter des avis Google à la remise des clés, répondre aux critiques sur un devis ou un délai, et éviter les faux pas.",
     keywords: [
       "avis google garage",
       "avis google garagiste",
       "avis clients garage auto",
       "qr code avis garage",
       "plus d’avis garage automobile",
+      "répondre avis garage",
     ],
     category: "Par métier",
     readMinutes: 6,
     datePublished: "2026-07-27",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Confier sa voiture demande de la confiance, et cette confiance se lit dans les avis Google. Avant de choisir un garage, un automobiliste compare les notes et cherche des commentaires récents sur le sérieux, la transparence des prix et la qualité du travail. Un garage qui [collecte régulièrement des avis](/guides/avoir-plus-avis-google) part avec une longueur d’avance. Voici comment en récolter plus, sans gêner l’atelier ni forcer le client.",
+        text: "Pour obtenir plus d’avis Google dans un garage, proposez l’avis à chaque client au moment de la restitution du véhicule, quand il règle la facture et récupère ses clés, avec un support posé sur le comptoir d’accueil. Une invitation identique pour tous, sans remise en échange, puis une réponse posée à chaque avis, y compris aux critiques : c’est ce qui construit la confiance en ligne.",
+      },
+      {
+        type: "p",
+        text: "Confier sa voiture demande de la confiance, et cette confiance se lit dans les avis. Avant de choisir un garage, un automobiliste compare les notes et cherche des commentaires récents sur le sérieux, les prix et les délais. Un garage qui [collecte régulièrement des avis](/guides/avoir-plus-avis-google) part avec une longueur d’avance.",
+      },
+      { type: "h2", text: "Ce qu’un automobiliste cherche dans les avis d’un garage" },
+      {
+        type: "ul",
+        items: [
+          "Le respect du devis : pas de mauvaise surprise sur la facture, et un appel avant tout travail supplémentaire.",
+          "Les délais : un véhicule rendu le jour annoncé, ou un client prévenu quand une pièce manque.",
+          "Des explications claires sur la panne et les travaux, sans jargon ni pression.",
+          "L’honnêteté : ne remplacer que ce qui doit l’être, et pouvoir montrer les pièces changées.",
+          "L’accueil, le véhicule de prêt ou la navette quand il y en a, et une voiture rendue propre.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Un avis de garage prend souvent la forme d’un récit, avec un avant et un après : plus le client a été tenu informé, plus ce récit a des chances d’être favorable.",
       },
       { type: "h2", text: "Le bon moment : la restitution du véhicule" },
       {
         type: "p",
-        text: "Le moment le plus fort, c’est la remise des clés : la voiture est réparée, le client est soulagé et satisfait du service. C’est là qu’il faut proposer l’avis, au comptoir, pendant le règlement de la facture - pas par un e-mail envoyé plus tard, souvent ignoré.",
+        text: "Le moment le plus fort, c’est la remise des clés : la voiture est réparée, le client est soulagé. C’est là qu’il faut proposer l’avis, au comptoir, pendant le règlement de la facture, plutôt que par un e-mail envoyé plus tard et souvent ignoré. Évitez de le faire au dépôt du véhicule : le client n’a encore rien vu de votre travail.",
       },
       {
         type: "callout",
         title: "La règle d’or au garage",
-        text: "Proposez l’avis à la restitution, au moment de rendre les clés et de régler. Un support sur le comptoir d’accueil, un scan, et le client repart en ayant déjà donné son avis.",
+        text: "Proposez l’avis à la restitution, au moment de rendre les clés et de régler. Un support sur le comptoir d’accueil, un geste, et le client repart en ayant déjà donné son avis.",
       },
       { type: "h2", text: "Où placer le support à l’accueil" },
       {
         type: "ul",
         items: [
           "Sur le comptoir d’accueil, là où se règlent les factures : l’emplacement clé.",
-          "Dans l’espace d’attente, avec les magazines : un rappel pendant l’intervention.",
-          "Agrafé ou joint à la facture remise : un relais discret pour ceux qui préfèrent scanner plus tard.",
+          "Dans l’espace d’attente, près de la machine à café : un rappel pendant l’intervention.",
+          "Joint à la facture remise : un relais discret pour ceux qui préfèrent laisser leur avis plus tard.",
+          "Loin de l’atelier : la graisse et la poussière abîment vite une affichette.",
         ],
       },
-      { type: "h2", text: "Quoi dire pour rassurer, pas pour vendre" },
+      { type: "h2", text: "Phrases types au comptoir" },
       {
-        type: "p",
-        text: "Un mot simple et honnête fonctionne mieux qu’un argumentaire : « Si vous avez été satisfait de l’intervention, un avis Google aide beaucoup les automobilistes du coin à nous trouver - c’est en un scan. » On invite tous les clients, sans trier selon la note attendue, et sans jamais offrir de remise en échange : ce sont les règles de Google.",
+        type: "ul",
+        items: [
+          "« Votre avis sur Google aide beaucoup les automobilistes du coin à nous trouver : c’est ici, en approchant votre téléphone. »",
+          "« Si vous avez deux minutes, racontez sur Google comment s’est passée l’intervention, c’est très utile pour nous. »",
+          "Après une réparation compliquée : « Votre retour nous intéresse, y compris sur ce qu’on pourrait mieux faire. »",
+        ],
       },
-      { type: "h2", text: "Répondre aux avis, un réflexe qui compte double" },
       {
         type: "p",
-        text: "Dans un métier où la confiance est tout, la façon dont un garage [répond aux avis](/guides/repondre-avis-google) - y compris aux plus critiques - en dit long aux futurs clients. Une réponse posée, factuelle et courtoise à un avis mitigé rassure souvent plus qu’une série de cinq étoiles muettes. Répondre montre aussi à Google que la fiche est active.",
+        text: "On propose à tous les clients, y compris à celui qui a trouvé la facture salée, sans trier selon la note attendue et sans jamais offrir de remise en échange : ce sont les règles de Google.",
       },
-      { type: "h2", text: "Mesurer et progresser" },
+      { type: "h2", text: "Situations délicates au garage" },
+      { type: "h3", text: "La facture plus élevée que le devis" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien d’interventions ? Un tableau de bord qui suit les scans et les clics vers Google permet d’ajuster l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) sur le comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de restitution - et la réputation du garage se construit, intervention après intervention.",
+        text: "C’est une source de conflit fréquente. La prévention est simple : aucun travail supplémentaire sans accord du client, idéalement par écrit (SMS ou e-mail). Si l’écart existe quand même, expliquez-le au comptoir, pièces à l’appui, avant que le client ne le découvre seul.",
+      },
+      { type: "h3", text: "La panne qui revient" },
+      {
+        type: "p",
+        text: "Un client qui revient avec le même symptôme est inquiet et méfiant. Recevez-le vite, expliquez votre diagnostic et dites clairement ce qui relève de l’intervention précédente. Un avis négatif sur ce sujet peut devenir l’un des plus rassurants de la fiche si la réponse montre que le garage a assumé.",
+      },
+      { type: "h3", text: "Le délai qui s’allonge" },
+      {
+        type: "p",
+        text: "Une pièce en retard n’est pas une faute, le silence en est une. Prévenez le client dès que le délai bouge et proposez une solution de mobilité si vous en avez une.",
+      },
+      { type: "h2", text: "Répondre à un avis sur un devis ou un délai" },
+      {
+        type: "p",
+        text: "Dans un métier où la confiance est tout, la façon dont un garage répond aux avis en dit long aux futurs clients. Une réponse factuelle, sans détail technique inutile, rassure souvent plus qu’une série de cinq étoiles muettes. Exemple :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour M. Durand, merci pour votre retour. Lors de l’intervention, nous avons constaté l’usure des disques en plus des plaquettes prévues au devis. Nous aurions dû vous appeler avant de les remplacer, et nous le regrettons. Nous avons rappelé cette règle à toute l’équipe. Le chef d’atelier reste à votre disposition pour en parler. Karim, responsable de l’accueil »",
+      },
+      {
+        type: "p",
+        text: "Des modèles adaptés aux garages sont disponibles dans le [générateur de réponses aux avis](/outils/reponse-avis-google), et notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) détaille la méthode quand l’avis vous paraît injuste.",
+      },
+      { type: "h2", text: "Erreurs à éviter pour un garage" },
+      {
+        type: "ul",
+        items: [
+          "Offrir une vidange ou une remise contre un avis : c’est une contrepartie, interdite par Google.",
+          "Ne proposer l’avis qu’aux clients dont la facture est légère : c’est la sollicitation sélective que Google interdit.",
+          "Contester publiquement un diagnostic dans un vocabulaire technique que le lecteur ne comprend pas.",
+          "Citer le montant de la facture ou l’immatriculation du client dans la réponse : restez sur les faits utiles.",
+          "Faire rédiger des avis par des mécaniciens ou des proches : Google les traite comme un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Faire de la facture et du SMS de fin de travaux des relais" },
+      {
+        type: "p",
+        text: "Beaucoup de garages préviennent déjà par SMS que le véhicule est prêt. N’y ajoutez pas encore de lien d’avis : le client n’a pas récupéré sa voiture. En revanche, un [message de demande d’avis](/outils/message-demande-avis-google) envoyé un ou deux jours après la restitution, à tous les clients, touche ceux qui sont repartis pressés. Un QR code imprimé sur la facture, créé avec le [générateur de QR code avis Google](/outils/qr-code-avis-google), joue le même rôle sur papier.",
+      },
+      {
+        type: "p",
+        text: "Au comptoir, le [Présentoir Reviu](/presentoir-avis-google) ouvre votre page d’avis sans contact ou par QR code pendant que le client règle, et vous voyez dans votre espace combien de clients l’utilisent.",
       },
     ],
     faq: [
       {
         q: "Quel est le meilleur moment pour demander un avis Google au garage ?",
-        a: "À la restitution du véhicule, quand le client récupère ses clés et règle la facture : il est satisfait et disponible. On propose l’avis au comptoir, en un scan, plutôt que par un e-mail envoyé plus tard.",
+        a: "À la restitution du véhicule, quand le client récupère ses clés et règle la facture : il a vu le résultat et il est disponible. On propose l’avis au comptoir, en un geste, plutôt que par un e-mail envoyé plus tard.",
       },
       {
         q: "Comment demander un avis sans paraître insistant ?",
-        a: "Avec un mot honnête et bref : « si vous avez été satisfait, un avis Google nous aide beaucoup ». On propose à tous les clients, on ne conditionne jamais à une bonne note et on n’offre aucune contrepartie.",
+        a: "Avec une phrase honnête et brève, la même pour tous : « votre avis sur Google aide beaucoup les automobilistes du coin ». On ne conditionne jamais à une bonne note et on n’offre aucune contrepartie.",
       },
       {
         q: "Faut-il répondre aux avis négatifs d’un garage ?",
         a: "Oui : une réponse calme et factuelle à un avis critique rassure les futurs clients et montre le sérieux du garage. C’est souvent plus convaincant qu’une note parfaite sans aucune réponse.",
       },
+      {
+        q: "Comment répondre à un client qui conteste sa facture dans un avis ?",
+        a: "Remerciez, expliquez en une ou deux phrases ce qui a justifié l’écart, et reconnaissez ce qui aurait dû être mieux fait, par exemple un appel avant les travaux supplémentaires. Proposez d’en parler de vive voix, sans citer de montant ni de détail personnel.",
+      },
+      {
+        q: "Peut-on mettre un QR code d’avis sur la facture ?",
+        a: "Oui, c’est un bon relais pour les clients qui n’ont pas le temps au comptoir. Il doit simplement être présent sur toutes les factures, sans viser seulement les clients satisfaits.",
+      },
+      {
+        q: "Un garage peut-il offrir un lavage contre un avis Google ?",
+        a: "Non. Toute contrepartie offerte en échange d’un avis est interdite par Google, et les avis concernés peuvent être supprimés. Un lavage peut faire partie du service, à condition de ne pas dépendre de l’avis.",
+      },
     ],
     related: [
       "avoir-plus-avis-google",
       "qr-code-avis-google",
-      "repondre-avis-google",
+      "repondre-avis-negatif",
       "avis-google-commerce-local",
     ],
   },
 
   {
     slug: "avis-google-boulangerie",
-    metaTitle:
-      "Plus d’avis Google pour une boulangerie-pâtisserie · reviu",
+    metaTitle: "Plus d’avis Google pour une boulangerie-pâtisserie · reviu",
     h1: "Obtenir plus d’avis Google pour une boulangerie",
     description:
-      "La méthode pour récolter plus d’avis Google en boulangerie malgré le flux rapide : où poser le support au comptoir, quoi dire en un mot - dans les règles.",
+      "Plus d’avis Google en boulangerie malgré le flux rapide : support près de la caisse, phrases courtes, réponses aux critiques sur le pain ou l’attente.",
     excerpt:
-      "En boulangerie, le passage est rapide mais quotidien et fidèle. Le défi : capter l’avis sans ralentir la file. Voici comment, avec un support au bon endroit.",
+      "En boulangerie, le passage est rapide mais quotidien et fidèle. Le défi : capter l’avis sans ralentir la file, et répondre aux critiques sur une rupture ou un gâteau raté.",
     keywords: [
       "avis google boulangerie",
       "avis google boulangerie patisserie",
       "avis clients boulangerie",
       "qr code avis boulangerie",
       "plus d’avis boulangerie",
+      "répondre avis boulangerie",
     ],
     category: "Par métier",
-    readMinutes: 5,
+    readMinutes: 6,
     datePublished: "2026-07-28",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "La boulangerie a un profil unique pour les avis Google : un flux rapide, mais une clientèle d’habitués qui revient chaque jour. Le passage à la caisse dure quelques secondes, ce qui semble être un frein - mais la fidélité offre mille occasions de [récolter un avis](/guides/avoir-plus-avis-google). Il suffit d’un support bien placé et d’un mot au bon moment. Voici comment faire, sans jamais ralentir la file.",
+        text: "Pour obtenir plus d’avis Google en boulangerie, misez sur un support visible près du terminal de paiement, que chaque client peut utiliser en un geste quand il le souhaite, plutôt que sur un discours à chaque passage. Gardez la demande orale pour les heures calmes, adressez-la à tous de la même façon et n’offrez jamais une viennoiserie en échange : la fidélité de vos habitués fera le reste.",
+      },
+      {
+        type: "p",
+        text: "La boulangerie a un profil unique : un passage de quelques secondes, mais une clientèle qui revient chaque jour. Ce qui ressemble à un frein devient un atout, à condition d’adapter la méthode générale pour [récolter plus d’avis Google](/guides/avoir-plus-avis-google) au rythme du comptoir.",
+      },
+      { type: "h2", text: "Sur quoi les clients jugent une boulangerie" },
+      {
+        type: "ul",
+        items: [
+          "Le pain : croûte, mie, cuisson, et la régularité d’un jour à l’autre.",
+          "Les viennoiseries et pâtisseries : fraîcheur, goût du beurre, finition.",
+          "La disponibilité : trouver encore sa baguette de tradition en fin de journée.",
+          "L’accueil et la rapidité de la file, surtout le matin et le dimanche.",
+          "Les commandes : gâteaux d’anniversaire, pièces montées, plateaux pour un repas, prêts à l’heure et conformes.",
+          "Des horaires exacts sur Google, y compris les jours fériés et les congés.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Le dernier point surprend souvent. Pourtant, un client qui trouve porte close alors que Google indiquait la boutique ouverte écrit rarement un avis tendre : c’est une critique qui ne dit rien de votre pain et qu’il est facile d’éviter.",
       },
       { type: "h2", text: "Le défi du passage rapide" },
       {
         type: "p",
-        text: "Impossible de tenir un discours à chaque client quand la file s’allonge le matin. La solution n’est pas de demander plus, mais de rendre l’avis possible en autonomie : un support visible que le client scanne quand il le souhaite, sur place ou en repartant. La demande orale se réserve aux moments plus calmes, en journée.",
+        text: "Impossible de tenir un discours à chaque client quand la file s’allonge le matin. La solution n’est pas de demander plus, mais de rendre l’avis possible en autonomie : un support visible que le client utilise quand il le souhaite, sur place ou en repartant. La demande orale se réserve aux moments plus calmes, en milieu de matinée ou d’après-midi.",
+      },
+      {
+        type: "callout",
+        title: "La règle d’or en boulangerie",
+        text: "Misez sur un support autonome et bien visible près de la caisse, plutôt que sur un discours. Le client laisse son avis quand il veut, et vos habitués finissent par le faire.",
       },
       { type: "h2", text: "Où placer le support au comptoir" },
       {
@@ -990,42 +1394,94 @@ const BASE_GUIDES: Guide[] = [
         items: [
           "Près du terminal de paiement : le point de regard naturel pendant le règlement.",
           "Sur le comptoir, à hauteur des yeux : visible sans effort dans la file.",
-          "Sur le ticket ou le sac, en complément : un rappel à scanner une fois rentré.",
+          "Sur le ticket, le sac à pain ou la boîte à gâteau, en complément : un rappel à utiliser une fois rentré.",
+          "Pas au milieu des pâtisseries : le support se perd et gêne le service.",
+        ],
+      },
+      { type: "h2", text: "Phrases types, en quelques mots" },
+      {
+        type: "ul",
+        items: [
+          "« Un avis sur Google nous ferait très plaisir : approchez simplement votre téléphone, c’est juste là. »",
+          "En remettant un gâteau commandé : « Si vous avez un moment après la fête, dites-nous sur Google comment il a été reçu. »",
+          "À un habitué, en heure creuse : « Vous venez tous les matins, votre avis compterait beaucoup pour nous. »",
         ],
       },
       {
+        type: "p",
+        text: "On s’adresse à tous les clients, sans trier, y compris à celui qui a attendu dans la file. Et l’on n’offre jamais une viennoiserie ou une remise contre un avis : Google l’interdit et les avis concernés peuvent être supprimés.",
+      },
+      { type: "h2", text: "Situations délicates en boulangerie" },
+      { type: "h3", text: "Plus de pain en fin de journée" },
+      {
+        type: "p",
+        text: "La rupture du soir est une critique classique. Si elle se répète, deux réponses existent : ajuster la production des fins de journée, ou proposer la réservation de pain (par téléphone ou la veille), et le faire savoir sur la fiche Google.",
+      },
+      { type: "h3", text: "Le gâteau commandé qui déçoit" },
+      {
+        type: "p",
+        text: "Un gâteau d’anniversaire raté touche à un moment important pour le client. Notez précisément chaque commande (parfum, inscription, heure de retrait) et faites-la relire au client. En cas de problème, appelez-le avant qu’il ne publie : un échange direct apaise souvent la situation.",
+      },
+      { type: "h3", text: "L’attente du dimanche matin" },
+      {
+        type: "p",
+        text: "La file du dimanche fait partie du métier. Un renfort au comptoir, une caisse supplémentaire ou des produits pré-emballés pour les commandes simples réduisent l’attente et le nombre d’avis qui en parlent.",
+      },
+      { type: "h2", text: "Répondre aux critiques sur le pain, l’accueil ou une rupture" },
+      {
+        type: "p",
+        text: "Une boulangerie répond en voisine : simple, chaleureuse, concrète. Exemple de réponse à un avis sur une rupture de baguettes :",
+      },
+      {
         type: "callout",
-        title: "La règle d’or en boulangerie",
-        text: "Misez sur un support autonome et bien visible près de la caisse, plutôt que sur un discours. Le client scanne quand il veut - et vos habitués finissent tous par le faire.",
+        title: "Exemple de réponse",
+        text: "« Bonjour Claire, merci pour votre message. Vous avez raison : mardi, nous n’avions plus de tradition dès 18 h, et ce n’est pas normal. Nous avons ajouté une fournée en fin d’après-midi, et vous pouvez aussi réserver votre pain par téléphone le matin. À très vite au comptoir, Thomas »",
       },
-      { type: "h2", text: "Quoi dire, en un mot" },
       {
         type: "p",
-        text: "Aux heures calmes, un mot suffit : « Si vous vous régalez, un petit avis Google nous fait très plaisir - c’est juste là. » On s’adresse à tous les clients, sans trier, et on n’offre jamais une viennoiserie ou une remise contre un avis : c’est interdit par Google et ça fragilise votre fiche.",
+        text: "Si l’inspiration manque, le [générateur de réponses aux avis](/outils/reponse-avis-google) propose une version adaptée aux boulangeries, à reformuler avec vos mots. Pensez aussi à remercier les avis positifs, même brefs : vos habitués les lisent.",
       },
-      { type: "h2", text: "Transformer la fidélité en avis" },
+      { type: "h2", text: "Les erreurs à éviter en boulangerie" },
+      {
+        type: "ul",
+        items: [
+          "Offrir un croissant, une remise ou un tirage au sort contre un avis : ce sont des contreparties interdites.",
+          "Demander un avis en pleine heure de pointe : la file s’impatiente et le client se sent pressé.",
+          "Laisser des horaires faux sur la fiche pendant les congés ou les jours fériés.",
+          "Répondre sèchement à une critique sur le prix : expliquez plutôt vos farines, votre levain ou votre fabrication maison.",
+          "Faire publier des avis par l’équipe de vente, des apprentis ou la famille : Google y voit un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Commandes, congés et fiche à jour : les relais propres au métier" },
       {
         type: "p",
-        text: "Un client qui passe chaque matin verra le support des dizaines de fois. C’est tout l’intérêt d’un emplacement permanent : celui qui n’a pas encore laissé d’avis le fera le jour où il en aura envie, sans qu’on ait à le relancer. La régularité du passage remplace la relance.",
+        text: "Un client qui passe chaque matin verra le support des dizaines de fois : celui qui n’a pas encore laissé d’avis le fera le jour où il en aura envie. Les commandes de gâteaux offrent un second relais : le client vous a laissé son numéro, et un [message de demande d’avis](/outils/message-demande-avis-google) envoyé après l’événement devient naturel, à condition de l’adresser de la même façon à tous ceux qui ont commandé. Un autocollant sur les boîtes à gâteau, créé avec le [générateur de QR code avis Google](/outils/qr-code-avis-google), fait le même travail sans rien envoyer.",
       },
-      { type: "h2", text: "Mesurer ce qui marche" },
       {
         type: "p",
-        text: "Combien de scans par jour, aux heures de pointe ou en journée ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver le meilleur emplacement du support. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la collecte tourne toute seule - et la note de la boulangerie grimpe, semaine après semaine.",
+        text: "Avant chaque fermeture annuelle, mettez à jour vos horaires exceptionnels sur la fiche Google. Et pour un geste sans contact au comptoir, le [Présentoir Reviu](/presentoir-avis-google) se pose près du terminal de paiement et ouvre votre page d’avis Google en un instant, comme pour payer sans contact.",
       },
     ],
     faq: [
       {
         q: "Comment récolter des avis en boulangerie malgré la file d’attente ?",
-        a: "En misant sur un support visible et autonome près de la caisse, que le client scanne quand il le souhaite, plutôt que sur un discours. La demande orale se garde pour les heures calmes.",
+        a: "En misant sur un support visible et autonome près de la caisse, que le client utilise quand il le souhaite, plutôt que sur un discours. La demande orale se garde pour les heures calmes, et elle s’adresse à tous les clients de la même façon.",
       },
       {
         q: "Où placer le QR code dans une boulangerie ?",
-        a: "Près du terminal de paiement et sur le comptoir à hauteur des yeux : ce sont les points de regard pendant le règlement. Un rappel sur le ticket ou le sac aide ceux qui préfèrent scanner en rentrant.",
+        a: "Près du terminal de paiement et sur le comptoir à hauteur des yeux : ce sont les points de regard pendant le règlement. Un rappel sur le ticket, le sac ou la boîte à gâteau aide ceux qui préfèrent laisser leur avis en rentrant.",
       },
       {
         q: "Peut-on offrir une viennoiserie contre un avis Google ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On remercie la fidélité autrement, jamais l’avis en lui-même.",
+        a: "Non. Même un petit geste comme une viennoiserie offerte est une contrepartie au sens des règles de Google, et les avis concernés peuvent être supprimés. On remercie la fidélité autrement, jamais l’avis en lui-même.",
+      },
+      {
+        q: "Comment répondre à un avis sur une rupture de pain ?",
+        a: "Reconnaissez le problème sans vous justifier longuement, puis expliquez ce qui change : une fournée supplémentaire, la possibilité de réserver son pain. Une réponse courte et chaleureuse rassure les habitués comme les nouveaux clients.",
+      },
+      {
+        q: "Pourquoi des horaires faux font-ils baisser la note ?",
+        a: "Parce qu’un client qui trouve la boutique fermée alors que Google l’annonçait ouverte peut exprimer sa frustration dans un avis. Mettre à jour les horaires exceptionnels avant les congés et les jours fériés évite ces critiques.",
       },
     ],
     related: [
@@ -1038,28 +1494,48 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-institut-beaute",
-    metaTitle:
-      "Plus d’avis Google pour un institut de beauté / esthétique · reviu",
+    metaTitle: "Avis Google institut de beauté : en obtenir plus · reviu",
     h1: "Obtenir plus d’avis Google pour un institut de beauté",
     description:
-      "Comment un institut de beauté récolte plus d’avis Google : le bon moment après le soin, quoi dire à l’encaissement, où poser le support - dans les règles.",
+      "Plus d’avis Google en institut de beauté : le bon moment après le soin, phrases douces, discrétion dans les réponses, critiques typiques et erreurs à éviter.",
     excerpt:
-      "Après un soin réussi, la cliente est détendue et satisfaite. C’est le moment idéal pour un avis Google. Voici la méthode, pensée pour l’institut.",
+      "Après un soin réussi, la cliente est détendue et satisfaite : c’est le moment idéal pour un avis Google. Voici la méthode, avec la discrétion qu’exige l’institut.",
     keywords: [
       "avis google institut de beaute",
       "avis google estheticienne",
       "avis clients institut beaute",
       "qr code avis institut",
       "plus d’avis esthetique",
+      "répondre avis institut de beauté",
     ],
     category: "Par métier",
-    readMinutes: 5,
+    readMinutes: 6,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "En institut de beauté, on ne choisit pas au hasard à qui l’on confie sa peau et son bien-être : la note Google et les avis rassurent avant la prise de rendez-vous. L’esthétique a un atout précieux - la cliente termine son soin détendue, satisfaite, dans un moment de bien-être. C’est l’instant parfait pour [un avis](/guides/avoir-plus-avis-google). Voici comment le capter, sans casser l’ambiance apaisée de l’institut.",
+        text: "Pour obtenir plus d’avis Google en institut de beauté, proposez l’avis à chaque cliente à l’encaissement, dans la continuité du soin, avec un support posé sur le comptoir qui ouvre votre page d’avis en un geste. Une invitation douce et identique pour toutes, sans remise en échange, et des réponses qui ne dévoilent jamais le soin reçu : ce sont les trois piliers d’une bonne réputation en esthétique.",
+      },
+      {
+        type: "p",
+        text: "On ne confie ni sa peau ni son bien-être au hasard : la note et les avis rassurent avant la prise de rendez-vous. L’esthétique a un atout précieux, puisque la cliente termine son soin détendue et satisfaite. La méthode générale pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) s’applique, avec la discrétion propre à l’institut.",
+      },
+      { type: "h2", text: "Ce que les clientes regardent dans les avis d’un institut" },
+      {
+        type: "ul",
+        items: [
+          "L’hygiène : cabine propre, linge changé, matériel désinfecté, une attente de base que les avis vérifient.",
+          "Le résultat et sa tenue : une épilation nette, un vernis semi-permanent qui tient, un teint apaisé après un soin visage.",
+          "La douceur et l’écoute, surtout pour les soins sensibles ou une première épilation.",
+          "Des conseils honnêtes, sans pression pour acheter des produits ou une cure.",
+          "La ponctualité et des tarifs clairs, affichés avant le soin.",
+          "L’ambiance : calme, musique, chaleur de l’accueil.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Soigner ces points en amont reste la meilleure préparation : une carte des soins aux prix clairs, une question sur la sensibilité de la peau avant de commencer et quelques conseils à la sortie évitent bien des déceptions. Une cliente qui s’est sentie écoutée le dit volontiers.",
       },
       { type: "h2", text: "Le bon moment : juste après le soin" },
       {
@@ -1069,31 +1545,80 @@ const BASE_GUIDES: Guide[] = [
       {
         type: "callout",
         title: "La règle d’or en institut",
-        text: "Proposez l’avis à l’encaissement, dans la continuité du soin, avec un support déjà posé sur le comptoir. Un scan, sans rompre le calme de l’institut.",
+        text: "Proposez l’avis à l’encaissement, dans la continuité du soin, avec un support déjà posé sur le comptoir. Un geste, sans rompre le calme de l’institut.",
       },
       { type: "h2", text: "Où placer le support dans l’institut" },
       {
         type: "ul",
         items: [
           "Sur le comptoir d’accueil et d’encaissement : le point de passage final, au calme.",
-          "Dans l’espace d’attente, près des cartes de soin : un rappel discret avant le rendez-vous.",
+          "Dans l’espace d’attente, près de la carte des soins : un rappel discret avant le rendez-vous.",
           "À côté du carnet de rendez-vous : au moment de reprogrammer le prochain soin.",
+          "Jamais en cabine : c’est un espace d’intimité, pas de sollicitation.",
         ],
       },
-      { type: "h2", text: "Quoi dire, en douceur" },
+      { type: "h2", text: "Phrases types, en douceur" },
       {
-        type: "p",
-        text: "Un mot simple et bienveillant : « Si vous êtes satisfaite du soin, un avis Google nous aide beaucoup - c’est juste ici, en un scan. » On propose à toutes les clientes, sans trier selon la note qu’on imagine, et sans jamais offrir de réduction en échange : ce sont les règles de Google, et c’est ce qui garde vos avis authentiques.",
+        type: "ul",
+        items: [
+          "« Vous pouvez, si vous le souhaitez, laisser votre avis sur Google : il suffit d’approcher votre téléphone de ce petit support. »",
+          "« Si vous avez un instant, dites sur Google comment vous vous êtes sentie aujourd’hui : cela rassure les personnes qui hésitent à venir. »",
+          "Pour une première visite : « Vous découvrez l’institut, votre regard neuf nous intéresse beaucoup. »",
+        ],
       },
-      { type: "h2", text: "Le lien avec la prise de rendez-vous suivante" },
       {
         type: "p",
-        text: "En institut, la fidélité passe par le rendez-vous suivant, souvent fixé sur place. C’est un second moment idéal : la cliente est encore au comptoir, satisfaite et posée. Associer discrètement la demande d’avis à la reprogrammation du prochain soin, sans jamais la conditionner, rend le geste naturel.",
+        text: "On propose à toutes les clientes, sans trier selon la note qu’on imagine, et sans jamais offrir de réduction en échange : ce sont les règles de Google, et c’est ce qui garde vos avis authentiques.",
       },
-      { type: "h2", text: "Mesurer et ajuster" },
+      { type: "h2", text: "Situations délicates en institut" },
+      { type: "h3", text: "La réaction cutanée après un soin" },
       {
         type: "p",
-        text: "Combien de scans par semaine, pour combien de soins réalisés ? Un tableau de bord qui suit les scans et les clics vers Google permet de tester l’emplacement du support et le mot de l’équipe. Avec un [présentoir reviu](/#produits) au comptoir, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de fin de soin - et la réputation de l’institut se renforce, rendez-vous après rendez-vous.",
+        text: "Une rougeur ou une irritation inquiète légitimement. Prenez des nouvelles, conseillez de consulter un professionnel de santé si nécessaire et notez le produit utilisé dans la fiche cliente. Dans un avis, ne discutez jamais publiquement de la peau d’une cliente.",
+      },
+      { type: "h3", text: "Le semi-permanent qui ne tient pas" },
+      {
+        type: "p",
+        text: "C’est une critique fréquente en prothésie ongulaire. Fixez une règle claire de retouche (délai, conditions) et affichez-la : une cliente qui connaît la règle avant le soin juge plus sereinement un incident.",
+      },
+      { type: "h3", text: "Les soins intimes et la discrétion" },
+      {
+        type: "p",
+        text: "Certaines prestations, comme l’épilation intime, sont délicates à évoquer. Une cliente peut hésiter à laisser un avis par pudeur : c’est son choix, et l’invitation doit rester légère. Dans vos réponses, ne nommez jamais le soin reçu si la cliente ne l’a pas fait elle-même.",
+      },
+      { type: "h2", text: "Répondre aux critiques sans dévoiler la cliente" },
+      {
+        type: "p",
+        text: "Une réponse publique s’adresse aux futures clientes autant qu’à l’autrice de l’avis. Elle reconnaît le ressenti, reste générale sur le soin et invite à poursuivre en privé. Exemple :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Nadia, merci d’avoir pris le temps de nous écrire. Nous regrettons que votre rendez-vous ne vous ait pas apporté le confort que vous attendiez. Chaque retour nous aide à progresser : n’hésitez pas à nous appeler pour en parler directement avec Camille. Belle journée, l’équipe de l’institut »",
+      },
+      {
+        type: "p",
+        text: "Le [générateur de réponses aux avis](/outils/reponse-avis-google) propose des modèles pour les instituts et les spas, à relire avant publication pour retirer tout détail personnel.",
+      },
+      { type: "h2", text: "Erreurs à éviter en esthétique" },
+      {
+        type: "ul",
+        items: [
+          "Offrir une remise sur le prochain soin, un échantillon ou un tirage au sort contre un avis : contrepartie interdite par Google.",
+          "Demander l’avis en cabine, pendant le soin : la cliente est allongée, détendue, et n’a pas son téléphone.",
+          "Ne solliciter que les fidèles enthousiastes : Google interdit la sollicitation sélective d’avis positifs.",
+          "Citer dans une réponse le soin, la zone traitée ou un problème de peau.",
+          "Publier des avis rédigés par l’équipe ou par des proches : Google y voit un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Rendez-vous suivant, cartes cadeaux et forfaits" },
+      {
+        type: "p",
+        text: "En institut, la fidélité passe par le rendez-vous suivant, souvent fixé sur place : la cliente est encore au comptoir, satisfaite et posée. Associer discrètement la demande d’avis à ce moment, sans jamais la conditionner, rend le geste naturel. Les clientes venues avec une carte cadeau découvrent souvent l’institut : leur avis de première visite intéresse beaucoup les futures clientes, invitez-les comme les autres.",
+      },
+      {
+        type: "p",
+        text: "Pour celles qui réservent en ligne, un [message de demande d’avis](/outils/message-demande-avis-google) envoyé après le rendez-vous complète la demande au comptoir. Le [générateur de QR code](/outils/qr-code-avis-google) gratuit permet d’imprimer une petite carte pour l’espace d’attente, et le [Présentoir Reviu](/presentoir-avis-google), posé à l’accueil, ouvre votre page d’avis Google sans contact ou par QR code, sans application.",
       },
     ],
     faq: [
@@ -1103,11 +1628,23 @@ const BASE_GUIDES: Guide[] = [
       },
       {
         q: "Comment demander un avis sans casser l’ambiance apaisée du soin ?",
-        a: "Avec un mot doux et sincère, et un support déjà posé sur le comptoir : la cliente scanne en un geste, sans rupture. On propose à toutes, sans insister et sans conditionner à une bonne note.",
+        a: "Avec une phrase douce et sincère, et un support déjà posé sur le comptoir : la cliente laisse son avis en un geste, sans rupture. On propose à toutes, sans insister et sans conditionner à une bonne note.",
       },
       {
         q: "Peut-on offrir une remise sur un prochain soin contre un avis ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On fidélise la cliente autrement, jamais en échange de l’avis lui-même.",
+        a: "Non. Une remise conditionnée à un avis est une contrepartie, interdite par Google, qui peut faire supprimer les avis concernés. Les avantages de fidélité restent possibles, à condition de ne jamais dépendre d’un avis.",
+      },
+      {
+        q: "Comment répondre à un avis négatif sans dévoiler le soin de la cliente ?",
+        a: "Restez général : remerciez, reconnaissez le ressenti et proposez d’en parler par téléphone ou à l’institut. Ne nommez jamais le soin, la zone traitée ou un problème de peau si la cliente ne l’a pas fait elle-même.",
+      },
+      {
+        q: "Où placer le QR code dans un institut de beauté ?",
+        a: "Sur le comptoir d’accueil, là où la cliente règle et reprend rendez-vous, et éventuellement dans l’espace d’attente. Évitez la cabine : c’est un lieu d’intimité, où la cliente n’a pas son téléphone et ne doit pas se sentir sollicitée.",
+      },
+      {
+        q: "Faut-il inviter les clientes venues avec une carte cadeau ?",
+        a: "Oui, comme toutes les autres. Elles découvrent souvent l’institut et leur regard de première visite est utile aux futures clientes. L’invitation reste la même pour tout le monde, sans contrepartie.",
       },
     ],
     related: [
@@ -1395,77 +1932,154 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-hotel",
-    metaTitle:
-      "Plus d’avis Google pour un hôtel : la méthode qui marche · reviu",
+    metaTitle: "Avis Google hôtel : obtenir plus d’avis en direct · reviu",
     h1: "Obtenir plus d’avis Google pour un hôtel",
     description:
-      "Comment un hôtel récolte plus d’avis Google, en plus des OTA : le bon moment au départ, où placer le QR à l’accueil et en chambre - dans les règles.",
+      "Plus d’avis Google pour un hôtel, en plus des plateformes : demander au départ, placer le QR à la réception, répondre aux critiques sur le bruit ou le prix.",
     excerpt:
-      "Booking et TripAdvisor captent l’essentiel des avis d’hôtel. Pourtant Google pèse de plus en plus. Voici comment y récolter des avis, sans gêner le séjour.",
+      "Les plateformes de réservation captent beaucoup d’avis d’hôtel, mais Google pèse dans le choix des voyageurs. Voici comment y récolter des avis au départ et répondre aux critiques du métier.",
     keywords: [
       "avis google hotel",
       "avis google hôtel",
       "avis clients hotel",
       "qr code avis hotel",
       "plus d’avis hotel google",
+      "répondre avis hotel",
     ],
     category: "Par métier",
     readMinutes: 6,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Pour un hôtel, les avis Booking et TripAdvisor ne suffisent plus : de plus en plus de voyageurs choisissent leur établissement directement depuis Google Maps et la recherche locale. Y récolter des avis, en complément des plateformes, améliore la visibilité et rassure ceux qui comparent en dernière minute. Voici comment le faire sans jamais alourdir le séjour.",
+        text: "Pour obtenir plus d’avis Google dans un hôtel, proposez l’avis à chaque voyageur au moment du départ, à la réception, avec un support posé sur le comptoir qui ouvre votre page d’avis en un geste, et un rappel discret en chambre. La même invitation pour tous, sans nuit offerte ni réduction en échange, et une réponse soignée à chaque avis : c’est ce qui fait progresser la note sur Google, en complément des plateformes.",
       },
-      { type: "h2", text: "Le bon moment : le départ, et juste après le séjour" },
       {
         type: "p",
-        text: "Le pic de satisfaction, à l’hôtel, se situe au check-out : le client garde en tête une chambre confortable et un accueil soigné. C’est l’instant idéal pour proposer un avis, à la réception, pendant le règlement ou la remise de la note. Un rappel discret en chambre, présent tout le séjour, prépare aussi le terrain.",
+        text: "Les avis publiés sur les plateformes de réservation ne suffisent plus : de nombreux voyageurs choisissent leur hôtel directement depuis Google Maps ou la recherche locale. Y récolter des avis améliore la visibilité et rassure ceux qui comparent en dernière minute.",
+      },
+      { type: "h2", text: "Ce que les voyageurs jugent dans un avis d’hôtel" },
+      {
+        type: "ul",
+        items: [
+          "La propreté de la chambre et de la salle de bain : le critère qui ne pardonne pas.",
+          "La literie et le calme : un bon lit et une nuit sans bruit valent tous les équipements.",
+          "L’accueil, à l’arrivée comme au départ, et la réactivité en cas de problème.",
+          "Le petit-déjeuner : choix, fraîcheur, horaires.",
+          "La conformité aux photos et à la description de la chambre réservée.",
+          "Les services pratiques : stationnement, wifi, climatisation, arrivée tardive.",
+          "L’emplacement et le rapport qualité/prix au regard du tarif payé.",
+        ],
+      },
+      { type: "h2", text: "Le bon moment : le départ, et pendant le séjour" },
+      {
+        type: "p",
+        text: "Le pic de satisfaction, à l’hôtel, se situe au départ : le client garde en tête une chambre confortable et un accueil soigné. C’est l’instant idéal pour proposer un avis, à la réception, pendant le règlement ou la remise de la note. Un rappel discret en chambre, présent tout le séjour, prépare le terrain sans rien imposer.",
       },
       {
         type: "callout",
         title: "La règle d’or à l’hôtel",
-        text: "Proposez l’avis au départ, avec un support déjà posé sur le comptoir de la réception. Un scan, sans allonger le check-out - et le voyageur repart en ayant déjà laissé son avis Google.",
+        text: "Proposez l’avis au départ, avec un support déjà posé sur le comptoir de la réception. Un geste, sans allonger le départ, et le voyageur repart en ayant déjà laissé son avis Google.",
       },
       { type: "h2", text: "Où placer le support dans l’hôtel" },
       {
         type: "ul",
         items: [
           "Sur le comptoir de la réception : l’emplacement clé, au moment du départ.",
-          "En chambre, sur le bureau ou le chevet : un rappel visible pendant tout le séjour.",
-          "À l’espace petit-déjeuner : un moment détendu propice au scan.",
-          "Sur la note ou la fiche de départ : un relais pour scanner en partant.",
+          "En chambre, sur le bureau ou la table de chevet : un rappel visible pendant tout le séjour.",
+          "À l’espace petit-déjeuner : un moment détendu propice au geste.",
+          "Sur la note ou la fiche de départ : un relais pour le voyageur pressé.",
         ],
       },
-      { type: "h2", text: "Quoi dire, sans forcer" },
+      { type: "h2", text: "Phrases types pour la réception" },
       {
-        type: "p",
-        text: "Un mot sincère de la réception suffit : « Si votre séjour vous a plu, un avis Google nous aide beaucoup - c’est en un scan. » On propose à tous les clients, sans réserver la demande à ceux qu’on croit satisfaits, et sans offrir de nuit ni de réduction en échange : ce sont les règles de Google. Pour la méthode complète, voyez notre guide pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google).",
+        type: "ul",
+        items: [
+          "« Avant de partir, vous pouvez donner votre avis sur Google en approchant votre téléphone de ce support : cela nous aide beaucoup. »",
+          "« Si vous avez une minute pendant votre trajet, racontez votre séjour sur Google : les prochains voyageurs vous en seront reconnaissants. »",
+          "In English, for international guests: « Your review on Google really helps us, it’s right here. »",
+        ],
       },
-      { type: "h2", text: "Google et les plateformes : jouer sur les deux" },
       {
         type: "p",
-        text: "Les avis Google ne remplacent pas Booking ou TripAdvisor : ils s’y ajoutent, sur un canal que vous maîtrisez et qui nourrit directement votre visibilité sur Maps et dans le pack local. Une fiche Google riche en avis récents capte les recherches « hôtel + ville » et les réservations en direct, sans commission d’intermédiaire.",
+        text: "L’invitation vaut pour chaque voyageur, y compris celui qui a signalé un souci pendant le séjour, sans réserver la demande à ceux qu’on croit satisfaits. Les règles de Google interdisent de solliciter des avis positifs de façon sélective, comme d’offrir une nuit ou un surclassement en échange.",
       },
-      { type: "h2", text: "Répondre et mesurer" },
+      { type: "h2", text: "Situations délicates propres à l’hôtellerie" },
+      { type: "h3", text: "La chambre bruyante" },
       {
         type: "p",
-        text: "À l’hôtel plus qu’ailleurs, la façon de [répondre aux avis](/guides/repondre-avis-negatif) - y compris aux critiques - pèse dans la décision. Suivez aussi vos scans et vos clics vers Google pour ajuster l’emplacement des supports. Avec un [présentoir reviu](/#produits) à la réception, sans contact et QR code, modifiable à distance, la demande d’avis devient un réflexe de départ - et votre note Google progresse, séjour après séjour.",
+        text: "Travaux dans la rue, voisins de chambre, ascenseur : le bruit est l’une des critiques les plus courantes. Si un client se plaint pendant son séjour, proposez un changement de chambre quand c’est possible : un problème réglé sur place devient souvent un compliment sur la réactivité de l’équipe.",
+      },
+      { type: "h3", text: "Le problème né de la réservation" },
+      {
+        type: "p",
+        text: "Un tarif mal compris, une option non transmise par une plateforme, une chambre différente de l’annonce : le client en veut à l’hôtel, même si l’erreur vient d’ailleurs. Vérifiez régulièrement que vos descriptions et vos photos sont identiques partout, y compris sur votre fiche Google.",
+      },
+      { type: "h3", text: "L’arrivée tardive" },
+      {
+        type: "p",
+        text: "Un voyageur qui arrive tard et trouve la réception fermée sans instructions claires écrit rarement un avis serein. Envoyez les modalités d’arrivée à l’avance et indiquez-les sur votre fiche.",
+      },
+      { type: "h2", text: "Répondre aux avis d’hôtel, en français comme en langue étrangère" },
+      {
+        type: "p",
+        text: "À l’hôtel plus qu’ailleurs, la façon de répondre aux avis pèse dans la décision des voyageurs suivants. Répondez dans la langue de l’avis quand vous le pouvez, signez, et ne citez jamais le numéro de chambre ni les dates du séjour. Exemple de réponse à une critique sur le bruit :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Pierre, merci pour votre retour. Nous sommes désolés que les travaux de la rue aient troublé votre nuit. Nous aurions dû vous proposer une chambre côté cour à votre arrivée : c’est désormais ce que fait la réception pendant toute la durée du chantier. Au plaisir de vous accueillir de nouveau, Hélène, directrice »",
+      },
+      {
+        type: "p",
+        text: "Notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) détaille la méthode, et le [générateur de réponses aux avis](/outils/reponse-avis-google) propose des modèles pour l’hôtellerie à adapter à chaque cas.",
+      },
+      { type: "h2", text: "Erreurs à éviter pour un hôtel" },
+      {
+        type: "ul",
+        items: [
+          "Offrir le petit-déjeuner, une nuit ou un surclassement contre un avis : contrepartie interdite par Google.",
+          "Glisser une carte en chambre qui ne demande l’avis qu’aux clients « ravis de leur séjour » : c’est un tri déguisé.",
+          "Répondre en contestant publiquement la propreté d’une chambre, photos à l’appui : on règle les faits en privé.",
+          "Laisser des photos anciennes sur la fiche Google : l’écart avec la réalité nourrit les critiques.",
+          "Faire rédiger des avis par le personnel ou des proches : Google y voit un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Google, plateformes et réservations en direct" },
+      {
+        type: "p",
+        text: "Les avis Google ne remplacent pas ceux des plateformes : ils s’y ajoutent, sur un canal qui nourrit directement votre visibilité sur Maps et dans la recherche « hôtel + ville ». Pour les clients qui ont réservé en direct et vous ont laissé leurs coordonnées, un [message de demande d’avis](/outils/message-demande-avis-google) envoyé le lendemain du départ, à tous, complète la demande faite à la réception. Pour une petite structure, notre guide consacré aux [avis Google pour une chambre d’hôtes](/guides/avis-google-chambre-d-hotes) adapte la méthode.",
+      },
+      {
+        type: "p",
+        text: "Le [générateur de QR code avis Google](/outils/qr-code-avis-google) permet d’imprimer gratuitement la carte posée en chambre. À la réception, le [Présentoir Reviu](/presentoir-avis-google) ouvre votre page d’avis Google sans contact ou par QR code, et plusieurs exemplaires (réception, salle du petit-déjeuner) se gèrent depuis le même espace.",
       },
     ],
     faq: [
       {
         q: "Quel est le meilleur moment pour demander un avis Google à l’hôtel ?",
-        a: "Au check-out, quand le client règle et repart avec un bon souvenir du séjour. Un support à la réception, scanné en un geste, est bien plus efficace qu’un e-mail envoyé après le départ.",
+        a: "Au départ, quand le client règle et repart avec un bon souvenir du séjour. Un support à la réception, utilisé en un geste, est bien plus efficace qu’un e-mail envoyé après le départ.",
       },
       {
-        q: "Faut-il demander des avis Google alors qu’on est déjà sur Booking ?",
-        a: "Oui : les avis Google s’ajoutent aux plateformes et nourrissent votre visibilité sur Google Maps et dans la recherche locale, ce qui favorise les réservations en direct, sans commission.",
+        q: "Faut-il demander des avis Google quand on est déjà sur les plateformes de réservation ?",
+        a: "Oui : les avis Google s’ajoutent à ceux des plateformes et nourrissent votre visibilité sur Google Maps et dans la recherche locale. Ils aident aussi les voyageurs qui réservent directement auprès de l’hôtel.",
       },
       {
         q: "Peut-on offrir une réduction contre un avis à l’hôtel ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On invite tous les clients, sans conditionner ni récompenser l’avis lui-même.",
+        a: "Non. Une nuit, un petit-déjeuner ou une réduction offerts en échange d’un avis sont des contreparties interdites par Google, et les avis obtenus ainsi peuvent être supprimés. On invite tous les clients, sans récompenser l’avis lui-même.",
+      },
+      {
+        q: "Faut-il répondre aux avis rédigés en langue étrangère ?",
+        a: "Oui, et idéalement dans la langue de l’avis. Une réponse courte et courtoise montre aux voyageurs étrangers que l’hôtel les accueille avec attention. En cas de doute, une réponse simple en anglais reste préférable à l’absence de réponse.",
+      },
+      {
+        q: "Comment répondre à un avis sur une chambre bruyante ?",
+        a: "Remerciez, reconnaissez la gêne sans minimiser, puis expliquez ce que l’hôtel fait désormais, par exemple proposer une chambre plus calme dès l’arrivée. Ne citez ni le numéro de chambre ni les dates du séjour.",
+      },
+      {
+        q: "Peut-on laisser une carte avec un QR code en chambre ?",
+        a: "Oui, c’est un bon rappel pendant le séjour, à condition que le message invite tous les clients de la même façon. Évitez les formulations qui ne visent que les clients satisfaits.",
       },
     ],
     related: [
@@ -1478,76 +2092,157 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-boutique",
-    metaTitle:
-      "Plus d’avis Google pour une boutique : la méthode · reviu",
+    metaTitle: "Plus d’avis Google pour une boutique : la méthode · reviu",
     h1: "Obtenir plus d’avis Google pour une boutique",
     description:
-      "La méthode pour récolter plus d’avis Google en boutique : le bon moment à l’encaissement, où poser le support, quoi dire au client - dans les règles.",
+      "Plus d’avis Google en boutique : demander à l’encaissement, phrases types, réponses aux critiques sur un échange ou l’accueil, erreurs à éviter.",
     excerpt:
-      "En commerce de détail, l’avis se joue à l’encaissement. Voici comment transformer un achat réussi en avis Google, sans alourdir le passage en caisse.",
+      "En commerce de détail, l’avis se joue à l’encaissement. Voici comment transformer un achat réussi en avis Google, répondre aux critiques sur un échange ou un conseil, et éviter les faux pas.",
     keywords: [
       "avis google boutique",
       "avis google commerce de détail",
       "avis clients boutique",
       "qr code avis boutique",
       "plus d’avis boutique",
+      "répondre avis boutique",
     ],
     category: "Par métier",
-    readMinutes: 5,
+    readMinutes: 6,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "En boutique, un client qui repart content de son achat est dans les meilleures dispositions pour laisser un avis - à condition qu’on le lui propose au bon moment et sans effort. Les avis Google pèsent lourd pour un commerce de détail : ils rassurent avant la visite et font venir de nouveaux clients du quartier. Voici comment les récolter, sans ralentir la caisse.",
+        text: "Pour obtenir plus d’avis Google en boutique, proposez l’avis à chaque client à l’encaissement, avec un support posé sur le comptoir de caisse qui ouvre votre page d’avis en un geste, et un rappel sur le ticket ou le sac. Une phrase identique pour tous, aucune remise en échange : vos avis restent crédibles, et ils font venir de nouveaux clients du quartier.",
+      },
+      {
+        type: "p",
+        text: "Un client qui repart content de son achat est dans les meilleures dispositions pour laisser un avis, à condition qu’on le lui propose au bon moment et sans effort. Pour un commerce de détail, ces avis rassurent avant la visite et pèsent dans la [visibilité locale](/guides/avis-google-commerce-local).",
+      },
+      { type: "h2", text: "Ce que les clients jugent dans une boutique" },
+      {
+        type: "ul",
+        items: [
+          "Le conseil : un vendeur qui connaît ses produits, écoute et sait dire quand un article ne convient pas.",
+          "L’accueil, sans pression à l’achat : on aime être salué, pas suivi dans les rayons.",
+          "Le choix et la disponibilité, notamment des tailles, des coloris ou des références annoncées en ligne.",
+          "Les prix, comparés à ceux d’internet ou des grandes enseignes.",
+          "La politique d’échange et de remboursement, découverte parfois au pire moment.",
+          "Des horaires et un stock affichés en ligne qui correspondent à la réalité.",
+        ],
+      },
+      {
+        type: "p",
+        text: "En boutique, un avis positif parle souvent d’une personne : « Marie m’a très bien conseillée ». C’est votre meilleur argument face aux achats en ligne, et c’est ce que les futurs clients viennent chercher dans vos avis.",
       },
       { type: "h2", text: "Le bon moment : l’encaissement" },
       {
         type: "p",
-        text: "Le moment idéal, c’est le passage en caisse : l’achat est concret, le client satisfait et le téléphone souvent déjà en main pour payer. Attendre un e-mail plus tard, c’est laisser retomber l’enthousiasme et l’envie de dire merci.",
+        text: "Le moment idéal, c’est le passage en caisse : l’achat est concret, le client satisfait et le téléphone souvent déjà en main pour payer. Attendre un e-mail plus tard, c’est laisser retomber l’enthousiasme. Pour un achat important (un vêtement de cérémonie, un cadeau choisi longuement), la demande peut aussi venir après un essayage réussi, une fois la décision prise.",
       },
       {
         type: "callout",
         title: "La règle d’or en boutique",
-        text: "Proposez l’avis à l’encaissement, avec un support déjà posé sur le comptoir. Un scan, et l’avis est laissé avant même que le client ait rangé son sac.",
+        text: "Proposez l’avis à l’encaissement, avec un support déjà posé sur le comptoir. Un geste, et l’avis est laissé avant même que le client ait rangé son sac.",
       },
       { type: "h2", text: "Où placer le support en boutique" },
       {
         type: "ul",
         items: [
           "Sur le comptoir de caisse : le point de contact final, au moment de payer.",
-          "Sur le sac ou le ticket : un rappel qui repart avec le client.",
-          "En vitrine ou près de l’entrée : capte l’attention pendant le passage.",
+          "Sur le sac, le ticket ou la carte de fidélité : un rappel qui repart avec le client.",
+          "Près des cabines d’essayage, de façon discrète : un rappel pendant le choix.",
+          "En vitrine : un QR code lisible depuis le trottoir capte aussi les habitués du quartier.",
         ],
       },
-      { type: "h2", text: "Quoi dire au moment de payer" },
+      { type: "h2", text: "Phrases types à l’encaissement" },
       {
-        type: "p",
-        text: "Un mot simple et sincère à l’encaissement : « Si notre boutique vous a plu, un avis Google nous aide beaucoup - c’est juste ici. » On le propose à tous les clients, sans trier selon la note attendue, et sans offrir de remise en échange : ce sont les règles de Google. La méthode générale est détaillée dans notre guide pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google).",
+        type: "ul",
+        items: [
+          "« Pour une boutique indépendante, chaque avis Google compte : vous pouvez le laisser ici, en approchant votre téléphone. »",
+          "« Comment avez-vous trouvé nos conseils ? Vous pouvez le raconter sur Google, c’est précieux pour une boutique de quartier. »",
+          "Pour un client de passage : « Vous n’êtes pas du quartier ? Votre avis aidera d’autres visiteurs à nous trouver. »",
+        ],
       },
-      { type: "h2", text: "Fidéliser et faire revenir" },
       {
         type: "p",
-        text: "Un avis positif ne fait pas que rassurer les nouveaux clients : il ancre la relation avec celui qui l’écrit. En commerce de détail, où l’on revient volontiers là où l’on a été bien reçu, chaque avis renforce le lien - et un [flux régulier d’avis](/guides/avis-google-commerce-local) améliore votre visibilité locale.",
+        text: "La même phrase s’adresse à chaque client, y compris à celui qui a longtemps hésité, sans trier selon la note attendue et sans offrir de remise en échange : ce sont les règles de Google. La méthode générale est détaillée dans notre guide pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google).",
       },
-      { type: "h2", text: "Mesurer et ajuster" },
+      { type: "h2", text: "Situations délicates en commerce de détail" },
+      { type: "h3", text: "L’échange refusé" },
       {
         type: "p",
-        text: "Combien de scans par semaine, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à trouver la meilleure place pour le support et le bon mot à la caisse. Avec un [présentoir reviu](/#produits) sur le comptoir, sans contact et QR code, modifiable à distance, la collecte devient un réflexe d’encaissement - et la note de la boutique grimpe, semaine après semaine.",
+        text: "Une règle d’échange découverte au moment du retour est une source classique d’avis mécontents. Affichez votre politique en caisse, imprimez-la sur le ticket et dites-la à voix haute pour les articles sensibles (soldes, sous-vêtements, articles personnalisés).",
+      },
+      { type: "h3", text: "Le produit en rupture ou introuvable" },
+      {
+        type: "p",
+        text: "Un client venu exprès pour un article affiché en ligne et absent du rayon se sent trompé. Si vous montrez vos produits sur Google ou sur votre site, gardez ces informations à jour, ou précisez que la disponibilité se confirme par téléphone.",
+      },
+      { type: "h3", text: "Le client qui se sent suivi ou ignoré" },
+      {
+        type: "p",
+        text: "Entre l’insistance et l’indifférence, l’équilibre est délicat. Une règle simple aide l’équipe : saluer chaque client à l’entrée, proposer son aide une fois, puis rester disponible sans suivre.",
+      },
+      { type: "h2", text: "Répondre aux critiques sur un échange ou un accueil" },
+      {
+        type: "p",
+        text: "La réponse publique sert surtout aux futurs clients : elle montre une boutique qui assume ses règles avec courtoisie. Exemple de réponse à un avis sur un échange refusé :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Lucie, merci pour votre message. Les articles soldés ne sont pas échangés, sauf défaut, et nous aurions dû vous le rappeler clairement en caisse : c’est désormais indiqué sur chaque ticket. Nous restons à votre disposition en boutique pour vous aider à trouver une autre taille. Anne, gérante »",
+      },
+      {
+        type: "p",
+        text: "Notre [générateur de réponses aux avis](/outils/reponse-avis-google) décline ses modèles pour les boutiques ; personnalisez-les toujours avant de publier. Remerciez aussi les avis positifs en citant le conseil ou le produit évoqué : c’est une seconde vitrine.",
+      },
+      { type: "h2", text: "Erreurs à éviter en boutique" },
+      {
+        type: "ul",
+        items: [
+          "Offrir une remise, un bon d’achat ou une participation à un jeu concours contre un avis : contreparties interdites par Google.",
+          "Ne tendre le support qu’aux clients qui ont beaucoup acheté : c’est un tri, et Google interdit la sollicitation sélective.",
+          "Répondre à une critique en rappelant sèchement « les conditions générales » sans un mot d’excuse.",
+          "Faire publier des avis par les vendeurs, des amis ou la famille : Google y voit un conflit d’intérêts.",
+          "Oublier de mettre à jour les horaires pendant les soldes, les fêtes ou les congés.",
+        ],
+      },
+      { type: "h2", text: "Clientèle de passage, fidèles et périodes de fêtes" },
+      {
+        type: "p",
+        text: "Une boutique mêle des fidèles, qui verront le support à chaque visite, et des clients de passage, touristes ou visiteurs d’un jour, qu’il faut inviter tout de suite car ils ne reviendront peut-être pas. Les périodes de fêtes et de soldes concentrent beaucoup de passages : c’est le moment de vérifier que le support est bien visible malgré la décoration et les présentoirs saisonniers.",
+      },
+      {
+        type: "p",
+        text: "Le [générateur de QR code avis Google](/outils/qr-code-avis-google) crée gratuitement un autocollant pour la vitrine ou les sacs, et le [calculateur de note Google](/outils/calculateur-note-google) montre combien d’avis il faut pour passer un cap de note. Côté caisse, le [Présentoir Reviu](/presentoir-avis-google) ouvre votre page d’avis sans contact ou par QR code pendant que le client règle.",
       },
     ],
     faq: [
       {
         q: "Comment demander un avis Google en boutique sans gêner le client ?",
-        a: "À l’encaissement, avec un mot bref et sincère et un support déjà sur le comptoir : le client scanne en un geste. On propose à tous les clients, sans insister ni conditionner à une bonne note.",
+        a: "À l’encaissement, avec une phrase brève et sincère et un support déjà sur le comptoir : le client laisse son avis en un geste. On propose à tous les clients, sans insister ni conditionner à une bonne note.",
       },
       {
         q: "Où placer le QR code dans une boutique ?",
-        a: "Sur le comptoir de caisse en priorité, car c’est là que se termine l’achat. Un rappel sur le sac ou le ticket aide ceux qui préfèrent scanner une fois rentrés.",
+        a: "Sur le comptoir de caisse en priorité, car c’est là que se termine l’achat. Un rappel sur le sac ou le ticket aide ceux qui préfèrent laisser leur avis une fois rentrés, et un QR en vitrine touche les habitués du quartier.",
       },
       {
         q: "Peut-on offrir une réduction contre un avis Google ?",
-        a: "Non : c’est interdit par Google et peut entraîner la suppression des avis. On fidélise autrement, jamais en échange de l’avis lui-même.",
+        a: "Non : une remise, un bon d’achat ou une participation à un jeu concours contre un avis sont interdits par Google, et les avis concernés peuvent être supprimés. Vos avantages de fidélité doivent rester indépendants de tout avis.",
+      },
+      {
+        q: "Comment répondre à un avis sur un échange refusé ?",
+        a: "Rappelez la règle avec courtoisie, reconnaissez si elle n’a pas été assez clairement annoncée et expliquez ce qui change, par exemple une mention sur le ticket. Proposez une solution en boutique quand c’est possible, sans polémique.",
+      },
+      {
+        q: "Peut-on demander un avis lors d’un retrait de commande en boutique ?",
+        a: "Oui : le retrait d’une commande passée en ligne est un moment de contact comme un autre. Le support au comptoir ou un QR code sur le sac permettent au client de donner son avis, avec la même invitation que pour un achat sur place.",
+      },
+      {
+        q: "Faut-il demander un avis aux touristes et clients de passage ?",
+        a: "Oui, et plutôt tout de suite, puisqu’ils ne reviendront peut-être pas. Leur avis aide d’autres visiteurs à trouver la boutique. L’invitation reste la même que pour les habitués.",
       },
     ],
     related: [
@@ -1560,33 +2255,62 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-dentiste",
-    metaTitle:
-      "Plus d’avis Google pour un cabinet dentaire : la méthode · reviu",
+    metaTitle: "Avis Google dentiste : les recueillir avec tact · reviu",
     h1: "Obtenir plus d’avis Google pour un cabinet dentaire",
     description:
-      "Comment un cabinet dentaire récolte plus d’avis Google : le bon moment à l’accueil, quoi dire avec tact, où placer le support - dans les règles.",
+      "Avis Google pour un cabinet dentaire : inviter les patients avec sobriété, respecter la déontologie et le secret professionnel dans les réponses.",
     excerpt:
-      "Pour un cabinet dentaire, la réputation en ligne rassure les nouveaux patients. Voici comment récolter des avis Google à l’accueil, avec tact et sans pression.",
+      "Pour un cabinet dentaire, les avis Google se recueillent avec sobriété : une invitation à l’accueil, sans pression ni contrepartie, et des réponses qui respectent le secret professionnel.",
     keywords: [
       "avis google dentiste",
       "avis google cabinet dentaire",
       "avis patients dentiste",
       "qr code avis cabinet dentaire",
       "plus d’avis dentiste",
+      "répondre avis patient dentiste",
     ],
     category: "Par métier",
-    readMinutes: 6,
+    readMinutes: 7,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_DENTISTE,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Un nouveau patient qui cherche un dentiste consulte presque toujours les avis Google avant de prendre rendez-vous. Pour un cabinet, une réputation en ligne soignée fait la différence - à condition de récolter des avis sans jamais mettre la pression, et dans le respect de la relation de soin. Voici comment s’y prendre, avec tact.",
+        text: "Un cabinet dentaire peut inviter ses patients à laisser un avis Google, à condition de le faire avec sobriété : la même invitation pour tous, proposée à l’accueil après le rendez-vous, sans contrepartie, sans pression et sans tri selon la satisfaction. Les réponses aux avis obéissent ensuite à une règle stricte : ne jamais confirmer qu’une personne est patiente du cabinet ni évoquer un soin.",
+      },
+      {
+        type: "p",
+        text: "Un nouveau patient consulte souvent les avis Google avant de prendre rendez-vous. Ce guide ne vise pas à « faire monter une note » : il décrit comment laisser la parole aux patients qui le souhaitent, dans le respect de la relation de soin, et comment répondre sans rien dévoiler.",
+      },
+      { type: "h2", text: "Déontologie, secret professionnel et règles de Google" },
+      {
+        type: "p",
+        text: "Avant tout, vérifiez les recommandations de l’Ordre national des chirurgiens-dentistes sur la communication : l’exercice ne doit pas être pratiqué comme un commerce (article R.4127-215 du Code de la santé publique), ce qui appelle une invitation sobre, sans mise en avant commerciale. Deux autres garde-fous s’imposent au cabinet. D’abord, on n’offre aucune contrepartie et l’on ne filtre pas selon la satisfaction supposée : c’est une règle Google, et une exigence déontologique. Ensuite, dans les réponses publiques aux avis, on ne confirme jamais qu’une personne est patiente et l’on ne révèle aucune donnée de santé : notre guide pour [répondre aux avis](/guides/repondre-avis-google) rappelle ces réflexes, essentiels dans un cadre médical.",
+      },
+      {
+        type: "p",
+        text: "Ce guide ne remplace pas l’avis de votre conseil départemental de l’Ordre : en cas de doute sur une pratique, interrogez-le avant de la mettre en place.",
+      },
+      { type: "h2", text: "Ce que les patients évoquent dans leurs avis" },
+      {
+        type: "ul",
+        items: [
+          "L’écoute et les explications : comprendre le traitement proposé et les alternatives.",
+          "La prise en charge de l’appréhension et de la douleur.",
+          "Le délai pour obtenir un rendez-vous, et la réponse en cas d’urgence.",
+          "La ponctualité et l’attente en salle d’attente.",
+          "La clarté des devis et du reste à charge, expliqués avant le soin.",
+          "L’accueil du secrétariat, au téléphone comme au comptoir, et l’hygiène perçue du cabinet.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Une bonne partie de ces sujets relève de l’organisation du cabinet plus que de l’acte de soin. C’est là que les avis sont le plus utiles : ils signalent ce que l’équipe peut améliorer au quotidien.",
       },
       { type: "h2", text: "Le bon moment : à l’accueil, après le rendez-vous" },
       {
         type: "p",
-        text: "Le moment juste, c’est le retour à l’accueil après le soin, au moment de régler ou de reprogrammer : le patient est soulagé, la prestation est terminée. C’est là, au comptoir du secrétariat, qu’une invitation discrète trouve naturellement sa place - jamais au fauteuil, ni pendant le soin.",
+        text: "Le moment juste, c’est le retour à l’accueil après le soin, au moment de régler ou de reprogrammer : la prestation est terminée, le patient a retrouvé ses moyens. C’est là, au comptoir du secrétariat, qu’une invitation discrète trouve sa place, jamais au fauteuil ni pendant le soin.",
       },
       {
         type: "callout",
@@ -1599,42 +2323,104 @@ const BASE_GUIDES: Guide[] = [
         items: [
           "Sur le comptoir du secrétariat : au moment de régler ou de reprendre rendez-vous.",
           "En salle d’attente, avec la documentation : un rappel discret et sans pression.",
-          "À côté du carnet de rendez-vous : au moment de programmer la prochaine visite.",
+          "Près de l’agenda du secrétariat : au moment de programmer la prochaine visite.",
+          "Jamais en salle de soins : le patient n’y est pas en position de choisir librement.",
         ],
       },
       { type: "h2", text: "Quoi dire, avec tact" },
       {
-        type: "p",
-        text: "Un mot mesuré du secrétariat suffit : « Si vous êtes satisfait de votre suivi, un avis Google aide d’autres patients à nous trouver - c’est en un scan, si vous le souhaitez. » On propose à tous les patients, sans trier et sans jamais conditionner : la même logique que pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) dans tout commerce, avec la retenue propre au soin.",
+        type: "ul",
+        items: [
+          "« Si vous le souhaitez, vous pouvez donner votre avis sur Google : c’est ici, en approchant votre téléphone. »",
+          "« Votre avis sur notre accueil et notre organisation peut aider d’autres patients à nous trouver, si vous en avez envie. »",
+        ],
       },
-      { type: "h2", text: "Déontologie et confidentialité" },
       {
         type: "p",
-        text: "Avant tout, vérifiez les recommandations de l’Ordre national des chirurgiens-dentistes sur la communication : l’exercice ne doit pas être pratiqué comme un commerce (article R.4127-215 du Code de la santé publique), ce qui appelle une invitation sobre, sans mise en avant commerciale. Deux autres garde-fous s’imposent au cabinet. D’abord, on n’offre aucune contrepartie et l’on ne filtre pas selon la satisfaction supposée : c’est une règle Google, et une exigence déontologique. Ensuite, dans les réponses publiques aux avis, on ne confirme jamais qu’une personne est patiente et l’on ne révèle aucune donnée de santé : notre guide pour [répondre aux avis](/guides/repondre-avis-google) rappelle ces réflexes, essentiels dans un cadre médical.",
+        text: "On propose à tous les patients, sans trier et sans relancer. On ne met pas à disposition une tablette du cabinet pour écrire l’avis sur place, et l’on ne suggère aucun contenu : l’avis doit être rédigé librement, depuis le téléphone du patient, s’il le souhaite.",
       },
-      { type: "h2", text: "Mesurer et ajuster" },
+      { type: "h2", text: "Situations délicates propres au cabinet dentaire" },
+      { type: "h3", text: "Un avis sur un devis ou des honoraires" },
       {
         type: "p",
-        text: "Combien de patients scannent, à quel emplacement ? Un tableau de bord qui suit les scans et les clics vers Google aide à ajuster le support et le mot de l’accueil, sans jamais peser sur la relation. Avec un [présentoir reviu](/#produits) au secrétariat, sans contact et QR code, modifiable à distance, l’invitation reste discrète et régulière - et la réputation du cabinet se renforce dans le temps.",
+        text: "La meilleure prévention reste un devis expliqué à l’avance, avec le temps de poser des questions. Si un avis critique les honoraires, on n’en discute ni le montant ni le traitement en public : on propose un échange avec le secrétariat ou le praticien.",
+      },
+      { type: "h3", text: "Une douleur après un soin" },
+      {
+        type: "p",
+        text: "Une douleur évoquée dans un avis est une question clinique, qui se traite par téléphone ou en consultation, jamais dans les commentaires. La réponse publique se limite à inviter la personne à contacter le cabinet.",
+      },
+      { type: "h3", text: "Un avis d’une personne que vous ne reconnaissez pas" },
+      {
+        type: "p",
+        text: "Même dans ce cas, la réponse ne doit ni confirmer ni démentir qu’une personne est suivie au cabinet. Restez neutre ; si l’avis enfreint les règles de Google (propos injurieux, contenu sans rapport avec une expérience), il peut être signalé depuis la fiche. Notre guide sur les [faux avis Google](/guides/supprimer-faux-avis-google) détaille la démarche.",
+      },
+      { type: "h2", text: "Répondre aux avis sans rompre le secret professionnel" },
+      {
+        type: "p",
+        text: "Une réponse de cabinet dentaire est courte, courtoise et générale, que l’avis soit positif ou négatif. Même si le patient décrit lui-même son traitement, la réponse ne le reprend pas. Exemple de réponse à un avis critique :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour, nous vous remercions d’avoir pris le temps d’écrire. Pour des raisons de confidentialité, nous ne pouvons pas évoquer de situation individuelle sur cette page. Le secrétariat se tient à votre disposition par téléphone pour en parler. L’équipe du cabinet »",
+      },
+      {
+        type: "p",
+        text: "Pour un avis positif, un simple « Merci pour votre message, nous le transmettons à toute l’équipe » suffit. Le [générateur de réponses aux avis](/outils/reponse-avis-google) peut servir de point de départ, à condition de relire chaque réponse pour en retirer toute mention d’un soin, d’une date ou d’une situation personnelle.",
+      },
+      { type: "h2", text: "Erreurs à éviter au cabinet" },
+      {
+        type: "ul",
+        items: [
+          "Offrir quoi que ce soit en échange d’un avis : c’est interdit par Google et contraire à la déontologie.",
+          "Solliciter un avis au fauteuil, pendant ou juste après un acte.",
+          "Confirmer dans une réponse qu’une personne est patiente, ou citer un acte, une date, un praticien en lien avec un soin.",
+          "Répondre sous le coup de l’émotion, ou entrer dans une polémique publique.",
+          "Adopter un ton commercial sur l’affichette ou dans les réponses : promesses, superlatifs, comparaisons.",
+          "Faire rédiger des avis par l’équipe ou des proches : Google y voit un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Une démarche sobre, dans la durée" },
+      {
+        type: "p",
+        text: "Au cabinet, la régularité compte plus que le volume : une invitation identique, proposée calmement à l’accueil, laisse s’accumuler des avis qui reflètent la réalité de la patientèle. Une petite affichette sobre en salle d’attente, créée avec le [générateur de QR code avis Google](/outils/qr-code-avis-google), peut suffire. L’envoi de demandes d’avis par SMS ou e-mail à partir du fichier patients soulève, lui, des questions de protection des données et de déontologie : renseignez-vous avant d’y recourir.",
+      },
+      {
+        type: "p",
+        text: "Si vous souhaitez un support discret au secrétariat, le [Présentoir Reviu](/presentoir-avis-google) ouvre la page d’avis Google sans contact ou par QR code. Il ne remplace ni la sobriété de l’invitation ni la vérification préalable des recommandations de votre Ordre.",
       },
     ],
     faq: [
       {
         q: "Un cabinet dentaire peut-il demander des avis Google à ses patients ?",
-        a: "Oui, à condition de proposer l’invitation à tous les patients sans pression, sans contrepartie et sans filtrer selon la satisfaction. Le moment adapté est l’accueil, après le rendez-vous, jamais pendant le soin.",
+        a: "Oui, à condition de proposer l’invitation à tous les patients, sans pression, sans contrepartie et sans filtrer selon la satisfaction, et après avoir vérifié les recommandations de l’Ordre sur la communication. Le moment adapté est l’accueil, après le rendez-vous, jamais pendant le soin.",
       },
       {
-        q: "Comment répondre à un avis en respectant le secret médical ?",
-        a: "Sans jamais confirmer qu’une personne est patiente ni révéler d’information de santé. On remercie, on invite à un échange privé si nécessaire, et l’on reste factuel et courtois dans la réponse publique.",
+        q: "Comment répondre à un avis en respectant le secret professionnel ?",
+        a: "Sans jamais confirmer qu’une personne est patiente ni évoquer un soin, même si l’auteur de l’avis l’a fait. On remercie, on indique que l’on ne peut pas aborder de situation individuelle en public et l’on invite à contacter le secrétariat.",
       },
       {
         q: "Peut-on offrir quelque chose contre un avis au cabinet ?",
         a: "Non : c’est interdit par Google et contraire à la déontologie. L’avis doit rester un geste libre du patient, jamais récompensé ni conditionné.",
       },
+      {
+        q: "Que faire d’un avis négatif sur un devis ou des honoraires ?",
+        a: "Ne discutez ni du montant ni du traitement en public. Remerciez, précisez que vous ne pouvez pas évoquer de situation individuelle sur cette page et proposez un échange avec le secrétariat ou le praticien.",
+      },
+      {
+        q: "Peut-on répondre à un avis d’une personne qui n’est pas patiente ?",
+        a: "La réponse ne doit ni confirmer ni démentir qu’une personne est suivie au cabinet : une réponse neutre, qui invite à contacter le secrétariat, convient dans tous les cas. Si l’avis enfreint les règles de Google, il peut être signalé depuis la fiche d’établissement.",
+      },
+      {
+        q: "Peut-on envoyer des demandes d’avis par SMS aux patients ?",
+        a: "Cela soulève des questions de protection des données et de déontologie, puisque les coordonnées ont été confiées dans le cadre des soins. Avant toute démarche de ce type, renseignez-vous auprès de votre Ordre et consultez les recommandations de la CNIL. L’invitation orale à l’accueil reste la solution la plus simple.",
+      },
     ],
     related: [
       "avoir-plus-avis-google",
       "repondre-avis-google",
+      "supprimer-faux-avis-google",
       "avis-google-institut-beaute",
       "presentoir-plaque-nfc-avis-google",
     ],
@@ -1642,68 +2428,142 @@ const BASE_GUIDES: Guide[] = [
 
   {
     slug: "avis-google-salle-de-sport",
-    metaTitle:
-      "Plus d’avis Google pour une salle de sport : la méthode · reviu",
+    metaTitle: "Avis Google salle de sport : obtenir plus d’avis · reviu",
     h1: "Obtenir plus d’avis Google pour une salle de sport",
     description:
-      "Comment une salle de sport récolte plus d’avis Google : le bon moment à l’accueil, quoi dire aux adhérents, où placer le support - dans les règles.",
+      "Plus d’avis Google pour une salle de sport : inviter les adhérents à l’accueil, phrases types, réponses aux critiques sur la résiliation ou l’affluence.",
     excerpt:
-      "Une salle de sport vit de ses adhérents fidèles - une mine d’avis Google. Voici comment les capter à l’accueil, sans forcer, pour attirer de nouveaux membres.",
+      "Une salle de sport vit de ses adhérents fidèles, une mine d’avis Google. Voici comment les inviter à l’accueil, répondre aux critiques sur l’affluence ou la résiliation, et éviter les faux pas.",
     keywords: [
       "avis google salle de sport",
       "avis google club de fitness",
       "avis adhérents salle de sport",
       "qr code avis salle de sport",
       "plus d’avis salle de sport",
+      "répondre avis salle de sport",
     ],
     category: "Par métier",
-    readMinutes: 5,
+    readMinutes: 6,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_METIERS,
+    dateModified: "2026-10-12",
     blocks: [
       {
         type: "p",
-        text: "Une salle de sport a un atout rare pour les avis Google : des adhérents fidèles qui passent plusieurs fois par semaine. Chaque venue est une occasion, et un membre satisfait de sa progression est un ambassadeur naturel. Pour un futur adhérent qui hésite entre deux clubs, une fiche riche en avis récents fait pencher la balance. Voici comment récolter ces avis, sans forcer.",
+        text: "Pour obtenir plus d’avis Google dans une salle de sport, gardez un support visible à l’accueil, que les adhérents utilisent en un geste à la sortie d’une séance, et veillez à ce que toute l’équipe, coachs compris, les invite tous de la même façon, sans mois offert en échange. Comme vos membres passent plusieurs fois par semaine, la régularité de l’invitation compte davantage que l’insistance.",
       },
-      { type: "h2", text: "Le bon moment : l’accueil et les moments forts" },
       {
         type: "p",
-        text: "Le meilleur moment, c’est juste après un bon entraînement, un cours collectif réussi ou un objectif atteint : la satisfaction est à son sommet. À l’accueil, au passage de la borne ou du comptoir, l’invitation trouve naturellement sa place - à la sortie, quand le membre est content et disponible.",
+        text: "Un futur adhérent qui hésite entre deux clubs compare les notes et lit les avis récents, en particulier sur l’ambiance, l’affluence et les conditions d’engagement. Une fiche riche en avis réguliers fait pencher la balance, à condition de suivre la méthode générale pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) sans forcer.",
+      },
+      { type: "h2", text: "Ce que les adhérents jugent dans une salle de sport" },
+      {
+        type: "ul",
+        items: [
+          "La propreté des vestiaires, des douches et des machines.",
+          "L’affluence aux heures de pointe, et l’attente pour accéder à une machine.",
+          "L’état et l’entretien du matériel, et le délai de réparation d’un appareil en panne.",
+          "L’encadrement : présence des coachs, conseils, sécurité, qualité des cours collectifs.",
+          "L’ambiance et le respect entre membres.",
+          "La clarté du contrat : engagement, frais, résiliation, gel de l’abonnement.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Le dernier point mérite une attention particulière : les avis les plus durs portent parfois moins sur le sport que sur une résiliation ou un prélèvement contesté.",
+      },
+      { type: "h2", text: "Le bon moment : la sortie d’une bonne séance" },
+      {
+        type: "p",
+        text: "Le meilleur moment, c’est juste après un bon entraînement, un cours collectif réussi ou un objectif atteint : la satisfaction est à son sommet. À l’accueil, au passage de la borne ou du comptoir, l’invitation trouve naturellement sa place, à la sortie, quand le membre est content et disponible. Évitez le jour de l’inscription : le nouvel adhérent n’a encore rien vécu dans la salle.",
       },
       {
         type: "callout",
         title: "La règle d’or en salle",
-        text: "Misez sur un support visible à l’accueil, que l’adhérent scanne en sortant d’une bonne séance. La régularité des passages fait le reste : celui qui n’a pas encore laissé d’avis finit par le faire.",
+        text: "Misez sur un support visible à l’accueil, que l’adhérent utilise en sortant d’une bonne séance. La régularité des passages fait le reste : celui qui n’a pas encore laissé d’avis finit par le faire.",
       },
       { type: "h2", text: "Où placer le support dans la salle" },
       {
         type: "ul",
         items: [
           "Au comptoir d’accueil, près de la borne de passage : le point de contact de chaque venue.",
-          "À la sortie des cours collectifs : juste après l’effort et la satisfaction.",
-          "Dans l’espace détente ou au bar à jus : un moment calme propice au scan.",
+          "À la sortie des salles de cours collectifs : juste après l’effort et la satisfaction.",
+          "Dans l’espace détente ou au bar à boissons : un moment calme propice au geste.",
+          "Pas sur le plateau de musculation : le téléphone y sert au chronomètre et à la musique, pas aux avis.",
         ],
       },
-      { type: "h2", text: "Quoi dire, sans forcer" },
+      { type: "h2", text: "Phrases types pour l’accueil et les coachs" },
+      {
+        type: "ul",
+        items: [
+          "« Votre avis sur Google aide la salle à se faire connaître dans le quartier : approchez votre téléphone du support de l’accueil, c’est immédiat. »",
+          "Après un objectif atteint : « Bravo pour ce résultat ! Si vous avez deux minutes, racontez votre parcours sur Google, ça motive ceux qui hésitent à commencer. »",
+          "À un adhérent de longue date : « Vous connaissez la salle mieux que personne, votre avis compterait beaucoup. »",
+        ],
+      },
       {
         type: "p",
-        text: "Un mot simple de l’équipe ou du coach : « Si tu te sens bien ici, un avis Google nous aide beaucoup à faire connaître la salle - c’est en un scan. » On propose à tous les adhérents, sans trier et sans offrir d’avantage en échange : ce sont les règles de Google. La logique est la même que pour [obtenir plus d’avis Google](/guides/avoir-plus-avis-google) dans tout établissement.",
+        text: "Si l’usage de la salle est de tutoyer les membres, adaptez simplement ces phrases. On propose à tous les adhérents, sans trier et sans offrir d’avantage en échange : ce sont les règles de Google.",
       },
       { type: "h2", text: "S’appuyer sur les coachs et la communauté" },
       {
         type: "p",
-        text: "Dans une salle, le lien avec les coachs et la communauté est fort : c’est un levier précieux. Un coach qui, après un objectif atteint, invite sincèrement à laisser un avis obtient un excellent taux de réponse. À l’inverse d’un e-mail impersonnel, la demande incarnée par une personne de confiance fonctionne - et fait grimper la note.",
+        text: "Dans une salle, le lien avec les coachs et entre membres est fort : c’est un levier précieux. Un coach qui, après un objectif atteint, invite sincèrement à laisser un avis est bien plus écouté qu’un e-mail impersonnel. La règle reste la même pour toute l’équipe : chaque coach invite tous ses adhérents de la même façon, sans objectif chiffré ni classement interne.",
       },
-      { type: "h2", text: "Mesurer et ajuster" },
+      { type: "h2", text: "Situations délicates en salle de sport" },
+      { type: "h3", text: "La résiliation difficile" },
       {
         type: "p",
-        text: "Combien de scans par semaine, après quels créneaux ? Un tableau de bord qui suit les scans et les clics vers Google aide à repérer les meilleurs moments et emplacements. Avec un [présentoir reviu](/#produits) à l’accueil, sans contact et QR code, modifiable à distance, la collecte devient un réflexe de sortie de séance - et la salle attire de nouveaux membres, mois après mois.",
+        text: "Un adhérent qui ne parvient pas à résilier, ou qui découvre un délai qu’il ignorait, peut publier un avis très négatif. La prévention est simple : des conditions expliquées à l’inscription, une procédure de résiliation claire, et une réponse rapide aux demandes.",
+      },
+      { type: "h3", text: "La machine en panne" },
+      {
+        type: "p",
+        text: "Un appareil hors service pendant des semaines devient un sujet d’avis. Affichez la date de réparation prévue sur la machine : un problème expliqué agace bien moins qu’un problème ignoré.",
+      },
+      { type: "h3", text: "Les heures de pointe" },
+      {
+        type: "p",
+        text: "L’affluence du soir est inévitable, mais elle se gère : indiquez les créneaux plus calmes à l’accueil ou dans l’application du club, et orientez les nouveaux membres vers ces horaires.",
+      },
+      { type: "h2", text: "Répondre aux critiques sur la résiliation ou l’affluence" },
+      {
+        type: "p",
+        text: "La réponse publique doit rassurer les futurs adhérents sans débattre du contrat en ligne. Restez factuel, rappelez la procédure en termes généraux et proposez un échange direct. Exemple :",
+      },
+      {
+        type: "callout",
+        title: "Exemple de réponse",
+        text: "« Bonjour Thomas, merci pour votre message. Nous sommes désolés que votre demande de résiliation ait pris autant de temps. Elle peut se faire à l’accueil ou par courrier, et notre responsable s’engage à vous répondre sous quarante-huit heures. Contactez-nous directement pour que nous fassions le point sur votre dossier. Sarah, responsable du club »",
+      },
+      {
+        type: "p",
+        text: "Notre guide pour [répondre à un avis négatif](/guides/repondre-avis-negatif) détaille la méthode, et le [générateur de réponses aux avis](/outils/reponse-avis-google) propose des modèles généraux à adapter au vocabulaire du club.",
+      },
+      { type: "h2", text: "Erreurs à éviter pour une salle de sport" },
+      {
+        type: "ul",
+        items: [
+          "Offrir un mois d’abonnement, une séance de coaching ou une boisson contre un avis : contreparties interdites par Google.",
+          "Organiser un « challenge avis » entre coachs : c’est une pression sur les adhérents, qui pousse à solliciter de façon insistante, voire sélective.",
+          "Ne demander qu’aux membres les plus assidus, réputés satisfaits : Google interdit la sollicitation sélective.",
+          "Évoquer dans une réponse le poids, la santé ou les objectifs physiques d’un adhérent.",
+          "Faire publier des avis par les coachs, le personnel ou des proches : Google y voit un conflit d’intérêts.",
+        ],
+      },
+      { type: "h2", text: "Séances d’essai, nouveaux inscrits et adhérents fidèles" },
+      {
+        type: "p",
+        text: "Une salle reçoit trois publics différents. Les personnes en séance d’essai peuvent donner un avis sur leur découverte, mais la séance ne doit jamais être conditionnée à cet avis. Les nouveaux inscrits seront invités après quelques semaines de pratique, quand leur jugement repose sur une vraie expérience. Les fidèles, eux, voient le support à chaque passage : il suffit qu’il reste visible.",
+      },
+      {
+        type: "p",
+        text: "Le [calculateur de note Google](/outils/calculateur-note-google) montre combien d’avis il faut pour atteindre une note donnée, ce qui aide à se fixer un rythme réaliste. Le [générateur de QR code avis Google](/outils/qr-code-avis-google) crée gratuitement une affiche pour la sortie des cours, et le [Présentoir Reviu](/presentoir-avis-google), posé près de la borne d’accueil, ouvre votre page d’avis sans contact ou par QR code.",
       },
     ],
     faq: [
       {
         q: "Quel est le meilleur moment pour demander un avis en salle de sport ?",
-        a: "Juste après une bonne séance ou un objectif atteint, à la sortie, quand l’adhérent est satisfait et disponible. Un support à l’accueil, scanné en un geste, capte ce moment mieux qu’un e-mail.",
+        a: "Juste après une bonne séance ou un objectif atteint, à la sortie, quand l’adhérent est satisfait et disponible. Un support à l’accueil, utilisé en un geste, capte ce moment mieux qu’un e-mail.",
       },
       {
         q: "Comment obtenir des avis de mes adhérents fidèles ?",
@@ -1711,11 +2571,24 @@ const BASE_GUIDES: Guide[] = [
       },
       {
         q: "Peut-on offrir un mois d’abonnement contre un avis ?",
-        a: "Non : offrir une contrepartie contre un avis est interdit par Google et peut entraîner leur suppression. On propose à tous les adhérents, sans jamais récompenser l’avis lui-même.",
+        a: "Non. Un mois offert en échange d’un avis est une contrepartie, interdite par les règles de Google, et peut entraîner la suppression des avis concernés. Les offres de parrainage ou de fidélité doivent rester sans lien avec les avis.",
+      },
+      {
+        q: "Comment répondre à un avis négatif sur la résiliation ?",
+        a: "Sans débattre du contrat en public : remerciez, rappelez en termes généraux comment résilier et proposez un échange direct pour régler le dossier. Une réponse rapide et factuelle rassure les futurs adhérents.",
+      },
+      {
+        q: "Faut-il demander un avis le jour de l’inscription ?",
+        a: "Non, c’est trop tôt : le nouvel adhérent n’a encore rien vécu dans la salle. Mieux vaut l’inviter après quelques semaines de pratique, comme les autres membres.",
+      },
+      {
+        q: "Les coachs peuvent-ils laisser un avis sur leur propre salle ?",
+        a: "Non. Un coach, salarié ou indépendant travaillant dans la salle, est en situation de conflit d’intérêts au sens des règles de Google, tout comme les proches de l’équipe. Leurs avis peuvent être supprimés.",
       },
     ],
     related: [
       "avoir-plus-avis-google",
+      "repondre-avis-negatif",
       "avis-google-coiffeur",
       "augmenter-note-google",
       "presentoir-plaque-nfc-avis-google",

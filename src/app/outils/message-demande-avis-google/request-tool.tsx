@@ -141,7 +141,7 @@ export function RequestTool() {
                 "Ce lien ne ressemble pas à un lien Google : vérifiez qu'il ouvre bien votre page d'avis."
               ) : (
                 <>
-                  Fiche Google, « Recevoir plus d'avis ».{" "}
+                  Fiche Google, « Recevoir plus d&apos;avis ».{" "}
                   <Link href="/guides/lien-avis-google" className="font-medium text-brand hover:underline">
                     Où le trouver ?
                   </Link>

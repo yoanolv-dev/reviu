@@ -1,11 +1,35 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **9 octobre 2026**. **À lire en premier : la section
-> « 🟥 Activation vérifiée - 09/10 » ci-dessous**, puis « 🟪 Reprise - état au 23/09 » (fait foi), puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
+> Dernière mise à jour : **12 octobre 2026**. **À lire en premier : la section
+> « 🟧 Stratégie SEO/GEO - 12/10 »**, puis « 🟥 Activation vérifiée - 09/10 », puis « 🟪 Reprise - état au 23/09 » (fait foi), puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
 > l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**, c'est
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
+
+## 🟧 Stratégie SEO/GEO et boîte à outils - 12/10/2026
+
+Branche `claude/serene-hawking-lpc5pi` (**pas encore en prod** : mise en prod
+sur demande explicite, fast-forward de `main`). Tout est décrit dans
+**`docs/SEO-STRATEGY.md`** (diagnostic, benchmark, niche, plan 12 mois,
+actions manuelles). L'essentiel :
+- **Niche** : « boîte à outils de l'avis Google des commerces de proximité ».
+- **3 outils gratuits** + hub `/outils` (registre `src/lib/tools.ts`) :
+  calculateur de note (`src/lib/rating.ts`), réponses aux avis
+  (`src/lib/review-replies.ts`), message de demande d'avis
+  (`src/lib/review-requests.ts`). Mise en page commune
+  `src/components/site/tool-layout.tsx`.
+- **37 guides** (17 avant) : les nouveaux vivent dans
+  `src/lib/guides-content/{collecte,regles,metiers}.ts` ; 11 anciens guides
+  approfondis dans `src/lib/guides.ts`. Nouveau hub `/guides/collecter-des-avis`.
+- **Technique** : 301 des pages éditoriales d'`app.reviu.fr` vers reviu.fr
+  (`src/proxy.ts`), `lastmod` réels (`src/app/sitemap.ts` : avancer
+  `PAGE_UPDATED` quand une page change), `llms.txt`, IndexNow
+  (`scripts/indexnow.mjs`, à lancer après chaque mise en prod de contenu).
+- **Après mise en prod** : Search Console + Bing Webmaster Tools (sitemap,
+  demandes d'indexation), puis `node scripts/indexnow.mjs --since 2026-10-12`.
+- **À faire relire** : guide dentiste (règles ordinales) et
+  `faux-avis-google-loi` (lecture juridique).
 
 ## 🟥 Activation vérifiée et connexion sans mot de passe - 09/10/2026
 

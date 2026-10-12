@@ -182,7 +182,7 @@ Ce que l'on **ne fait pas** :
 /guides                         index
   /collecter-des-avis           hub (5 guides)
   /par-metier                   hub (19 guides)
-  /gerer-sa-reputation          hub (8 guides)
+  /gerer-sa-reputation          hub (7 guides)
   /<guide>                      37 guides au total
 /llms.txt                       résumé du site pour les agents IA
 ```

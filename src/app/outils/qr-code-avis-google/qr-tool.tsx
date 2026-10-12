@@ -261,7 +261,7 @@ export function QrTool() {
             ) : (
               <>
                 <span className="max-lg:hidden">
-                  Fiche Google, « Recevoir plus d'avis ». Place ID accepté.{" "}
+                  Fiche Google, « Recevoir plus d&apos;avis ». Place ID accepté.{" "}
                 </span>
                 <a href="#trouver-le-lien" className="font-medium text-brand hover:underline">
                   <span className="lg:hidden">Où trouver mon lien ?</span>
