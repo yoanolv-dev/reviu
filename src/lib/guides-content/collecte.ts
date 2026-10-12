@@ -384,7 +384,7 @@ export const COLLECT_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Envoyez ce message à tous vos clients de la même façon, sans le réserver à ceux qui semblent ravis, sans rien offrir en échange et sans relancer avec insistance. Pour rédiger votre message, notre [générateur de message de demande d’avis](/outils/message-demande-avis-google) propose des modèles SMS, WhatsApp et e-mail ; pour récupérer votre lien, suivez notre guide du [lien avis Google](/guides/lien-avis-google).",
+        text: "Envoyez ce message à tous vos clients de la même façon, sans le réserver à ceux qui semblent ravis, sans rien offrir en échange et sans relancer avec insistance. Pour rédiger votre message, servez-vous de nos [modèles de message pour demander un avis](/outils/message-demande-avis-google) par SMS, WhatsApp ou e-mail ; pour récupérer votre lien, suivez notre guide du [lien avis Google](/guides/lien-avis-google).",
       },
       {
         type: "p",
@@ -394,7 +394,7 @@ export const COLLECT_GUIDES: Guide[] = [
     faq: [
       {
         q: "Faut-il un compte Google pour laisser un avis ?",
-        a: "Oui. Google n’accepte que les avis publiés depuis un compte Google connecté. Ce compte peut être créé avec une adresse e-mail existante, sans adresse Gmail.",
+        a: "Oui. Google n’accepte que les avis publiés depuis un compte Google connecté. Une adresse Gmail n’est pas obligatoire : votre adresse e-mail habituelle suffit pour ouvrir ce compte.",
       },
       {
         q: "Peut-on laisser un avis Google anonyme ?",
@@ -406,7 +406,7 @@ export const COLLECT_GUIDES: Guide[] = [
       },
       {
         q: "Pourquoi mon avis Google n’apparaît-il pas ?",
-        a: "Google examine les avis avant de les afficher, ce qui peut prendre quelques jours. Un avis jugé contraire aux règles, par exemple écrit par un employé ou en échange d’une contrepartie, peut aussi être supprimé, et il ne sera pas rétabli. Vérifiez enfin que votre application Google Maps est à jour.",
+        a: "Chaque avis passe par un contrôle de Google, qui peut retarder sa mise en ligne de quelques jours. Un avis jugé contraire aux règles, par exemple écrit par un employé ou en échange d’une contrepartie, peut aussi être supprimé, et il ne sera pas rétabli. Vérifiez enfin que votre application Google Maps est à jour.",
       },
       {
         q: "Comment laisser un avis Google avec un QR code ?",
@@ -484,7 +484,7 @@ export const COLLECT_GUIDES: Guide[] = [
         type: "ul",
         items: [
           "QR code : lu nativement par l’appareil photo des iPhone et des Android récents, sans application. C’est l’option la plus universelle.",
-          "NFC sur iPhone : la documentation développeurs d’Apple indique que la lecture des tags en arrière-plan, sans application, est prise en charge à partir de l’iPhone XS. L’iPhone doit être en cours d’utilisation, et la lecture est indisponible tant que l’appareil photo ou Apple Pay est ouvert, ou en mode avion.",
+          "NFC sur iPhone : la documentation développeurs d’Apple indique que la lecture des tags en arrière-plan, sans application, est prise en charge à partir de l’iPhone XS. L’iPhone doit être en cours d’utilisation, et la lecture est indisponible tant que l’appareil photo ou Apple Pay est ouvert, ou quand le mode avion est activé.",
           "NFC sur Android : la plupart des modèles récents en sont équipés, mais pas tous, et le réglage peut être désactivé. Selon la documentation Android, le téléphone recherche les tags NFC quand l’écran est déverrouillé.",
           "Distance : la même documentation Android décrit le NFC comme une technologie à très courte portée, qui demande en général 4 cm ou moins. Le QR code, lui, se lit à distance s’il est imprimé assez grand.",
         ],
@@ -516,7 +516,7 @@ export const COLLECT_GUIDES: Guide[] = [
       { type: "h2", text: "Le QR code proposé par Google dans votre fiche" },
       {
         type: "p",
-        text: "Google propose lui-même un QR code de demande d’avis. Depuis un navigateur sur ordinateur, ouvrez votre fiche, sélectionnez « Voir les avis », puis l’icône de partage à côté de « Recevoir plus d’avis », et enregistrez l’image du QR code (clic droit, puis « Enregistrer l’image sous »). Google précise que ce QR code ne peut, pour le moment, être généré que depuis un ordinateur, pas depuis un mobile ([aide Google](https://support.google.com/business/answer/16816815?hl=fr)).",
+        text: "Google propose lui-même un QR code de demande d’avis. Depuis un navigateur sur ordinateur, ouvrez votre fiche, sélectionnez « Voir les avis », puis l’icône de partage à côté de « Recevoir plus d’avis », et enregistrez l’image du QR code (clic droit, puis « Enregistrer l’image sous »). Seule contrainte signalée par Google : pour l’instant, ce QR code se génère uniquement depuis un navigateur d’ordinateur ([aide Google](https://support.google.com/business/answer/16816815?hl=fr)).",
       },
       {
         type: "ul",
@@ -562,7 +562,7 @@ export const COLLECT_GUIDES: Guide[] = [
       {
         type: "ul",
         items: [
-          "Boulangerie, commerce de passage : un présentoir NFC et QR code au comptoir, puisque le client a déjà le téléphone en main pour payer.",
+          "Boulangerie, commerce de passage : un présentoir sans contact et QR code au comptoir, puisque le client a déjà le téléphone en main pour payer.",
           "Restaurant : un QR code sur la table ou l’addition, et un présentoir à la caisse pour ceux qui règlent au comptoir.",
           "Artisan ou service à domicile : un QR code sur le devis et la facture, le lien d’avis par SMS après l’intervention, une carte NFC si vous voyez le client en personne.",
           "Hôtel, chambre d’hôtes : un QR code dans la chambre ou le livret d’accueil, un présentoir à la réception pour le départ.",
@@ -625,7 +625,7 @@ export const COLLECT_GUIDES: Guide[] = [
       "tag nfc ne réagit pas",
     ],
     category: "Le présentoir",
-    readMinutes: 7,
+    readMinutes: 8,
     datePublished: "2026-10-12",
     blocks: [
       {
@@ -653,7 +653,7 @@ export const COLLECT_GUIDES: Guide[] = [
       { type: "h3", text: "1. Le téléphone est-il équipé du NFC ?" },
       {
         type: "p",
-        text: "Sur iPhone, la documentation développeurs d’Apple indique que la lecture des tags NFC en arrière-plan, sans application, est prise en charge à partir de l’iPhone XS. Un modèle plus ancien ne réagira pas à la plaque : le client doit utiliser le QR code. Sur Android, la plupart des modèles récents sont équipés, mais pas tous. Ouvrez les Paramètres et tapez « NFC » dans la barre de recherche : si aucun réglage n’apparaît, le téléphone n’en est probablement pas équipé.",
+        text: "Côté iPhone, Apple réserve la lecture des tags sans application, en arrière-plan, à l’iPhone XS et aux modèles plus récents. Un modèle plus ancien ne réagira pas à la plaque : le client doit utiliser le QR code. Sur Android, la plupart des modèles récents sont équipés, mais pas tous. Ouvrez les Paramètres et tapez « NFC » dans la barre de recherche : si aucun réglage n’apparaît, le téléphone n’en est probablement pas équipé.",
       },
       { type: "h3", text: "2. Le NFC est-il activé ?" },
       {
@@ -663,7 +663,7 @@ export const COLLECT_GUIDES: Guide[] = [
       { type: "h3", text: "3. L’écran est-il allumé et déverrouillé ?" },
       {
         type: "p",
-        text: "Un téléphone en veille ne lit pas la plaque : la documentation Android indique que les appareils recherchent les tags NFC quand l’écran est déverrouillé. Côté iPhone, Apple précise que la lecture n’a lieu que lorsque l’appareil est en cours d’utilisation, et qu’elle est indisponible tant que l’iPhone n’a pas été déverrouillé une première fois après un redémarrage, quand l’appareil photo ou Apple Pay est ouvert, et en mode avion. Un client qui vient d’ouvrir l’appareil photo doit donc le refermer.",
+        text: "Un téléphone en veille ne lit pas la plaque : d’après la documentation Android, l’appareil recherche en principe les tags quand son écran est déverrouillé. Pour l’iPhone, Apple précise que la lecture n’a lieu que lorsque l’appareil est en cours d’utilisation, et qu’elle est suspendue tant que l’iPhone n’a pas été déverrouillé une première fois après un redémarrage, pendant l’utilisation de l’appareil photo ou d’Apple Pay, et en mode avion. Un client qui vient d’ouvrir l’appareil photo doit donc le refermer.",
       },
       {
         type: "p",
@@ -731,7 +731,7 @@ export const COLLECT_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "C’est ce que réunit le [Présentoir Reviu](/presentoir-avis-google) : sans contact ou QR code vers une même adresse, un lien que vous modifiez depuis votre espace, et des statistiques qui distinguent les deux canaux. Pour comparer les deux technologies avant un achat, voyez aussi [NFC ou QR code : lequel choisir](/guides/nfc-ou-qr-code-avis-google).",
+        text: "C’est ce que réunit le [Présentoir Reviu](/presentoir-avis-google) : le sans contact et le QR code pointent vers la même adresse, un lien que vous modifiez depuis votre espace, et des statistiques qui distinguent les deux canaux. Pour comparer les deux technologies avant un achat, voyez aussi [NFC ou QR code : lequel choisir](/guides/nfc-ou-qr-code-avis-google).",
       },
     ],
     faq: [
@@ -753,7 +753,7 @@ export const COLLECT_GUIDES: Guide[] = [
       },
       {
         q: "Une puce NFC peut-elle tomber en panne ?",
-        a: "Elle n’a pas de pile, mais elle peut être endommagée par un choc, une pliure ou une forte chaleur. Si aucun téléphone compatible ne la lit alors que le QR code fonctionne, elle est probablement hors d’usage et relève de la garantie du vendeur.",
+        a: "Elle n’a pas de pile, mais un choc, une pliure ou une chaleur excessive peuvent l’abîmer. Si aucun téléphone compatible ne la lit alors que le QR code fonctionne, elle est probablement hors d’usage et relève de la garantie du vendeur.",
       },
       {
         q: "Faut-il un QR code en plus de la puce NFC ?",
@@ -854,7 +854,7 @@ export const COLLECT_GUIDES: Guide[] = [
       { type: "h2", text: "Calculer le coût total sur 3 ans" },
       {
         type: "p",
-        text: "La formule tient en une ligne : prix d’achat + (mensualité × nombre de mois) + livraison + personnalisation + remplacements éventuels. Trois ans est un horizon raisonnable pour un support posé sur un comptoir. Voici trois offres fictives, avec des montants purement illustratifs, pour montrer comment le calcul bouleverse le classement :",
+        text: "La formule tient en une ligne : prix d’achat + (mensualité × nombre de mois) + livraison + personnalisation + remplacements éventuels. Trois ans, c’est un horizon raisonnable pour un support posé sur un comptoir. Voici trois offres fictives, avec des montants purement illustratifs, pour montrer comment le calcul bouleverse le classement :",
       },
       {
         type: "ul",
@@ -884,7 +884,7 @@ export const COLLECT_GUIDES: Guide[] = [
           "L’abonnement discret : prix d’appel mis en avant, mensualité en petits caractères, période d’essai qui se transforme en engagement, résiliation compliquée. Lisez les conditions générales avant de payer.",
           "Le lien bloqué chez le vendeur : le support pointe vers une adresse du vendeur, et seule une formule payante permet de la modifier, ou elle se coupe à la fin de l’abonnement. Demandez par écrit ce qui se passe si vous arrêtez.",
           "Les avis garantis : personne ne peut garantir un nombre d’avis ni une note. Une promesse de « X avis par mois » ou de « 5 étoiles assurées » est intenable, ou repose sur des pratiques interdites.",
-          "Le tri des clients mécontents : certaines solutions posent d’abord une question (« Êtes-vous satisfait ? ») et n’envoient vers Google que les clients contents, les autres vers un formulaire privé. Le [règlement Google relatif aux contenus](https://support.google.com/contributionpolicy/answer/7400114?hl=fr) interdit de solliciter des avis positifs de façon sélective : vos avis, voire votre fiche, sont exposés.",
+          "Le tri des clients mécontents : certaines solutions posent d’abord une question (« Êtes-vous satisfait ? ») et n’envoient vers Google que les clients contents, les autres vers un formulaire privé. Le [règlement Google relatif aux contenus](https://support.google.com/contributionpolicy/answer/7400114?hl=fr) interdit de solliciter des avis positifs de façon sélective : vos avis, voire votre fiche, s’exposent alors à des restrictions.",
           "Les frais annexes : activation, personnalisation, port, résiliation. Additionnez-les avant de comparer.",
           "Le support NFC sans QR code : moins cher à l’achat, il fait perdre tous les clients dont le téléphone ne lit pas la puce. Notre guide de dépannage d’une [plaque NFC qui ne fonctionne pas](/guides/plaque-nfc-avis-google-ne-fonctionne-pas) montre à quel point le QR code de secours compte.",
         ],
@@ -907,7 +907,7 @@ export const COLLECT_GUIDES: Guide[] = [
       { type: "h2", text: "Où se situe le Présentoir Reviu" },
       {
         type: "p",
-        text: "Puisque vous lisez ce guide sur notre site, autant être transparents sur notre offre. Le [Présentoir Reviu](/presentoir-avis-google) coûte 29,90 € l’unité (27 € l’unité dès 3 présentoirs, 25 € dès 5), en achat unique et sans abonnement : c’est un prix final (TVA non applicable), livraison offerte. Il combine sans contact et QR code, et l’espace Reviu est inclus : lien modifiable à tout moment, statistiques de scans qui distinguent les deux canaux, gestion de vos présentoirs. Il est satisfait ou remboursé pendant 30 jours.",
+        text: "Puisque vous lisez ce guide sur notre site, autant être transparents sur notre offre. Le [Présentoir Reviu](/presentoir-avis-google) coûte 29,90 € l’unité (27 € l’unité dès 3 présentoirs, 25 € dès 5), en achat unique et sans abonnement : c’est un prix final (TVA non applicable), livraison offerte. Il combine sans contact et QR code, et l’espace Reviu est inclus : lien modifiable à tout moment, statistiques de scans qui distinguent les deux canaux, gestion de vos présentoirs. Il est garanti satisfait ou remboursé pendant 30 jours.",
       },
       {
         type: "p",
