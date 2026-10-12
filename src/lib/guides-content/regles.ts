@@ -41,7 +41,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h2", text: "Ce que Google autorise noir sur blanc" },
       {
         type: "p",
-        text: "Le règlement contient une phrase que peu de commerçants connaissent : Google autorise les marchands à « demander ou encourager la publication de contenus qui représentent une véritable expérience, sans proposer d’avantages en échange, ni tenter d’influencer la note ou le contenu de l’avis ». Demander un avis n’a donc rien de suspect. C’est la manière de le faire qui compte.",
+        text: "Le règlement contient aussi une phrase rassurante : Google autorise les marchands à « demander ou encourager la publication de contenus qui représentent une véritable expérience, sans proposer d’avantages en échange, ni tenter d’influencer la note ou le contenu de l’avis ». Demander un avis n’a donc rien de suspect. C’est la manière de le faire qui compte.",
       },
       {
         type: "ul",
@@ -65,7 +65,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h3", text: "Ne solliciter que les clients contents" },
       {
         type: "p",
-        text: "Le règlement interdit de « solliciter des avis positifs de façon sélective ». C’est ce qu’on appelle en anglais le review gating : on demande d’abord au client s’il est satisfait, et l’on n’envoie vers Google que ceux qui répondent oui. Que le tri soit fait par l’équipe ou par un formulaire automatique, la note obtenue ne reflète plus la réalité.",
+        text: "Le règlement proscrit le fait de « solliciter des avis positifs de façon sélective ». C’est ce qu’on appelle en anglais le review gating : on demande d’abord au client s’il est satisfait, et l’on n’envoie vers Google que ceux qui répondent oui. Que le tri soit fait par l’équipe ou par un formulaire automatique, la note obtenue ne reflète plus la réalité.",
       },
       { type: "h3", text: "Décourager les avis négatifs" },
       {
@@ -85,7 +85,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h3", text: "Forcer l’avis, orienter la note ou l’écrire soi-même" },
       {
         type: "p",
-        text: "Le règlement interdit d’« obliger les utilisateurs, lorsqu’ils sollicitent des avis, à laisser une note ou rédiger un avis sur place, ou exercer une pression en ce sens, ni leur demander d’inclure un contenu spécifique ». Proposer de scanner le QR code tout de suite est permis ; rester penché au-dessus du client jusqu’à ce qu’il valide, ou prendre son téléphone pour taper l’avis à sa place, ne l’est pas. Demander « 5 étoiles » revient à tenter d’influencer la note. Quant à un avis rédigé par vous, même avec l’accord du client, il décrit votre point de vue, pas « une expérience réellement vécue » par lui, ce que Google exige de chaque contribution.",
+        text: "Le règlement interdit d’« obliger les utilisateurs, lorsqu’ils sollicitent des avis, à laisser une note ou rédiger un avis sur place, ou exercer une pression en ce sens, ni leur demander d’inclure un contenu spécifique ». Proposer de scanner le QR code tout de suite est permis ; rester penché au-dessus du client jusqu’à ce qu’il valide, ou prendre son téléphone pour taper l’avis à sa place, ne l’est pas. Demander « 5 étoiles » revient à tenter d’influencer la note. Quant à l’avis que vous rédigeriez vous-même, même avec l’accord du client, ce seraient vos mots et non le récit de son expérience, alors que Google exige que chaque contribution reflète « une expérience réellement vécue ».",
       },
       { type: "h2", text: "Ce qu’un présentoir ou un QR code a le droit de faire" },
       {
@@ -130,12 +130,12 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h3", text: "Demander à ses amis et à sa famille" },
       {
         type: "p",
-        text: "À éviter. Les liens familiaux sont cités comme source de conflit d’intérêts, et la notion d’« affiliation personnelle » laisse peu de marge pour les amis proches. Un ami qui n’a jamais été client n’a aucune expérience à raconter. Et un message groupé à tout votre répertoire au lancement produit le genre de pic que le règlement désigne comme indice de manipulation : des « volumes ou schémas de contributions d’avis inhabituels ».",
+        text: "À éviter. Les liens familiaux sont cités comme source de conflit d’intérêts, et la notion d’« affiliation personnelle » laisse peu de marge pour les amis proches. Un ami qui n’a jamais été client n’a aucune expérience à raconter. Et un message groupé à tout votre répertoire au lancement du commerce peut provoquer exactement le genre de pic que le règlement désigne comme indice de manipulation : des « volumes ou schémas de contributions d’avis inhabituels ».",
       },
       { type: "h3", text: "Les avis de vos salariés" },
       {
         type: "p",
-        text: "Interdits, y compris ceux de leur entourage. Un salarié peut en revanche inviter les clients à donner leur avis, avec les mêmes mots que vous, sans objectif chiffré et sans leur demander de citer son nom.",
+        text: "Interdits : l’emploi, actuel ou passé, est le premier exemple de conflit d’intérêts cité par Google. Un salarié peut en revanche inviter les clients à donner leur avis, avec les mêmes mots que vous, sans objectif chiffré et sans leur demander de citer son nom.",
       },
       { type: "h3", text: "Un geste commercial pour un client mécontent" },
       {
@@ -145,7 +145,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h2", text: "Ce que vous risquez en cas d’infraction" },
       {
         type: "p",
-        text: "Les avis non conformes sont supprimés, et Google peut restreindre la fiche : blocage des nouveaux avis pendant une période donnée, dépublication temporaire des avis existants, ou avertissement affiché aux internautes pour signaler que des avis factices ont été supprimés. Nous détaillons ces mesures dans notre guide sur [l’avertissement et la restriction des avis](/guides/avis-google-restriction-avertissement). Le règlement prévoit aussi des mesures visant le compte lui-même, « allant de la suspension des droits du compte à sa clôture ».",
+        text: "Les avis non conformes sont supprimés, et Google peut restreindre la fiche : plus aucun nouvel avis pendant un temps, avis existants masqués, voire message d’avertissement visible par tous les visiteurs. Nous détaillons ces mesures dans notre guide sur [l’avertissement et la restriction des avis](/guides/avis-google-restriction-avertissement). Le règlement prévoit aussi des mesures visant le compte lui-même, « allant de la suspension des droits du compte à sa clôture ».",
       },
       {
         type: "p",
@@ -157,7 +157,7 @@ export const RULES_GUIDES: Guide[] = [
         items: [
           "Demandez à chaque client, avec la même phrase, tant qu’il est encore là : à l’encaissement, à la remise des clés, à la fin du soin.",
           "Rendez le geste immédiat : un support sans contact ou QR code sur le comptoir, qui ouvre directement la page d’avis.",
-          "Pour les clients partis trop vite, envoyez un message identique pour tous ; notre [générateur de messages de demande d’avis](/outils/message-demande-avis-google) propose des formulations prêtes à l’emploi.",
+          "Pour les clients partis trop vite, envoyez un message identique pour tous ; notre [générateur de messages de demande d’avis](/outils/message-demande-avis-google) en fournit plusieurs versions toutes prêtes.",
           "Répondez aux avis, critiques comprises : une fiche vivante donne envie aux clients suivants d’écrire à leur tour.",
         ],
       },
@@ -185,7 +185,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         q: "Peut-on ne demander un avis qu’aux clients satisfaits ?",
-        a: "Non. Solliciter des avis positifs de façon sélective est interdit par le règlement de Google. Cela vise aussi les outils qui posent d’abord une question de satisfaction et n’envoient vers Google que les clients contents.",
+        a: "Non. Solliciter des avis positifs de façon sélective est interdit par le règlement de Google. Cela vise aussi les outils qui demandent d’abord au client s’il est satisfait et ne redirigent vers la page d’avis que les réponses positives.",
       },
       {
         q: "Un QR code d’avis Google affiché en boutique est-il conforme ?",
@@ -193,7 +193,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         q: "Que risque un commerce qui ne respecte pas ces règles ?",
-        a: "Les avis concernés sont supprimés, et Google peut restreindre la fiche : nouveaux avis bloqués pendant une période donnée, avis existants dépubliés ou avertissement visible par les internautes. En France, les faux avis relèvent aussi des pratiques commerciales trompeuses, sanctionnées par la loi.",
+        a: "Les avis concernés sont supprimés, et la fiche peut être restreinte pour un temps : réception d’avis bloquée, avis existants masqués ou avertissement visible par les internautes. En France, les faux avis relèvent aussi des pratiques commerciales trompeuses, sanctionnées par la loi.",
       },
     ],
     related: [
@@ -245,11 +245,11 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Le gouvernement qualifie ces pratiques de « réputées trompeuses en toutes circonstances » : elles appartiennent à une liste noire, sans qu’il soit nécessaire d’analyser au cas par cas leur effet sur le consommateur. Le 28° couvre trois comportements distincts : écrire soi-même de faux avis, les faire écrire par un tiers (une agence, un site qui vend des « packs » d’avis, des particuliers rémunérés), et modifier de vrais avis pour les rendre plus flatteurs.",
+        text: "Le gouvernement qualifie ces pratiques de « réputées trompeuses en toutes circonstances » : elles appartiennent à une liste noire, sans qu’il soit nécessaire d’analyser au cas par cas leur effet sur le consommateur. Le 28° couvre trois comportements distincts : publier soi-même de faux avis, les faire publier par un tiers (une agence, un site qui vend des « packs » d’avis, des particuliers rémunérés), et modifier des avis de consommateurs pour promouvoir ses produits.",
       },
       {
         type: "p",
-        text: "Une nuance mérite d’être connue : le texte vise les « produits ». Une proposition de loi déposée au Sénat en mars 2025 propose d’y ajouter expressément les services. N’y voyez pas une tolérance pour les restaurants ou les salons de coiffure : la définition générale de l’article L. 121-2 rend trompeuse toute pratique reposant sur des présentations fausses ou de nature à induire en erreur sur les caractéristiques d’un bien ou d’un service, et le gouvernement présente la lutte contre les faux avis comme une priorité de la DGCCRF, sans distinguer les secteurs.",
+        text: "Une nuance mérite d’être connue : le texte vise les « produits ». Une proposition de loi déposée au Sénat en mars 2025 propose d’y ajouter expressément les services. N’y voyez pas une tolérance pour les restaurants ou les salons de coiffure : selon la définition générale de l’article L. 121-2, est trompeuse toute pratique commerciale reposant sur des présentations fausses ou de nature à induire en erreur sur les caractéristiques essentielles d’un bien ou d’un service, et le gouvernement affirme que la DGCCRF est « pleinement mobilisée » contre les faux avis en ligne, sans distinguer les secteurs.",
       },
       { type: "h3", text: "Si vous affichez des avis sur votre propre site" },
       {
@@ -284,7 +284,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Les résultats ne sont pas anecdotiques : dans la [présentation de son bilan 2024](https://presse.economie.gouv.fr/presentation-du-bilan-2024-de-la-dgccrf/), la DGCCRF indique que près d’un tiers des 397 établissements contrôlés en 2024 sur les faux avis en ligne présentaient des anomalies. Une réponse ministérielle antérieure (Journal officiel de l’Assemblée nationale, 1er août 2023) décrivait les pratiques relevées au fil des enquêtes : faux avis rédigés par les professionnels eux-mêmes ou par des sociétés d’e-réputation, consommateurs rémunérés pour publier, suppression ou publication tardive des avis négatifs. Les suites vont de l’avertissement et de l’injonction de mise en conformité jusqu’à l’amende administrative et au procès-verbal pénal.",
+        text: "Les résultats ne sont pas anecdotiques : dans la [présentation de son bilan 2024](https://presse.economie.gouv.fr/presentation-du-bilan-2024-de-la-dgccrf/), la DGCCRF indique que près d’un tiers des 397 établissements contrôlés en 2024 sur les faux avis en ligne présentaient des anomalies. Une réponse ministérielle antérieure (Journal officiel de l’Assemblée nationale, 1er août 2023) décrivait les pratiques relevées au fil des enquêtes : faux avis rédigés par les professionnels eux-mêmes ou par des sociétés d’e-réputation, consommateurs rémunérés pour publier, suppression ou publication tardive des avis négatifs. Selon cette même réponse, les suites données vont de l’avertissement et de l’injonction de mise en conformité jusqu’à l’amende administrative et au procès-verbal pénal.",
       },
       { type: "h2", text: "Ce que fait Google de son côté" },
       {
@@ -294,7 +294,7 @@ export const RULES_GUIDES: Guide[] = [
       {
         type: "ul",
         items: [
-          "les avis jugés factices ou incités sont supprimés, et Google précise que les avis supprimés pour non-respect des règles ne sont pas restaurés ;",
+          "les avis jugés factices ou incités sont supprimés, et Google indique qu’un avis retiré pour ce motif n’est pas rétabli ;",
           "la fiche peut être restreinte : nouveaux avis bloqués pendant une période donnée, avis existants dépubliés, ou avertissement informant les internautes que des avis factices ont été supprimés (voir notre guide sur [la restriction des avis et l’avertissement](/guides/avis-google-restriction-avertissement)) ;",
           "le compte peut faire l’objet de mesures « allant de la suspension des droits du compte à sa clôture ».",
         ],
@@ -312,7 +312,7 @@ export const RULES_GUIDES: Guide[] = [
         type: "ul",
         items: [
           "vous payez pour des avis qui peuvent être supprimés à tout moment, sans retour possible ;",
-          "la sanction se voit : un avertissement sur votre fiche dit à chaque visiteur que des avis factices y ont été supprimés, l’effet exactement inverse de celui recherché ;",
+          "la sanction est publique : l’avertissement éventuel s’affiche sur votre fiche, sous les yeux de vos futurs clients, soit l’effet exactement inverse de celui recherché ;",
           "une note gonflée crée une attente que la réalité ne tient pas, et les vrais clients déçus le disent dans leurs propres avis ;",
           "un faux avis n’apporte aucun détail vécu, alors que ce sont justement les détails concrets (un plat, un délai, un conseil reçu) qui convainquent un futur client ;",
           "vous restez exposé à tout moment : un concurrent peut signaler les avis à Google, et un consommateur peut signaler la pratique à la répression des fraudes via SignalConso.",
@@ -321,14 +321,14 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h2", text: "Les alternatives légales qui marchent" },
       {
         type: "p",
-        text: "Un client satisfait pense rarement à Google une fois sorti de chez vous : c’est l’invitation, au bon moment, qui fait la différence. Tout ce qui suit est autorisé, et rapporte des avis qui restent.",
+        text: "Un client satisfait ne pense pas forcément à Google une fois sorti de chez vous : c’est l’invitation, au bon moment, qui fait la différence. Tout ce qui suit est autorisé et produit des avis qui n’ont aucune raison d’être supprimés.",
       },
       {
         type: "ol",
         items: [
-          "Demandez à chaque client, avec la même phrase, avant qu’il parte. C’est permis, et c’est le premier conseil de Google.",
-          "Supprimez la friction : un support sans contact ou QR code posé sur le comptoir ouvre directement la page d’avis. Le [Présentoir Reviu](/presentoir-avis-google) fonctionne ainsi, pour tous les clients, sans aucun tri.",
-          "Relancez par écrit ceux qui sont partis trop vite, avec notre [générateur de messages de demande d’avis](/outils/message-demande-avis-google).",
+          "Proposez l’avis à tous vos clients, dans les mêmes termes, au moment où ils règlent ou repartent. Google le recommande lui-même dans ses conseils pour obtenir plus d’avis.",
+          "Réduisez l’effort au minimum : le client approche son téléphone ou scanne un QR code, et la page d’avis s’ouvre. Le [Présentoir Reviu](/presentoir-avis-google) fonctionne ainsi, pour tous les clients, sans aucun tri.",
+          "Pour ceux qui n’ont pas eu le temps sur place, un SMS ou un e-mail fait l’affaire : notre [générateur de messages de demande d’avis](/outils/message-demande-avis-google) fournit des textes prêts à envoyer.",
           "Répondez à tous les avis, surtout aux critiques : une réponse posée inspire plus confiance qu’une note parfaite.",
           "Fixez-vous un objectif réaliste avec le [calculateur de note Google](/outils/calculateur-note-google), qui indique combien de nouveaux avis 5 étoiles il faut pour atteindre la note visée.",
         ],
@@ -340,7 +340,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h2", text: "Et si vous êtes victime de faux avis ?" },
       {
         type: "p",
-        text: "La loi joue aussi en votre faveur. Un faux avis négatif, déposé par une personne qui n’a jamais été cliente ou par un concurrent, enfreint les règles de Google et peut être signalé depuis votre fiche. Notre guide pour [supprimer un faux avis Google](/guides/supprimer-faux-avis-google) explique la marche à suivre et la réponse à publier en attendant.",
+        text: "Le gouvernement indique que ces réformes visent aussi les faux avis négatifs déposés par des concurrents. En pratique, un avis déposé par une personne qui n’a jamais été cliente enfreint les règles de Google et peut être signalé depuis votre fiche : notre guide pour [supprimer un faux avis Google](/guides/supprimer-faux-avis-google) explique la marche à suivre et la réponse à publier en attendant.",
       },
       {
         type: "p",
@@ -426,14 +426,14 @@ export const RULES_GUIDES: Guide[] = [
           "Une fusion de fiches récente : l’affichage des avis des deux fiches dans la recherche et sur Maps peut prendre quelques jours.",
           "Une fiche rétablie après suspension : il arrive que des avis soient supprimés à cette occasion.",
           "Un problème technique chez le client : les anciens téléphones ou anciennes versions de l’application peuvent empêcher de publier.",
-          "Une désactivation temporaire décidée par Google pour certaines fiches ou catégories d’activité. Les établissements d’enseignement accueillant des élèves de 6 à 18 ans, par exemple, n’acceptent plus d’avis du tout.",
+          "Une désactivation décidée par Google pour certaines fiches ou catégories d’activité, parfois temporaire. Les fiches classées principalement comme établissements d’enseignement accueillant des élèves de 6 à 18 ans, par exemple, n’acceptent plus d’avis du tout.",
           "Une restriction de la fiche pour engagement artificiel : avis existants dépubliés ou nouveaux avis bloqués pendant une période donnée.",
           "Une cause liée à l’auteur : il a pu supprimer son avis, supprimer son compte Google (il perd alors l’ensemble des contenus du compte), ou voir son compte restreint, auquel cas ses autres contenus peuvent aussi être retirés.",
         ],
       },
       {
         type: "p",
-        text: "Google ne publie pas la liste des signaux utilisés par ses filtres. Son règlement cite toutefois les « volumes ou schémas de contributions d’avis inhabituels » comme indice de manipulation : un afflux soudain d’avis après une opération ponctuelle peut donc attirer l’attention. Les explications qui circulent sur le même réseau Wi-Fi ou le même appareil ne figurent pas dans la documentation officielle : prenez-les comme des hypothèses, pas comme des règles établies.",
+        text: "Google ne publie pas la liste des signaux utilisés par ses filtres. Son règlement cite toutefois les « volumes ou schémas de contributions d’avis inhabituels » comme indice de manipulation : un afflux soudain d’avis après une opération ponctuelle peut donc attirer l’attention. Les explications qui circulent sur le même réseau Wi-Fi ou le même appareil ne figurent pas dans les pages d’aide officielles que nous avons consultées : prenez-les comme des hypothèses, pas comme des règles établies.",
       },
       { type: "h2", text: "Côté commerçant : diagnostiquer avant d’agir" },
       {
@@ -442,8 +442,8 @@ export const RULES_GUIDES: Guide[] = [
           "Vérifiez que l’avis a été déposé sur la bonne fiche. Un client peut avoir noté un homonyme, une ancienne fiche ou un autre établissement de la rue. Testez aussi votre propre [lien d’avis Google](/guides/lien-avis-google) : un lien ou un QR code qui pointe vers la mauvaise fiche envoie tous vos avis ailleurs.",
           "Laissez passer quelques jours si l’avis est récent : il peut être en cours d’examen.",
           "Repérez un événement récent sur la fiche : fusion avec une autre fiche, suspension puis rétablissement.",
-          "Relisez vos pratiques des derniers mois. Une remise contre un avis, un concours, des avis de salariés ou une campagne auprès de vos proches sont des motifs de suppression. Dans ce cas, aucune démarche ne fera revenir ces avis.",
-          "Consultez la messagerie associée à la fiche : Google indique prévenir le propriétaire par e-mail lorsqu’il prévoit d’appliquer une restriction. Si c’est le cas, voyez notre guide sur [l’avertissement et la restriction des avis](/guides/avis-google-restriction-avertissement).",
+          "Relisez vos pratiques des derniers mois. Une remise contre un avis, un concours réservé aux auteurs d’avis, des avis de salariés ou une campagne auprès de vos proches sont des motifs de suppression. Dans ce cas, aucune démarche ne fera revenir ces avis.",
+          "Consultez la messagerie associée à la fiche : Google indique avertir le propriétaire par e-mail quand une restriction est envisagée. Si c’est le cas, voyez notre guide sur [l’avertissement et la restriction des avis](/guides/avis-google-restriction-avertissement).",
         ],
       },
       { type: "h2", text: "Côté client : votre avis n’apparaît pas" },
@@ -455,7 +455,7 @@ export const RULES_GUIDES: Guide[] = [
         type: "ol",
         items: [
           "Vérifiez que vous étiez connecté au bon compte Google au moment de publier.",
-          "Dans Google Maps, ouvrez « Vos contributions » puis « Avis » : un avis retiré peut y rester visible avec une mention comme « Non publié », « Privé » ou « Refusé ».",
+          "Consultez vos avis dans Google Maps (menu « Vos contributions », puis « Avis ») ou sur votre profil Maps : un avis retiré pour non-respect des règles peut y rester visible avec une mention comme « Non publié », « Privé » ou « Refusé ».",
           "Relisez-le : pas de lien, d’adresse e-mail ni de numéro de téléphone, pas de propos insultants, pas d’informations personnelles sur un tiers, et un contenu fondé sur votre propre visite.",
           "Si vous pensez à une erreur, vous pouvez modifier l’avis puis le republier, ou [faire appel depuis votre profil Maps](https://support.google.com/contributionpolicy/answer/12648169?hl=fr). Google précise qu’on ne peut faire appel d’une suppression qu’une seule fois, et que modifier ou supprimer le contenu pendant l’appel annule la procédure.",
           "Mettez à jour l’application Google Maps si votre téléphone ou votre version sont anciens.",
@@ -491,7 +491,7 @@ export const RULES_GUIDES: Guide[] = [
       { type: "h2", text: "Le meilleur remède : un flux régulier d’avis conformes" },
       {
         type: "p",
-        text: "La perte de quelques avis pèse peu quand de nouveaux arrivent chaque semaine. Une collecte régulière, auprès de tous les clients et sans contrepartie, évite les pics brusques et ne donne aucune prise au soupçon. Un présentoir avis Google posé sur le comptoir, comme le [Présentoir Reviu](/presentoir-avis-google) qui ouvre la page d’avis pour chaque client sans contact ou QR code, permet justement cette régularité. Les règles à connaître sont détaillées dans [ce que Google autorise et interdit](/guides/regles-avis-google).",
+        text: "La perte de quelques avis pèse peu quand de nouveaux arrivent chaque semaine. Une collecte régulière, auprès de tous les clients et sans contrepartie, évite aussi les pics brusques que le règlement associe à la manipulation. Un présentoir avis Google posé sur le comptoir, comme le [Présentoir Reviu](/presentoir-avis-google) qui ouvre la page d’avis pour chaque client sans contact ou QR code, permet justement cette régularité. Les règles à connaître sont détaillées dans [ce que Google autorise et interdit](/guides/regles-avis-google).",
       },
     ],
     faq: [
@@ -509,7 +509,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         q: "Pourquoi le nombre d’avis de ma fiche a-t-il baissé d’un coup ?",
-        a: "Une baisse brutale peut venir d’une vague de suppressions d’avis jugés non conformes, d’une fusion ou d’un rétablissement de fiche, ou d’une restriction qui dépublie temporairement les avis existants. Vérifiez la messagerie associée à la fiche : Google prévient le propriétaire lorsqu’il prévoit d’appliquer une restriction.",
+        a: "Une baisse brutale peut venir d’une vague de suppressions d’avis jugés non conformes, d’une fusion ou d’un rétablissement de fiche, ou d’une restriction qui dépublie temporairement les avis existants. Vérifiez la messagerie associée à la fiche : Google avertit le propriétaire par e-mail quand une restriction est envisagée.",
       },
       {
         q: "Faut-il demander aux clients de republier leur avis ?",
@@ -580,7 +580,7 @@ export const RULES_GUIDES: Guide[] = [
         type: "ul",
         items: [
           "Les informations personnelles du client. Google demande de ne jamais partager les informations privées de l’auteur d’un avis négatif. Pas de nom complet, de détail de commande, de date de rendez-vous ni de montant.",
-          "Le contenu promotionnel. Le [règlement relatif au contenu](https://support.google.com/contributionpolicy/answer/7400114?hl=fr) interdit aux marchands le « contenu promotionnel ou commercial incluant des promotions limitées dans le temps, des tarifs ou des incitations à l’action directes ». Dans ses [conseils pour rédiger de meilleures réponses](https://support.google.com/business/answer/3474122?hl=fr), Google recommande d’ailleurs un ton amical sans arguments vendeurs : les auteurs d’avis sont déjà vos clients, inutile de leur proposer offres ou promotions.",
+          "Le contenu promotionnel. Le [règlement relatif au contenu](https://support.google.com/contributionpolicy/answer/7400114?hl=fr) interdit aux marchands, dans la fiche, le « contenu promotionnel ou commercial incluant des promotions limitées dans le temps, des tarifs ou des incitations à l’action directes ». Dans ses [conseils pour rédiger de meilleures réponses](https://support.google.com/business/answer/3474122?hl=fr), Google recommande d’ailleurs un ton amical sans arguments vendeurs : les auteurs d’avis sont déjà vos clients, inutile de leur proposer offres ou promotions.",
           "Les attaques personnelles. Google demande de ne pas attaquer l’auteur d’un avis. Une réponse ironique, accusatrice ou insultante s’expose à un refus, et dessert votre image de toute façon.",
           "Le contenu répétitif. Le règlement interdit de publier le même contenu plusieurs fois. Coller la même réponse sous des dizaines d’avis est donc risqué.",
           "Le hors-sujet. Une réponse qui parle de politique, d’un litige avec un concurrent ou de tout autre chose que l’expérience du client sort du cadre.",
@@ -608,7 +608,7 @@ export const RULES_GUIDES: Guide[] = [
           "Restez bref et poli : Google recommande des réponses claires, utiles et polies, et note que les réponses trop longues peuvent lasser.",
           "Ne citez aucune donnée privée du client, même pour prouver votre bonne foi.",
           "N’ajoutez ni offre, ni prix, ni code promo, ni appel à l’achat.",
-          "Signez de votre prénom ou de vos initiales, comme Google le conseille, pour une réponse plus authentique.",
+          "Signez de votre nom ou de vos initiales, comme Google le conseille, pour une réponse plus authentique.",
           "Face à une critique, proposez un contact professionnel plutôt que d’argumenter en public.",
         ],
       },
@@ -623,12 +623,12 @@ export const RULES_GUIDES: Guide[] = [
           "Relisez-la à la lumière des règles ci-dessus : donnée personnelle, mention commerciale, ton agressif, texte déjà publié ailleurs.",
           "Modifiez-la comme Google vous y invite, en corrigeant le point litigieux plutôt qu’en changeant trois mots.",
           "Laissez le temps à l’examen : il peut durer jusqu’à 30 jours selon Google. Republier la même réponse en boucle n’accélère rien et crée du contenu répétitif.",
-          "Si une réponse manifestement conforme reste bloquée, contactez l’assistance de la fiche d’établissement en exposant le contexte : c’est la voie que Google indique pour contester les décisions sur les contenus qui n’ont pas d’outil d’appel dédié.",
+          "Si une réponse manifestement conforme reste bloquée, contactez l’assistance de la fiche d’établissement en exposant le contexte : c’est la voie que Google indique pour contester les restrictions de contenu qui n’ont pas d’outil d’appel dédié.",
         ],
       },
       {
         type: "p",
-        text: "Répondre devient aussi plus simple quand les avis arrivent à un rythme régulier plutôt que par vagues : c’est l’un des effets d’un présentoir avis Google posé sur le comptoir, comme le [Présentoir Reviu](/presentoir-avis-google), qui invite chaque client de la même façon.",
+        text: "Répondre devient aussi plus simple quand les avis arrivent à un rythme régulier plutôt que par vagues : c’est l’un des effets d’un support de comptoir comme le [Présentoir Reviu](/presentoir-avis-google), qui invite chaque client de la même façon.",
       },
     ],
     faq: [
@@ -709,7 +709,7 @@ export const RULES_GUIDES: Guide[] = [
         type: "ul",
         items: [
           "Avec un avertissement, chaque internaute qui consulte la fiche apprend que des avis factices y ont été supprimés. La page d’aide en français ne reproduit pas le texte exact du message.",
-          "Avec un blocage des nouveaux avis, vos clients ne peuvent plus noter l’établissement : votre lien ou votre QR code continue d’ouvrir la fiche, mais la publication n’est plus possible pendant la période concernée.",
+          "Avec un blocage des nouveaux avis, vos clients ne peuvent plus noter l’établissement : votre lien ou votre QR code mène toujours à votre fiche, mais celle-ci ne peut plus recevoir d’avis pendant la période concernée.",
           "Avec une dépublication, vos avis et votre note cessent d’être affichés pour un temps, même si votre commerce est installé depuis des années.",
         ],
       },
@@ -733,19 +733,19 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Si vous avez confié votre fiche à une agence ou acheté un « pack visibilité », demandez précisément ce qui a été fait : la restriction s’applique à votre fiche, quelle que soit l’origine des avis. Le détail des règles figure dans [ce que Google autorise et interdit pour obtenir des avis](/guides/regles-avis-google), et le volet légal dans [faux avis et avis achetés : ce que dit la loi](/guides/faux-avis-google-loi).",
+        text: "Si vous avez confié votre fiche à une agence ou acheté un « pack visibilité », demandez précisément ce qui a été fait : le règlement interdit aussi de « demander ou encourager » des contenus qui ne reflètent pas une véritable expérience, et déléguer la tâche à un prestataire ne vous met pas à l’abri. Le détail des règles figure dans [ce que Google autorise et interdit pour obtenir des avis](/guides/regles-avis-google), et le volet légal dans [faux avis et avis achetés : ce que dit la loi](/guides/faux-avis-google-loi).",
       },
       { type: "h2", text: "Combien de temps dure une restriction" },
       {
         type: "p",
-        text: "Google ne donne pas de durée dans sa page d’aide en français : il parle d’une « période donnée ». La seule durée chiffrée publiée par une autorité concerne le Royaume-Uni, avec six mois ou plus de suppression des avis pour les récidivistes. Le levier dont vous disposez est l’appel, accompagné de la preuve que les pratiques en cause ont cessé.",
+        text: "Google ne donne pas de durée dans sa page d’aide en français : il parle d’une « période donnée ». Une durée chiffrée existe pour le Royaume-Uni : six mois ou plus de suppression des avis pour les récidivistes, selon les engagements pris auprès de la CMA. Le levier dont vous disposez est l’appel, accompagné de la preuve que les pratiques en cause ont cessé.",
       },
       { type: "h2", text: "Que faire si votre fiche est concernée" },
       {
         type: "ol",
         items: [
           "Lisez l’e-mail de Google et identifiez la ou les restrictions appliquées.",
-          "Faites un état des lieux honnête des derniers mois : remises ou cadeaux liés aux avis, concours, avis de salariés ou de proches, achat d’avis, campagne qui a fait arriver beaucoup d’avis en peu de temps.",
+          "Faites un état des lieux honnête des derniers mois : remises ou cadeaux liés aux avis, concours conditionnés à un avis, avis de salariés ou de proches, achat d’avis, campagne qui a fait arriver beaucoup d’avis en peu de temps.",
           "Arrêtez immédiatement toute pratique non conforme et retirez les supports qui la mentionnent (affiche « un café offert contre un avis », message automatique qui filtre les clients selon leur satisfaction…).",
           "Faites appel depuis le lien proposé sur la page d’aide consacrée aux restrictions. Google réexamine alors la fiche et le contexte que vous fournissez, puis vous communique l’état de son examen. Expliquez factuellement ce qui s’est passé et ce que vous avez corrigé.",
           "N’envoyez pas plusieurs appels pour le même problème et ne créez pas de nouvelle fiche pour contourner la restriction : la [page d’aide sur les appels](https://support.google.com/business/answer/13597551?hl=fr) le déconseille expressément pendant l’examen d’un appel.",
@@ -768,7 +768,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         type: "p",
-        text: "Un présentoir avis Google sur le comptoir, comme le [Présentoir Reviu](/presentoir-avis-google) qui ouvre la page d’avis pour chaque client sans contact ou QR code, s’inscrit dans cette logique : la même invitation pour tous, tous les jours. Et si votre fiche subit au contraire des avis malveillants, la démarche est celle décrite dans [supprimer un faux avis Google](/guides/supprimer-faux-avis-google).",
+        text: "C’est la logique du [Présentoir Reviu](/presentoir-avis-google) : posé sur le comptoir, il propose à chaque client d’ouvrir votre page d’avis Google d’un geste sans contact ou d’un scan du QR code. La même invitation pour tous, tous les jours. Et si votre fiche subit au contraire des avis malveillants, la démarche est celle décrite dans [supprimer un faux avis Google](/guides/supprimer-faux-avis-google).",
       },
     ],
     faq: [
@@ -778,7 +778,7 @@ export const RULES_GUIDES: Guide[] = [
       },
       {
         q: "Pourquoi ma fiche Google ne peut-elle plus recevoir d’avis ?",
-        a: "Google peut empêcher une fiche de recevoir de nouvelles notes et de nouveaux avis pendant une période donnée lorsqu’il constate des avis factices ou incités. D’autres causes existent : certaines catégories d’établissements, comme les écoles accueillant des élèves de 6 à 18 ans, n’acceptent pas d’avis.",
+        a: "Google peut empêcher une fiche de recevoir de nouvelles notes et de nouveaux avis pendant une période donnée lorsqu’il constate des avis factices ou incités. D’autres causes existent : certaines catégories d’établissements, comme les établissements scolaires accueillant des élèves de 6 à 18 ans, n’acceptent pas d’avis.",
       },
       {
         q: "Combien de temps dure une restriction des avis Google ?",
