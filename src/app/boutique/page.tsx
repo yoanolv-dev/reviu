@@ -67,9 +67,12 @@ export const metadata: Metadata = buildMetadata({
 // Phrase « métiers » : chaque métier mène à son guide (maillage SEO).
 const METIERS: { pre: string; label: string; href: string }[] = [
   { pre: "d'un", label: "restaurant", href: "/guides/avis-google-restaurant" },
+  { pre: "d'un", label: "bar", href: "/guides/avis-google-bar" },
   { pre: "d'un", label: "salon de coiffure", href: "/guides/avis-google-coiffeur" },
   { pre: "d'un", label: "garage", href: "/guides/avis-google-garage" },
+  { pre: "d'une", label: "auto-école", href: "/guides/avis-google-auto-ecole" },
   { pre: "d'une", label: "boulangerie", href: "/guides/avis-google-boulangerie" },
+  { pre: "d'un", label: "fleuriste", href: "/guides/avis-google-fleuriste" },
   { pre: "d'un", label: "institut de beauté", href: "/guides/avis-google-institut-beaute" },
   { pre: "d'un", label: "hôtel", href: "/guides/avis-google-hotel" },
   { pre: "d'une", label: "boutique", href: "/guides/avis-google-boutique" },
