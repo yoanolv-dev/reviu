@@ -14,6 +14,10 @@
  * balisage FAQ (JSON-LD).
  */
 
+import { COLLECT_GUIDES } from "@/lib/guides-content/collecte";
+import { RULES_GUIDES } from "@/lib/guides-content/regles";
+import { TRADE_GUIDES_2 } from "@/lib/guides-content/metiers";
+
 export type GuideBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
@@ -45,8 +49,10 @@ export type Guide = {
 const UPDATED = "2026-07-24";
 // Date de dernière révision des guides « par métier » ajoutés fin juillet 2026.
 const UPDATED_METIERS = "2026-07-29";
+// Révision du guide dentiste (rappel déontologique, octobre 2026).
+const UPDATED_DENTISTE = "2026-10-12";
 
-export const GUIDES: Guide[] = [
+const BASE_GUIDES: Guide[] = [
   {
     slug: "avoir-plus-avis-google",
     metaTitle:
@@ -1571,7 +1577,7 @@ export const GUIDES: Guide[] = [
     category: "Par métier",
     readMinutes: 6,
     datePublished: "2026-07-29",
-    dateModified: UPDATED_METIERS,
+    dateModified: UPDATED_DENTISTE,
     blocks: [
       {
         type: "p",
@@ -1604,7 +1610,7 @@ export const GUIDES: Guide[] = [
       { type: "h2", text: "Déontologie et confidentialité" },
       {
         type: "p",
-        text: "Deux garde-fous s’imposent au cabinet. D’abord, on n’offre aucune contrepartie et l’on ne filtre pas selon la satisfaction supposée : c’est une règle Google, et une exigence déontologique. Ensuite, dans les réponses publiques aux avis, on ne confirme jamais qu’une personne est patiente et l’on ne révèle aucune donnée de santé : notre guide pour [répondre aux avis](/guides/repondre-avis-google) rappelle ces réflexes, essentiels dans un cadre médical.",
+        text: "Avant tout, vérifiez les recommandations de l’Ordre national des chirurgiens-dentistes sur la communication : l’exercice ne doit pas être pratiqué comme un commerce (article R.4127-215 du Code de la santé publique), ce qui appelle une invitation sobre, sans mise en avant commerciale. Deux autres garde-fous s’imposent au cabinet. D’abord, on n’offre aucune contrepartie et l’on ne filtre pas selon la satisfaction supposée : c’est une règle Google, et une exigence déontologique. Ensuite, dans les réponses publiques aux avis, on ne confirme jamais qu’une personne est patiente et l’on ne révèle aucune donnée de santé : notre guide pour [répondre aux avis](/guides/repondre-avis-google) rappelle ces réflexes, essentiels dans un cadre médical.",
       },
       { type: "h2", text: "Mesurer et ajuster" },
       {
@@ -1717,6 +1723,18 @@ export const GUIDES: Guide[] = [
   },
 ];
 
+/**
+ * Tous les guides publiés. Les guides ajoutés depuis octobre 2026 vivent dans
+ * `src/lib/guides-content/` (un fichier par grappe) pour garder des sources
+ * lisibles ; l'ordre ci-dessous est l'ordre d'affichage.
+ */
+export const GUIDES: Guide[] = [
+  ...BASE_GUIDES,
+  ...COLLECT_GUIDES,
+  ...RULES_GUIDES,
+  ...TRADE_GUIDES_2,
+];
+
 export function getGuide(slug: string): Guide | undefined {
   return GUIDES.find((g) => g.slug === slug);
 }
@@ -1749,6 +1767,36 @@ export type CategoryHub = {
 };
 
 export const CATEGORY_HUBS: CategoryHub[] = [
+  {
+    slug: "collecter-des-avis",
+    category: "Collecter des avis",
+    label: "Collecter des avis",
+    metaTitle: "Collecter des avis Google : méthodes, lien, QR code · reviu",
+    h1: "Collecter des avis Google",
+    description:
+      "Nos guides pour collecter plus d’avis Google : la méthode complète, le lien d’avis, le QR code, le sans contact et le pas à pas à partager à vos clients.",
+    intro: [
+      "Un client satisfait laisse rarement un avis de lui-même : il faut le lui proposer, au bon moment, avec le geste le plus court possible. Ces guides couvrent toute la chaîne de la collecte, du lien d’avis Google à récupérer jusqu’au support posé sur le comptoir, en passant par les mots à employer.",
+      "Chaque méthode respecte les règles de Google : la même invitation pour tous les clients, sans contrepartie et sans tri selon leur satisfaction. C’est ce qui rend vos avis crédibles, et c’est ce qui les protège dans la durée.",
+    ],
+    keywords: [
+      "collecter des avis google",
+      "obtenir des avis google",
+      "demander des avis google",
+      "lien avis google",
+      "qr code avis google",
+    ],
+    faq: [
+      {
+        q: "Quelle est la méthode la plus efficace pour collecter des avis Google ?",
+        a: "Demander l’avis de vive voix au moment où le client est satisfait, puis lui permettre de le laisser en un geste, avec un QR code ou un support sans contact posé au comptoir. Pour les clients déjà partis, un message avec le lien d’avis prend le relais.",
+      },
+      {
+        q: "A-t-on le droit de demander des avis Google à ses clients ?",
+        a: "Oui. Google encourage les établissements à demander des avis, par un lien ou un QR code. Il interdit en revanche les contreparties et le fait de ne solliciter que les clients satisfaits.",
+      },
+    ],
+  },
   {
     slug: "par-metier",
     category: "Par métier",

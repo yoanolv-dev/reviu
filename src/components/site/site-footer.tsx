@@ -11,6 +11,12 @@ import {
   SITE,
 } from "@/lib/brand";
 import { TRACKING_ENABLED } from "@/lib/tracking-config";
+import {
+  RATING_TOOL_PATH,
+  REPLY_TOOL_PATH,
+  REQUEST_TOOL_PATH,
+  TOOLS_PATH,
+} from "@/lib/tools";
 import { CookieConsent, ManageCookiesButton } from "./cookie-consent";
 import { SocialLinks } from "./social-links";
 
@@ -26,10 +32,20 @@ const COLS: { title: string; links: { label: string; href: string; ext?: boolean
     ],
   },
   {
+    title: "Outils gratuits",
+    links: [
+      { label: "Tous les outils", href: TOOLS_PATH },
+      { label: "QR code avis Google", href: QR_TOOL_PATH },
+      { label: "Message de demande d'avis", href: REQUEST_TOOL_PATH },
+      { label: "Réponses aux avis", href: REPLY_TOOL_PATH },
+      { label: "Calculateur de note", href: RATING_TOOL_PATH },
+    ],
+  },
+  {
     title: "Ressources",
     links: [
-      { label: "Générateur de QR code avis", href: QR_TOOL_PATH },
       { label: "Tous les guides", href: "/guides" },
+      { label: "Collecter des avis", href: "/guides/collecter-des-avis" },
       { label: "Guides par métier", href: "/guides/par-metier" },
       { label: "Gérer sa réputation", href: "/guides/gerer-sa-reputation" },
       { label: "Avoir plus d'avis Google", href: "/guides/avoir-plus-avis-google" },
@@ -66,7 +82,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
       <Container className="py-16 sm:py-20">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-11 sm:grid-cols-4 lg:grid-cols-[1.4fr_repeat(4,1fr)] lg:gap-x-10">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-11 sm:grid-cols-4 lg:grid-cols-[1.3fr_repeat(5,1fr)] lg:gap-x-10">
           {/* Marque */}
           <div className="col-span-2 max-w-xs sm:col-span-4 lg:col-span-1">
             <Logo />

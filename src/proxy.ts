@@ -32,6 +32,19 @@ export async function proxy(req: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  // L'app (app.reviu.fr) est servie par le même code : sans garde-fou, elle
+  // expose une copie complète du contenu éditorial (guides, outils, fiche
+  // produit). Le canonical limite les dégâts, mais une 301 vers le domaine
+  // vitrine consolide proprement les signaux et évite que Google explore deux
+  // fois chaque page. Seuls les chemins purement éditoriaux sont concernés.
+  if (host === "app.reviu.fr" && isEditorialPath(pathname)) {
+    const url = req.nextUrl.clone();
+    url.protocol = "https:";
+    url.hostname = "reviu.fr";
+    url.port = "";
+    return NextResponse.redirect(url, 301);
+  }
+
   // Anciennes pages d'accueil : redirection permanente (301) vers la racine,
   // source unique. Évite toute duplication /↔/home↔/vitrine côté SEO.
   if (pathname === "/home" || pathname === "/vitrine") {
@@ -71,6 +84,17 @@ export async function proxy(req: NextRequest) {
     return updateSession(req);
   }
   return NextResponse.next({ request: req });
+}
+
+/** Pages éditoriales du site vitrine (guides, outils, fiche produit, démo…). */
+const EDITORIAL_PREFIXES = ["/guides", "/outils"];
+const EDITORIAL_PAGES = new Set(["/presentoir-avis-google", "/demo", "/revendeur"]);
+
+function isEditorialPath(pathname: string): boolean {
+  if (EDITORIAL_PAGES.has(pathname)) return true;
+  return EDITORIAL_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
 }
 
 export const config = {

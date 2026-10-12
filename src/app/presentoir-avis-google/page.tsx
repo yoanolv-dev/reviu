@@ -131,6 +131,14 @@ const FAQ: { q: string; a: string }[] = [
     a: "Le QR code fonctionne sur tous les smartphones. La lecture NFC est prise en charge sans application par les iPhone récents (XS et plus) et la grande majorité des Android équipés du NFC.",
   },
   {
+    q: "Quelle différence avec une plaque NFC avis Google ?",
+    a: "Le principe est le même : une puce NFC et un QR code qui ouvrent votre page d'avis Google. Le présentoir Reviu tient debout sur le comptoir, face au client, quand une plaque se colle ou se pose à plat. Son lien reste modifiable et les statistiques de scans sont incluses.",
+  },
+  {
+    q: "Y a-t-il un abonnement ?",
+    a: "Non. Le présentoir s'achète une seule fois, 29,90 € l'unité, livraison offerte. L'espace Reviu (statistiques de scans, gestion des présentoirs, modification du lien) est inclus, sans aucun frais récurrent.",
+  },
+  {
     q: "Puis-je modifier le lien du présentoir ?",
     a: "Oui, à tout moment depuis votre espace Reviu inclus. Le présentoir garde toujours la même adresse (QR et NFC) : vous changez seulement sa destination, sans rien réimprimer.",
   },

@@ -24,9 +24,11 @@ import {
   graph,
 } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { MoreTools } from "@/components/site/tool-layout";
+import { TOOLS_PATH } from "@/lib/tools";
 import { QrTool } from "./qr-tool";
 
-const UPDATED = "2026-09-23";
+const UPDATED = "2026-10-12";
 
 export const metadata: Metadata = buildMetadata({
   title: "Générateur de QR code avis Google gratuit + affiche à imprimer | reviu",
@@ -49,7 +51,7 @@ export const metadata: Metadata = buildMetadata({
 const STEPS = [
   {
     t: "Récupérez le lien de votre page d'avis",
-    d: "Depuis votre fiche Google Business Profile, bouton « Demander des avis » : Google vous donne un lien court qui ouvre directement la fenêtre de rédaction d'avis.",
+    d: "Depuis votre fiche Google Business Profile, option « Recevoir plus d'avis » (ou « Demander des avis » selon l'interface) : Google vous donne un lien court qui ouvre directement la fenêtre de rédaction d'avis.",
   },
   {
     t: "Collez-le dans le générateur",
@@ -64,7 +66,7 @@ const STEPS = [
 const FIND_LINK = [
   {
     t: "Depuis Google Business Profile (le plus simple)",
-    d: "Connectez-vous au compte Google qui gère votre fiche, recherchez le nom de votre établissement sur Google ou ouvrez Google Maps, puis choisissez « Demander des avis » (parfois « Obtenir plus d'avis »). Copiez le lien proposé.",
+    d: "Connectez-vous au compte Google qui gère votre fiche. Sur ordinateur, depuis business.google.com : « Voir les avis », puis « Recevoir plus d'avis ». Sur téléphone, l'option s'appelle souvent « Demander des avis ». Copiez le lien proposé.",
   },
   {
     t: "Avec votre Place ID",
@@ -107,7 +109,11 @@ const FAQ = [
   },
   {
     q: "Comment trouver le lien de ma page d'avis Google ?",
-    a: "Depuis votre fiche Google Business Profile, choisissez « Demander des avis » (ou « Obtenir plus d'avis ») et copiez le lien proposé. Vous pouvez aussi utiliser votre Place ID, qui commence par ChIJ : le générateur construit alors le lien de rédaction d'avis automatiquement.",
+    a: "Depuis votre fiche Google Business Profile : sur ordinateur, « Voir les avis » puis « Recevoir plus d'avis » ; sur téléphone, l'option s'appelle souvent « Demander des avis ». Copiez le lien proposé. Vous pouvez aussi utiliser votre Place ID, qui commence par ChIJ : le générateur construit alors le lien de rédaction d'avis automatiquement.",
+  },
+  {
+    q: "Google propose déjà un QR code d'avis : pourquoi utiliser ce générateur ?",
+    a: "Google permet de télécharger un QR code depuis votre fiche, mais seulement sur ordinateur et sous forme d'image brute. Ce générateur fonctionne aussi sur téléphone, accepte un Place ID et produit en plus une affiche ou un autocollant prêts à imprimer, en PNG ou en SVG vectoriel pour l'imprimeur.",
   },
   {
     q: "Mon lien est-il envoyé à reviu ?",
@@ -183,6 +189,7 @@ export default function QrToolPage() {
     faqSchema(FAQ),
     breadcrumbSchema([
       { name: "Accueil", path: "/" },
+      { name: "Outils gratuits", path: TOOLS_PATH },
       { name: "Générateur de QR code avis Google", path: QR_TOOL_PATH },
     ]),
   );
@@ -431,12 +438,13 @@ export default function QrToolPage() {
                 ))}
               </div>
               <p className="mt-8 text-center text-xs text-muted">
-                Mis à jour le 23 septembre 2026 · Outil gratuit proposé par reviu,
+                Mis à jour le 12 octobre 2026 · Outil gratuit proposé par reviu,
                 indépendant de Google.
               </p>
             </div>
           </Container>
         </section>
+        <MoreTools current={QR_TOOL_PATH} />
       </main>
       <SiteFooter />
     </>

@@ -187,6 +187,11 @@ export const NAV: readonly NavItem[] = [
         desc: "Répondre aux avis, avis négatifs, note Google",
       },
       {
+        label: "Outils gratuits",
+        href: "/outils",
+        desc: "Messages de demande d'avis, réponses, calculateur de note",
+      },
+      {
         label: "Démo du présentoir",
         href: "/demo",
         desc: "Le parcours client et l'espace Reviu en images",
