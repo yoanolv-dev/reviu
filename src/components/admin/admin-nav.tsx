@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/admin/support", label: "Support" },
   { href: "/admin/production", label: "Production" },
   { href: "/admin/resellers", label: "Revendeurs" },
+  { href: "/admin/prospection", label: "Prospection" },
   { href: "/admin/history", label: "Journal" },
 ];
 

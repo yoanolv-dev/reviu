@@ -1,0 +1,45 @@
+# Prospection automatique (voir docs/PROSPECTION.md).
+# - toutes les 15 min en semaine : envoie le lot suivant d'e-mails ;
+# - chaque lundi matin : importe les nouveaux commerces des villes ciblées.
+# Secrets requis : OUTREACH_SECRET, NEXT_PUBLIC_SUPABASE_URL,
+# SUPABASE_SERVICE_ROLE_KEY. Variable : OUTREACH_CITIES (ex. "Nîmes;Montpellier").
+name: Prospection
+
+on:
+  schedule:
+    - cron: "*/15 7-16 * * 1-5"
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "send ou import"
+        default: send
+
+jobs:
+  send:
+    if: github.event.schedule == '*/15 7-16 * * 1-5' || inputs.job == 'send'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Envoyer le lot
+        run: |
+          curl -fsS -X POST https://reviu.fr/api/outreach/send \
+            -H "Authorization: Bearer ${{ secrets.OUTREACH_SECRET }}" -m 90
+
+  import:
+    if: github.event.schedule == '0 5 * * 1' || inputs.job == 'import'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Importer les commerces
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OUTREACH_CITIES: ${{ vars.OUTREACH_CITIES }}
+        run: |
+          IFS=';' read -ra CITIES <<< "$OUTREACH_CITIES"
+          node scripts/prospects-osm.mjs "${CITIES[@]}"
