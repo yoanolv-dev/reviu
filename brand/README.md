@@ -55,6 +55,9 @@ Pas de sur-titre, pas de tiret long.
   et exemples d'usages interdits du logo.
 - `photos/` : photos produit utilisées dans les gabarits.
 - `apercus/` : aperçus JPG des posts et stories (page Réseaux sociaux de la charte).
+- `reseaux/` : série de 5 posts « boîte à outils de l'avis Google » en PNG (4:5 pour
+  Instagram, Facebook et LinkedIn ; 9:16 pour TikTok) et `TEXTES.md`, les légendes
+  par réseau. Régénération : `node brand/sources/posts_reseaux.mjs`.
 - `canva/` : pages HTML importées dans Canva (une section = une page Canva).
 - `sources/` : scripts Python qui génèrent le logo vectorisé et les pages.
 
