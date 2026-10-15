@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 /**
- * Génère les 5 posts réseaux sociaux de reviu (série « boîte à outils de
- * l'avis Google ») en PNG, dans deux formats :
+ * Génère les 5 posts réseaux sociaux de reviu en PNG, dans deux formats :
  *   - feed   1080 × 1350 (4:5) : Instagram, Facebook, LinkedIn
  *   - tiktok 1080 × 1920 (9:16) : TikTok (mode photo), Reels et stories
  *
- * Le format 9:16 garde le contenu dans la zone sûre de TikTok : rien
- * d'important en haut (onglets), à droite (boutons) ni en bas (légende).
+ * Parti pris : une idée par post, un élément fort (chiffre, citation, photo),
+ * pas de bouton ni de texte d'accompagnement. Grille : marges de 88 px.
+ * En 9:16, tout le texte tient dans la zone sûre de TikTok (x ≤ 960,
+ * 140 ≤ y ≤ 1520) : le haut, la droite et le bas sont recouverts par
+ * l'interface. Le script échoue si un texte en sort.
  *
- * Lancement depuis la racine du dépôt (Inter doit être installée sur la
- * machine, Playwright et Chromium disponibles) :
+ * Lancement depuis la racine du dépôt (accès réseau pour Google Fonts,
+ * Playwright et Chromium disponibles) :
  *   node brand/sources/posts_reseaux.mjs
  * Sortie : brand/reseaux/post-N-<sujet>-{feed,tiktok}.png
  */
@@ -35,267 +37,198 @@ const C = {
   perle: "#F5F6F8",
   ardoise: "#6B7382",
   inkSoft: "#333A49",
-  line: "#E6E8EF",
-  cobaltText: "#DCE4FF",
+  line: "#E1E4EC",
 };
 
-const FORMATS = {
-  feed: { w: 1080, h: 1350, pad: "72px 80px 72px 80px" },
-  tiktok: { w: 1080, h: 1920, pad: "150px 120px 400px 80px" },
-};
+const SIZE = { feed: { w: 1080, h: 1350 }, tiktok: { w: 1080, h: 1920 } };
+/** Zone sûre TikTok : ni onglets en haut, ni boutons à droite, ni légende en bas. */
+const SAFE = { top: 140, right: 960, bottom: 1520 };
 
 const LOGO = {
   couleur: asset("brand/logo/svg/reviu-logo-horizontal-couleur.svg"),
-  encre: asset("brand/logo/svg/reviu-logo-horizontal-blanc-sur-encre.svg"),
-  cobalt: asset("brand/logo/svg/reviu-logo-horizontal-blanc-sur-cobalt.svg"),
+  blanc: asset("brand/logo/svg/reviu-logo-horizontal-blanc.svg"),
 };
+const logo = (v, h = 46) => `<img class="logo" src="${LOGO[v]}" style="height:${h}px">`;
 
-const STAR_PATH =
+const STAR =
   "M12 2.5l2.6 5.85 6.4.56-4.85 4.2 1.46 6.24L12 16.9l-5.61 2.45 1.46-6.24L3 8.91l6.4-.56L12 2.5z";
-const star = (size, fill = C.gold) =>
-  `<svg width="${size}" height="${size}" viewBox="2.5 2 19 18"><path d="${STAR_PATH}" fill="${fill}"/></svg>`;
-const stars = (n, size, off = "#D5D9E2") =>
-  `<span class="stars">${[0, 1, 2, 3, 4].map((i) => star(size, i < n ? C.gold : off)).join("")}</span>`;
-const check = (size, bg = C.gold, fg = C.ink) =>
-  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="12" fill="${bg}"/><path d="M7 12.4l3.2 3.1L17 8.8" fill="none" stroke="${fg}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const cross = (size) =>
-  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="12" fill="#262B38"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" fill="none" stroke="#FF8A80" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+const star = (size, fill) =>
+  `<svg width="${size}" height="${size}" viewBox="2.5 2 19 18" style="display:block"><path d="${STAR}" fill="${fill}"/></svg>`;
+const xMark = (size, color) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="flex:none"><path d="M6 6l12 12M18 6L6 18" stroke="${color}" stroke-width="3" stroke-linecap="round"/></svg>`;
+const vMark = (size, color) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="flex:none"><path d="M4.5 12.5l5 5L19.5 7" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-/** Valeur selon le format : f(feed, tiktok). */
-const pick = (fmt) => (a, b) => (fmt === "tiktok" ? b : a);
-
-function header(logo, color) {
-  return `<div class="hd"><img src="${LOGO[logo]}" style="height:58px"><span style="color:${color}">reviu.fr</span></div>`;
-}
-
-function cta(text, { bg, fg, icon = "" }) {
-  return `<div class="cta" style="background:${bg};color:${fg}">${icon}${text}</div>`;
-}
-
-const ARROW = (color) =>
-  `<svg width="30" height="30" viewBox="0 0 24 24" style="flex:none"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="${color}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+// Le point de Plus Jakarta Sans est large (0,38 em) : on le rapproche du mot.
+const g = (s) =>
+  `<span style="color:${C.gold}${s === "." ? ";margin-left:-0.07em" : ""}">${s}</span>`;
+const c = (s) => `<span style="color:${C.cobalt}">${s}</span>`;
 
 /* ------------------------------------------------------------------ */
-/* Post 1 : un avis à 1 étoile se compense avec combien de 5 étoiles ? */
-/* Calcul : k >= (note - 1) / (5 - note), indépendant du nombre d'avis */
-/* (src/lib/rating.ts, fonction compensation).                         */
+/* 1. Un avis à 1 étoile = 19 avis à 5 étoiles (à 4,8 de moyenne).      */
+/* k = (note - 1) / (5 - note), cf. compensation() dans src/lib/rating. */
 /* ------------------------------------------------------------------ */
 function post1(fmt) {
-  const f = pick(fmt);
-  const rows = [
-    { note: "4,2", k: 4 },
-    { note: "4,6", k: 9 },
-    { note: "4,8", k: 19 },
-  ];
-  const maxBar = f(430, 400);
-  const row = ({ note, k }) => `
-    <div class="p1-row">
-      <div class="p1-note">${note}${star(f(40, 42))}</div>
-      <div class="p1-bar-wrap">
-        <div class="p1-bar" style="width:${Math.round((k / 19) * maxBar)}px"></div>
-        <div class="p1-k">${k}</div>
-      </div>
-    </div>`;
-  return {
-    bg: C.brume,
-    body: `
-      ${header("couleur", C.ardoise)}
-      <h1 class="h" style="font-size:${f(100, 96)}px;margin-top:${f(56, 64)}px">1 étoile = combien de <span class="c">5 étoiles</span>&nbsp;<span class="g">?</span></h1>
-      <p class="sub" style="margin-top:${f(26, 32)}px">Après un avis à 1 étoile, le nombre d'avis 5 étoiles qu'il faut pour revenir à votre note de départ :</p>
-      <div class="card p1-card" style="margin-top:${f(32, 40)}px">
-        <div class="p1-head"><span>Votre note</span><span>Avis 5 étoiles nécessaires</span></div>
-        ${rows.map(row).join("")}
-      </div>
-      <p class="p1-insight" style="margin-top:${f(32, 44)}px">Plus votre note est haute, plus un avis négatif pèse. La parade : demander un avis à tous vos clients, régulièrement<span class="g">.</span></p>
-      <div class="grow"></div>
-      <div class="foot">
-        ${cta(`Calculez la vôtre sur reviu.fr/outils${ARROW("#fff")}`, { bg: C.cobalt, fg: "#fff" })}
-        <p class="note" style="margin-top:20px">Estimation sur une moyenne simple, quel que soit votre nombre d'avis.</p>
-      </div>`,
-    css: `
-      .p1-card{padding:${f(40, 44)}px ${f(48, 44)}px ${f(20, 24)}px}
-      .p1-head{display:flex;justify-content:space-between;font-size:24px;font-weight:600;color:${C.ardoise};padding-bottom:18px;border-bottom:2px solid ${C.line}}
-      .p1-row{display:flex;align-items:center;justify-content:space-between;padding:${f(20, 28)}px 0;border-bottom:2px solid ${C.line}}
-      .p1-row:last-child{border-bottom:0}
-      .p1-note{display:flex;align-items:center;gap:12px;font-size:${f(62, 66)}px;font-weight:800;letter-spacing:-0.03em;color:${C.ink}}
-      .p1-bar-wrap{display:flex;align-items:center;gap:20px}
-      .p1-bar{height:${f(40, 46)}px;border-radius:999px;background:${C.cobalt}}
-      .p1-k{min-width:${f(80, 84)}px;text-align:right;font-size:${f(62, 66)}px;font-weight:800;letter-spacing:-0.03em;color:${C.cobalt}}
-      .p1-insight{font-size:${f(31, 34)}px;font-weight:700;line-height:1.3;letter-spacing:-0.01em;color:${C.ink}}`,
-  };
-}
-
-/* ------------------------------------------------------------------ */
-/* Post 2 : 5 pratiques interdites par Google (règlement Maps)          */
-/* ------------------------------------------------------------------ */
-function post2(fmt) {
-  const f = pick(fmt);
-  const items = [
-    "Offrir une remise, un cadeau ou un tirage au sort contre un avis",
-    "Ne demander un avis qu'aux clients satisfaits",
-    "Faire noter par vos salariés, vos proches ou vos fournisseurs",
-    "Demander « 5 étoiles » plutôt qu'un avis sincère",
-    "Imposer à votre équipe un quota d'avis",
-  ];
+  const t = fmt === "tiktok";
+  const s = t ? 108 : 100;
+  const grid = Array.from({ length: 20 }, (_, i) =>
+    star(s, i === 0 ? "#2A3142" : C.gold),
+  ).join("");
   return {
     bg: C.ink,
-    body: `
-      ${header("encre", "#9AA3B5")}
-      <h1 class="h" style="color:#fff;font-size:${f(92, 88)}px;margin-top:${f(56, 64)}px">Avis Google : ce qui est interdit<span class="g">.</span></h1>
-      <div class="p2-list" style="margin-top:${f(40, 52)}px">
-        ${items.map((t) => `<div class="p2-item">${cross(f(46, 50))}<span>${t}</span></div>`).join("")}
+    html: `
+      ${t ? `<div style="position:absolute;left:88px;top:150px">${logo("blanc")}</div>` : ""}
+      <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;top:${t ? 300 : 96}px">
+        <h1 style="font-size:${t ? 100 : 96}px;color:#fff">1 avis à 1 étoile<br>= ${g("19")} avis<br>à 5 étoiles${g(".")}</h1>
+        <div class="p1-grid" style="margin-top:${t ? 84 : 64}px;gap:${t ? 34 : 30}px;grid-template-columns:repeat(5,${s}px)">${grid}</div>
+        <p style="margin-top:${t ? 84 : 60}px;font-size:${t ? 40 : 38}px;font-weight:700;color:#fff;line-height:1.3">Pour garder une note de 4,8.</p>
+        <p style="margin-top:6px;font-size:${t ? 36 : 34}px;font-weight:500;color:#8C95A8;line-height:1.35">À 4,6, il en faut 9. À 4,2, il en faut 4.</p>
       </div>
-      <div class="p2-ok" style="margin-top:${f(22, 30)}px">${check(f(46, 50))}<span>Autorisé : demander un avis à tous vos clients, sans contrepartie<span class="g">.</span></span></div>
-      <div class="grow"></div>
-      <div class="foot">
-        ${cta(`Le guide complet sur reviu.fr/guides${ARROW(C.cobalt)}`, { bg: "#fff", fg: C.cobalt })}
-        <p class="note" style="margin-top:20px;color:#9AA3B5">D'après le règlement Google sur les contenus publiés dans Maps.</p>
-      </div>`,
-    css: `
-      .p2-list{display:flex;flex-direction:column;gap:${f(14, 18)}px}
-      .p2-item,.p2-ok{display:flex;align-items:center;gap:26px;border-radius:28px;padding:${f(21, 26)}px 30px;font-size:${f(30, 31)}px;font-weight:600;line-height:1.28;color:#fff}
-      .p2-item{background:#161A26}
-      .p2-ok{background:${C.cobalt};font-weight:700}`,
+      ${t ? "" : `<div style="position:absolute;left:88px;bottom:88px">${logo("blanc")}</div>`}`,
+    css: `.p1-grid{display:grid}`,
   };
 }
 
 /* ------------------------------------------------------------------ */
-/* Post 3 : répondre à un avis négatif en 5 étapes                      */
+/* 2. Ce que Google interdit (règlement des contenus publiés dans Maps) */
+/* ------------------------------------------------------------------ */
+function post2(fmt) {
+  const t = fmt === "tiktok";
+  const items = [
+    "Offrir un café contre un avis",
+    "Ne solliciter que les clients contents",
+    "Faire noter vos salariés",
+    "Afficher « Laissez-nous 5 étoiles »",
+    "Fixer un quota d’avis à l’équipe",
+  ];
+  const band = t ? 1150 : 972;
+  return {
+    bg: "#fff",
+    html: `
+      ${t ? `<div style="position:absolute;left:88px;top:150px">${logo("couleur")}</div>` : ""}
+      <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;top:${t ? 290 : 96}px">
+        <h1 style="font-size:${t ? 100 : 96}px">Ce que Google ${c("interdit")}${g(".")}</h1>
+        <div style="margin-top:${t ? 56 : 44}px">
+          ${items.map((s) => `<div class="p2-row"><span style="display:flex;transform:translateY(3px)">${xMark(t ? 34 : 32, C.cobalt)}</span><span>${s}</span></div>`).join("")}
+        </div>
+      </div>
+      <div class="p2-band" style="top:${band}px">
+        <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;top:${t ? 92 : 64}px">
+          <p style="font-size:${t ? 56 : 52}px;font-weight:800;line-height:1.08;letter-spacing:-0.025em;color:#fff;text-wrap:balance">Autorisé : demander un avis à tous vos clients${g(".")}</p>
+          ${t ? "" : `<div style="margin-top:48px">${logo("blanc")}</div>`}
+        </div>
+      </div>`,
+    css: `
+      .p2-row{display:flex;align-items:center;gap:28px;padding:${t ? 32 : 26}px 0;border-bottom:2px solid ${C.line};font-size:${t ? 44 : 42}px;font-weight:600;letter-spacing:-0.015em;color:${C.ink}}
+      .p2-row:last-child{border-bottom:0}
+      .p2-band{position:absolute;left:0;right:0;bottom:0;background:${C.cobalt}}`,
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. Avis négatif : la réponse à éviter et la bonne                    */
 /* Méthode du guide /guides/repondre-avis-negatif.                      */
 /* ------------------------------------------------------------------ */
 function post3(fmt) {
-  const f = pick(fmt);
-  const n = (i) => `<span class="p3-n">${i}</span>`;
-  // Pastille + premier mot insécables : la pastille ne reste jamais seule en fin de ligne.
-  const nw = (i, word) => `<span class="nw">${n(i)}${word}</span>`;
-  const steps = [
-    "Remercier",
-    "Montrer de l'empathie",
-    "Répondre au point précis",
-    "Proposer d'en parler en privé",
-    "Signer d'un prénom",
-  ];
-  return {
-    bg: "#fff",
-    body: `
-      ${header("couleur", C.ardoise)}
-      <h1 class="h" style="font-size:${f(84, 74)}px;margin-top:${f(48, 64)}px">Avis négatif : répondez en <span class="c">5 étapes</span><span class="g">.</span></h1>
-      <div class="p3-card" style="margin-top:${f(36, 52)}px">
-        <div class="p3-tag">Exemple</div>
-        <div class="p3-author">
-          <div class="p3-avatar">M</div>
-          <div><div class="p3-name">Mathieu</div><div class="p3-meta">${stars(2, 26)}<span>il y a 2 jours</span></div></div>
-        </div>
-        <p class="p3-review">« 45 minutes d'attente alors que nous avions réservé. Dommage, les plats étaient bons. »</p>
-        <div class="p3-reply">
-          <div class="p3-label">Réponse du propriétaire</div>
-          <p>${nw(1, "Bonjour")} Mathieu, merci d'avoir pris le temps de nous écrire. ${nw(2, "Nous")} sommes sincèrement désolés pour cette attente. ${nw(3, "Ce")} n'est pas l'accueil que nous voulons offrir : nous revoyons l'organisation des réservations. ${nw(4, "Appelez-nous")} au restaurant, nous aimerions en parler avec vous. ${nw(5, "Julie,")} gérante</p>
-        </div>
-      </div>
-      <div class="p3-steps" style="margin-top:${f(30, 44)}px">
-        ${steps.map((s, i) => `<div class="p3-step">${n(i + 1)}<span>${s}</span></div>`).join("")}
-      </div>
-      <div class="grow"></div>
-      <div class="foot">
-        ${cta(`Générateur de réponses gratuit : reviu.fr/outils${ARROW("#fff")}`, { bg: C.cobalt, fg: "#fff" })}
-      </div>`,
-    css: `
-      .p3-card{position:relative;background:${C.perle};border-radius:36px;padding:${f(34, 40)}px ${f(38, 40)}px}
-      .p3-tag{position:absolute;top:30px;right:32px;background:#fff;color:${C.ardoise};font-size:20px;font-weight:700;padding:8px 18px;border-radius:999px}
-      .p3-author{display:flex;align-items:center;gap:18px}
-      .p3-avatar{width:60px;height:60px;border-radius:50%;background:${C.brume};color:${C.cobalt};display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}
-      .p3-name{font-size:26px;font-weight:700;color:${C.ink}}
-      .p3-meta{display:flex;align-items:center;gap:12px;margin-top:4px;font-size:20px;color:${C.ardoise}}
-      .p3-review{margin-top:18px;font-size:${f(27, 29)}px;line-height:1.4;font-weight:500;color:${C.inkSoft}}
-      .p3-reply{margin-top:22px;background:#fff;border-radius:24px;border-left:6px solid ${C.cobalt};padding:${f(24, 30)}px ${f(28, 30)}px}
-      .p3-label{font-size:20px;font-weight:700;color:${C.ardoise};margin-bottom:10px}
-      .p3-reply p{font-size:${f(25, 28)}px;line-height:1.55;font-weight:500;color:${C.ink}}
-      .p3-n{display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;border-radius:50%;background:${C.cobalt};color:#fff;font-size:0.72em;font-weight:800;vertical-align:0.12em;margin-right:0.35em}
-      .nw{white-space:nowrap}
-      .p3-steps{display:grid;grid-template-columns:1fr 1fr;gap:${f(14, 18)}px 24px}
-      .p3-step{display:flex;align-items:center;gap:6px;font-size:${f(27, 29)}px;font-weight:700;color:${C.ink}}`,
-  };
-}
-
-/* ------------------------------------------------------------------ */
-/* Post 4 : 3 phrases pour demander un avis sans gêne                   */
-/* Phrases issues de src/lib/review-requests.ts (SPOKEN_PHRASES).       */
-/* ------------------------------------------------------------------ */
-function post4(fmt) {
-  const f = pick(fmt);
-  const phrases = [
-    "Votre avis nous intéresse, qu'il soit bon ou qu'on ait des choses à améliorer.",
-    "On est un petit commerce, chaque avis compte. Ça prend dix secondes, c'est juste là.",
-    "Vous pouvez scanner le QR code pendant que je prépare votre ticket.",
-  ];
+  const t = fmt === "tiktok";
+  const fs = t ? 37 : 36;
   return {
     bg: C.perle,
-    body: `
-      ${header("couleur", C.ardoise)}
-      <h1 class="h" style="font-size:${f(92, 88)}px;margin-top:${f(56, 64)}px">Demander un avis, sans être <span class="c">gênant</span><span class="g">.</span></h1>
-      <p class="sub" style="margin-top:${f(26, 36)}px">Trois phrases à dire au moment de payer :</p>
-      <div class="p4-list" style="margin-top:${f(34, 48)}px">
-        ${phrases
-          .map(
-            (p, i) =>
-              `<div class="p4-bubble ${i % 2 ? "r" : ""}"><span class="p4-q">“</span>${p}</div>`,
-          )
-          .join("")}
+    html: `
+      ${t ? `<div style="position:absolute;left:88px;top:150px">${logo("couleur")}</div>` : ""}
+      <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;top:${t ? 290 : 96}px">
+        <h1 style="font-size:${t ? 96 : 92}px">Avis négatif :<br>la bonne ${c("réponse")}${g(".")}</h1>
+        <div class="p3-review" style="margin-top:${t ? 64 : 60}px">
+          <div class="p3-head">
+            <div class="p3-av">S</div>
+            <div>
+              <div class="p3-name">Sophie</div>
+              <div style="display:flex;gap:3px;margin-top:6px">${[0, 1, 2, 3, 4].map((i) => star(24, i ? "#D5D9E2" : C.gold)).join("")}</div>
+            </div>
+          </div>
+          <p style="font-size:${fs}px">Une heure d’attente malgré le rendez-vous. Plus jamais.</p>
+        </div>
+        <div class="p3-reply bad" style="margin-top:${t ? 28 : 26}px">
+          <div class="p3-tag">${xMark(24, C.ardoise)}À éviter</div>
+          <p style="font-size:${fs}px">Le samedi, c’est complet. Il fallait prévoir.</p>
+        </div>
+        <div class="p3-reply good" style="margin-top:${t ? 20 : 20}px">
+          <div class="p3-tag" style="color:${C.cobalt}">${vMark(26, C.cobalt)}La bonne réponse</div>
+          <p style="font-size:${fs}px">Merci pour votre retour, et désolés pour cette attente : ce n’est pas notre façon de travailler. Appelez-nous au salon, nous voulons comprendre. Julie</p>
+        </div>
       </div>
-      <div class="p4-rule" style="margin-top:${f(34, 48)}px">${check(f(42, 46), C.cobalt, "#fff")}<span>La même demande pour tous vos clients, sans contrepartie : c'est la règle de Google.</span></div>
-      <div class="grow"></div>
-      <div class="foot">
-        ${cta(`Messages prêts à copier : reviu.fr/outils${ARROW("#fff")}`, { bg: C.cobalt, fg: "#fff" })}
-      </div>`,
+      ${t ? "" : `<div style="position:absolute;left:88px;bottom:88px">${logo("couleur")}</div>`}`,
     css: `
-      .p4-list{display:flex;flex-direction:column;gap:${f(20, 26)}px}
-      .p4-bubble{position:relative;max-width:${f(820, 790)}px;background:#fff;border-radius:36px 36px 36px 10px;padding:${f(26, 30)}px ${f(34, 36)}px;font-size:${f(30, 32)}px;font-weight:600;line-height:1.35;color:${C.ink};box-shadow:0 2px 0 ${C.line}}
-      .p4-bubble.r{align-self:flex-end;border-radius:36px 36px 10px 36px;background:${C.cobalt};color:#fff;box-shadow:none}
-      .p4-q{display:block;font-size:64px;line-height:0.6;height:30px;color:${C.gold};font-weight:800}
-      .p4-rule{display:flex;align-items:center;gap:22px;font-size:${f(28, 30)}px;font-weight:600;line-height:1.35;color:${C.inkSoft}}`,
+      .p3-review,.p3-reply{border-radius:30px;padding:${t ? 34 : 34}px ${t ? 36 : 36}px}
+      .p3-review{background:#fff}
+      .p3-review p{margin-top:20px;font-weight:500;line-height:1.38;color:${C.ink}}
+      .p3-head{display:flex;align-items:center;gap:18px}
+      .p3-av{width:56px;height:56px;border-radius:50%;background:#E8DCCB;color:#6B4E2E;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700}
+      .p3-name{font-size:${t ? 30 : 27}px;font-weight:700;color:${C.ink};line-height:1}
+      .p3-reply{margin-left:${t ? 56 : 64}px}
+      .p3-reply p{margin-top:12px;font-weight:500;line-height:1.38}
+      .p3-reply.bad{border:2px dashed #C9CED9}
+      .p3-reply.bad p{color:${C.ardoise}}
+      .p3-reply.good{background:#fff;box-shadow:inset 0 0 0 3px ${C.cobalt}}
+      .p3-reply.good p{color:${C.ink}}
+      .p3-tag{display:flex;align-items:center;gap:10px;font-size:${t ? 26 : 24}px;font-weight:700;color:${C.ardoise};letter-spacing:0.01em}`,
   };
 }
 
 /* ------------------------------------------------------------------ */
-/* Post 5 : où placer le Présentoir Reviu                               */
+/* 4. La phrase à dire en caisse (même demande pour tous les clients)   */
 /* ------------------------------------------------------------------ */
-function post5(fmt) {
-  const f = pick(fmt);
-  const tiles = [
-    { img: "public/installations/presentoir-comptoir-accueil.webp", label: "À l'accueil", pos: "50% 62%" },
-    { img: "public/installations/presentoir-table.webp", label: "Sur les tables", pos: "50% 55%" },
-    { img: "public/installations/presentoir-debout-etagere.webp", label: "En vitrine", pos: "50% 60%" },
-  ];
-  const facts = ["29,90 € une seule fois", "Sans abonnement", "Livraison offerte"];
+function post4(fmt) {
+  const t = fmt === "tiktok";
   return {
     bg: C.cobalt,
-    body: `
-      ${header("cobalt", C.cobaltText)}
-      <h1 class="h" style="color:#fff;font-size:${f(92, 88)}px;margin-top:${f(56, 64)}px">Placez-le là où vos clients attendent<span class="g">.</span></h1>
-      <div class="p5-tiles" style="margin-top:${f(44, 56)}px">
-        ${tiles
-          .map(
-            (t) =>
-              `<div class="p5-tile"><div class="p5-img" style="background-image:url(${asset(t.img)});background-position:${t.pos}"></div><div class="p5-label">${t.label}</div></div>`,
-          )
-          .join("")}
+    html: `
+      ${t ? `<div style="position:absolute;left:88px;top:150px">${logo("blanc")}</div>` : ""}
+      <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;top:${t ? 330 : 190}px">
+        <div class="p4-mark">“</div>
+        <h1 style="font-size:${t ? 124 : 134}px;color:#fff;line-height:1">Votre avis nous aide, qu’il soit bon ou moins bon${g(".")}</h1>
       </div>
-      <p class="p5-text" style="margin-top:${f(36, 50)}px">Le client approche son téléphone ou scanne le QR code : votre page d'avis Google s'ouvre, sans application.</p>
-      <div class="p5-facts" style="margin-top:${f(30, 40)}px">
-        ${facts.map((t) => `<div class="p5-fact">${check(f(34, 36))}<span>${t}</span></div>`).join("")}
-      </div>
-      <div class="grow"></div>
-      <div class="foot">
-        ${cta(`Commander sur reviu.fr${ARROW(C.cobalt)}`, { bg: "#fff", fg: C.cobalt })}
+      <div style="position:absolute;left:88px;right:${t ? 120 : 88}px;${t ? "top:1290px" : "bottom:88px"}">
+        <div style="height:2px;background:rgba(255,255,255,0.28)"></div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-top:36px">
+          <p style="font-size:${t ? 36 : 34}px;font-weight:600;line-height:1.3;color:#fff">La phrase à dire à chaque<br>client, au moment de payer.</p>
+          ${t ? "" : logo("blanc")}
+        </div>
       </div>`,
-    css: `
-      .p5-tiles{display:flex;gap:${f(22, 20)}px}
-      .p5-tile{flex:1;display:flex;flex-direction:column;gap:16px}
-      .p5-img{width:100%;aspect-ratio:${f("4/5", "3/4.4")};border-radius:28px;background-size:cover;border:4px solid rgba(255,255,255,0.18)}
-      .p5-label{font-size:${f(28, 30)}px;font-weight:700;color:#fff;text-align:center}
-      .p5-text{font-size:${f(31, 33)}px;font-weight:500;line-height:1.4;color:${C.cobaltText}}
-      .p5-facts{display:flex;flex-wrap:wrap;gap:14px}
-      .p5-fact{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.12);border-radius:999px;padding:14px 26px 14px 16px;font-size:${f(26, 28)}px;font-weight:600;color:#fff}`,
+    css: `.p4-mark{font-size:${t ? 260 : 240}px;font-weight:800;color:${C.gold};line-height:0.8;height:${t ? 150 : 140}px;letter-spacing:0}`,
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 5. Le produit en situation                                           */
+/* ------------------------------------------------------------------ */
+function post5(fmt) {
+  const t = fmt === "tiktok";
+  const photo = asset("brand/photos/etape-3.jpg");
+  const text = `
+    <h1 style="font-size:${t ? 100 : 96}px;color:#fff">Un geste,<br>un avis Google${g(".")}</h1>
+    <p style="margin-top:${t ? 32 : 28}px;font-size:${t ? 36 : 34}px;font-weight:600;color:rgba(255,255,255,0.86)">Sans application<span class="sep">/</span>Sans abonnement<span class="sep">/</span>29,90&nbsp;€</p>`;
+  if (t) {
+    return {
+      bg: C.ink,
+      html: `
+        <div style="position:absolute;left:0;top:0;width:1080px;height:1240px;background:url(${photo}) 38% 50%/cover"></div>
+        <div style="position:absolute;left:0;top:900px;width:1080px;height:340px;background:linear-gradient(to bottom,rgba(10,13,22,0),${C.ink})"></div>
+        <div style="position:absolute;left:88px;right:120px;top:1090px">${text}
+          <div style="margin-top:48px">${logo("blanc")}</div>
+        </div>`,
+      css: `.sep{color:${C.gold};margin:0 18px}`,
+    };
+  }
+  return {
+    bg: C.ink,
+    html: `
+      <div style="position:absolute;inset:0;background:url(${photo}) 85% 30%/cover"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,13,22,0.94) 0%,rgba(10,13,22,0.8) 26%,rgba(10,13,22,0) 52%)"></div>
+      <div style="position:absolute;left:88px;right:88px;bottom:88px">${text}
+        <div style="margin-top:52px">${logo("blanc")}</div>
+      </div>`,
+    css: `.sep{color:${C.gold};margin:0 18px}`,
   };
 }
 
@@ -307,53 +240,63 @@ const POSTS = [
   { id: "post-5-ou-placer-le-presentoir", build: post5 },
 ];
 
-function page(fmt, { bg, body, css }) {
-  const { w, h, pad } = FORMATS[fmt];
-  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+/** Typographie française : espace fine insécable avant : ; ? ! et dans « ». */
+const fr = (html) =>
+  html
+    .replace(/ ([:;?!»])/g, " $1")
+    .replace(/« /g, "« ");
+
+function page(fmt, { bg, html, css }) {
+  const { w, h } = SIZE[fmt];
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=block">
+  <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
-    .post{width:${w}px;height:${h}px;padding:${pad};background:${bg};display:flex;flex-direction:column;overflow:hidden}
-    .hd{display:flex;align-items:center;justify-content:space-between;font-size:26px;font-weight:600}
-    .h{font-weight:800;line-height:1.04;letter-spacing:-0.03em;color:${C.ink}}
-    .c{color:${C.cobalt}} .g{color:${C.gold}}
-    .sub{font-size:${fmt === "tiktok" ? 34 : 31}px;font-weight:500;line-height:1.4;color:${C.inkSoft}}
-    .card{background:#fff;border-radius:40px}
-    .grow{flex:1;min-height:24px}
-    .cta{display:inline-flex;align-items:center;gap:16px;border-radius:999px;padding:22px 36px;font-size:${fmt === "tiktok" ? 31 : 30}px;font-weight:700;letter-spacing:-0.01em}
-    .note{font-size:21px;font-weight:500;color:${C.ardoise}}
-    .stars{display:inline-flex;gap:2px}
+    body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased}
+    .post{position:relative;width:${w}px;height:${h}px;background:${bg};overflow:hidden}
+    h1{font-weight:800;line-height:1.02;letter-spacing:-0.03em;word-spacing:0.03em;color:${C.ink};text-wrap:balance}
+    p{text-wrap:pretty}
+    .logo{display:block}
     ${css}
-  </style></head><body><div class="post">${body}</div></body></html>`;
+  </style></head><body><div class="post">${fr(html)}</div></body></html>`;
 }
 
 mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ deviceScaleFactor: 1 });
-const tab = await ctx.newPage();
+const tab = await browser.newPage();
 const tmp = join(tmpdir(), "reviu-posts");
 mkdirSync(tmp, { recursive: true });
-let overflow = 0;
+let errors = 0;
 
 for (const { id, build } of POSTS) {
-  for (const fmt of Object.keys(FORMATS)) {
+  for (const fmt of Object.keys(SIZE)) {
     const file = join(tmp, `${id}-${fmt}.html`);
     writeFileSync(file, page(fmt, build(fmt)));
-    await tab.setViewportSize({ width: FORMATS[fmt].w, height: FORMATS[fmt].h });
+    await tab.setViewportSize({ width: SIZE[fmt].w, height: SIZE[fmt].h });
     await tab.goto(pathToFileURL(file).href, { waitUntil: "networkidle" });
     await tab.evaluate(() => document.fonts.ready);
-    // Garde-fou : le contenu ne doit jamais déborder du cadre.
-    const over = await tab.evaluate(() => {
-      const post = document.querySelector(".post");
-      const grow = document.querySelector(".grow");
-      return post.scrollHeight > post.clientHeight || (grow && grow.getBoundingClientRect().height < 24);
-    });
-    if (over) {
-      overflow++;
-      console.warn(`⚠ ${id} (${fmt}) : contenu trop haut pour le cadre`);
-    }
+    // Garde-fou : textes dans le cadre (et dans la zone sûre en 9:16).
+    const bad = await tab.evaluate(
+      ({ fmt, SAFE, H }) => {
+        const out = [];
+        for (const el of document.querySelectorAll("h1,p,.logo,.p2-row,.p3-review,.p3-reply")) {
+          const r = el.getBoundingClientRect();
+          const lim =
+            fmt === "tiktok"
+              ? { top: SAFE.top, right: SAFE.right, bottom: SAFE.bottom }
+              : { top: 60, right: 1020, bottom: H - 60 };
+          if (r.top < lim.top || r.right > lim.right || r.bottom > lim.bottom)
+            out.push(`${el.tagName.toLowerCase()} « ${el.textContent.trim().slice(0, 30)} » ${Math.round(r.top)}-${Math.round(r.bottom)} / x≤${Math.round(r.right)}`);
+        }
+        return out;
+      },
+      { fmt, SAFE, H: SIZE[fmt].h },
+    );
+    for (const b of bad) console.warn(`⚠ ${id} (${fmt}) : ${b}`);
+    errors += bad.length;
     await tab.locator(".post").screenshot({ path: join(OUT, `${id}-${fmt}.png`) });
     console.log(`${id}-${fmt}.png`);
   }
 }
 await browser.close();
-process.exit(overflow ? 1 : 0);
+process.exit(errors ? 1 : 0);

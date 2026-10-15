@@ -1,374 +1,219 @@
-# Posts réseaux sociaux : série « boîte à outils de l'avis Google »
+# Posts réseaux sociaux
 
-Cinq posts prêts à publier, chacun en deux formats :
+5 posts, chacun en deux formats :
 
-| Fichier | Format | Où le publier |
-|---|---|---|
-| `post-N-…-feed.png` | 1080 × 1350 (4:5) | Instagram, Facebook, LinkedIn |
-| `post-N-…-tiktok.png` | 1080 × 1920 (9:16) | TikTok (mode photo), Reels, stories |
+- `post-N-…-feed.png` : 1080 × 1350, pour Instagram, Facebook et LinkedIn.
+- `post-N-…-tiktok.png` : 1080 × 1920, pour TikTok (mode photo), Reels et stories.
 
-Le format 9:16 laisse libres le haut (onglets), la droite (boutons) et le bas
-(légende) de l'écran TikTok : rien d'important n'y est masqué.
-
-Régénérer les images : `node brand/sources/posts_reseaux.mjs` depuis la racine.
-
-**Ordre conseillé** : 1 (calculateur), 5 (produit), 3 (réponse), 2 (règles),
-4 (demande). On alterne conseil gratuit et produit, sans enchaîner deux posts
-de vente. Un post tous les 2 à 3 jours suffit pour démarrer.
-
-**Rappels de ton** : pas de chiffre inventé, pas de promesse de note, jamais de
-contrepartie contre un avis. Sur LinkedIn, le lien va en premier commentaire.
+Ordre de publication conseillé : 1, 5, 3, 2, 4. Sur LinkedIn, le lien va en
+premier commentaire. Régénérer les images : `node brand/sources/posts_reseaux.mjs`.
 
 ---
 
-## Post 1 : 1 étoile = combien de 5 étoiles ?
+## 1. 1 avis à 1 étoile = 19 avis à 5 étoiles
 
-Fichiers : `post-1-calculateur-note-feed.png`, `post-1-calculateur-note-tiktok.png`
 Lien : https://reviu.fr/outils/calculateur-note-google
 
-### LinkedIn
+**LinkedIn**
 
-> Un avis à 1 étoile ne se rattrape pas avec un seul avis à 5 étoiles.
+> Un avis à 1 étoile coûte plus cher qu'on ne le pense.
 >
-> Le calcul est simple, et le résultat surprend souvent :
+> Pour retrouver une moyenne de 4,8, il faut 19 avis à 5 étoiles. À 4,6, il en faut 9. À 4,2, il en faut 4.
 >
-> → à 4,2 de moyenne, il faut 4 avis 5 étoiles pour revenir à sa note
-> → à 4,6, il en faut 9
-> → à 4,8, il en faut 19
+> Plus la note est haute, plus un mauvais avis pèse. Les commerces les mieux notés sont donc ceux qui ont le plus besoin d'avis réguliers.
 >
-> Le nombre d'avis déjà reçus n'y change rien : seule la note de départ compte.
+> Faites le calcul avec votre propre note : le calculateur est en commentaire.
 >
-> La conclusion est contre-intuitive : plus votre note est haute, plus un avis négatif vous coûte. Les établissements les mieux notés sont donc ceux qui ont le plus besoin d'un flux régulier d'avis.
->
-> Et ce flux ne se décrète pas. Il vient d'une habitude : proposer à chaque client de laisser un avis, sans tri et sans contrepartie.
->
-> Nous avons mis en ligne un calculateur gratuit pour faire le calcul avec vos propres chiffres (lien en commentaire).
->
-> Quelle est la note Google de votre établissement aujourd'hui ?
->
-> #AvisGoogle #CommerceDeProximité #Réputation #Commerçants #TPE
+> #AvisGoogle #CommerceLocal #Réputation
 
-Premier commentaire : `Le calculateur, gratuit et sans inscription : https://reviu.fr/outils/calculateur-note-google`
+Commentaire : `Calculateur gratuit : https://reviu.fr/outils/calculateur-note-google`
 
-### Facebook
+**Facebook**
 
-> 😬 Un avis à 1 étoile... et il en faut combien de 5 étoiles pour effacer le coup ?
+> Un avis à 1 étoile sur une note de 4,8 ? Il faudra 19 avis à 5 étoiles pour revenir à 4,8.
 >
-> À 4,2 : 4 avis.
-> À 4,6 : 9 avis.
-> À 4,8 : 19 avis !
->
-> Plus votre note est belle, plus un mauvais avis pèse. La seule vraie parade : proposer à tous vos clients de laisser un avis, tout au long de l'année.
->
-> 👉 Faites le calcul avec votre note (gratuit) : https://reviu.fr/outils/calculateur-note-google
->
-> Vous êtes à combien sur Google ? Dites-le en commentaire 👇
+> Calculez avec votre note : https://reviu.fr/outils/calculateur-note-google
 
-### Instagram
+**Instagram**
 
-> 1 étoile = combien de 5 étoiles ? ⭐
+> 19. C'est le nombre d'avis à 5 étoiles qu'il faut pour compenser un seul avis à 1 étoile, quand on est à 4,8.
 >
-> La réponse dépend de votre note actuelle :
-> 4,2 → 4 avis 5 étoiles
-> 4,6 → 9 avis 5 étoiles
-> 4,8 → 19 avis 5 étoiles
+> À 4,6, il en faut 9. À 4,2, il en faut 4.
 >
-> Plus votre note est haute, plus un avis négatif pèse lourd. La parade : demander un avis à tous vos clients, régulièrement.
+> Le calculateur gratuit est en lien dans la bio.
 >
-> 📲 Calculez la vôtre gratuitement : lien en bio (outil « Calculateur de note Google »).
->
-> 💾 Enregistrez ce post pour le jour où un avis négatif tombe.
->
-> #avisgoogle #commercant #commercedeproximite #restaurateur #coiffeur #institutdebeaute #artisan #petitcommerce #fichegoogle #googlemybusiness #ereputation #entrepreneurfrance
+> #avisgoogle #commercant #commercedeproximite #petitcommerce #restaurant #coiffeur
 
-### TikTok
+**TikTok**
 
-Texte à l'écran (première image, 2 secondes) : « Ton commerce a reçu un 1 étoile 😬 »
-
-> Un avis 1 étoile, il faut combien de 5 étoiles pour revenir à ta note ? Spoiler : à 4,8 il en faut 19 😳 Calculateur gratuit sur reviu.fr/outils
+> 1 avis à 1 étoile = 19 avis à 5 étoiles. Calcule le tien sur reviu.fr
 >
-> #avisgoogle #commercant #entrepreneur #petitcommerce #astucecommerce
+> #avisgoogle #commercant #petitcommerce #entrepreneur
 
 ---
 
-## Post 2 : Avis Google, ce qui est interdit
+## 2. Ce que Google interdit
 
-Fichiers : `post-2-pratiques-interdites-feed.png`, `post-2-pratiques-interdites-tiktok.png`
 Lien : https://reviu.fr/guides/regles-avis-google
 
-### LinkedIn
+**LinkedIn**
 
-> « Un café offert contre un avis Google », c'est interdit.
+> Offrir un café contre un avis Google, c'est interdit.
 >
-> Beaucoup de commerçants l'ignorent, et c'est compréhensible : l'intention est bonne. Mais le règlement de Google sur les contenus publiés dans Maps est clair. Sont interdits :
+> Comme ne solliciter que les clients contents, faire noter ses salariés ou fixer un quota d'avis à son équipe. Tout est écrit dans le règlement de Google sur les contenus publiés dans Maps.
 >
-> ✕ offrir une remise, un cadeau ou un tirage au sort contre un avis
-> ✕ ne demander un avis qu'aux clients satisfaits
-> ✕ faire noter l'établissement par ses salariés, ses proches ou ses fournisseurs
-> ✕ demander « 5 étoiles » plutôt qu'un avis sincère
-> ✕ imposer à son équipe un quota d'avis
+> Ce qui reste permis, et même encouragé : demander un avis à tous ses clients, sans contrepartie.
 >
-> Ce qui est autorisé, et même encouragé par Google : demander un avis à tous ses clients, de la même façon, sans contrepartie.
+> Le détail des règles, sources à l'appui, en commentaire.
 >
-> La deuxième règle est la plus mal connue. Certains outils demandent d'abord « Êtes-vous satisfait ? » et n'envoient vers Google que les clients contents. C'est précisément la sollicitation sélective que Google interdit.
->
-> Nous avons détaillé chaque règle, avec des cas concrets, dans un guide (lien en commentaire).
->
-> #AvisGoogle #Conformité #CommerceDeProximité #Marketing #Réputation
+> #AvisGoogle #CommerceLocal #Conformité
 
-Premier commentaire : `Le guide complet, sources Google à l'appui : https://reviu.fr/guides/regles-avis-google`
+Commentaire : `Le guide : https://reviu.fr/guides/regles-avis-google`
 
-### Facebook
+**Facebook**
 
-> ⚠️ Vous offrez un petit cadeau contre un avis Google ? Mauvaise idée.
+> Le café offert contre un avis Google part d'une bonne intention, mais Google l'interdit.
 >
-> Google interdit :
-> ❌ les remises, cadeaux ou tirages au sort contre un avis
-> ❌ de ne demander qu'aux clients contents
-> ❌ les avis de vos salariés et de vos proches
-> ❌ de demander « 5 étoiles »
-> ❌ les quotas d'avis pour l'équipe
->
-> ✅ Ce qui est permis : demander un avis à tous vos clients, sans rien en échange.
->
-> Toutes les règles expliquées simplement : https://reviu.fr/guides/regles-avis-google
->
-> Partagez à un commerçant qui fait encore le coup du café offert ☕
+> Les 5 pratiques à éviter, et ce qui est permis : https://reviu.fr/guides/regles-avis-google
 
-### Instagram
+**Instagram**
 
-> Avis Google : ce qui est interdit 🚫
+> Le café offert contre un avis ? Interdit par Google. Comme les 4 autres pratiques de ce post.
 >
-> Même avec de bonnes intentions, ces 5 pratiques sont contraires au règlement de Google :
-> 1. Offrir une remise, un cadeau ou un tirage au sort contre un avis
-> 2. Ne demander qu'aux clients satisfaits
-> 3. Faire noter par vos salariés ou vos proches
-> 4. Demander « 5 étoiles »
-> 5. Imposer un quota d'avis à l'équipe
->
-> ✅ Autorisé : demander un avis à tous vos clients, sans contrepartie.
+> La règle est simple : demander un avis à tous vos clients, sans contrepartie.
 >
 > Le guide complet est en lien dans la bio.
 >
-> Envoyez ce post à un ami commerçant 📩
+> #avisgoogle #commercant #commercedeproximite #petitcommerce #fichegoogle
+
+**TikTok**
+
+> Le café offert contre un avis Google ? Interdit. Et ce n'est pas le seul piège.
 >
-> #avisgoogle #reglesgoogle #commercant #commercedeproximite #petitcommerce #restaurant #coiffure #fichegoogle #ereputation #entrepreneurfrance
-
-### TikTok
-
-Texte à l'écran : « Le café offert contre un avis Google ? Interdit ☕🚫 »
-
-> 5 trucs que plein de commerces font pour avoir des avis Google… et que Google interdit. Le n°2, beaucoup l'ignorent 👀
->
-> #avisgoogle #commercant #entrepreneur #astucebusiness #petitcommerce
+> #avisgoogle #commercant #petitcommerce #entrepreneur
 
 ---
 
-## Post 3 : Avis négatif, répondez en 5 étapes
+## 3. Avis négatif : la bonne réponse
 
-Fichiers : `post-3-reponse-avis-negatif-feed.png`, `post-3-reponse-avis-negatif-tiktok.png`
 Lien : https://reviu.fr/outils/reponse-avis-google
 
-### LinkedIn
+**LinkedIn**
 
-> Un avis négatif est d'abord lu par vos futurs clients, pas par son auteur.
+> Une réponse à un avis négatif s'adresse moins à son auteur qu'aux clients qui la liront ensuite.
 >
-> C'est votre réponse qu'ils regardent. Une réponse posée montre un établissement sérieux ; une réponse sur la défensive confirme la critique.
+> « Il fallait prévoir » donne raison à la critique. Remercier, s'excuser pour le point précis et proposer d'en parler montre un commerce qui écoute.
 >
-> La structure qui fonctionne tient en 5 étapes :
+> Nous avons mis en ligne un générateur de réponses gratuit, par métier et par type d'avis (lien en commentaire).
 >
-> 1. Remercier, sans ironie
-> 2. Montrer de l'empathie
-> 3. Répondre au point précis, sans se justifier longuement
-> 4. Proposer d'en parler en privé
-> 5. Signer d'un prénom
->
-> Deux réflexes à éviter : répondre à chaud, et dévoiler des détails privés sur le client.
->
-> Pour gagner du temps, notre générateur de réponses gratuit propose des modèles selon votre métier et le type d'avis. Vous les adaptez, puis vous publiez (lien en commentaire).
->
-> #AvisGoogle #RelationClient #Réputation #CommerceDeProximité #Restauration
+> #AvisGoogle #RelationClient #CommerceLocal
 
-Premier commentaire : `Le générateur de réponses, gratuit et sans inscription : https://reviu.fr/outils/reponse-avis-google`
+Commentaire : `Générateur de réponses : https://reviu.fr/outils/reponse-avis-google`
 
-### Facebook
+**Facebook**
 
-> Un avis négatif vient de tomber ? 😤 Respirez, puis suivez ces 5 étapes :
+> Un avis à 1 étoile vient de tomber. Avant de répondre, comparez ces deux versions.
 >
-> 1️⃣ Remerciez
-> 2️⃣ Montrez de l'empathie
-> 3️⃣ Répondez au point précis
-> 4️⃣ Proposez d'en parler en privé
-> 5️⃣ Signez avec votre prénom
->
-> Vos futurs clients liront votre réponse autant que l'avis.
->
-> ✍️ Modèles de réponses gratuits, adaptés à votre métier : https://reviu.fr/outils/reponse-avis-google
+> Des modèles de réponse gratuits, adaptés à votre métier : https://reviu.fr/outils/reponse-avis-google
 
-### Instagram
+**Instagram**
 
-> Avis négatif : répondez en 5 étapes ✍️
+> Deux réponses au même avis. Une seule rassure les prochains clients.
 >
-> 1. Remerciez
-> 2. Montrez de l'empathie
-> 3. Répondez au point précis
-> 4. Proposez d'en parler en privé
-> 5. Signez d'un prénom
+> Remerciez, excusez-vous pour le point précis, proposez d'en parler. Et jamais à chaud.
 >
-> Et surtout : jamais à chaud. On laisse retomber, puis on répond posément.
+> Générateur de réponses gratuit en lien dans la bio.
 >
-> Notre générateur de réponses gratuit vous propose des modèles selon votre métier : lien en bio.
->
-> 💾 Enregistrez-le pour la prochaine fois.
->
-> #avisgoogle #avisnegatif #relationclient #commercant #restaurateur #coiffeur #hotellerie #commercedeproximite #ereputation #petitcommerce
+> #avisgoogle #avisnegatif #relationclient #commercant #coiffeur #restaurant
 
-### TikTok
+**TikTok**
 
-Texte à l'écran : « Comment répondre à un avis négatif (sans s'énerver) »
-
-> La méthode en 5 étapes pour répondre à un avis négatif sur Google. L'étape 4 change tout 👇 Modèles gratuits sur reviu.fr/outils
+> Avis 1 étoile : la réponse qui empire tout, et celle qui rassure.
 >
-> #avisgoogle #avisnegatif #commercant #relationclient #entrepreneur
+> #avisgoogle #avisnegatif #commercant #entrepreneur
 
 ---
 
-## Post 4 : Demander un avis, sans être gênant
+## 4. La phrase à dire en caisse
 
-Fichiers : `post-4-demander-un-avis-feed.png`, `post-4-demander-un-avis-tiktok.png`
 Lien : https://reviu.fr/outils/message-demande-avis-google
 
-### LinkedIn
+**LinkedIn**
 
-> Beaucoup de clients satisfaits ne laissent jamais d'avis. Souvent, ce n'est pas qu'ils refusent : personne ne le leur a proposé.
+> Beaucoup de clients satisfaits ne laissent jamais d'avis. Souvent, personne ne le leur a proposé.
 >
-> Le frein est souvent du côté du commerçant : on n'ose pas demander, de peur de paraître insistant.
+> Une phrase suffit, dite à chaque client au moment de payer : « Votre avis nous aide, qu'il soit bon ou moins bon. »
 >
-> Trois phrases simples, à dire au moment de payer :
+> Elle s'adresse à tout le monde, elle ne promet rien et elle accepte la critique. C'est exactement ce que Google demande.
 >
-> « Votre avis nous intéresse, qu'il soit bon ou qu'on ait des choses à améliorer. »
-> « On est un petit commerce, chaque avis compte. Ça prend dix secondes, c'est juste là. »
-> « Vous pouvez scanner le QR code pendant que je prépare votre ticket. »
+> Pour les demandes par SMS ou WhatsApp, des messages prêts à copier en commentaire.
 >
-> Une seule règle : la même demande pour tous les clients, sans contrepartie. C'est ce que demande Google, et c'est ce qui donne une note crédible.
->
-> Pour les demandes par SMS, WhatsApp ou e-mail, nous avons créé un générateur de messages gratuit (lien en commentaire).
->
-> #AvisGoogle #ExpérienceClient #CommerceDeProximité #Vente #TPE
+> #AvisGoogle #ExpérienceClient #CommerceLocal
 
-Premier commentaire : `Le générateur de messages de demande d'avis : https://reviu.fr/outils/message-demande-avis-google`
+Commentaire : `Messages de demande d'avis : https://reviu.fr/outils/message-demande-avis-google`
 
-### Facebook
+**Facebook**
 
-> Vous n'osez pas demander un avis Google à vos clients ? 🙈
+> Vous n'osez pas demander un avis ? Essayez celle-là, à chaque client, au moment de payer.
 >
-> Essayez une de ces phrases au moment de payer :
->
-> 💬 « Votre avis nous intéresse, qu'il soit bon ou qu'on ait des choses à améliorer. »
-> 💬 « On est un petit commerce, chaque avis compte. Ça prend dix secondes, c'est juste là. »
-> 💬 « Vous pouvez scanner le QR code pendant que je prépare votre ticket. »
->
-> Pour les SMS et WhatsApp, des messages prêts à copier, gratuits : https://reviu.fr/outils/message-demande-avis-google
->
-> Et vous, quelle phrase utilisez-vous ? 👇
+> Et pour les SMS : https://reviu.fr/outils/message-demande-avis-google
 
-### Instagram
+**Instagram**
 
-> Demander un avis, sans être gênant 💬
+> La phrase à dire à chaque client, en caisse. Simple, honnête, et conforme aux règles de Google.
 >
-> 3 phrases à dire au comptoir :
-> « Votre avis nous intéresse, qu'il soit bon ou qu'on ait des choses à améliorer. »
-> « On est un petit commerce, chaque avis compte. Ça prend dix secondes, c'est juste là. »
-> « Vous pouvez scanner le QR code pendant que je prépare votre ticket. »
+> Des messages SMS et WhatsApp prêts à copier en lien dans la bio.
 >
-> La règle d'or : la même demande pour tous, sans contrepartie.
->
-> Des messages SMS et WhatsApp prêts à copier vous attendent en lien dans la bio.
->
-> Laquelle allez-vous tester ? 1, 2 ou 3 ?
->
-> #avisgoogle #commercant #commercedeproximite #petitcommerce #relationclient #boulangerie #coiffeur #restaurant #artisan #astucecommercant
+> #avisgoogle #commercant #commercedeproximite #petitcommerce #boulangerie #artisan
 
-### TikTok
+**TikTok**
 
-Texte à l'écran : « POV : tu n'oses pas demander un avis Google à tes clients »
-
-> 3 phrases à dire au comptoir pour avoir plus d'avis Google, sans être lourd. La 3 est ma préférée 😌
+> La seule phrase à dire pour avoir plus d'avis Google, sans être lourd.
 >
-> #avisgoogle #commercant #petitcommerce #astucecommerce #entrepreneur
+> #avisgoogle #commercant #petitcommerce #astucecommerce
 
 ---
 
-## Post 5 : Placez-le là où vos clients attendent
+## 5. Un geste, un avis Google
 
-Fichiers : `post-5-ou-placer-le-presentoir-feed.png`, `post-5-ou-placer-le-presentoir-tiktok.png`
 Lien : https://reviu.fr/presentoir-avis-google
 
-### LinkedIn
+**LinkedIn**
 
-> Où placer un support d'avis Google pour qu'il serve vraiment ?
+> Le client approche son téléphone du Présentoir Reviu, ou scanne le QR code, et votre page d'avis Google s'ouvre. Aucune application à installer.
 >
-> Là où le client attend quelques secondes, téléphone en main :
+> 29,90 € une seule fois, sans abonnement, livraison offerte. Le lien se modifie depuis votre espace, sans rien réimprimer.
 >
-> → à l'accueil ou près de la caisse, pendant le paiement
-> → sur les tables, en attendant l'addition
-> → en vitrine ou sur une étagère, dans une salle d'attente
->
-> C'est le principe du Présentoir Reviu : le client approche son téléphone ou scanne le QR code, et la page d'avis Google de l'établissement s'ouvre directement. Aucune application à installer.
->
-> 29,90 € une seule fois, sans abonnement, livraison offerte. Et le lien se modifie depuis votre espace, sans rien réimprimer.
->
-> Lien en commentaire pour le découvrir.
->
-> #AvisGoogle #CommerceDeProximité #Restauration #Commerçants #Retail
+> #AvisGoogle #CommerceLocal #Restauration
 
-Premier commentaire : `Le Présentoir Reviu : https://reviu.fr/presentoir-avis-google`
+Commentaire : `Le Présentoir Reviu : https://reviu.fr/presentoir-avis-google`
 
-### Facebook
+**Facebook**
 
-> 📍 À l'accueil, sur les tables ou en vitrine : votre Présentoir Reviu se place là où vos clients attendent.
+> Posé sur votre comptoir, il ouvre votre page d'avis Google d'un geste. 29,90 €, une seule fois, livraison offerte. Satisfait ou remboursé 30 jours.
 >
-> Ils approchent leur téléphone (ou scannent le QR code), et votre page d'avis Google s'ouvre. Sans application.
->
-> ✅ 29,90 € une seule fois
-> ✅ Sans abonnement
-> ✅ Livraison offerte
-> ✅ Satisfait ou remboursé 30 jours
->
-> 👉 https://reviu.fr/presentoir-avis-google
+> https://reviu.fr/presentoir-avis-google
 
-### Instagram
+**Instagram**
 
-> Placez-le là où vos clients attendent 📍
+> Le client approche son téléphone, votre page d'avis Google s'ouvre. Sans application, sans abonnement.
 >
-> À l'accueil, sur les tables, en vitrine : le Présentoir Reviu ouvre votre page d'avis Google d'un geste. Le client approche son téléphone ou scanne le QR code, sans application.
+> 29,90 € une seule fois. Lien en bio.
 >
-> ✔️ 29,90 € une seule fois
-> ✔️ Sans abonnement
-> ✔️ Livraison offerte
->
-> Commandez le vôtre : lien en bio.
->
-> Où le mettriez-vous dans votre commerce ? 👇
->
-> #avisgoogle #presentoir #commercant #commercedeproximite #restaurant #coiffeur #institutdebeaute #boutique #hotel #petitcommerce #fichegoogle
+> #avisgoogle #commercant #commercedeproximite #restaurant #coiffeur #institutdebeaute
 
-### TikTok
+**TikTok**
 
-Texte à l'écran : « Où placer un présentoir d'avis Google dans ton commerce ? »
-
-> Tu poses, le client approche son téléphone, ta page d'avis Google s'ouvre. Pas d'appli, pas d'abonnement ✨ reviu.fr
+> Pas d'appli, pas d'abonnement : le client approche son téléphone et laisse son avis. reviu.fr
 >
-> #avisgoogle #commercant #petitcommerce #astucecommerce #entrepreneur
+> #avisgoogle #commercant #petitcommerce #entrepreneur
 
 ---
 
-## Textes alternatifs (accessibilité)
+## Textes alternatifs
 
-À coller dans le champ « texte alternatif » d'Instagram, Facebook et LinkedIn.
-
-1. Visuel reviu : « 1 étoile = combien de 5 étoiles ? ». Tableau : à 4,2 de note, il faut 4 avis 5 étoiles pour compenser un avis à 1 étoile ; à 4,6, 9 avis ; à 4,8, 19 avis.
-2. Visuel reviu : « Avis Google : ce qui est interdit ». Cinq pratiques barrées : contrepartie contre un avis, ne demander qu'aux clients satisfaits, avis de salariés ou de proches, demander 5 étoiles, quota d'avis pour l'équipe. Autorisé : demander un avis à tous ses clients, sans contrepartie.
-3. Visuel reviu : « Avis négatif : répondez en 5 étapes ». Exemple d'avis à 2 étoiles et de réponse du propriétaire, annotée : remercier, montrer de l'empathie, répondre au point précis, proposer d'en parler en privé, signer d'un prénom.
-4. Visuel reviu : « Demander un avis, sans être gênant ». Trois bulles de dialogue avec des phrases à dire au client au moment de payer.
-5. Visuel reviu : « Placez-le là où vos clients attendent ». Trois photos du Présentoir Reviu : à l'accueil, sur une table, en vitrine. 29,90 € une seule fois, sans abonnement, livraison offerte.
+1. « 1 avis à 1 étoile = 19 avis à 5 étoiles. » Une grille de 19 étoiles dorées et une étoile éteinte. Pour garder une note de 4,8 ; à 4,6, il en faut 9 ; à 4,2, il en faut 4.
+2. « Ce que Google interdit » : offrir un café contre un avis, ne solliciter que les clients contents, faire noter ses salariés, afficher « Laissez-nous 5 étoiles », fixer un quota d'avis à l'équipe. Autorisé : demander un avis à tous ses clients.
+3. « Avis négatif : la bonne réponse. » Un avis à 1 étoile sur une attente trop longue, une réponse à éviter et une réponse qui s'excuse et propose d'en parler.
+4. Citation : « Votre avis nous aide, qu'il soit bon ou moins bon. » La phrase à dire à chaque client, au moment de payer.
+5. Photo : une personne laisse un avis Google sur son téléphone, devant un Présentoir Reviu posé sur une table. « Un geste, un avis Google. » Sans application, sans abonnement, 29,90 €.
