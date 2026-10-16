@@ -1,11 +1,60 @@
 # reviu - note de reprise
 
-> Dernière mise à jour : **12 octobre 2026**. **À lire en premier : la section
-> « 🟧 Stratégie SEO/GEO - 12/10 »**, puis « 🟥 Activation vérifiée - 09/10 », puis « 🟪 Reprise - état au 23/09 » (fait foi), puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
+> Dernière mise à jour : **16 octobre 2026**. **À lire en premier : la section
+> « 🛡️ Audit de sécurité - 16/10 »**, puis « 🟧 Stratégie SEO/GEO - 12/10 », puis « 🟥 Activation vérifiée - 09/10 », puis « 🟪 Reprise - état au 23/09 » (fait foi), puis « 🟩 état au 29/07 », puis « 🟦 état au 28/07 »
 > pour le contexte « offre incluse ». Les parties « historiques » plus bas datent
 > d'avant le retrait de l'abonnement payant ; partout où elles présentent
 > l'« abonnement de suivi 2,99 €/mois » comme le **modèle courant**, c'est
 > **OBSOLÈTE** (le détail technique - présentoirs, Stripe, RLS - reste valable).
+
+## 🛡️ Audit de sécurité - 16/10/2026
+
+Branche `claude/exciting-gauss-3x3ksm` (**pas encore en prod**).
+- **Next.js 16.2.10 -> 16.3.8** : failles publiées dont une exécution de code à
+  distance dans `next/og` (images Open Graph du site). `pnpm audit` : plus rien
+  côté production (reste `braces`, outil de lint, sans correctif publié).
+- **En-têtes de sécurité** (`next.config.ts`) : anti-clickjacking
+  (`frame-ancestors 'none'`, `X-Frame-Options`), `nosniff`, Referrer-Policy,
+  HSTS (sans `includeSubDomains`), Permissions-Policy. CSP volontairement
+  minimale (une CSP `script-src` demanderait des nonces = pages dynamiques).
+- **Cookies de session `httpOnly`** (`src/lib/supabase/cookie-options.ts`) :
+  le client Supabase navigateur n'est pas utilisé ; ne pas en réintroduire un.
+- **Limites ajoutées** (table `rate_events`) : connexion par mot de passe (20
+  essais / 15 min par IP, 10 échecs par adresse), retour client public (10/h par
+  IP, 3/h par présentoir + IP, 20 e-mails / jour par présentoir), candidature
+  revendeur (3/h par IP, 2/jour par adresse : elle envoyait un accusé de
+  réception à n'importe quelle adresse).
+- **Gardes admin** dans chaque page et action admin (le layout ne protège ni
+  les pages en navigation partielle ni les routes) ; `/admin/qr/[code]` était
+  public. Export d'un lot refusé s'il est déclenché depuis un autre site.
+- **Liens des e-mails** (`currentOrigin`) : hôtes connus seulement (app,
+  `VERCEL_URL`, `VERCEL_BRANCH_URL`, localhost en dev), toujours en https.
+- **Liens Google** : filtre durci (lettres encodées, `btnI`/`gfns`,
+  maps.google.<pays> limité à la racine), mêmes règles en SQL ; le lien est
+  revérifié à chaque scan (`getStandByCode`).
+- Échappement HTML des e-mails (commande boutique, retour client) ; messages
+  d'erreur de la base plus renvoyés tels quels ; `startSelfCheckout` supprimée
+  (inutilisée, vérifiait le secret d'un présentoir sans limite d'essais) ;
+  identifiant de transaction envoyé à Google = empreinte de la session Stripe.
+- **Migration `20261016120000_reviu_security_audit.sql` : NON APPLIQUÉE.** À
+  passer après la mise en prod du code (le code marche avant et après) :
+  `owner_set_subscription` fermée (un commerçant pouvait s'« abonner » sans
+  payer par l'API), `submit_feedback`/`record_scan` réservées au serveur,
+  fonctions admin/revendeur retirées au rôle anonyme, droits de table
+  resserrés (plus de suppression d'organisation, commerce : seulement les
+  champs du formulaire), `stands_guard` avec search_path figé, filtre de liens
+  durci. Testée sur une base Postgres locale ; les 8 liens en prod restent valides.
+- **À faire dans les tableaux de bord** : Supabase > Authentication >
+  **activer « Leaked password protection »** (signalée désactivée par
+  l'advisor Supabase le 16/10, contrairement à ce que dit la suite de cette
+  note) ; Google Analytics > flux web > rédaction des données : masquer les
+  paramètres `session_id` et `token` (page merci, accès formation).
+- **Risques connus non corrigés** (choix produit) : un présentoir remis à zéro
+  redevient activable avec son secret imprimé (cf. 09/10) ; une ligne
+  `subscriptions` resterait attachée au présentoir lors d'une réinitialisation
+  ou d'un transfert (0 ligne en prod le 16/10 : sans effet tant que
+  l'abonnement payant reste retiré) ; un commerçant suspendu peut activer un
+  nouveau présentoir dans une organisation créée ensuite.
 
 ## 🟧 Stratégie SEO/GEO et boîte à outils - 12/10/2026
 
@@ -616,7 +665,7 @@ Remplace l'ancienne simulation. **La table `subscriptions` avait déjà les colo
 migration nécessaire.
 - `src/lib/stripe.ts` - client Stripe serveur + helpers.
 - `src/lib/stripe-actions.ts` - `startCheckoutAction` (dashboard), `openBillingPortalAction`
-  (gérer/résilier), `startSelfCheckout` (parcours scan, gardé par le secret d'activation).
+  (gérer/résilier). (`startSelfCheckout`, parcours scan, supprimée le 16/10.)
 - `src/app/api/stripe/webhook/route.ts` - **source de vérité** : met à jour `subscriptions` via le
   service role après vérification de signature (`checkout.session.completed`,
   `customer.subscription.created/updated/deleted`).

@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/admin-server";
 import Link from "next/link";
 import { listAudit } from "@/lib/admin";
 import { formatDate } from "@/components/dashboard/ui";
@@ -61,6 +63,7 @@ function orgOf(detail: Record<string, unknown> | null): string | null {
 }
 
 export default async function AdminHistoryPage() {
+  if (!(await requireAdmin())) redirect("/dashboard");
   const rows = await listAudit(300);
 
   return (

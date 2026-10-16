@@ -30,6 +30,12 @@ export async function GET(req: NextRequest) {
   const supabase = await createSupabaseServer();
 
   if (batchId) {
+    // L'export d'un lot le verrouille : refusé s'il est déclenché depuis un
+    // autre site (lien ou page piégée ouverts par un admin connecté).
+    const site = req.headers.get("sec-fetch-site");
+    if (site && site !== "same-origin" && site !== "none") {
+      return new Response("Forbidden", { status: 403 });
+    }
     const { data, error } = await supabase.rpc("admin_batch_export_rows", {
       p_batch: batchId,
     });

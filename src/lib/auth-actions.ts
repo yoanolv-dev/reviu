@@ -10,17 +10,35 @@ import {
   sendPasswordHelp,
   verifyLoginCode,
 } from "./auth-code";
+import { clientKey, emailKey, rateAllow, rateCount, rateRecord } from "./rate-limit";
 import type { FormState } from "./form";
 
+/**
+ * Connexion par mot de passe. Limites (15 min) : 20 essais par IP, 10 échecs
+ * par adresse (la connexion par code reste possible pendant ce temps). Les
+ * appels à Supabase partent du serveur (IP de Vercel) : sans ces compteurs,
+ * rien ne freinerait un essai de mots de passe en série.
+ */
 export async function signInAction(
   _prev: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const email = String(formData.get("email") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase().slice(0, 254);
   const password = String(formData.get("password") ?? "");
+  if (!email || !password) return { error: "E-mail ou mot de passe incorrect." };
+
+  const ip = await clientKey();
+  const key = emailKey(email);
+  const tooMany = "Trop d'essais. Patientez un quart d'heure ou connectez-vous avec un code reçu par e-mail.";
+  if (!(await rateAllow("password_ip", ip, 900, 20))) return { error: tooMany };
+  if ((await rateCount("password_fail_email", key, 900)) >= 10) return { error: tooMany };
+
   const supabase = await createSupabaseServer();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return { error: "E-mail ou mot de passe incorrect." };
+  if (error) {
+    await rateRecord("password_fail_email", key);
+    return { error: "E-mail ou mot de passe incorrect." };
+  }
   // Rattache les présentoirs activés en self-service, une seule fois à la
   // connexion (idempotent), plutôt qu'à chaque chargement du dashboard.
   await supabase.rpc("bind_account");

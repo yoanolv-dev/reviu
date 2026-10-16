@@ -1,6 +1,7 @@
 "use server";
 
 import { sendEmail } from "./email";
+import { clientKey, emailKey, rateAllow } from "./rate-limit";
 import { ADMIN_NOTIFY_EMAIL, SITE, CONTACT_EMAIL } from "./brand";
 
 export type ResellerFormState = { ok?: true; error?: string } | null;
@@ -13,7 +14,15 @@ function esc(s: string): string {
 }
 
 function isEmail(v: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  return v.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+/** Champ texte d'une ligne : caractères de contrôle retirés, longueur bornée. */
+function field(formData: FormData, name: string, max: number): string {
+  return String(formData.get(name) ?? "")
+    .replace(/[\u0000-\u001f\u007f]/g, " ")
+    .trim()
+    .slice(0, max);
 }
 
 /**
@@ -29,12 +38,12 @@ export async function submitResellerApplication(
   _prev: ResellerFormState,
   formData: FormData,
 ): Promise<ResellerFormState> {
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const phone = String(formData.get("phone") ?? "").trim();
-  const city = String(formData.get("city") ?? "").trim();
-  const profile = String(formData.get("profile") ?? "").trim().slice(0, 80);
-  const message = String(formData.get("message") ?? "").trim();
+  const name = field(formData, "name", 120);
+  const email = field(formData, "email", 254);
+  const phone = field(formData, "phone", 40);
+  const city = field(formData, "city", 120);
+  const profile = field(formData, "profile", 80);
+  const message = String(formData.get("message") ?? "").trim().slice(0, 3000);
   // Champ piège anti-spam : rempli = robot.
   const honey = String(formData.get("company") ?? "").trim();
 
@@ -42,6 +51,16 @@ export async function submitResellerApplication(
   if (!name) return { error: "Indiquez votre nom." };
   if (!isEmail(email)) return { error: "Indiquez un e-mail valide." };
   if (!city) return { error: "Indiquez votre ville ou votre secteur." };
+
+  // Formulaire public : sans limite, il servirait à envoyer des e-mails au nom
+  // de reviu (accusé de réception) à n'importe quelle adresse.
+  const tooMany = `Trop de demandes pour le moment. Écrivez-nous directement à ${CONTACT_EMAIL}.`;
+  if (!(await rateAllow("reseller_apply_ip", await clientKey(), 3600, 3))) {
+    return { error: tooMany };
+  }
+  if (!(await rateAllow("reseller_apply_email", emailKey(email), 86_400, 2))) {
+    return { error: tooMany };
+  }
 
   const rows: [string, string][] = [
     ["Nom", name],

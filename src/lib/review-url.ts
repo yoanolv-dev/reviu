@@ -10,7 +10,7 @@
  * formes de liens produites par une fiche Google sont acceptées.
  *
  * Même règle en base (fonction SQL `is_allowed_review_url`, migration
- * 20261009120000) : garder les deux versions alignées.
+ * 20261009120000, durcie par 20261016120000) : garder les deux versions alignées.
  */
 
 /** Domaines Google nationaux acceptés pour google.<pays>/maps et /search. */
@@ -29,11 +29,15 @@ function allowedHostPath(host: string, path: string, search: string): boolean {
 
   const m = host.match(/^(www\.|maps\.)?google\.([a-z.]+)$/);
   if (!m || !GOOGLE_CC.has(m[2])) return false;
-  // « J'ai de la chance » (btnI) redirige vers le premier résultat : refusé.
-  if (/btn(i|%49)/i.test(search)) return false;
+  // Lettres encodées (%74 = « t »…) : jamais dans un lien de fiche, seul moyen
+  // de déguiser un paramètre (« b%74nI ») ou un chemin (« /%75rl »).
+  if (/%(4[1-9a-f]|5[0-9a]|6[1-9a-f]|7[0-9a])/i.test(path + search)) return false;
+  // « J'ai de la chance » (btnI, gfns) redirige vers le premier résultat : refusé.
+  if (/btni|gfns/i.test(search)) return false;
   if (/^\/(maps|search)(\/|$)/.test(path)) return true;
-  // maps.google.<pays>/?cid=… (ancien format de fiche), hors redirecteur /url.
-  return m[1] === "maps." && !path.startsWith("/url");
+  // maps.google.<pays>/?cid=… (ancien format de fiche) : racine uniquement
+  // (pas de /url, /amp, /local_url… qui renvoient ailleurs).
+  return m[1] === "maps." && path === "/";
 }
 
 /**

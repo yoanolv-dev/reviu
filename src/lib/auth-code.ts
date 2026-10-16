@@ -31,9 +31,23 @@ export function normalizeEmail(input: string): string | null {
 }
 
 /**
+ * Hôtes autorisés pour les liens envoyés par e-mail : l'app, l'URL Vercel du
+ * déploiement en cours (préversions) et, en local, localhost. Les liens
+ * portent un jeton de connexion : un hôte lu dans les en-têtes de la requête
+ * ne doit jamais suffire (un en-tête Host forgé enverrait le jeton ailleurs).
+ */
+export function trustedHost(host: string): boolean {
+  const known = [new URL(APP_BASE).host, process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL];
+  if (known.includes(host)) return true;
+  return (
+    process.env.NODE_ENV === "development" && /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)
+  );
+}
+
+/**
  * Origine des liens envoyés par e-mail : celle de la page d'où vient la
  * demande (prod, préversion Vercel ou local), à condition qu'elle corresponde
- * à l'hôte servi ; sinon l'adresse de l'app.
+ * à l'hôte servi et soit connue ; sinon l'adresse de l'app.
  */
 export async function currentOrigin(): Promise<string> {
   const h = await headers();
@@ -41,7 +55,10 @@ export async function currentOrigin(): Promise<string> {
   const host = h.get("x-forwarded-host") ?? h.get("host");
   if (origin && host) {
     try {
-      if (new URL(origin).host === host) return origin;
+      const url = new URL(origin);
+      if (url.host === host && trustedHost(url.host)) {
+        return process.env.NODE_ENV === "development" ? url.origin : `https://${url.host}`;
+      }
     } catch {
       // origine illisible : adresse de l'app
     }

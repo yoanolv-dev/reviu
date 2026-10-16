@@ -6,6 +6,12 @@ import { createSupabaseServer } from "./supabase/server";
 import { normalizeReviewUrl, REVIEW_URL_ERROR } from "./review-url";
 import type { FormState } from "./form";
 
+// Longueurs maximales des champs saisis par le commerçant (affichés sur la
+// page publique du présentoir et dans les e-mails).
+const MAX_NAME = 150;
+const MAX_WELCOME = 600;
+const TOO_LONG = "Texte trop long. Raccourcissez-le puis réessayez.";
+
 export async function createEstablishmentAction(
   _prev: FormState,
   formData: FormData,
@@ -18,6 +24,7 @@ export async function createEstablishmentAction(
 
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Le nom de l'établissement est requis." };
+  if (name.length > MAX_NAME) return { error: TOO_LONG };
   const url = normalizeReviewUrl(String(formData.get("google_review_url") ?? ""));
   if (!url.ok) return { error: REVIEW_URL_ERROR };
   const googleUrl = url.url;
@@ -37,14 +44,21 @@ export async function createEstablishmentAction(
       .insert({ name, owner_id: user.id })
       .select("id")
       .single();
-    if (error || !created) return { error: error?.message ?? "Création impossible." };
+    if (error || !created) {
+      console.error("[dashboard] création organisation", error?.message);
+      return { error: "Création impossible. Réessayez." };
+    }
     orgId = created.id as string;
   }
 
   const { error: e2 } = await supabase
     .from("establishments")
     .insert({ org_id: orgId, name, google_review_url: googleUrl });
-  if (e2) return { error: e2.message };
+  if (e2) {
+    if (e2.message.includes("invalid_review_url")) return { error: REVIEW_URL_ERROR };
+    console.error("[dashboard] création établissement", e2.message);
+    return { error: "Création impossible. Réessayez." };
+  }
   redirect("/dashboard");
 }
 
@@ -56,6 +70,12 @@ export async function updateEstablishmentAction(
   const id = String(formData.get("id") ?? "");
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Le nom est requis." };
+  const welcome = String(formData.get("welcome_message") ?? "").trim();
+  const placeId = String(formData.get("google_place_id") ?? "").trim();
+  if (name.length > MAX_NAME || welcome.length > MAX_WELCOME || placeId.length > 300) {
+    return { error: TOO_LONG };
+  }
+  const color = String(formData.get("brand_color") ?? "");
 
   const url = normalizeReviewUrl(String(formData.get("google_review_url") ?? ""));
   if (!url.ok) return { error: REVIEW_URL_ERROR };
@@ -72,9 +92,9 @@ export async function updateEstablishmentAction(
   const patch = {
     name,
     google_review_url: url.url,
-    google_place_id: String(formData.get("google_place_id") ?? "").trim() || null,
-    welcome_message: String(formData.get("welcome_message") ?? "").trim() || null,
-    brand_color: String(formData.get("brand_color") ?? "#1b4dff"),
+    google_place_id: placeId || null,
+    welcome_message: welcome || null,
+    brand_color: /^#[0-9a-f]{6}$/i.test(color) ? color : "#1b4dff",
     feedback_enabled: formData.get("feedback_enabled") === "on",
     scan_mode: scanMode,
   };
@@ -84,7 +104,8 @@ export async function updateEstablishmentAction(
     .eq("id", id);
   if (error) {
     if (error.message.includes("invalid_review_url")) return { error: REVIEW_URL_ERROR };
-    return { error: error.message };
+    console.error("[dashboard] mise à jour établissement", error.message);
+    return { error: "Enregistrement impossible. Réessayez." };
   }
   const oldUrl = before?.google_review_url ?? null;
   if (oldUrl && oldUrl !== url.url) {

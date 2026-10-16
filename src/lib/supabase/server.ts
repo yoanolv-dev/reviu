@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { SESSION_COOKIE_OPTIONS } from "./cookie-options";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -8,6 +9,7 @@ const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 export async function createSupabaseServer() {
   const cookieStore = await cookies();
   return createServerClient(url, key, {
+    cookieOptions: SESSION_COOKIE_OPTIONS,
     cookies: {
       getAll() {
         return cookieStore.getAll();

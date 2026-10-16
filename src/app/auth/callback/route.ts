@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { APP_BASE } from "@/lib/brand";
+import { safeNext as allowedNext, trustedHost } from "@/lib/auth-code";
 
 /**
  * Callback d'authentification (flux PKCE de @supabase/ssr).
@@ -9,9 +11,8 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 export async function GET(req: NextRequest) {
   const { searchParams, origin } = req.nextUrl;
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
-  // Redirection interne uniquement (évite les open-redirects).
-  const safeNext = next.startsWith("/") ? next : "/dashboard";
+  // Pages de l'app connues uniquement (évite les open-redirects).
+  const safeNext = allowedNext(searchParams.get("next"));
 
   if (code) {
     const supabase = await createSupabaseServer();
@@ -19,11 +20,15 @@ export async function GET(req: NextRequest) {
     if (!error) {
       // Rattachement self-service, une seule fois au retour du lien.
       await supabase.rpc("bind_account");
-      // Derrière un proxy (Vercel), privilégier l'hôte transmis.
+      // Derrière un proxy (Vercel), l'hôte transmis, s'il est connu (prod,
+      // préversion) ; en local, l'origine de la requête ; sinon l'app.
       const forwardedHost = req.headers.get("x-forwarded-host");
       const isLocal = process.env.NODE_ENV === "development";
-      const base =
-        !isLocal && forwardedHost ? `https://${forwardedHost}` : origin;
+      const base = isLocal
+        ? origin
+        : forwardedHost && trustedHost(forwardedHost)
+          ? `https://${forwardedHost}`
+          : APP_BASE;
       return NextResponse.redirect(`${base}${safeNext}`);
     }
   }

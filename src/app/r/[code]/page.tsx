@@ -41,7 +41,7 @@ export default async function RedirectPage({
   const channel = s === "nfc" ? "nfc" : s === "qr" ? "qr" : "unknown";
   const ua = h.get("user-agent");
   const base = onRedirectSub ? `/${code}` : `/r/${code}`;
-  const goHref = `${base}/go${s ? `?s=${s}` : ""}`;
+  const goHref = `${base}/go${channel !== "unknown" ? `?s=${channel}` : ""}`;
 
   // Mode « Accès direct » (défaut) : redirection immédiate vers l'avis Google.
   // Les écritures (vue + clic - un seul geste en mode direct) partent en

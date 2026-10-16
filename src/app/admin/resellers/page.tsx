@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/admin-server";
 import { listResellers } from "@/lib/reseller";
 import { listBatches } from "@/lib/admin";
 import { ResellersAdmin } from "./resellers-admin";
@@ -5,6 +7,7 @@ import { ResellersAdmin } from "./resellers-admin";
 export const metadata = { title: "Revendeurs - admin reviu" };
 
 export default async function AdminResellersPage() {
+  if (!(await requireAdmin())) redirect("/dashboard");
   const [resellers, batches] = await Promise.all([listResellers(), listBatches()]);
   return (
     <div className="flex flex-col gap-8">

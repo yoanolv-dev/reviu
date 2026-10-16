@@ -3,6 +3,8 @@
 import { submitFeedback } from "@/lib/data";
 import { createSupabaseAdmin } from "@/lib/supabase/admin";
 import { sendEmail } from "@/lib/email";
+import { esc } from "@/lib/email-templates";
+import { clientKey, rateAllow } from "@/lib/rate-limit";
 import { APP_BASE } from "@/lib/brand";
 
 type NotifyTarget = {
@@ -21,10 +23,10 @@ function feedbackEmailHtml(row: NotifyTarget): string {
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:auto;color:#0a0d16">
     <h2 style="font-size:18px">Nouveau retour client sur reviu</h2>
-    <p style="color:#6b7382;margin:4px 0 16px">${row.establishment_name ?? "Votre établissement"}</p>
+    <p style="color:#6b7382;margin:4px 0 16px">${esc(row.establishment_name ?? "Votre établissement")}</p>
     <div style="border:1px solid #e6e8ef;border-radius:12px;padding:16px">
       <p style="font-size:18px;color:#f5a524;margin:0 0 8px">${stars}</p>
-      <p style="margin:0;white-space:pre-wrap">${msg.replace(/</g, "&lt;")}</p>
+      <p style="margin:0;white-space:pre-wrap">${esc(msg)}</p>
     </div>
     <p style="margin-top:20px">
       <a href="${APP_BASE}/dashboard/feedback"
@@ -39,14 +41,30 @@ function feedbackEmailHtml(row: NotifyTarget): string {
  * Enregistre le retour client puis notifie le commerçant par e-mail (best-effort :
  * n'interrompt jamais le parcours client). Ne concerne QUE les retours saisis
  * dans Reviu - les avis Google ne sont pas détectés (aucune intégration GBP).
+ *
+ * Action publique (sans compte) : saisie bornée et limites par visiteur, pour
+ * qu'un tiers ne puisse ni inonder un commerçant de messages ni épuiser le
+ * quota d'e-mails (qui sert aussi aux codes de connexion).
  */
 export async function submitFeedbackAction(
   code: string,
   rating: number,
   message: string,
 ): Promise<void> {
-  const id = await submitFeedback(code, rating, message);
+  const cleanCode = String(code ?? "").trim();
+  const text = String(message ?? "").trim().slice(0, 2000);
+  const stars = Number.isInteger(rating) && rating >= 0 && rating <= 5 ? rating : 0;
+  if (!/^[a-z0-9]{1,32}$/i.test(cleanCode) || !text) return;
+
+  const ip = await clientKey();
+  if (!(await rateAllow("feedback_ip", ip, 3600, 10))) return;
+  if (!(await rateAllow("feedback_stand_ip", `${cleanCode}|${ip}`, 3600, 3))) return;
+
+  const id = await submitFeedback(cleanCode, stars, text);
   if (!id) return;
+  // Plafond d'e-mails par présentoir : au-delà, le retour reste visible dans
+  // l'espace du commerçant, sans e-mail.
+  if (!(await rateAllow("feedback_notify", cleanCode, 86_400, 20))) return;
 
   try {
     const admin = createSupabaseAdmin();

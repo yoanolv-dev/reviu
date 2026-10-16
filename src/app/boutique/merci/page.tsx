@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
@@ -61,7 +62,10 @@ export default async function MerciPage({
               <>
                 {sessionId && amount != null && (
                   <PurchaseEvent
-                    transactionId={sessionId}
+                    // Empreinte de la session, pas la session elle-même : son
+                    // identifiant rouvre cette page (e-mail, accès formation)
+                    // et ne doit pas être transmis à Google.
+                    transactionId={createHash("sha256").update(sessionId).digest("hex").slice(0, 32)}
                     itemId={productId}
                     itemName={productName ?? "Commande reviu"}
                     quantity={quantity}

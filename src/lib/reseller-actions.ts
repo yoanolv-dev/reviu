@@ -2,12 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServer } from "./supabase/server";
+import { getIsAdmin } from "./admin";
 import type { FormState } from "./form";
 
 /**
  * Actions d'administration du programme revendeur. Les RPC appelées sont
- * SECURITY DEFINER et vérifient elles-mêmes `is_admin()` : cette couche ne fait
- * que collecter le formulaire, appeler la fonction et traduire les erreurs.
+ * SECURITY DEFINER et vérifient elles-mêmes `is_admin()` ; une action serveur
+ * étant appelable directement, chacune vérifie aussi le rôle admin ici.
  */
 
 const ERR: Record<string, string> = {
@@ -28,6 +29,7 @@ export async function createResellerAction(
   _prev: FormState,
   formData: FormData,
 ): Promise<FormState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const email = String(formData.get("email") ?? "").trim();
   const name = String(formData.get("name") ?? "").trim();
   if (!email) return { error: "Indiquez l'e-mail du revendeur." };
@@ -58,6 +60,7 @@ export async function assignStandsAction(
   _prev: FormState,
   formData: FormData,
 ): Promise<FormState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const resellerId = String(formData.get("reseller_id") ?? "");
   if (!resellerId) return { error: "Sélectionnez un revendeur." };
   const codes = String(formData.get("codes") ?? "")
@@ -81,6 +84,7 @@ export async function assignBatchAction(
   _prev: FormState,
   formData: FormData,
 ): Promise<FormState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const resellerId = String(formData.get("reseller_id") ?? "");
   const batchId = String(formData.get("batch_id") ?? "");
   if (!resellerId) return { error: "Sélectionnez un revendeur." };

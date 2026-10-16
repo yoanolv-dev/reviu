@@ -218,8 +218,9 @@ function formatAddress(shipping: ShippingDetails): string {
     a.line2,
     [a.postal_code, a.city].filter(Boolean).join(" "),
     a.country,
-  ].filter(Boolean);
-  return parts.join("<br>");
+  ].filter((p): p is string => Boolean(p));
+  // Saisie de l'acheteur dans Stripe : échappée avant d'entrer dans le HTML.
+  return parts.map(escapeHtml).join("<br>");
 }
 
 /**
@@ -262,9 +263,9 @@ function adminOrderHtml(o: {
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:auto;color:#0a0d16">
     <h2 style="font-size:18px">Nouvelle commande boutique 🛍️</h2>
     <div style="border:1px solid #e6e8ef;border-radius:12px;padding:16px;margin-top:12px">
-      <p style="margin:0 0 4px"><strong>${o.productName}</strong> × ${o.quantity}</p>
-      <p style="margin:0;color:#6b7382">Montant : ${o.amount}</p>
-      <p style="margin:8px 0 0;color:#6b7382">Client : ${o.email ?? "-"}</p>
+      <p style="margin:0 0 4px"><strong>${escapeHtml(o.productName)}</strong> × ${o.quantity}</p>
+      <p style="margin:0;color:#6b7382">Montant : ${escapeHtml(o.amount)}</p>
+      <p style="margin:8px 0 0;color:#6b7382">Client : ${escapeHtml(o.email ?? "-")}</p>
       <p style="margin:4px 0 0;color:#6b7382">Provenance : ${escapeHtml(o.source)}</p>
       ${
         o.standsIncluded > 0
@@ -289,7 +290,7 @@ function customerOrderHtml(o: {
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:auto;color:#0a0d16">
     <h2 style="font-size:18px">Merci pour votre commande !</h2>
-    <p style="color:#6b7382;margin:4px 0 16px">${o.productName} - ${o.amount}</p>
+    <p style="color:#6b7382;margin:4px 0 16px">${escapeHtml(o.productName)} - ${escapeHtml(o.amount)}</p>
     ${
       o.physical
         ? `<p style="margin:0 0 12px">📦 Votre commande est en préparation. Vous recevrez vos présentoirs à l'adresse indiquée lors du paiement.</p>`
@@ -299,7 +300,7 @@ function customerOrderHtml(o: {
       o.grantsFormation && o.formationUrl
         ? `<div style="border:1px solid #d6ddff;background:#f2f5ff;border-radius:12px;padding:16px;margin:8px 0">
              <p style="margin:0 0 10px"><strong>🎓 Votre formation est débloquée</strong></p>
-             <a href="${o.formationUrl}"
+             <a href="${escapeHtml(o.formationUrl)}"
                 style="background:#1b4dff;color:#fff;text-decoration:none;padding:10px 18px;border-radius:999px;font-weight:500;display:inline-block">
                Accéder à la formation
              </a>

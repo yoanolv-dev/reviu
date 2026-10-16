@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/admin-server";
 import Link from "next/link";
 import { listAllStands, listBatches } from "@/lib/admin";
 import { standGenerationAllowed } from "@/lib/env";
@@ -8,6 +10,7 @@ import { BatchList } from "./batches";
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
+  if (!(await requireAdmin())) redirect("/dashboard");
   const [stands, batches] = await Promise.all([listAllStands(1000), listBatches()]);
   const blank = stands.filter((s) => s.status === "blank").length;
   const active = stands.filter((s) => s.status === "active").length;

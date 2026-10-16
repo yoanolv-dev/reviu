@@ -1,8 +1,11 @@
+import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/admin-server";
 import Link from "next/link";
 import { listAllStands } from "@/lib/admin";
 import { standUrl } from "@/lib/qr";
 
 export default async function PrintPage() {
+  if (!(await requireAdmin())) redirect("/dashboard");
   const stands = await listAllStands(300);
 
   return (

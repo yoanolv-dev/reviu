@@ -51,6 +51,7 @@ export async function generateStandsAction(
   _prev: GenerateState,
   formData: FormData,
 ): Promise<GenerateState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   // Environment guard: never generate real, physical identifiers from a
   // preview/test deployment (all environments share one Supabase project).
   if (!standGenerationAllowed()) {
@@ -81,6 +82,7 @@ export async function validateBatchAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const batchId = String(formData.get("batch_id") ?? "");
   const supabase = await createSupabaseServer();
   const { error } = await supabase.rpc("admin_validate_batch", {
@@ -95,6 +97,7 @@ export async function setStandStatusAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const standId = String(formData.get("stand_id") ?? "");
   const status = String(formData.get("status") ?? "");
   const note = String(formData.get("note") ?? "").trim() || null;
@@ -113,6 +116,7 @@ export async function replaceStandAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const oldId = String(formData.get("stand_id") ?? "");
   const newCode = String(formData.get("new_code") ?? "").trim();
   const reason = String(formData.get("reason") ?? "").trim() || null;
@@ -138,6 +142,7 @@ export async function resetStandAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const standId = String(formData.get("stand_id") ?? "");
   if (!standId) return { error: ERR.stand_not_found };
   const supabase = await createSupabaseServer();
@@ -153,6 +158,7 @@ export async function updateAccountAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const supabase = await createSupabaseServer();
   const { error } = await supabase.rpc("admin_update_account", {
     p_org: String(formData.get("org_id") ?? ""),
@@ -169,6 +175,7 @@ export async function setAccountDisabledAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const disabled = String(formData.get("disabled") ?? "") === "true";
   const supabase = await createSupabaseServer();
   const { error } = await supabase.rpc("admin_set_account_disabled", {
@@ -184,6 +191,7 @@ export async function deleteAccountAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const supabase = await createSupabaseServer();
   const { error } = await supabase.rpc("admin_delete_account", {
     p_org: String(formData.get("org_id") ?? ""),
@@ -199,6 +207,7 @@ export async function assignStandAction(
   _prev: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!(await getIsAdmin())) return { error: ERR.not_admin };
   const supabase = await createSupabaseServer();
   const { error } = await supabase.rpc("admin_assign_stand", {
     p_code: String(formData.get("code") ?? "").trim(),
