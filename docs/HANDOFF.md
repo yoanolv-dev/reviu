@@ -9,7 +9,12 @@
 
 ## 🛡️ Audit de sécurité - 16/10/2026
 
-Branche `claude/exciting-gauss-3x3ksm` (**pas encore en prod**).
+Branche `claude/exciting-gauss-3x3ksm`, **en prod depuis le 16/10/2026**
+(fast-forward de `main` ; vérifié en prod : en-têtes présents, scan d'un
+présentoir actif -> Google avec vue + clic enregistrés, présentoir vierge ->
+`/activer`, `/dashboard` et `/admin` -> `/login`, `/admin/qr` et
+`/admin/export` -> 403 sans session). 4 scans de test (agent
+« reviu-audit-check ») sur le présentoir admin `3szpb75`.
 - **Next.js 16.2.10 -> 16.3.8** : failles publiées dont une exécution de code à
   distance dans `next/og` (images Open Graph du site). `pnpm audit` : plus rien
   côté production (reste `braces`, outil de lint, sans correctif publié).
@@ -36,8 +41,11 @@ Branche `claude/exciting-gauss-3x3ksm` (**pas encore en prod**).
   d'erreur de la base plus renvoyés tels quels ; `startSelfCheckout` supprimée
   (inutilisée, vérifiait le secret d'un présentoir sans limite d'essais) ;
   identifiant de transaction envoyé à Google = empreinte de la session Stripe.
-- **Migration `20261016120000_reviu_security_audit.sql` : NON APPLIQUÉE.** À
-  passer après la mise en prod du code (le code marche avant et après) :
+- **Migration `20261016120000_reviu_security_audit.sql` : appliquée en prod le
+  16/10** juste après le déploiement (connecteur Supabase, nom
+  `reviu_security_audit`). Vérifié : « permission denied » avec la clé publique
+  sur submit_feedback / record_scan / admin_reset_stand, resolve_stand toujours
+  public, 0 lien enregistré refusé par le nouveau filtre. Contenu :
   `owner_set_subscription` fermée (un commerçant pouvait s'« abonner » sans
   payer par l'API), `submit_feedback`/`record_scan` réservées au serveur,
   fonctions admin/revendeur retirées au rôle anonyme, droits de table

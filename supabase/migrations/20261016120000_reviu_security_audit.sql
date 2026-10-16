@@ -1,10 +1,9 @@
 -- Reviu - Correctifs de l'audit de sécurité du 16/10/2026.
 --
--- ⚠️ NON APPLIQUÉE automatiquement : à coller dans le SQL Editor de Supabase
--- (vue « Raw » de GitHub) ou à appliquer par le connecteur, APRÈS le
--- déploiement du code qui l'accompagne (src/lib/data.ts appelle désormais
--- submit_feedback et record_scan avec le service role). Le code fonctionne
--- aussi AVANT la migration : l'ordre code -> migration est sans coupure.
+-- Appliquée en prod le 16/10/2026 (connecteur Supabase, nom
+-- « reviu_security_audit »), juste après le déploiement du code qui
+-- l'accompagne (src/lib/data.ts appelle submit_feedback et record_scan avec
+-- le service role).
 --
 -- Contenu :
 -- 1. owner_set_subscription (ancienne simulation d'abonnement) n'est plus
